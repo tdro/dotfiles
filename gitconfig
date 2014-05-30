@@ -1,0 +1,5 @@
+[user]
+	name = tdro
+	email = tdro@github.com
+[push]
+	default = simple
