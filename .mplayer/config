@@ -1,0 +1,8 @@
+# Write your default config options here!
+vo=gl
+ao=alsa
+nolirc=1
+quiet=1
+nojoystick=1
+x=640
+y=480

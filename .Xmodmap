@@ -1,0 +1,5 @@
+clear lock
+clear control
+keycode 66 = Super_L
+keycode 67 = F1
+add control = Control_L Control_R
