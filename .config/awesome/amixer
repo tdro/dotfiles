@@ -1,0 +1,5 @@
+#!/bin/bash
+
+[[ "$1" == "up" ]] && amixer set Master 1%+
+[[ "$1" == "down" ]] && amixer set Master 1%-
+[[ "$1" == "mute" ]] && amixer sset Master toggle

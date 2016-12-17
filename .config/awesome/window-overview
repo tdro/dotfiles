@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Prevent multiple instances
+pidof -s -o '%PPID' -x $( basename $0 ) > /dev/null 2>&1 && exit
+
+# Script
+skippy-xd > /dev/null 2>&1

@@ -1,0 +1,3 @@
+#!/bin/bash
+escrotum -s '~/Desktop/pictures/$wx$h_%Y-%m-%d.png';
+notify-send 'Screenshot . . .';

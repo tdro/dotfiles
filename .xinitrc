@@ -18,5 +18,8 @@ xsetroot -cursor_name left_ptr
 # Protect eyes with redshift
 redshift &
 
+# Key mappings
+xmodmap .Xmodmap
+
 # Run awesome
 exec awesome --no-argb

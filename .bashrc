@@ -4,8 +4,15 @@
 [[ $- != *i* ]] && return
 PS1='\[\e[0;34m\][ \W ] \$\[\e[0m\] '
 
-# Github dotfiles
+# github dotfiles
 alias dotfile='/usr/bin/git --git-dir=$HOME/.local/share/dotfiles/ --work-tree=$HOME'
+
+# no repeating history
+unset HISTSIZE 
+unset HISTFILESIZE
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
 
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/primary) && ssh'
