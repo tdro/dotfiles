@@ -13,13 +13,13 @@ fi
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 # Normal cursor
-xsetroot -cursor_name left_ptr
+xsetroot -cursor_name left_ptr &
 
 # Protect eyes with redshift
 redshift &
 
 # Key mappings
-xmodmap .Xmodmap
+xmodmap .Xmodmap &
 
 # Run awesome
 exec awesome --no-argb

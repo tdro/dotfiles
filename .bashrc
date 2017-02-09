@@ -7,12 +7,14 @@ PS1='\[\e[0;34m\][ \W ] \$\[\e[0m\] '
 # github dotfiles
 alias dotfile='/usr/bin/git --git-dir=$HOME/.local/share/dotfiles/ --work-tree=$HOME'
 
-# no repeating history
-unset HISTSIZE 
-unset HISTFILESIZE
-HISTCONTROL=ignoredups:erasedups
+# bash history settings
+export HISTSIZE=
+export HISTFILESIZE=
+export HISTCONTROL=ignoredups:erasedups
+
+# append bash history entries
 shopt -s histappend
-PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+export PROMPT_COMMAND="history -a"
 
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/primary) && ssh'
@@ -81,12 +83,6 @@ alias archey='archey3'
 
 # listed history
 alias hist='history | grep'
-
-# live streams
-alias alj='rtmpdump -v -r rtmp://aljazeeraflashlivefs.fplive.net/aljazeeraflashlive-live/aljazeera_eng_med | mplayer -'
-alias alja='rtmpdump -r "rtmp://ajam.lsops.net/live/" -a "live/" -f "LNX 11,2,202,332" -W "http://static.ls-cdn.com/player/5.10/livestation-player.swf?1387140070" -p "http://www.livestation.com" -y "ajam_en_584" | mplayer -'
-alias zns='rtmpdump -v -r rtmp://streamcomedia.streamguys1.com/live/znsmobile | mplayer -'
-alias bbc='rtmpdump -v -r rtmp://hd4.lsops.net/live/bbcnews_en_364 http://p.jwpcdn.com/6/8/jwplayer.flash.swf http://www.wherever.tv/tv-channels/BBC-News-24.jsf | mplayer -'
 
 # ssh bash prompt color change
 if [ -n "$SSH_CLIENT" ]; then

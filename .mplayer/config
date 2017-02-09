@@ -4,5 +4,5 @@ ao=alsa
 nolirc=1
 quiet=1
 nojoystick=1
-x=640
-y=480
+x=1024
+y=640

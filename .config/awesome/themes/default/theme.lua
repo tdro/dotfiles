@@ -1,7 +1,7 @@
 -- {{{ Main
 local theme = {}
 theme.wallpaper = "~/.config/awesome/themes/default/default-7.jpg"
-theme.font      = "FontAwesome Bold 7.5"
+theme.font      = "FontAwesome Bold 8"
 -- }}}
 
 -- {{{ Colors

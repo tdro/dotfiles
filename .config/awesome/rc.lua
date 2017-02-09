@@ -19,7 +19,7 @@ vicious = require("vicious")
 -- Lain library
 local lain = require("lain")
 -- Set font
-awesome.font = ("FontAwesome 7.5")
+awesome.font = ("FontAwesome 8")
 -- Startup
 -- os.execute("")
 -- Exit Signals
@@ -154,7 +154,7 @@ separator = wibox.widget.textbox()
 separator:set_text("    ")
 
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("  %I:%M %p", 1)
+mytextclock = wibox.widget.textclock("  %I:%M %p", 1)
 lain.widgets.calendar.attach(mytextclock, {font="Ubuntu Mono Bold", font_size="10"})
 
 -- Create a wibox for each screen and add it
@@ -277,13 +277,6 @@ root.buttons(awful.util.table.join(
 ))
 -- }}}
 
--- {{{ Drop down terminal
-local quakeapp = {}
-for s = 1, screen.count() do
-   quakeapp[s] = lain.util.quake({ app = terminal })
-end
--- }}}
-
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -307,7 +300,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey, 		  }, "b", function () mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible end),
-    awful.key({ modkey,           }, "q", function () quakeapp[mouse.screen]:toggle() end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
@@ -476,6 +468,11 @@ awful.rules.rules = {
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
 }},
+
+    -- Floating clients.
+    { rule_any = {
+        instance = { "tilda", "copyq", },
+      }, properties = { floating = true }},
 }
 -- }}}
 
