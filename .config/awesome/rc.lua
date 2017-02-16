@@ -10,7 +10,9 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
--- Notification presets
+-- Enable VIM help for hotkeys widget when client with matching name is opened:
+require("awful.hotkeys_popup.keys.vim")
+-- Naughty notification presets
 naughty.config.defaults.border_width = 2
 naughty.config.defaults.border_color = '#000000'
 naughty.config.presets.critical.fg = '#000000'
@@ -145,17 +147,21 @@ vicious.register(netwidgetwifi, vicious.widgets.net, '  ${wifi down_kb} kB   
 netwidgetnet = wibox.widget.textbox()
 vicious.register(netwidgetnet, vicious.widgets.net, '—      ${net down_kb} kB      ${net up_kb} kB', 2)
 
--- Create a textdate widget
-mytextdate = awful.widget.textclock("  %a %b %d   ", 1)
-lain.widgets.calendar.attach(mytextdate, {font="Ubuntu Mono Bold", font_size="10"})
-
 -- Create separator widget
 separator = wibox.widget.textbox()
 separator:set_text("    ")
 
+-- Create a textdate widget
+mytextdate = awful.widget.textclock("  %a %b %d   ", 1)
+
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock("  %I:%M %p", 1)
-lain.widgets.calendar.attach(mytextclock, {font="Ubuntu Mono Bold", font_size="10"})
+
+-- Attach Lain Calendar Widget
+lain.widget.calendar({
+    attach_to = { mytextdate, mytextclock },
+    notification_preset = { font = "Ubuntu Mono Bold 10", fg = "#FFFFFF", bg = "#000000"}
+})
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -219,13 +225,16 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create the wibox
     mywibox[s] = awful.wibar({ position = "top", ontop = true, height = "18", screen = s })
+    
+    -- Quake style drop down terminal
+    s.quake = lain.util.quake({ app = terminal, height = 0.33, vert = "bottom" })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     left_layout:add(mytaglist[s])
     left_layout:add(separator)
-	left_layout:add(mylayoutbox[s])
-	left_layout:add(separator)
+    left_layout:add(mylayoutbox[s])
+    left_layout:add(separator)
     left_layout:add(mypromptbox[s])
     
     --Widgets that are aligned to the middle
@@ -251,14 +260,14 @@ awful.screen.connect_for_each_screen(function(s)
     right_layout:add(mytextdate)
     
     -- Layout Alignment
-	local align_left = wibox.layout.align.horizontal()
-	align_left:set_left(left_layout)
+    local align_left = wibox.layout.align.horizontal()
+    align_left:set_left(left_layout)
 
-	local align_middle = wibox.layout.align.horizontal()
-	align_middle:set_middle(middle_layout)
+    local align_middle = wibox.layout.align.horizontal()
+    align_middle:set_middle(middle_layout)
 
-	local align_right = wibox.layout.align.horizontal()
-	align_right:set_right(right_layout)
+    local align_right = wibox.layout.align.horizontal()
+    align_right:set_right(right_layout)
 
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.flex.horizontal()
@@ -279,27 +288,45 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+              {description = "view previous", group = "tag"}),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+              {description = "view next", group = "tag"}),
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
+              {description = "go back", group = "tag"}),
 
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
-        end),
+        end,
+        {description = "focus next by index", group = "client"}
+    ),
     awful.key({ modkey,           }, "k",
         function ()
             awful.client.focus.byidx(-1)
-        end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
+        end,
+        {description = "focus previous by index", group = "client"}
+    ),
+    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+              {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
-    awful.key({ modkey, 		  }, "b", function () mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible end),
+    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
+              {description = "swap with next client by index", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
+              {description = "swap with previous client by index", group = "client"}),
+    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
+              {description = "focus the next screen", group = "screen"}),
+    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
+              {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
+              {description = "jump to urgent client", group = "client"}),
+
+    -- Wibox show/hide
+    awful.key({ modkey,           }, "b", function () mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible end),
+    
+    -- Quake style drop down terminal
+    awful.key({ modkey, }, "q", function () awful.screen.focused().quake:toggle() end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
@@ -323,45 +350,46 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
 
+    -- Custom key bindings
     awful.key({ modkey }, "Tab", function ()
     awful.util.spawn_with_shell("~/.config/awesome/window-overview")
         end),
     
     awful.key({ }, "Print", function () 
     awful.util.spawn_with_shell("~/.config/awesome/snipping-tool") 
-		end),
+        end),
 
     awful.key({ }, "XF86ScreenSaver", function ()
     awful.util.spawn_with_shell("~/.config/awesome/lockscreen")
-		end),
+        end),
 
     awful.key({ }, "XF86AudioRaiseVolume", function () 
     aawful.util.spawn_with_shell("~/.config/awesome/volume-up") 
-		end),
-	
-	awful.key({ }, "XF86AudioLowerVolume", function () 
+        end),
+
+    awful.key({ }, "XF86AudioLowerVolume", function () 
     awful.util.spawn_with_shell("~/.config/awesome/volume-down") 
-		end),
-		
-	awful.key({ }, "XF86AudioMute", function () 
+        end),
+
+    awful.key({ }, "XF86AudioMute", function () 
     awful.util.spawn_with_shell("~/.config/awesome/volume-mute") 
-		end),
-		
+        end),
+
     awful.key({ modkey }, "p", function ()
     awful.util.spawn_with_shell("~/.config/awesome/file-search")
-		end),
-		
-	awful.key({ modkey }, "r", function ()
+        end),
+
+    awful.key({ modkey }, "r", function ()
     awful.util.spawn_with_shell("~/.config/awesome/app-launcher")
-		end),
+        end),
 
-	awful.key({ modkey }, "z", function ()
+    awful.key({ modkey }, "z", function ()
     awful.util.spawn("copyq toggle")
-		end),
+        end),
 
-	awful.key({ "Mod1" }, "Tab", function ()
+    awful.key({ "Mod1" }, "Tab", function ()
     awful.util.spawn_with_shell("~/.config/awesome/window-switcher")
-		end),
+        end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -378,24 +406,28 @@ clientkeys = awful.util.table.join(
         function (c)
             c.fullscreen = not c.fullscreen
             c:raise()
-        end),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                        end,
-          {description = "close", group = "client"}),
+        end,
+        {description = "toggle fullscreen", group = "client"}),
+    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+              {description = "close", group = "client"}),
     awful.key({ modkey,           }, "s",  awful.client.floating.toggle                     ),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-    awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+              {description = "move to master", group = "client"}),
+    awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
+              {description = "move to screen", group = "client"}),
+    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
+              {description = "toggle keep on top", group = "client"}),
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized = not c.maximized
             c:raise()
         end ,
         {description = "maximize", group = "client"}),
-	awful.key({ modkey, "Control" }, "m", lain.util.magnify_client)
+    awful.key({ modkey, "Control" }, "m", lain.util.magnify_client)
 )
 
 -- Bind all key numbers to tags.
--- Be careful: we use keycodes to make it works on any keyboard layout.
+-- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 9 do
     globalkeys = awful.util.table.join(globalkeys,
@@ -471,7 +503,7 @@ awful.rules.rules = {
 
     -- Floating clients.
     { rule_any = {
-        instance = { "tilda", "copyq", },
+        instance = { "copyq", },
       }, properties = { floating = true }},
 }
 -- }}}
@@ -544,7 +576,7 @@ end)
 -- Disable startup notification globally
 local oldspawn = awful.util.spawn
 awful.util.spawn = function (s)
-	oldspawn(s, false)
+    oldspawn(s, false)
 end
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
