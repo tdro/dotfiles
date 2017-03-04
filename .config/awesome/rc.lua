@@ -23,7 +23,7 @@ local lain = require("lain")
 -- Set font
 awesome.font = ("FontAwesome 8")
 -- Startup
--- os.execute("")
+os.execute("xsetroot -cursor_name left_ptr &")
 -- Exit Signals
 awesome.connect_signal("exit", function() awful.util.spawn_with_shell("~/.config/awesome/atexit") end)
 
@@ -227,7 +227,7 @@ awful.screen.connect_for_each_screen(function(s)
     mywibox[s] = awful.wibar({ position = "top", ontop = true, height = "18", screen = s })
     
     -- Quake style drop down terminal
-    s.quake = lain.util.quake({ app = terminal, height = 0.33, vert = "bottom" })
+    s.quake = lain.util.quake({ app = terminal, height = 0.33, vert = "bottom", border=0 })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -356,7 +356,7 @@ globalkeys = awful.util.table.join(
         end),
     
     awful.key({ }, "Print", function () 
-    awful.util.spawn_with_shell("~/.config/awesome/snipping-tool") 
+    awful.util.spawn_with_shell("~/.config/awesome/snipping-tool")
         end),
 
     awful.key({ }, "XF86ScreenSaver", function ()
@@ -364,15 +364,15 @@ globalkeys = awful.util.table.join(
         end),
 
     awful.key({ }, "XF86AudioRaiseVolume", function () 
-    aawful.util.spawn_with_shell("~/.config/awesome/volume-up") 
+    awful.util.spawn_with_shell("~/.config/awesome/volume-up")
         end),
 
     awful.key({ }, "XF86AudioLowerVolume", function () 
-    awful.util.spawn_with_shell("~/.config/awesome/volume-down") 
+    awful.util.spawn_with_shell("~/.config/awesome/volume-down")
         end),
 
     awful.key({ }, "XF86AudioMute", function () 
-    awful.util.spawn_with_shell("~/.config/awesome/volume-mute") 
+    awful.util.spawn_with_shell("~/.config/awesome/volume-mute")
         end),
 
     awful.key({ modkey }, "p", function ()
