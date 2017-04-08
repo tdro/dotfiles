@@ -23,7 +23,7 @@ local lain = require("lain")
 -- Set font
 awesome.font = ("FontAwesome 8")
 -- Startup
-os.execute("xsetroot -cursor_name left_ptr &")
+-- os.execute("")
 -- Exit Signals
 awesome.connect_signal("exit", function() awful.util.spawn_with_shell("~/.config/awesome/atexit") end)
 

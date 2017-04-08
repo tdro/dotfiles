@@ -33,6 +33,9 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+# Start x0vncserver
+systemctl --user start x0vncserver &
+
 # Protect eyes with redshift
 redshift &
 

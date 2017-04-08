@@ -17,7 +17,7 @@ shopt -s histappend
 export PROMPT_COMMAND="history -a"
 
 # ssh agent with keychain
-alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/primary) && ssh'
+alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile) && ssh'
 
 # make mount command output pretty and human readable format
 alias mount='mount | column -t'
