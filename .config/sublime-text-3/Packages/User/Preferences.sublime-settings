@@ -1,0 +1,11 @@
+{
+        "always_show_minimap_viewport": true,
+        "bold_folder_labels": true,
+        "color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+        "ensure_newline_at_eof_on_save": true,
+        "highlight_line": true,
+        "highlight_modified_tabs": true,
+        "scroll_past_end": true,
+        "translate_tabs_to_spaces": false,
+        "word_wrap": "true"
+}
