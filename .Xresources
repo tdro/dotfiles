@@ -14,8 +14,8 @@ URxvt*foreground: #FFFFFF
 URxvt*background: #171717
 URxvt.colorUL: #66A9B9
 
-URxvt.transparent:   false
-URxvt.shading:       20
+URxvt.transparent: false
+URxvt.shading: 20
 
 !black
 *color0: #222222

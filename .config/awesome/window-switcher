@@ -2,5 +2,5 @@
 # List and switch to a window.
 # Copyright 2013 Tom Vincent <http://tlvince.com/contact/>
 
-#wmctrl -l | cut -d' ' -f 1,5- | dmenu -f -i -b -p "Switch to" -nb black -nf white -sf white -fn "Ubuntu-8:bold" | cut -d' ' -f 1 | xargs wmctrl -ia
-rofi -no-disable-history -show window -hide-scrollbar -separator-style none -font "ubuntu 10" -bw 0 -fullscreen -padding 200 -fake-transparency -lines 20
+wmctrl -l | cut -d' ' -f 1,5- | dmenu -f -i -b -p "Switch to" -nb black -nf white -sf white -fn "Ubuntu-8:bold" | cut -d' ' -f 1 | xargs wmctrl -ia
+#rofi -no-disable-history -show window -hide-scrollbar -separator-style none -font "ubuntu 10" -bw 0 -fullscreen -padding 200 -fake-transparency -lines 20
