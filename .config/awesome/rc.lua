@@ -133,7 +133,7 @@ vicious.register(batwidget, vicious.widgets.bat, "  $1$2%", 1, "C23B")
 
 -- Create cpu widget
 cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu, '  $1%' , 2)
+vicious.register(cpuwidget, vicious.widgets.cpu, '  $1%     $2%' , 2)
 
 -- Create memory widget
 memwidget = wibox.widget.textbox()
@@ -373,6 +373,10 @@ globalkeys = awful.util.table.join(
 
     awful.key({ }, "XF86AudioMute", function () 
     awful.util.spawn_with_shell("~/.config/awesome/volume-mute")
+        end),
+
+    awful.key({ }, "XF86Display", function ()
+    awful.util.spawn_with_shell("~/.config/awesome/xrandr-switch-monitor")
         end),
 
     awful.key({ modkey }, "p", function ()
