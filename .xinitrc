@@ -36,8 +36,14 @@ fi
 # Start x0vncserver
 systemctl --user start x0vncserver &
 
+# xset
+xset s 0 0 &
+
 # Protect eyes with redshift
 redshift &
+
+# Compton composite manager
+compton -b
 
 # Run awesome
 exec awesome --no-argb

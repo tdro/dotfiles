@@ -23,7 +23,7 @@ local lain = require("lain")
 -- Set font
 awesome.font = ("FontAwesome 8")
 -- Startup
--- os.execute("")
+os.execute("i3lock-fancy -t '' -- scrot &")
 -- Exit Signals
 awesome.connect_signal("exit", function() awful.util.spawn_with_shell("~/.config/awesome/atexit") end)
 
@@ -133,7 +133,7 @@ vicious.register(batwidget, vicious.widgets.bat, "  $1$2%", 1, "C23B")
 
 -- Create cpu widget
 cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu, '  $1%     $2%' , 2)
+vicious.register(cpuwidget, vicious.widgets.cpu, '  $1% ⇆ $2%' , 2)
 
 -- Create memory widget
 memwidget = wibox.widget.textbox()
@@ -145,7 +145,7 @@ vicious.register(netwidgetwifi, vicious.widgets.net, '  ${wifi down_kb} kB   
 
 -- Create network net widget
 netwidgetnet = wibox.widget.textbox()
-vicious.register(netwidgetnet, vicious.widgets.net, '—      ${net down_kb} kB      ${net up_kb} kB', 2)
+vicious.register(netwidgetnet, vicious.widgets.net, '⇆     ${net down_kb} kB      ${net up_kb} kB', 2)
 
 -- Create separator widget
 separator = wibox.widget.textbox()
@@ -160,7 +160,8 @@ mytextclock = wibox.widget.textclock("  %I:%M %p", 1)
 -- Attach Lain Calendar Widget
 lain.widget.calendar({
     attach_to = { mytextdate, mytextclock },
-    notification_preset = { font = "Ubuntu Mono Bold 10", fg = "#FFFFFF", bg = "#000000"}
+    notification_preset = { font = "Ubuntu Mono Bold 10", fg = "#FFFFFF", bg = "#000000" },
+    cal = "/usr/bin/cal --color=always"
 })
 
 -- Create a wibox for each screen and add it
@@ -345,9 +346,9 @@ globalkeys = awful.util.table.join(
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
               {description = "decrease the number of columns", group = "layout"}),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
+    awful.key({ modkey, "Shift"   }, "Right", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(-1)                end,
+    awful.key({ modkey, "Shift"   }, "Left", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
 
     -- Custom key bindings
@@ -385,6 +386,10 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey }, "r", function ()
     awful.util.spawn_with_shell("~/.config/awesome/app-launcher")
+        end),
+
+    awful.key({ modkey, "Mod1" }, "r", function ()
+    awful.util.spawn_with_shell("~/.config/awesome/app-launcher-priv")
         end),
 
     awful.key({ modkey }, "z", function ()

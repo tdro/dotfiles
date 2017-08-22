@@ -554,19 +554,19 @@ x-scheme-handler/ftp=userapp-Pale Moon-1CRW5X.desktop;
 x-scheme-handler/http=userapp-Pale Moon-1CRW5X.desktop;
 x-scheme-handler/https=userapp-Pale Moon-1CRW5X.desktop;
 x-scheme-handler/mailto=userapp-FossaMail-G47RAY.desktop;
+
 [Default Applications]
 application/x-extension-eml=userapp-FossaMail-G47RAY.desktop;
-application/x-extension-htm=userapp-Pale Moon-1CRW5X.desktop;
-application/x-extension-html=userapp-Pale Moon-1CRW5X.desktop;
-application/x-extension-shtml=userapp-Pale Moon-1CRW5X.desktop;
-application/x-extension-xht=userapp-Pale Moon-1CRW5X.desktop;
-application/x-extension-xhtml=userapp-Pale Moon-1CRW5X.desktop;
-application/xhtml+xml=userapp-Pale Moon-1CRW5X.desktop;
+application/x-extension-htm=userapp-Pale Moon-1CRW5X.desktop
+application/x-extension-html=userapp-Pale Moon-1CRW5X.desktop
+application/x-extension-shtml=userapp-Pale Moon-1CRW5X.desktop
+application/x-extension-xht=userapp-Pale Moon-1CRW5X.desktop
+application/x-extension-xhtml=userapp-Pale Moon-1CRW5X.desktop
+application/xhtml+xml=userapp-Pale Moon-1CRW5X.desktop
 message/rfc822=userapp-FossaMail-G47RAY.desktop;
-text/html=userapp-Pale Moon-1CRW5X.desktop;
-x-scheme-handler/chrome=userapp-Pale Moon-1CRW5X.desktop;
-x-scheme-handler/ftp=userapp-Pale Moon-1CRW5X.desktop;
-x-scheme-handler/http=userapp-Pale Moon-1CRW5X.desktop;
-x-scheme-handler/https=userapp-Pale Moon-1CRW5X.desktop;
+text/html=userapp-Pale Moon-1CRW5X.desktop
+x-scheme-handler/chrome=userapp-Pale Moon-1CRW5X.desktop
+x-scheme-handler/ftp=userapp-Pale Moon-1CRW5X.desktop
+x-scheme-handler/http=userapp-Pale Moon-1CRW5X.desktop
+x-scheme-handler/https=userapp-Pale Moon-1CRW5X.desktop
 x-scheme-handler/mailto=userapp-FossaMail-G47RAY.desktop;
-
