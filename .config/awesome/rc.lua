@@ -588,6 +588,11 @@ awful.util.spawn = function (s)
     oldspawn(s, false)
 end
 
+-- No border for maximized clients
+client.connect_signal("property::maximized", function(c) 
+    c.border_width = c.maximized and 0 or beautiful.border_width
+end)
+
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
