@@ -5,13 +5,11 @@
 	"ensure_newline_at_eof_on_save": true,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
-	"ignored_packages":
-	[
-		"Vintage"
-	],
+	"ignored_packages": [ "Vintage" ],
 	"predawn_tabs_small": true,
 	"scroll_past_end": true,
 	"theme": "predawn-DEV.sublime-theme",
 	"translate_tabs_to_spaces": false,
-	"word_wrap": "true"
+	"update_check": false,
+	"word_wrap": "true",
 }
