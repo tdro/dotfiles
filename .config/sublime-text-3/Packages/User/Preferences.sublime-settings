@@ -11,5 +11,5 @@
 	"theme": "predawn-DEV.sublime-theme",
 	"translate_tabs_to_spaces": false,
 	"update_check": false,
-	"word_wrap": "true",
+	"word_wrap": "false",
 }
