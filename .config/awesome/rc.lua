@@ -17,7 +17,7 @@ naughty.config.defaults.border_width = 2
 naughty.config.defaults.border_color = '#000000'
 naughty.config.presets.critical.fg = '#000000'
 -- Vicious library
-vicious = require("vicious")
+local vicious = require("vicious")
 -- Lain library
 local lain = require("lain")
 -- Set font

@@ -1,2 +1,2 @@
 #!/bin/bash
-physlock -s;
+i3lock-fancy -t '' -- scrot;
