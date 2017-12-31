@@ -3,13 +3,17 @@
 	"bold_folder_labels": true,
 	"color_scheme": "Packages/Predawn/predawn.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
+	"font_size": 10,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
-	"ignored_packages": [ "Vintage" ],
+	"ignored_packages":
+	[
+		"Vintage"
+	],
 	"predawn_tabs_small": true,
 	"scroll_past_end": true,
 	"theme": "predawn-DEV.sublime-theme",
 	"translate_tabs_to_spaces": false,
 	"update_check": false,
-	"word_wrap": "false",
+	"word_wrap": "false"
 }

@@ -24,21 +24,21 @@ alias mount='mount | column -t'
 
 # colorize the ls output
 alias ls='ls --color=always'
- 
+
 # use a long listing format
 alias ll='ls -la --color=always'
- 
+
 # show hidden files
 alias l.='ls -d .* --color=always'
 
 # do not delete / or prompt if deleting more than 3 files at a time
 alias rm='rm -I --preserve-root'
- 
+
 # confirmation
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
- 
+
 # parenting changing perms on /
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
@@ -100,3 +100,6 @@ man() {
 	LESS_TERMCAP_us=$(printf "\e[1;32m") \
 	man "$@"
 }
+
+# dmesg
+alias dmesg='dmesg -e'
