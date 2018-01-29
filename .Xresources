@@ -3,6 +3,7 @@ URxvt.url-launcher: /usr/bin/firefox
 
 URxvt.matcher.button: 1
 URxvt.cursorUnderline: 1
+URxvt.cursorBlink: 1
 
 URxvt*font: -Misc-Fixed-Medium-R-SemiCondensed--12-110-75-75-C-60-ISO10646-1
 URxvt*boldFont: -Misc-Fixed-Medium-R-SemiCondensed--12-110-75-75-C-60-ISO10646-1

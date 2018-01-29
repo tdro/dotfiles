@@ -1,19 +1,21 @@
 {
 	"always_show_minimap_viewport": true,
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/Predawn/predawn.tmTheme",
+	"color_scheme": "Packages/Dayle Rees Color Schemes/legacy/Contrast/Snappy.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
 	"font_size": 10,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
-		"Vintage"
 	],
+	"line_padding_bottom": 3,
+	"line_padding_top": 3,
 	"predawn_tabs_small": true,
 	"scroll_past_end": true,
-	"theme": "predawn-DEV.sublime-theme",
-	"translate_tabs_to_spaces": false,
+	"theme": "predawn.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
 	"update_check": false,
-	"word_wrap": "false"
+	"word_wrap": false
 }

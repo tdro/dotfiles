@@ -32,7 +32,7 @@ alias ll='ls -la --color=always'
 alias l.='ls -d .* --color=always'
 
 # do not delete / or prompt if deleting more than 3 files at a time
-alias rm='rm -I --preserve-root'
+alias rm='rm -v -I --preserve-root'
 
 # confirmation
 alias mv='mv -i'
@@ -45,7 +45,7 @@ alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
 # locate replaced with locate -e
-alias locate='locate -e'
+alias locate='locate -ie'
 
 # reboot / halt / poweroff which are symlink'd to systemd
 alias reboot='sudo /sbin/reboot'

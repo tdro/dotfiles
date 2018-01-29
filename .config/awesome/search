@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "" | rofi -dmenu no-disable-history -show run -hide-scrollbar -separator-style none -font "ubuntu 16" -bw 0 -padding 10 -lines 0 -p "Search: " | xargs -I{} xdg-open https://www.google.com/search?q={}
