@@ -2,7 +2,7 @@
 # If not running interactively, don't do anything
 
 [[ $- != *i* ]] && return
-PS1='\[\e[0;34m\][ \W ] \$\[\e[0m\] '
+PS1='\[\e[0;34m\]\W \$\[\e[0m\] '
 
 # github dotfiles
 alias dotfile='/usr/bin/git --git-dir=$HOME/.local/share/dotfiles/ --work-tree=$HOME'

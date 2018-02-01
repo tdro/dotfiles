@@ -4,6 +4,8 @@ URxvt.url-launcher: /usr/bin/firefox
 URxvt.matcher.button: 1
 URxvt.cursorUnderline: 1
 URxvt.cursorBlink: 1
+URxvt.internalBorder: 5
+URxvt.geometry: 86x24
 
 URxvt*font: -Misc-Fixed-Medium-R-SemiCondensed--12-110-75-75-C-60-ISO10646-1
 URxvt*boldFont: -Misc-Fixed-Medium-R-SemiCondensed--12-110-75-75-C-60-ISO10646-1
@@ -23,35 +25,35 @@ URxvt*background: #171717
 URxvt.colorUL: #66A9B9
 
 !black
-*color0: #222222
-*color8: #666666
+*color0:  #222222
+*color8:  #666666
 
 !red
-*color1: #E84F4F
-*color9: #D23D3D
+*color1:  #E84F4F
+*color9:  #D23D3D
 
 !green
-*color2: #B7CE42
-*color10: #BDE077
+*color2:  #BEFF3E
+*color10: #CFFF72
 
 !yellow
-*color3: #FEA63C
-*color11: #FFE863
+*color3:  #FEA63C
+*color11: #FFDF23
 
 !blue
-*color4: #66A9B9
-*color12: #AACCBB
+*color4:  #69AEFF
+*color12: #5AA5FF
 
 !magenta
-*color5: #B7416E
+*color5:  #B7416E
 *color13: #E16A98
 
 !cyan
-*color6: #6D878D
-*color14: #42717B
+*color6:  #69AEFF
+*color14: #8B8B8B
 
 !white
-*color7: #CCCCCC
+*color7:  #CCCCCC
 *color15: #FFFFFF
 
 Xft.autohint: 0

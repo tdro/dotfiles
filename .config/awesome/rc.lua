@@ -519,6 +519,11 @@ awful.rules.rules = {
     { rule_any = {
         instance = { "copyq", },
       }, properties = { floating = true }},
+
+    -- Honor size hints for specific clients.
+    { rule_any = {
+        instance = { "gvim", },
+      }, properties = { size_hints_honor = true }},
 }
 -- }}}
 

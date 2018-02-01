@@ -41,8 +41,14 @@ let php_htmlInStrings = 1
 
 "----------------Visuals----------------"
 
-"Set colorscheme and font.
-colorscheme atom-dark
+colorscheme atom-dark                    " Set colorscheme.
+set t_CO=256                             " Enable 256 terminal colors.
+
+" Set line number column bg color.
+hi LineNr guibg=bg
+
+" Set vetical split column color.
+hi vertsplit guifg=bg guibg=bg
 
 " Remove scrollbars in gui.
 set guioptions-=l
@@ -70,8 +76,16 @@ nmap <C-K> <C-W><C-K>
 nmap <C-H> <C-W><C-H>
 nmap <C-L> <C-W><C-L>
 
-" NERDTree toggle.
-nmap <C-1> :NERDTreeToggle<cr>
+" CtrlP key mappings.
+nmap <Leader>eb :CtrlPBufTag<cr>
+nmap <Leader>em :CtrlPMRUFiles<cr>
+let g:ctrlp_match_window = 'order:ttb,min:1,max:5,results:30'
+
+" NERDTree settings.
+nmap <C-n> :NERDTreeToggle<cr>
+let NERDTreeMinimalUI = 1                " Enable minimal NERDTree UI.
+let NERDTreeHijackNetrw = 0              " Prevent NERDTree from hijacking CtrlP.
+
 
 "----------------Autorun----------------"
 
