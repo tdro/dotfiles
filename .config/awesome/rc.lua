@@ -28,7 +28,7 @@ local lain = require("lain")
 -- Set font
 awesome.font = ("FontAwesome 8")
 -- Startup
-os.execute("i3lock-fancy -t '' -- scrot &")
+os.execute("sleep 1 && i3lock-fancy -t '' -- scrot &")
 -- Exit Signals
 awesome.connect_signal("exit", function() awful.util.spawn_with_shell("~/.config/awesome/atexit") end)
 

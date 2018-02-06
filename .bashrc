@@ -1,8 +1,36 @@
 # ~/.bashrc
-# If not running interactively, don't do anything
 
+# If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+# set prompt statement
 PS1='\[\e[0;34m\]\W \$\[\e[0m\] '
+
+# set virtual console colors
+if [ "$TERM" = "linux" ]; then
+  echo -en "\e]P0111111" #black [background]
+  echo -en "\e]P1D84F4F" #darkred
+  echo -en "\e]P2DEFF3E" #darkgreen
+  echo -en "\e]P3FFDF23" #brown
+  echo -en "\e]P479AEFF" #darkblue
+  echo -en "\e]P58894CF" #darkmagenta
+  echo -en "\e]P679AEFF" #darkcyan
+  echo -en "\e]P7dddddd" #lightgray
+  echo -en "\e]P8DDDDDD" #darkgray
+  echo -en "\e]P9E84F4F" #red
+  echo -en "\e]PABEFF3E" #green
+  echo -en "\e]PBFEA63C" #yellow
+  echo -en "\e]PC69AEFF" #blue
+  echo -en "\e]PD9894CF" #magenta
+  echo -en "\e]PE69AEFF" #cyan
+  echo -en "\e]PFffffff" #white [foreground]
+  clear #for background artifacting
+fi
+
+# ssh bash prompt color change
+if [ -n "$SSH_CLIENT" ]; then
+  export PS1='\[\e[0;32m\][ \W ] \$\[\e[0m\] '
+fi
 
 # github dotfiles
 alias dotfile='/usr/bin/git --git-dir=$HOME/.local/share/dotfiles/ --work-tree=$HOME'
@@ -31,8 +59,8 @@ alias ll='ls -la --color=always'
 # show hidden files
 alias l.='ls -d .* --color=always'
 
-# do not delete / or prompt if deleting more than 3 files at a time
-alias rm='rm -v -I --preserve-root'
+# do not delete / or prompt if deleting more than 3 files
+alias rm='rm -I --preserve-root'
 
 # confirmation
 alias mv='mv -i'
@@ -84,22 +112,17 @@ alias archey='archey3'
 # listed history
 alias hist='history | grep'
 
-# ssh bash prompt color change
-if [ -n "$SSH_CLIENT" ]; then
-export PS1='\[\e[0;32m\][ \W ] \$\[\e[0m\] '
-fi
+# dmesg
+alias dmesg='dmesg -e'
 
 # color man
 man() {
-    env LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-	LESS_TERMCAP_md=$(printf "\e[1;31m") \
-	LESS_TERMCAP_me=$(printf "\e[0m") \
-	LESS_TERMCAP_se=$(printf "\e[0m") \
-	LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-	LESS_TERMCAP_ue=$(printf "\e[0m") \
-	LESS_TERMCAP_us=$(printf "\e[1;32m") \
-	man "$@"
+  env LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+  LESS_TERMCAP_md=$(printf "\e[1;31m") \
+  LESS_TERMCAP_me=$(printf "\e[0m") \
+  LESS_TERMCAP_se=$(printf "\e[0m") \
+  LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+  LESS_TERMCAP_ue=$(printf "\e[0m") \
+  LESS_TERMCAP_us=$(printf "\e[1;32m") \
+  man "$@"
 }
-
-# dmesg
-alias dmesg='dmesg -e'
