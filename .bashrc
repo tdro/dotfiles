@@ -87,12 +87,6 @@ alias c='clear'
 # journalctl
 alias journalctl='sudo journalctl -q'
 
-# netctl
-alias netctl='sudo netctl'
-
-# wifi-menu
-alias wifi-menu='sudo wifi-menu'
-
 # wavemon
 alias wavemon='sudo wavemon'
 

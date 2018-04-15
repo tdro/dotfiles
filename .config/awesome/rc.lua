@@ -28,6 +28,7 @@ local lain = require("lain")
 -- Set font
 awesome.font = ("FontAwesome 8")
 -- Startup
+os.execute("copyq &")
 os.execute("sleep 1 && i3lock-fancy -t '' -- scrot &")
 -- Exit Signals
 awesome.connect_signal("exit", function() awful.util.spawn_with_shell("~/.config/awesome/atexit") end)
@@ -395,6 +396,10 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, "Mod1" }, "r", function ()
     awful.util.spawn_with_shell("~/.config/awesome/app-launcher-priv")
+        end),
+
+    awful.key({ modkey, "Mod1" }, "p", function ()
+    awful.util.spawn_with_shell("/usr/bin/fsearch")
         end),
 
     awful.key({ modkey }, "z", function ()

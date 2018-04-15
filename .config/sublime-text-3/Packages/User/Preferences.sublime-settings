@@ -1,6 +1,6 @@
 {
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/Predawn/predawn.tmTheme",
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
 	"convert_tabspaces_on_save": true,
 	"ensure_newline_at_eof_on_save": true,
 	"font_size": 10,
@@ -9,6 +9,7 @@
 	"ignored_packages":
 	[
 	],
+	"index_files": false,
 	"line_padding_bottom": 3,
 	"line_padding_top": 3,
 	"predawn_tabs_small": true,
