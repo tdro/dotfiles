@@ -357,6 +357,18 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"   }, "Left", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
 
+    -- Restore minimized group
+    awful.key({ modkey, "Control" }, "n",
+              function ()
+                  local c = awful.client.restore()
+                  -- Focus restored client
+                  if c then
+                      client.focus = c
+                      c:raise()
+                  end
+              end,
+              {description = "restore minimized", group = "client"}),
+
     -- Custom key bindings
     awful.key({ modkey }, "Tab", function ()
     awful.util.spawn_with_shell("~/.config/awesome/window-overview")
