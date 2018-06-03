@@ -92,7 +92,7 @@ alias wavemon='sudo wavemon'
 
 # pacman
 alias pacman='sudo pacman'
-alias pacman-optimize='pacman -Sc --noconfirm && sudo pacman-optimize'
+alias pacman-optimize='pacman -Sc --noconfirm'
 
 # color grep
 alias grep='grep --color=tty -d skip'
