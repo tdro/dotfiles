@@ -219,7 +219,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
-    -- mylayoutbox[s]:buttons(awful.util.table.join(
+    -- mylayoutbox[s]:buttons(gears.table.join(
     --                       awful.button({ }, 1, function () awful.layout.inc( 1) end),
     --                       awful.button({ }, 3, function () awful.layout.inc(-1) end),
     --                       awful.button({ }, 4, function () awful.layout.inc( 1) end),
@@ -336,7 +336,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, "q", function () awful.screen.focused().quake:toggle() end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal, { placement =  awful.placement.under_mouse }) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal, { placement = awful.placement.under_mouse }) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
@@ -508,9 +508,21 @@ for i = 1, 9 do
 end
 
 clientbuttons = gears.table.join(
-    awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-    awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize))
+    awful.button({ }, 1, function (c)
+        client.focus = c;
+        c:raise()
+    end),
+    awful.button({ modkey }, 1, function (c)
+        client.focus = c
+        c:raise()
+        awful.mouse.client.move(c)
+    end),
+    awful.button({ modkey }, 3, function (c)
+        client.focus = c
+        c:raise()
+        awful.mouse.client.resize(c)
+    end)
+)
 
 -- Set keys
 root.keys(globalkeys)
@@ -530,7 +542,8 @@ awful.rules.rules = {
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
-}},
+     }
+    },
 
     -- Floating clients.
     { rule_any = {
@@ -551,8 +564,8 @@ client.connect_signal("manage", function (c)
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
 
-    if awesome.startup and
-      not c.size_hints.user_position
+    if awesome.startup
+      and not c.size_hints.user_position
       and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
