@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# set target browser and title
+browser='Chromium'
+title='Portfolio'
+
+# set id variables
+refresh_browser_id=$(xdotool search --onlyvisible --name $title | head -1);
+active_window_id=$(xdotool getwindowfocus)
+
+# echo target browser id for debugging purposes
+echo $refresh_browser_id;
+
+# activate target browser
+xdotool windowactivate $refresh_browser_id;
+
+# declare the variable i as an interger
+declare -i i=0;
+
+while true; do
+    
+    # set index i to increment by 1
+    i+=1
+    
+    # get target browser window
+    focused_browser_id=$(xdotool getwindowfocus);
+
+    if [ "$refresh_browser_id" -eq "$focused_browser_id" ]; then
+
+      xdotool key "ctrl+r";
+
+      # echo received browser id for debugging purposes
+      echo $refresh_browser_id;
+
+      break;
+
+    # bail out if there are too many iterations
+    elif [ "$i" -gt 20 ]; then
+
+      notify-send "No match for browser $browser with title $title!";
+
+      break;
+
+    fi
+
+    # echo the amount of interations for debugging purposes
+    echo "Iteration: $i";
+
+done
+
+xdotool windowactivate $active_window_id;
