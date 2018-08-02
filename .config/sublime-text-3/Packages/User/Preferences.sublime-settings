@@ -12,6 +12,16 @@
 	"index_files": false,
 	"line_padding_bottom": 3,
 	"line_padding_top": 3,
+	"on_post_save_user":
+	[
+		{
+			"command": "shell_command",
+			"args":
+			{
+				"command": "~/.config/sublime-text-3/Packages/User/Scripts/browser-refresh"
+			},
+		}
+	],
 	"predawn_tabs_small": true,
 	"save_on_focus_lost": true,
 	"scroll_past_end": true,

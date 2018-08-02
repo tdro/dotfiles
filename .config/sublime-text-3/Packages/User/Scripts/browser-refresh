@@ -9,7 +9,13 @@ refresh_browser_id=$(xdotool search --onlyvisible --name $title | head -1);
 active_window_id=$(xdotool getwindowfocus)
 
 # echo target browser id for debugging purposes
-echo $refresh_browser_id;
+#echo $refresh_browser_id;
+
+# bail on empty window id
+if [ -z $refresh_browser_id ]; then
+  notify-send "No match for browser $browser with title $title!";
+  exit;
+fi
 
 # activate target browser
 xdotool windowactivate $refresh_browser_id;
@@ -30,7 +36,7 @@ while true; do
       xdotool key "ctrl+r";
 
       # echo received browser id for debugging purposes
-      echo $refresh_browser_id;
+      #echo $refresh_browser_id;
 
       break;
 
@@ -44,7 +50,7 @@ while true; do
     fi
 
     # echo the amount of interations for debugging purposes
-    echo "Iteration: $i";
+    #echo "Iteration: $i";
 
 done
 
