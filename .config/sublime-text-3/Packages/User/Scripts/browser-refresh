@@ -2,23 +2,29 @@
 
 # set target browser and title
 browser='Chromium'
-title='Portfolio'
+title=''
 
-# set id variables
-refresh_browser_id=$(xdotool search --onlyvisible --name $title | head -1);
+# browser we would like to live reload
+reload_browser_id=$(
+
+  comm -12 <(xdotool search --name  $title  | sort) <(xdotool search --class $browser  | sort)
+
+); # named pipe comparison comm -12 /dev/fd/63 /dev/fd/63. See  https://unix.stackexchange.com/questions/254820/xdotool-how-to-search-for-window-by-title-and-class-with-different-patterns-si
+
+# active window where the script was activated
 active_window_id=$(xdotool getwindowfocus)
 
 # echo target browser id for debugging purposes
-#echo $refresh_browser_id;
+echo $reload_browser_id;
 
 # bail on empty window id
-if [ -z $refresh_browser_id ]; then
+if [ -z $reload_browser_id ]; then
   notify-send "No match for browser $browser with title $title!";
   exit;
 fi
 
 # activate target browser
-xdotool windowactivate $refresh_browser_id;
+xdotool windowactivate $reload_browser_id;
 
 # declare the variable i as an interger
 declare -i i=0;
@@ -31,12 +37,12 @@ while true; do
     # get target browser window
     focused_browser_id=$(xdotool getwindowfocus);
 
-    if [ "$refresh_browser_id" -eq "$focused_browser_id" ]; then
+    if [ "$reload_browser_id" -eq "$focused_browser_id" ]; then
 
       xdotool key "ctrl+r";
 
       # echo received browser id for debugging purposes
-      #echo $refresh_browser_id;
+      echo $reload_browser_id;
 
       break;
 
@@ -50,7 +56,7 @@ while true; do
     fi
 
     # echo the amount of interations for debugging purposes
-    #echo "Iteration: $i";
+    echo "Iteration: $i";
 
 done
 

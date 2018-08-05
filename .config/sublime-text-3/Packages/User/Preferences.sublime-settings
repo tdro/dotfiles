@@ -15,11 +15,11 @@
 	"on_post_save_user":
 	[
 		{
-			"command": "shell_command",
 			"args":
 			{
 				"command": "~/.config/sublime-text-3/Packages/User/Scripts/browser-refresh"
 			},
+			"command": "shell_command"
 		}
 	],
 	"predawn_tabs_small": true,
