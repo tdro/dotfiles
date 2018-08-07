@@ -323,7 +323,7 @@ image/x-xbitmap=feh.desktop;
 image/x-xpixmap=feh.desktop;
 image/x-xwindowdump=feh.desktop;
 inode/directory=spacefm.desktop;
-message/rfc822=userapp-FossaMail-G47RAY.desktop;
+message/rfc822=userapp-FossaMail-G47RAY.desktop;thunderbird.desktop;
 text/cache-manifest=geany.desktop;
 text/calendar=geany.desktop;
 text/comma-separated-values=geany.desktop;
@@ -553,7 +553,7 @@ application/x-extension-shtml=firefox.desktop;
 application/xhtml+xml=firefox.desktop;
 application/x-extension-xhtml=firefox.desktop;
 application/x-extension-xht=firefox.desktop;
-x-scheme-handler/mailto=userapp-FossaMail-G47RAY.desktop;
+x-scheme-handler/mailto=userapp-FossaMail-G47RAY.desktop;thunderbird.desktop;
 
 [Default Applications]
 x-scheme-handler/http=firefox.desktop
@@ -567,5 +567,5 @@ application/x-extension-shtml=firefox.desktop
 application/xhtml+xml=firefox.desktop
 application/x-extension-xhtml=firefox.desktop
 application/x-extension-xht=firefox.desktop
-x-scheme-handler/mailto=userapp-FossaMail-G47RAY.desktop
-message/rfc822=userapp-FossaMail-G47RAY.desktop
+x-scheme-handler/mailto=thunderbird.desktop
+message/rfc822=thunderbird.desktop

@@ -100,9 +100,6 @@ alias grep='grep --color=tty -d skip'
 # alsamixer
 alias alsamixer='alsamixer -V all'
 
-# archey
-alias archey='archey3'
-
 # listed history
 alias hist='history | grep'
 

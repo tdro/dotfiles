@@ -29,7 +29,7 @@ local lain = require("lain")
 awesome.font = ("FontAwesome 8")
 -- Startup
 os.execute("copyq &")
-os.execute("sleep 1 && i3lock-fancy -t '' -- scrot &")
+-- os.execute("sleep 1 && i3lock-fancy -t '' -- scrot &")
 -- Exit Signals
 awesome.connect_signal("exit", function() awful.util.spawn_with_shell("~/.config/awesome/atexit") end)
 
@@ -143,15 +143,19 @@ vicious.register(cpuwidget, vicious.widgets.cpu, '  $1% ⇆ $2%' , 2)
 
 -- Create memory widget
 memwidget = wibox.widget.textbox()
-vicious.register(memwidget, vicious.widgets.mem, '  $2 mB', 5)
+vicious.register(memwidget, vicious.widgets.mem, '  $4 mB', 5)
+
+-- Create swap widget
+swapwidget = wibox.widget.textbox()
+vicious.register(swapwidget, vicious.widgets.mem, '  $8 mB', 5)
 
 -- Create network wifi widget
 netwidgetwifi = wibox.widget.textbox()
-vicious.register(netwidgetwifi, vicious.widgets.net, '  ${wifi down_kb} kB      ${wifi up_kb} kB', 3)
+vicious.register(netwidgetwifi, vicious.widgets.net, '  ${wifi down_kb} kB      ${wifi up_kb} kB   ', 3)
 
 -- Create network net widget
 netwidgetnet = wibox.widget.textbox()
-vicious.register(netwidgetnet, vicious.widgets.net, '⇆     ${net down_kb} kB      ${net up_kb} kB', 2)
+vicious.register(netwidgetnet, vicious.widgets.net, '⇆    ${net down_kb} kB      ${net up_kb} kB', 2)
 
 -- Create separator widget
 separator = wibox.widget.textbox()
@@ -242,45 +246,30 @@ awful.screen.connect_for_each_screen(function(s)
     left_layout:add(separator)
     left_layout:add(mylayoutbox[s])
     left_layout:add(separator)
-    left_layout:add(mypromptbox[s])
-    
-    --Widgets that are aligned to the middle
-    local middle_layout = wibox.layout.fixed.horizontal()
-    middle_layout:add(separator)
-    middle_layout:add(netwidgetwifi)
-    middle_layout:add(separator)
-    middle_layout:add(netwidgetnet)
-    middle_layout:add(separator)
+    --left_layout:add(mypromptbox[s])
+    --left_layout:add(separator)
+    left_layout:add(netwidgetwifi)
+    left_layout:add(netwidgetnet)
+    left_layout:add(separator)
+    left_layout:add(cpuwidget)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
-    -- if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(separator)
-    right_layout:add(cpuwidget)
     right_layout:add(separator)
     right_layout:add(memwidget)
+    right_layout:add(separator)
+    right_layout:add(swapwidget)
     right_layout:add(separator)
     right_layout:add(batwidget)
     right_layout:add(separator)
     right_layout:add(mytextclock)
     right_layout:add(separator)
     right_layout:add(mytextdate)
-    
-    -- Layout Alignment
-    local align_left = wibox.layout.align.horizontal()
-    align_left:set_left(left_layout)
-
-    local align_middle = wibox.layout.align.horizontal()
-    align_middle:set_middle(middle_layout)
-
-    local align_right = wibox.layout.align.horizontal()
-    align_right:set_right(right_layout)
 
     -- Now bring it all together (with the tasklist in the middle)
-    local layout = wibox.layout.flex.horizontal()
-    layout:add(align_left)
-    layout:add(align_middle)
-    layout:add(align_right)
+    local layout = wibox.layout.align.horizontal()
+    layout:set_left(left_layout)
+    layout:set_right(right_layout)
     mywibox[s]:set_widget(layout)
 end)
 -- }}}
@@ -420,16 +409,7 @@ globalkeys = gears.table.join(
 
     awful.key({ "Mod1" }, "Tab", function ()
     awful.util.spawn_with_shell("~/.config/awesome/window-switcher")
-        end),
-
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
-                  mypromptbox[awful.screen.focused()].widget,
-                  awful.util.eval, nil,
-                  awful.util.get_cache_dir() .. "/history_eval")
-              end,
-              {description = "lua execute prompt", group = "awesome"})
+        end)
 )
 
 clientkeys = awful.util.table.join(
