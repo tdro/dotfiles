@@ -1,4 +1,3 @@
-# Write your default config options here!
 vo=gl
 ao=alsa
 af=scaletempo
@@ -7,3 +6,6 @@ quiet=1
 nojoystick=1
 x=1024
 y=640
+
+
+
