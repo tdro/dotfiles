@@ -53,6 +53,9 @@ alias mount='mount | column -t'
 # colorize the ls output
 alias ls='ls --color=always'
 
+# lsblk
+alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
+
 # use a long listing format
 alias ll='ls -la --color=always'
 
