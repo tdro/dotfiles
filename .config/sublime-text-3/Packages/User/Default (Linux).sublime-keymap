@@ -1,0 +1,12 @@
+[
+    // Origami Vim Mappings
+    { "keys": [":", "v", "s", "p" ], "command": "create_pane", "args": {"direction": "right", "give_focus" : true} },
+    { "keys": [":", "s", "p" ], "command": "create_pane", "args": {"direction": "down", "give_focus" : true} },
+    { "keys": [":", "b", "d"], "command": "destroy_pane", "args": {"direction": "self"} },
+
+    // PHP Mappings
+    { "keys": ["f7"], "command": "insert_php_constructor_property" },
+
+    // Toggle Line Numbers
+    { "keys": ["ctrl+alt+l"], "command": "toggle_setting", "args": { "setting": "line_numbers" } },
+]
