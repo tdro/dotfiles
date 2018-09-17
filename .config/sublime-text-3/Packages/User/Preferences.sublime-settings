@@ -6,12 +6,10 @@
 	"font_size": 10,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
-	"ignored_packages":
-	[
-	],
 	"index_files": false,
 	"line_padding_bottom": 3,
 	"line_padding_top": 3,
+	"ignored_packages": [],
 	"on_post_save_user":
 	[
 		{
@@ -30,5 +28,7 @@
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
 	"update_check": false,
-	"word_wrap": false
+	"word_wrap": false,
+	"line_numbers": false,
+	"margin": 0,
 }

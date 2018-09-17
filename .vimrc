@@ -13,7 +13,7 @@ so ~/.vim/plugins.vim
 syntax enable                            " Enable syntax highlighting.
 set ruler                                " Show the cursor position all the time.
 set nowrap                               " Do not automatically wrap on file load.
-set number                               " Set line numbers.
+set nonumber                             " Set line numbers.
 set hlsearch                             " Enable search.
 set incsearch                            " Set incremental search.
 set noswapfile                           " Disable swap files.
@@ -44,12 +44,6 @@ let php_htmlInStrings = 1
 colorscheme atom-dark                    " Set colorscheme.
 set t_CO=256                             " Enable 256 terminal colors.
 
-" Set line number column bg color.
-hi LineNr guibg=bg
-
-" Set vetical split column color.
-hi vertsplit guifg=bg guibg=bg
-
 " Remove scrollbars in gui.
 set guioptions-=l
 set guioptions-=L
@@ -60,6 +54,16 @@ set guioptions-=R
 set guioptions-=m
 set guioptions-=T
 set guioptions-=e
+
+" Set line number column bg color.
+hi LineNr guibg=bg
+
+" Define fold column and set to bg color.
+set foldcolumn=2
+hi foldcolumn guibg=bg
+
+" Set vetical split column color.
+hi vertsplit guifg=bg guibg=bg
 
 
 "---------------Shortcuts---------------"
