@@ -20,6 +20,8 @@ set noswapfile                           " Disable swap files.
 set nocompatible                         " Use Vim defaults.
 
 set shortmess+=I                         " Disable startup message.
+set showtabline=0                        " Disable tab bar.
+set laststatus=0                         " Disable split window status bar.
 set linespace=3                          " Set line spaces.
 set guiheadroom=0                        " Disable headroom on window maximize.
 set history=50                           " Keep 50 lines of command line history.
@@ -61,9 +63,11 @@ hi LineNr guibg=bg
 " Define fold column and set to bg color.
 set foldcolumn=2
 hi foldcolumn guibg=bg
+hi foldcolumn ctermbg=171717
 
 " Set vetical split column color.
 hi vertsplit guifg=bg guibg=bg
+hi vertsplit ctermfg=black ctermbg=171717
 
 
 "---------------Shortcuts---------------"
