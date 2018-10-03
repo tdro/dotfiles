@@ -117,3 +117,6 @@ man() {
   LESS_TERMCAP_us=$(printf "\e[1;32m") \
   man "$@"
 }
+
+# docker aliases
+alias pdf2htmlEX="docker run -ti --rm -v ${PWD}:/pdf bwits/pdf2htmlex pdf2htmlEX"

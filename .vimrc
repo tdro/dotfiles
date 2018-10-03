@@ -21,6 +21,7 @@ set nocompatible                         " Use Vim defaults.
 
 set shortmess+=I                         " Disable startup message.
 set showtabline=0                        " Disable tab bar.
+set fillchars=                           " Set split window margin fill to none.
 set laststatus=0                         " Disable split window status bar.
 set linespace=3                          " Set line spaces.
 set guiheadroom=0                        " Disable headroom on window maximize.
@@ -66,7 +67,7 @@ hi foldcolumn guibg=bg
 hi foldcolumn ctermbg=171717
 
 " Set vetical split column color.
-hi vertsplit guifg=bg guibg=bg
+hi vertsplit guifg=#1b1b1b guibg=#1b1b1b
 hi vertsplit ctermfg=black ctermbg=171717
 
 

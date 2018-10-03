@@ -135,7 +135,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 
 -- Create bat widget
-batwidget = wibox.widget.textbox() 
+batwidget = wibox.widget.textbox()
 vicious.register(batwidget, vicious.widgets.bat, "  $1$2%", 1, "C23B")
 
 -- Create cpu widget
@@ -237,7 +237,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create the wibox
     mywibox[s] = awful.wibar({ position = "top", ontop = true, height = "18", screen = s })
-    
+
     -- Quake style drop down terminal
     s.quake = lain.util.quake({ app = terminal, width = 0.75, height = 0.33, horiz = "center", vert = "bottom", border=0 })
 
@@ -321,7 +321,7 @@ globalkeys = gears.table.join(
 
     -- Wibox show/hide
     awful.key({ modkey,           }, "b", function () mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible end),
-    
+
     -- Quake style drop down terminal
     awful.key({ modkey, }, "q", function () awful.screen.focused().quake:toggle() end),
 
@@ -363,8 +363,8 @@ globalkeys = gears.table.join(
     awful.key({ modkey }, "Tab", function ()
     awful.util.spawn_with_shell("~/.config/awesome/window-overview")
         end),
-    
-    awful.key({ }, "Print", function () 
+
+    awful.key({ }, "Print", function ()
     awful.util.spawn_with_shell("~/.config/awesome/snipping-tool")
         end),
 
@@ -372,15 +372,15 @@ globalkeys = gears.table.join(
     awful.util.spawn_with_shell("~/.config/awesome/lockscreen")
         end),
 
-    awful.key({ }, "XF86AudioRaiseVolume", function () 
+    awful.key({ }, "XF86AudioRaiseVolume", function ()
     awful.util.spawn_with_shell("~/.config/awesome/volume-up")
         end),
 
-    awful.key({ }, "XF86AudioLowerVolume", function () 
+    awful.key({ }, "XF86AudioLowerVolume", function ()
     awful.util.spawn_with_shell("~/.config/awesome/volume-down")
         end),
 
-    awful.key({ }, "XF86AudioMute", function () 
+    awful.key({ }, "XF86AudioMute", function ()
     awful.util.spawn_with_shell("~/.config/awesome/volume-mute")
         end),
 
@@ -610,7 +610,7 @@ awful.util.spawn = function (s)
 end
 
 -- No border for maximized clients
-client.connect_signal("property::maximized", function(c) 
+client.connect_signal("property::maximized", function(c)
     c.border_width = c.maximized and 0 or beautiful.border_width
 end)
 
