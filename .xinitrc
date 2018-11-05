@@ -43,7 +43,7 @@ xset s 0 0 &
 redshift &
 
 # Compton composite manager
-compton -b --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc --unredir-if-possible
+compton -b
 
 # Run awesome
 exec awesome --no-argb
