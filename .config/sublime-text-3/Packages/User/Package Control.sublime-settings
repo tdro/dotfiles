@@ -1,0 +1,31 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AdvancedNewFile",
+		"AutoSetSyntax",
+		"BracketHighlighter",
+		"CSS Format",
+		"Dayle Rees Color Schemes",
+		"DocBlockr",
+		"Elm Language Support",
+		"Emmet",
+		"Hooks",
+		"Origami",
+		"Package Control",
+		"PHP Companion",
+		"PHP Getters and Setters",
+		"PHPUnitKit",
+		"Predawn",
+		"Sass",
+		"ShellCommand",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"SublimeLinter-csslint",
+		"SublimeLinter-phpcs",
+		"Vue Syntax Highlight"
+	]
+}
