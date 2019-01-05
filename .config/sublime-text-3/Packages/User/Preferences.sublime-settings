@@ -28,6 +28,7 @@
 	"predawn_tabs_small": true,
 	"save_on_focus_lost": true,
 	"scroll_past_end": true,
+	"show_panel_on_build": false,
 	"show_tab_close_buttons": false,
 	"theme": "predawn-DEV.sublime-theme",
 	"translate_tabs_to_spaces": true,

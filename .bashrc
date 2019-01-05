@@ -35,6 +35,9 @@ fi
 # github dotfiles
 alias dotfile='/usr/bin/git --git-dir=$HOME/.local/share/dotfiles/ --work-tree=$HOME'
 
+# github dotfiles
+alias etcfiles='/usr/bin/git --git-dir=$HOME/.local/share/etcfiles/ --work-tree=/etc'
+
 # bash history settings
 export HISTSIZE=
 export HISTFILESIZE=
@@ -42,7 +45,12 @@ export HISTCONTROL=ignoredups:erasedups
 
 # append bash history entries
 shopt -s histappend
-export PROMPT_COMMAND="history -a"
+
+# get last command for prompt command
+lastcmd() { LASTCMD=$(history 1 | cut -c8-); echo -ne "\e]2;$LASTCMD\a\e]1;$LASTCMD\a"; }
+
+# prompt command runs on every command
+export PROMPT_COMMAND="history -a; lastcmd"
 
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile) && ssh'
