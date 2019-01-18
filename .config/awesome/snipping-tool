@@ -1,5 +1,5 @@
 #!/bin/bash
-escrotum -s '~/Desktop/pictures/$wx$h_%d-%m-%Y_%H:%M:%S.png';
+escrotum -s '~/Pictures/screenshots/$wx$h_%d-%m-%Y_%H:%M:%S.png';
 notify-send 'Screenshot . . .';
 
 #sleep 0.13
