@@ -9,7 +9,7 @@
 	"ignored_packages":
 	[
 	],
-	"index_files": true,
+	"index_files": false,
 	"line_numbers": false,
 	"line_padding_bottom": 3,
 	"line_padding_top": 3,

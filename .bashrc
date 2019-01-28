@@ -33,7 +33,7 @@ if [ -n "$SSH_CLIENT" ]; then
 fi
 
 # github dotfiles
-alias dotfile='/usr/bin/git --git-dir=$HOME/.local/share/dotfiles/ --work-tree=$HOME'
+alias dotfiles='/usr/bin/git --git-dir=$HOME/.local/share/dotfiles/ --work-tree=$HOME'
 
 # github dotfiles
 alias etcfiles='/usr/bin/git --git-dir=$HOME/.local/share/etcfiles/ --work-tree=/etc'
