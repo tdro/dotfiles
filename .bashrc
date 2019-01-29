@@ -53,7 +53,7 @@ lastcmd() { LASTCMD=$(history 1 | cut -c8-); echo -ne "\e]2;$LASTCMD\a\e]1;$LAST
 export PROMPT_COMMAND="history -a; command -v lastcmd > /dev/null 2>&1 && lastcmd"
 
 # ssh agent with keychain
-alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile) && ssh'
+alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary) && ssh'
 
 # colorize the ls output
 alias ls='ls --color=always'
