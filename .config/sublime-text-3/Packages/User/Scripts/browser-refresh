@@ -2,7 +2,23 @@
 
 # set target browser and title
 browser='Chromium'
-title='Bahagora'
+title='GSRC'
+
+# set pid file path
+pidfile=/tmp/browser.refresh.pid
+
+# use pid to check if program already running
+if [ -f $pidfile ]; then
+  pid=$(cat $pidfile)
+  if [ "$pid" != $$ ]; then
+    echo "Live Reload: Process is already running with PID $pid. Killing..."
+    notify-send "Live Reload: Process is already running with PID $pid. Killing...";
+    kill -9 $pid;
+    trap "rm -f -- '$pidfile'" EXIT;
+  else
+  echo $$ > "$pidfile"
+  fi
+fi
 
 # browser we would like to live reload
 reload_browser_id=$(
@@ -30,34 +46,39 @@ xdotool windowactivate $reload_browser_id;
 declare -i i=0;
 
 while true; do
-    
-    # set index i to increment by 1
-    i+=1
-    
-    # get target browser window
-    focused_browser_id=$(xdotool getwindowfocus);
-
-    if [ "$reload_browser_id" -eq "$focused_browser_id" ]; then
-
-      xdotool key "ctrl+r";
-
-      # echo received browser id for debugging purposes
-      #echo $reload_browser_id;
-
-      break;
 
     # bail out if there are too many iterations
-    elif [ "$i" -gt 20 ]; then
+    if [ "$i" -gt 10 ]; then
 
       notify-send "No match for browser $browser with title $title!";
 
       break;
 
     fi
+    
+    # set index i to increment by 1
+    i+=1
 
     # echo the amount of interations for debugging purposes
-    #echo "Iteration: $i";
+    echo "Iteration: $i";
+    
+    # get target browser window
+    focused_browser_id=$(xdotool getwindowfocus);
+
+    while [ "$reload_browser_id" -eq "$focused_browser_id" ]; do
+
+      xdotool key "ctrl+r";
+
+      # echo received browser id for debugging purposes
+      #echo $reload_browser_id;
+
+      # break out of both while loops
+      break 2;
+
+    done;
 
 done
 
 xdotool windowactivate $active_window_id;
+trap "rm -f -- '$pidfile'" EXIT; 
+exit 0;
