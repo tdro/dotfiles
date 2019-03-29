@@ -38,6 +38,7 @@ systemctl --user start x0vncserver &
 
 # xset
 xset s 0 0 &
+xset dpms 3600 3600 3600 &
 
 # Protect eyes with redshift
 redshift &
