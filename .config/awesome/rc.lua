@@ -389,7 +389,7 @@ globalkeys = gears.table.join(
         end),
 
     awful.key({ modkey }, "p", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/search")
+    awful.util.spawn_with_shell("~/.config/awesome/file-search")
         end),
 
     awful.key({ modkey }, "r", function ()
@@ -401,7 +401,7 @@ globalkeys = gears.table.join(
         end),
 
     awful.key({ modkey, "Mod1" }, "p", function ()
-    awful.util.spawn_with_shell("/usr/bin/fsearch")
+    awful.util.spawn_with_shell("~/.config/awesome/internet-search")
         end),
 
     awful.key({ modkey }, "z", function ()
