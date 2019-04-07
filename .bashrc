@@ -128,3 +128,12 @@ man() {
 
 # docker aliases
 alias pdf2htmlEX="docker run -ti --rm -v ${PWD}:/pdf bwits/pdf2htmlex pdf2htmlEX"
+
+# add php composer path
+export PATH="${PATH}:~/.config/composer/vendor/bin/"
+
+# add npm path
+PATH="$HOME/.node_modules/bin:$PATH"
+
+# add npm prefix
+export npm_config_prefix=~/.node_modules
