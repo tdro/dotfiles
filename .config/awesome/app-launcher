@@ -63,4 +63,4 @@
 #    exec $terminal sh -c "$cmd && echo Press Enter to kill me... && read line"
 
 # Rofi
-rofi -fullscreen -no-disable-history -show run -display-run "$" -hide-scrollbar -separator-style none  -font "ubuntu 12" -bw 0 -padding 300
+rofi -fake-transparency -fullscreen -no-disable-history -show run -display-run "$" -hide-scrollbar -separator-style none  -font "ubuntu 12" -bw 0 -padding 300
