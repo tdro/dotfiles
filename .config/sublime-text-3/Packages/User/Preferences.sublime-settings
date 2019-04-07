@@ -19,7 +19,7 @@
 		{
 			"args":
 			{
-				"command": "~/.config/sublime-text-3/Packages/User/Scripts/browser-refresh &> /dev/null"
+				"command": "~/.node_modules/bin/chromix-too reload 275173185"
 			},
 			"command": "shell_command"
 		}
