@@ -44,7 +44,7 @@ xset dpms 3600 3600 3600 &
 redshift &
 
 # Compton composite manager
-compton -b
+# compton -b
 
 # Run awesome
 exec awesome --no-argb
