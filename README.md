@@ -17,3 +17,8 @@ These are my dotfiles.
 ## Skippy XD
 
 ![Skippy XD](https://raw.githubusercontent.com/tdro/dotfiles/master/.local/share/images/skippy-xd.png "Skippy XD")
+
+## sl by Tom Phelps
+This is sort of like a summary of the `ls` command.
+
+![sl](https://raw.githubusercontent.com/tdro/dotfiles/master/.local/share/images/sl.png "sl")
