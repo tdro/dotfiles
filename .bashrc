@@ -3,6 +3,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# cd using directory name
+shopt -s autocd;
+
 # set prompt statement
 PS1='\[\e[0;34m\]\W \$\[\e[0m\] '
 
