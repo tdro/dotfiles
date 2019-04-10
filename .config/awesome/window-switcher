@@ -1,6 +1,9 @@
 #!/bin/sh
+
 # List and switch to a window.
 # Copyright 2013 Tom Vincent <http://tlvince.com/contact/>
 
 #wmctrl -l | cut -d' ' -f 1,5- | dmenu -f -i -b -p "Switch to" -nb black -nf white -sf white -fn "Ubuntu-8:bold" | cut -d' ' -f 1 | xargs wmctrl -ia
+
+# Rofi
 rofi -fake-transparency -no-disable-history -show window -theme-str '#prompt { enabled: false; }' -hide-scrollbar -separator-style none -window-format {t} -font "ubuntu 12" -bw 0 -padding 15 -lines 1
