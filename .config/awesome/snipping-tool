@@ -1,6 +1,7 @@
 #!/bin/bash
+
 escrotum -s '~/Pictures/screenshots/$wx$h_%d-%m-%Y_%H:%M:%S.png';
 notify-send 'Screenshot . . .';
 
 #sleep 0.13
-#scrot -s -e 'mv $f ~/Desktop/pictures/ 2>/dev/null' && notify-send 'Screenshot of Selection Saved'
+#scrot -s -e 'mv $f ~/Pictures/screenshots/ 2>/dev/null' && notify-send 'Screenshot . . .'
