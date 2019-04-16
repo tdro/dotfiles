@@ -114,8 +114,14 @@ alias alsamixer='alsamixer -V all'
 # listed history
 alias hist='history | grep'
 
+# pulse delay on audacity
+alias audacity='PULSE_LATENCY_MSEC=30 audacity'
+
 # dmesg
 alias dmesg='dmesg -e'
+
+# colortest
+alias colortest='msgcat --color=test'
 
 # color man
 man() {
