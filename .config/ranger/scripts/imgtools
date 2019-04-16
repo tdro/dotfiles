@@ -1,0 +1,218 @@
+#!/bin/bash
+: <<COMMENT
+  Copyright (C) 2012 Tri Le <trile7 at gmail dot com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation version 3.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+COMMENT
+
+version="imgtools v0.1.1"
+blue='\e[0;34m'; green='\e[0;32m'; red='\e[0;31m'; yellow='\e[0;33m'; bold='\e[1m'; none='\e[0m'
+function menu {
+  n=0
+  choices=("$@")
+  echo -e "$blue$bold$menutitle"
+  for i in "${choices[@]}"; do
+    echo -e "$none$((n++)))   $yellow$i"
+  done
+  echo -en "${none}c|q) ${yellow}Cancel"
+  echo -e "$green"
+  read -rp "Enter a choice from above menu: " i
+  echo -e "$none"
+  [[ $i =~ c|q ]] && exit 1
+  if test "$i" -lt $n 2>/dev/null; then
+    choice=${choices[i]}; return "$i"
+  else
+    echo -e "$red$i is an invalid entry...please try again!"
+    menu "${choices[@]}"
+  fi
+  }
+
+function slideshow {
+  if [[ ${files[0]} = -* ]]; then
+    for i in 0 2 4; do
+      if [[ ${files[i]} = -* ]]; then opt=("${opt[@]}" "${files[i]}" "${files[i+1]}"); unset "files[i]" "files[i+1]"; fi
+    done
+  else
+    echo "Default delay 2 seconds, loop forever, and resize only large image to 800x600:"
+    echo "  -delay 2 -loop 0 -resize 800x600>"
+    echo -ne "$green"
+    read -rp "Enter slideshow options (enter to use defaults): " -a opt
+    echo -ne "$none"
+  fi
+  for i in 0 2 4; do
+    case ${opt[i]} in
+      *delay) d=${opt[i+1]} ;;
+      *loop) l=${opt[i+1]} ;;
+      *resize) s=${opt[i+1]} ;;
+    esac
+  done
+  [[ ${files[2]} ]] || err "You must specify at least one image file"
+  display -coalesce -auto-orient -immutable -delay "${d:=2}" -loop "${l:=0}" -resize "${s:=800x600>}" "${files[@]}"
+  }
+
+function info {
+  echo -e "${yellow}image, format, dimension, geometry, depth, class, size, processing times $none"
+  for i in "${files[@]}"; do
+    [[ -f $i ]] && identify "$i" || echo -e "$red$i doesn't exist$none"
+  done
+  }
+
+function wallpaper {
+  if [[ ${files[0]} = -* ]]; then
+    choice=${files[0]//-}; img0=${files[1]}
+  else
+    img0=${files[0]}
+    menutitle="---Wallpaper Modes---"
+    menu "Tile" "Resize and Tile" "Center" "Resize and Center" "Stretch"
+  fi
+  [[ -f $img0 ]] || err "$img0 doesn't exist"
+  res=($(xrandr | grep \* | grep -o "[0-9]*x[0-9]*")) || res=($(xdpyinfo | grep dimensions: | grep -o "[0-9]*x[0-9]*")) || res=$(xprop -root _NET_DESKTOP_GEOMETRY | cut -d'=' -f2 | tr -d ' ' | tr ',' 'x')
+  rootsize=${res:=800x600}; rootw=${res%x*}; rooth=${res#*x}
+  img=/tmp/.wallpaper.jpg
+  case $choice in
+    [tT]ile) display -window root "$img0"; exit ;;
+    *[rR]esize*) convert "$img0" -resize $rootsize "$img" ;;
+    [sS]tretch) convert "$img0" -resize $rootsize! "$img" ;;
+    *) convert "$img0" -resize $rootsize\> "$img" ;;
+  esac
+  if [[ $choice = *[cC]enter* ]]; then
+    imgw=$(identify -format "%w" $img)
+    imgh=$(identify -format "%h" $img)
+    x=$((rootw-imgw)); x=$((x/2))
+    y=$((rooth-imgh)); y=$((y/2))
+    display -geometry $rootsize+$x+$y -window root $img
+  else
+    display -window root $img
+  fi
+  }
+
+function resize {
+  if [[ ${files[0]} = -*size ]]; then
+    s=${files[1]}; unset "files[0]" "files[1]"
+  else
+    echo -e "Use resize operators ${green}> < !${none} to determine what image size to resize.  Examples:"
+    echo -e "  ${green}800x600>${none} reduce only larger image to given size keeping aspect ratio"
+    echo -e "  ${green}800x600<${none} enlarge only smaller image to given size keeping aspect ratio"
+    echo -e "  ${green}800x600!${none} force image to given size ignoring aspect ratio"
+    echo -e "  ${green}800x600${none}  resize to given size keeping aspect ratio"
+    echo -ne "$green"
+    read -rp "Enter new size (WxH in pixel): " s
+    echo -e "$none"
+  fi
+  if [[ $s = [0-9]*[0-9] || $s = x[0-9]* || $s = [0-9]*x || $s = [0-9]*[\>\<\!] ]]; then
+    for i in "${files[@]}"; do
+      newname=${i%.*}_s$s.${i##*.}
+      [[ -f $i ]] && convert "$i" -resize "$s" "$newname" || echo -e "$red$i doesn't exit$none"
+    done
+  else
+    echo -e "${red}Invalid size$none"
+    resize "${files[@]}"
+  fi
+  }
+
+function rotate {
+  if [[ ${files[0]} = -*angle ]]; then
+    d=${files[1]}; unset "files[0]" "files[1]"
+  else
+    echo -ne "$green"
+    read -rp "Enter angle (non-zero number): " d
+    echo -ne "$none"
+  fi
+  if [[ $d -gt 0 || $d -lt 0 ]]; then
+    for i in "${files[@]}"; do
+      newname=${i%.*}_r$d.${i##*.}
+      [[ -f $i ]] && convert "$i" -rotate "$d" "$newname" || echo -e "$red$i doesn't exit$none"
+    done
+  else
+    echo -e "${red}Angle must be a non-zero number$none"
+    rotate "${files[@]}"
+  fi
+  }
+
+function format {
+  if [[ ${files[0]} = -* ]]; then
+    choice=${files[0]//-}; unset "files[0]"
+  else
+    menutitle="---Image Formats---"
+    menu "jpg" "png" "gif" "ico" "bmp" "tif" "ps" "pdf"
+  fi
+  for i in "${files[@]}"; do
+    newname=${i%.*}.$choice
+    if [[ ! -f $i ]]; then echo -e "$red$i doesn't exist$none"; continue; fi
+    if [[ $i = "$newname" ]]; then echo -e "$yellow$i is already $choice format$none"; continue; fi
+    case $choice in
+      tif|ps|pdf) convert "$i" -compress Zip "$newname" ;;
+      bmp) convert "$i" BMP3:"$newname" ;;
+      *) convert "$i" "$newname" ;;
+    esac
+  done
+  }
+
+function 2pdf {
+  if [[ ${files[0]} = -*name ]]; then
+    f=${files[1]}; unset "files[0]" "files[1]"
+  else
+    echo -e "${green}Default is combined_images.pdf"
+    read -rp "Enter pdf filename: " f
+    echo -ne "$none"
+  fi
+  if [[ -z $f ]]; then f=combined_images.pdf
+  elif [[ $f != *.pdf ]]; then f=$f.pdf; fi
+  [[ -e $f ]] && f=${f%.*}_$(date +%s).pdf
+  [[ ${files[2]} ]] || err "You must specify at least one image file"
+  mkdir -p "$(dirname "$f")"
+  convert "${files[@]}" -compress Zip "$f"
+  }
+
+function usage {
+  echo "$version"
+  echo -e "${bold}Usage: ${0##*/} [command] [option] images$none"
+  echo "Commands and options:"
+  echo "  --slideshow  [--delay sec --loop n --resize pixel]"
+  echo "  --info"
+  echo "  --wallpaper [--tile|--resizetile|--center|--resizecenter|--stretch]"
+  echo "  --resize [--size pixel]"
+  echo "  --rotate [--angle degree]"
+  echo "  --format [--jpg|--png|--gif|--ico|--bmp|--tif|--ps|--pdf]"
+  echo "  --2pdf [--name filename]"
+  exit
+  }
+
+function mainmenu {
+  if [[ $cmd ]]; then $cmd; return; fi
+  echo -e "${yellow}Files in selection:$none"
+  for i in "${files[@]}"; do echo -n "$i "; done
+  echo
+  menutitle="---Image Tools---"
+  menu "Image Slideshow" "Image Information" "Set Image as Wallpaper" "Image Resize" "Image Rotation" "Image Format Conversion" "Combine Images to PDF"
+  case $choice in
+    *Slideshow) slideshow ;;
+    *Info*) info ;;
+    *Wallpaper) wallpaper ;;
+    *Resize) resize ;;
+    *Rotation) rotate ;;
+    *Format*) format ;;
+    *PDF) 2pdf ;;
+  esac
+  mainmenu
+  }
+
+function err { echo -e "$red$*$none"; exit 1; }
+
+case $1 in
+  -h|--help) usage ;;
+  --*) cmd=${1//-}; shift; files=("$@") ;;
+  *) files=("$@") ;;
+esac
+[[ $# -eq 0 ]] && usage
+mainmenu "$cmd"

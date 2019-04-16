@@ -1,0 +1,231 @@
+#!/bin/bash
+: <<COMMENT
+  Copyright (C) 2012 Tri Le <trile7 at gmail dot com>
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation version 3.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+COMMENT
+
+version="rename v0.3"
+blue='\e[0;34m'; green='\e[0;32m'; red='\e[0;31m'; yellow='\e[0;33m'; bold='\e[1m';none='\e[0m'
+
+function menu {
+  n=0
+  choices=("$@")
+  echo -e "$blue$bold$menutitle"
+  for i in "${choices[@]}"; do
+    echo -e "$none$((n++)))   $yellow$i"
+  done
+  echo -en "${none}c|q) ${yellow}Cancel"
+  echo -e $green
+  read -p "Enter a choice from above menu: " i
+  echo -e $none
+  [[ $i =~ c|q ]] && exit 1
+  if test $i -lt $n 2>/dev/null; then
+    choice=${choices[i]}; return $i
+  else
+    echo -e "$red$i is an invalid entry...please try again!"
+    menu "${choices[@]}"
+  fi
+  }
+
+function space2_ {
+  newname=${1// /_}
+  }
+
+function _2space {
+  newname=${1//_/ }
+  }
+
+function upper {
+  newname=`echo $1 | tr [:lower:] [:upper:]`
+  }
+
+function lower {
+  newname=`echo $1 | tr [:upper:] [:lower:]`
+  }
+
+function upperfirst {
+  words=(`echo "$1"`)
+  W=""
+  for w in ${words[@]}; do
+    x=`echo ${w:0:1}`
+    X=`echo ${w:0:1} | tr [:lower:] [:upper:]`
+    W=($W ${w/$x/$X})
+  done
+  newname=`echo ${W[@]}`
+  }
+
+function x2y {
+  echo -ne $none
+  if [[ -z $x ]]; then
+    echo -e "Use wildcard ${green}?${none} to match any one character or ${green}*${none} to match all characters"
+    echo -ne $green
+    read -p "Enter x (find value, required): " x
+    if [[ -z $x ]]; then
+      err "x is required"
+      x2y; return 1
+    fi
+  fi
+  [[ $j ]] || read -p "Enter y (replacement value; leave blank to remove x): " y
+  j=1
+  newname=${1//$x/$y}
+  }
+
+function insert {
+  echo -ne $none
+  if [[ -z $p ]]; then
+    echo -e "Use ${green}0${none} for the beginning of name, ${green}end${none} for the end of name, or ${green}end-ext${none} for the end of name but keep extension."
+    echo -ne $green
+    read -p "Enter p (insert position, required): " p
+    if ! test $p -ge 0 2>/dev/null  && [[ $p != end* ]]; then
+      err "$p is invalid"
+      p=""; insert
+    fi
+  fi
+  if [[ -z $x && $p ]]; then
+    echo -e "${none}Use ${green}%${none} for counter."
+    echo -ne $green
+    read -p "Enter x (character to insert, required): " x
+    if [[ -z $x ]]; then
+      err "x is required"
+      x=""; insert
+    fi
+  fi
+  if [[ $x = *%* && -z $c && $p ]]; then
+    echo -e "${none}Start counter (include number of digits; i.e. 3 digits counter starting at 1, enter: 001)"
+    echo -ne $green
+    read -p "Enter start counter n (n >= 0, required): " c
+    if ! test $c -ge 0 2>/dev/null; then
+      err "$c is invalid"
+      c=""; insert
+    fi
+    n=`expr $c + ${#files[@]} - 1`
+    c=(`seq -w $c 1 $n`)
+  fi
+  case $p in
+    end) pos=${#1} ;;
+    end-ext) noext=${1%.*}; pos=${#noext} ;;
+    *) pos=$p ;;
+  esac
+  if [[ $c ]]; then
+    counter=${c[$j]}
+    x1=${x//%/$counter}
+    newname=${1:0:$pos}$x1${1:$pos}
+  else
+    newname=${1:0:$pos}$x${1:$pos}
+  fi
+  }
+
+function remove {
+  echo -ne $none
+  if [[ -z $p ]]; then
+    echo -e "Use ${green}0${none} for the beginning of name"
+    echo -ne $green
+    read -p "Enter p (remove position, p >= 0, required): " p
+    if ! test $p -ge 0 2>/dev/null; then
+      err "$p is invalid"
+      p=""; remove
+    fi
+  fi
+  [[ $p ]] && read -p "Enter n (number of characters to remove): " n
+  [[ $p -eq 0 ]] && x1="" || x1=${1:0:p}
+  p2=$((p+n))
+  x2=${1:p2}
+  newname=$x1$x2
+  }
+
+function err {
+  echo -e "$red$@$none"; echo; return 1
+  }
+
+function changename {
+  if $cmd; then
+    echo -e $none
+    echo -e "${bold}Changes preview:"
+    j=0
+    for i in "${files[@]}"; do
+      $cmd "$i" || continue
+      [[ $newname ]] || newname="${red}SKIPPED"
+      ((j++))
+      echo -e "$yellow$i -> $bold$newname"
+    done
+    echo -e $green
+    read -p "Do you want to proceed with rename (Y/n)? " ans
+    echo -e $none
+    if [[ $ans = n ]]; then
+      unset p x c; mainmenu
+    else
+      j=0
+      for i in "${files[@]}"; do
+        [[ -e $i ]] || continue
+        $cmd "$i" || continue
+        [[ $newname ]] || continue
+        ((j++))
+        if [[ -d $i ]] && [[ $cmd = upper* || $cmd = lower ]]; then
+          mv "$i" "$newname$$"
+          mv "$newname$$" "$newname"
+        else
+          mv "$i" "$newname"
+        fi
+      done
+    fi
+  else
+    mainmenu
+  fi
+  }
+
+function mainmenu {
+  if [[ -z $1 ]]; then
+    echo "-------------------"
+    echo -e "${bold}Files to be renamed:"
+    echo -ne $yellow
+    for i in "${files[@]}"; do echo $i; done
+    echo -e $none
+    menutitle="---Rename Tools---"
+    menu "Space_to_underscore" "Underscore to space" "ALL UPPERCASE" "all lowercase" "Uppercase First Letter of Each Word" "Convert x to y" "Insert counter n and/or character x at position p" "Remove n number of characters at position p"
+    case $? in
+      0) cmd=space2_ ;;
+      1) cmd=_2space ;;
+      2) cmd=upper ;;
+      3) cmd=lower ;;
+      4) cmd=upperfirst ;;
+      5) cmd=x2y ;;
+      6) cmd=insert ;;
+      7) cmd=remove ;;
+    esac
+  fi
+  changename
+  }
+
+function usage {
+  echo -e "${bold}$version"
+  echo -e "Usage: ${0##*/} [options] filename1 filename2 ..... $none"
+  echo "Options: menu is shown if option is not specified"
+  echo "  --space2_     convert_space_to_underscore"
+  echo "  --_2space     convert underscore to space"
+  echo "  --upper       CONVERT ALL TO UPPERCASE"
+  echo "  --lower       convert all to lowercase"
+  echo "  --upperfirst  Convert First Letter Of A Word To Uppercase"
+  echo "  --x2y         Convert x to y"
+  echo "  --insert      Insert counter or characters at a specific position"
+  echo "  --remove      Remove numbers of characters at a specific position"
+  exit
+  }
+
+case $1 in
+  -h|--h*) usage ;;
+  --*) cmd=${1#--}; shift; files=("$@") ;;
+  *) files=("$@") ;;
+esac
+[[ $# -eq 0 ]] && usage
+mainmenu $cmd
