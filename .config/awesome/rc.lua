@@ -239,7 +239,7 @@ awful.screen.connect_for_each_screen(function(s)
     mywibox[s] = awful.wibar({ position = "top", ontop = true, height = "18", screen = s })
 
     -- Quake style drop down terminal
-    s.quake = lain.util.quake({ app = terminal, width = 0.75, height = 0.33, horiz = "center", vert = "bottom", border=0 })
+    s.quake = lain.util.quake({ app = terminal, width = 0.75, height = 0.33, horiz = "center", vert = "bottom", border=2 })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
