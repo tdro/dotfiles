@@ -152,3 +152,6 @@ PATH="$HOME/.node_modules/bin:$PATH"
 
 # add npm prefix
 export npm_config_prefix=~/.node_modules
+
+# source fzm
+source $HOME/.config/ranger/fzf-marks/fzf-marks.plugin.bash
