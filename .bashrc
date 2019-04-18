@@ -126,6 +126,9 @@ alias dmesg='dmesg -e'
 # colortest
 alias colortest='msgcat --color=test'
 
+# ranger keep running
+alias rangerinf='while true; do ranger; done'
+
 # color man
 man() {
   env LESS_TERMCAP_mb=$(printf "\e[1;31m") \
