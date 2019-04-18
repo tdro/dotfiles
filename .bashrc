@@ -6,6 +6,9 @@
 # cd using directory name
 shopt -s autocd;
 
+# disable ctrl+s
+stty -ixon;
+
 # set prompt statement
 PS1='\[\e[0;34m\]\W \$\[\e[0m\] '
 
