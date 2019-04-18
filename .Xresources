@@ -8,7 +8,7 @@ URxvt.internalBorder: 10
 URxvt.geometry: 74x20
 
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
-URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.keysym.M-m: perl:url-select:select_next
 URxvt.url-select.launcher: /usr/bin/firefox
 
 URxvt*font: xft:mono:size=10
