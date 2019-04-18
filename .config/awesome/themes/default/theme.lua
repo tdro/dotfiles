@@ -5,7 +5,7 @@ theme.font      = "FontAwesome Bold 8"
 -- }}}
 
 -- {{{ Colors
-theme.bg_normal  	= "#171717"
+theme.bg_normal  	= "#2C303C"
 theme.bg_focus   	= "#00AFF0"
 theme.bg_urgent  	= "#000000"
 theme.bg_minimize   = "#444444"
