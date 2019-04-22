@@ -3,6 +3,7 @@ from ranger.api.commands import Command
 class fzm_select(Command):
     """
     :fzm_select
+    See: https://github.com/urbainvaes/fzf-marks
     """
     def execute(self):
         import subprocess
@@ -12,3 +13,21 @@ class fzm_select(Command):
         if fzm.returncode == 0:
             fzm_folder = os.path.abspath(stdout.rstrip('\n'))
             self.fm.cd(fzm_folder)
+
+
+class fzf_select(Command):
+    """
+    :fzf_select
+    See: https://github.com/junegunn/fzf
+    """
+    def execute(self):
+        import subprocess
+        import os.path
+        fzf = self.fm.execute_command("fzf +m", universal_newlines=True, stdout=subprocess.PIPE)
+        stdout, stderr = fzf.communicate()
+        if fzf.returncode == 0:
+            fzf_file = os.path.abspath(stdout.rstrip('\n'))
+            if os.path.isdir(fzf_file):
+                self.fm.cd(fzf_file)
+            else:
+                self.fm.select_file(fzf_file)
