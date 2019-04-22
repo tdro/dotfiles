@@ -124,7 +124,11 @@ function jump {
     if [[ -n ${jumpline} ]]; then
         jumpdir=$(echo "${jumpline}" | sed 's/.*: \(.*\)$/\1/' | sed "s#~#${HOME}#")
         bookmarks=$(_handle_symlinks)
+        if is_interactive_shell; then
+        cd "${jumpdir}" || return
+        else
         echo "${jumpdir}" || return
+        fi
         if ! [[ "${FZF_MARKS_KEEP_ORDER}" == 1 ]]; then
             perl -n -i -e "print unless /^\\Q${jumpline//\//\\/}\\E\$/" "${bookmarks}"
             echo "${jumpline}" >> "${FZF_MARKS_FILE}"
