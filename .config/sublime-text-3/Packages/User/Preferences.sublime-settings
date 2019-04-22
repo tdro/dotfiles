@@ -19,7 +19,7 @@
 		{
 			"args":
 			{
-				"command": "~/.node_modules/bin/chromix-too reload 275173185"
+				"command": "~/.node_modules/bin/chromix-too reload 275179321"
 			},
 			"command": "shell_command"
 		}
@@ -28,6 +28,7 @@
 	"predawn_tabs_small": true,
 	"save_on_focus_lost": true,
 	"scroll_past_end": true,
+	"show_git_status": false,
 	"show_panel_on_build": false,
 	"show_tab_close_buttons": false,
 	"theme": "predawn-DEV.sublime-theme",
