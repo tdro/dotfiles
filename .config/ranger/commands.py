@@ -23,7 +23,7 @@ class fzf_select(Command):
     def execute(self):
         import subprocess
         import os.path
-        fzf = self.fm.execute_command("fzf +m", universal_newlines=True, stdout=subprocess.PIPE)
+        fzf = self.fm.execute_command("ls -A1 --color=never | fzf +m", universal_newlines=True, stdout=subprocess.PIPE)
         stdout, stderr = fzf.communicate()
         if fzf.returncode == 0:
             fzf_file = os.path.abspath(stdout.rstrip('\n'))
