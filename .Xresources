@@ -1,3 +1,7 @@
+! -----------------
+! URxvt Settings
+! -----------------
+
 URxvt.perl-ext-common: default,matcher,font-size,tabbed,vtwheel,url-select,keyboard-select
 URxvt.url-launcher: /usr/bin/firefox
 
@@ -31,6 +35,10 @@ URxvt.foreground: #FFFFFF
 URxvt.background: #2C303C
 URxvt.colorUL: #66A9B9
 
+! -----------------
+! Terminal Colors
+! -----------------
+
 !black
 *color0:  #2C303C
 *color8:  #666666
@@ -62,6 +70,10 @@ URxvt.colorUL: #66A9B9
 !white
 *color7:  #FFFFFF
 *color15: #FFFFFF
+
+! -----------------
+! Font Settings
+! -----------------
 
 Xft.autohint: 0
 Xft.antialias: 1
