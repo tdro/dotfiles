@@ -1,3 +1,5 @@
 #!/bin/bash
+
 export BROWSER=/usr/bin/chromium;
-eecho | rofi -dmenu -fake-transparency no-disable-history -show run -hide-scrollbar -separator-style none -font "ubuntu 16" -bw 0 -padding 10 -lines 0 -p " " | xargs -r surfraw d
+
+echo | rofi -dmenu -show run -font "ubuntu 16" -bw 0 -padding 10 -lines 0 -p " " | xargs -r surfraw d
