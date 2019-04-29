@@ -9,4 +9,7 @@
 
     // Toggle Line Numbers
     { "keys": ["ctrl+alt+l"], "command": "toggle_setting", "args": { "setting": "line_numbers" } },
+
+    // Fix Goto Symbol in Project
+    { "keys": ["ctrl+shift+r"], "command": "goto_symbol_in_project" },
 ]
