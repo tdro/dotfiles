@@ -396,7 +396,7 @@ globalkeys = gears.table.join(
     awful.util.spawn_with_shell("~/.config/awesome/app-launcher")
         end),
 
-    awful.key({ modkey, "Mod1" }, "r", function ()
+    awful.key({ modkey }, "d", function ()
     awful.util.spawn_with_shell("~/.config/awesome/app-launcher-priv")
         end),
 
