@@ -6,11 +6,6 @@
   }
 }
 
-/* Hide autocomplete results */
-#PopupAutoCompleteRichResult {
-  display: none !important;
-}
-
 /* Auto hide sidebar */
 :root {
   --sidebar-hover-width: 8px;
