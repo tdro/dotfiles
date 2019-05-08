@@ -123,6 +123,9 @@ alias audacity='PULSE_LATENCY_MSEC=30 audacity'
 # dmesg
 alias dmesg='dmesg -e'
 
+# diceware
+alias diceware='diceware -d " "'
+
 # colortest
 alias colortest='msgcat --color=test'
 
