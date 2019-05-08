@@ -171,9 +171,9 @@ mytextdate = awful.widget.textclock("  %a %b %d   ", 1)
 mytextclock = wibox.widget.textclock("  %I:%M %p", 1)
 
 -- Attach Lain Calendar Widget
-lain.widget.calendar({
+lain.widget.cal({
     attach_to = { mytextdate, mytextclock },
-    notification_preset = { font = "Ubuntu Mono Bold 10", fg = "#FFFFFF", bg = "#000000" },
+    notification_preset = { font = "Ubuntu Mono Bold 10", fg = "#FFFFFF", bg = "#2C303C" },
     cal = "/usr/bin/cal --color=always"
 })
 
