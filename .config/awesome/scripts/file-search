@@ -4,7 +4,7 @@
 #if [ -f $HOME/.dmenurc ]; then
 	#. $HOME/.dmenurc
 #else
-	#DMENU='dmenu -f -i -b -nb black -nf white -sf white -fn Ubuntu-8'
+	#DMENU='dmenu -f -i -b'
 #fi
 
 #input="$($DMENU -p "Search":)"
