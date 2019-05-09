@@ -363,47 +363,47 @@ globalkeys = gears.table.join(
 
     -- Custom key bindings
     awful.key({ modkey }, "Tab", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/window-overview")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/window-overview")
         end),
 
     awful.key({ }, "Print", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/snipping-tool")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/snipping-tool")
         end),
 
     awful.key({ }, "XF86ScreenSaver", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/lockscreen")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/lockscreen")
         end),
 
     awful.key({ }, "XF86AudioRaiseVolume", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/volume-up")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/volume-up")
         end),
 
     awful.key({ }, "XF86AudioLowerVolume", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/volume-down")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/volume-down")
         end),
 
     awful.key({ }, "XF86AudioMute", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/volume-mute")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/volume-mute")
         end),
 
     awful.key({ }, "XF86Display", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/xrandr-switch-monitor")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/switch-monitor")
         end),
 
     awful.key({ modkey }, "p", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/internet-search")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/internet-search")
         end),
 
     awful.key({ modkey }, "r", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/app-launcher")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/app-launcher")
         end),
 
     awful.key({ modkey }, "d", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/app-launcher-priv")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/app-launcher-priv")
         end),
 
     awful.key({ modkey, "Mod1" }, "p", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/file-search")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/file-search")
         end),
 
     awful.key({ modkey }, "z", function ()
@@ -411,8 +411,15 @@ globalkeys = gears.table.join(
         end),
 
     awful.key({ "Mod1" }, "Tab", function ()
-    awful.util.spawn_with_shell("~/.config/awesome/window-switcher")
+    awful.util.spawn_with_shell("~/.config/awesome/scripts/window-switcher")
         end)
+
+	-- awful.key({ modkey }, "x", function ()
+	-- awful.prompt.run({ prompt = "Run Lua code: " },
+	-- mypromptbox[mouse.screen].widget,
+    -- awful.util.eval, nil,
+    -- awful.util.getdir("cache") .. "/history_eval")
+	--	end)
 )
 
 clientkeys = gears.table.join(
@@ -513,8 +520,7 @@ awful.rules.rules = {
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
-     }
-    },
+}},
 
     -- Floating clients.
     { rule_any = {
@@ -523,7 +529,7 @@ awful.rules.rules = {
 
     -- Honor size hints for specific clients.
     { rule_any = {
-        instance = { "gvim", },
+        instance = {},
       }, properties = { size_hints_honor = true }},
 }
 -- }}}
@@ -599,11 +605,12 @@ awful.util.spawn = function (s)
     oldspawn(s, false)
 end
 
--- No border for maximized clients
+-- Hide window border for maximized clients
 client.connect_signal("property::maximized", function(c)
     c.border_width = c.maximized and 0 or beautiful.border_width
 end)
 
+-- Focus and unfocus borders
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}

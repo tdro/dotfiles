@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rofi -fullscreen -show run -display-run "#" -run-command 'gksudo {cmd}' -font "ubuntu 12" -bw 0 -padding 300

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+notify-send "Locking System"
+killall -q dmenu

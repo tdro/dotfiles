@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ps cax | grep copyq > /dev/null
+if [ $? -eq 0 ]; then
+	copyq toggle
+else
+	copyq
+fi
