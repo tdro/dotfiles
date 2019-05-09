@@ -1,7 +1,3 @@
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
-pcall(require, "luarocks.loader")
-
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -249,8 +245,8 @@ awful.screen.connect_for_each_screen(function(s)
     left_layout:add(separator)
     left_layout:add(mylayoutbox[s])
     left_layout:add(separator)
-    --left_layout:add(mypromptbox[s])
-    --left_layout:add(separator)
+    -- left_layout:add(mypromptbox[s])
+    -- left_layout:add(separator)
     left_layout:add(netwidgetwifi)
     left_layout:add(netwidgetnet)
     left_layout:add(separator)
@@ -258,6 +254,7 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
+    -- if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(separator)
     right_layout:add(memwidget)
     right_layout:add(separator)
