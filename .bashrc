@@ -38,12 +38,6 @@ if [ -n "$SSH_CLIENT" ]; then
   export PS1='\[\e[0;32m\][ \W ] \$\[\e[0m\] '
 fi
 
-# github dotfiles
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.local/share/dotfiles/ --work-tree=$HOME'
-
-# github dotfiles
-alias etcfiles='/usr/bin/git --git-dir=$HOME/.local/share/etcfiles/ --work-tree=/etc'
-
 # bash history settings
 export HISTSIZE=
 export HISTFILESIZE=
