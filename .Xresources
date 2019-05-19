@@ -105,5 +105,5 @@ rofi.color-urgent: argb:00000000, #F99157, argb:00000000, #F99157, #1B2B34
 dmenu.font: xft:Ubuntu:pixelsize=10:style=bold
 dmenu.background: #000000
 dmenu.foreground: #FFFFFF
-dmenu.selforeground: #FFFFFF
+dmenu.selforeground: #000000
 dmenu.selbackground: #1B99EC
