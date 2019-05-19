@@ -1,9 +1,15 @@
 {
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
 	"convert_tabspaces_on_save": true,
 	"ensure_newline_at_eof_on_save": true,
-	"font_size": 10,
+	"font_face": "UW Ttyp0",
+	"font_options":
+	[
+		"no_italic",
+		"no_bold"
+	],
+	"font_size": 9,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
