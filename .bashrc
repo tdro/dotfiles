@@ -61,12 +61,6 @@ alias ls='ls --color=always'
 # lsblk
 alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
 
-# use a long listing format
-alias ll='ls -la --color=always'
-
-# show hidden files
-alias l.='ls -d .* --color=always'
-
 # do not delete / or prompt if deleting more than 3 files
 alias rm='rm -I --preserve-root'
 
@@ -89,9 +83,6 @@ alias poweroff='sudo /sbin/poweroff'
 alias halt='sudo /sbin/halt'
 alias shutdown='sudo /sbin/shutdown'
 
-# reduce strokes for clear
-alias c='clear'
-
 # journalctl
 alias journalctl='sudo journalctl -q'
 
@@ -100,7 +91,6 @@ alias wavemon='sudo wavemon'
 
 # pacman
 alias pacman='sudo pacman'
-alias pacman-optimize='pacman -Sc --noconfirm'
 
 # color grep
 alias grep='grep --color=tty -d skip'
