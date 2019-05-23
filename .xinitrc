@@ -43,8 +43,5 @@ xset dpms 3600 3600 3600 &
 # Protect eyes with redshift
 redshift &
 
-# Compton composite manager
-# compton -b
-
 # Run awesome
 exec awesome --no-argb
