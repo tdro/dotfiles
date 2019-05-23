@@ -41,6 +41,9 @@ set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 let php_sql_query = 1
 let php_htmlInStrings = 1
 
+" Vim infinite undo.
+set undofile
+set undodir=~/.vim/undodir
 
 "----------------Visuals----------------"
 
