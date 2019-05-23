@@ -20,16 +20,6 @@
 	"line_padding_bottom": 3,
 	"line_padding_top": 3,
 	"margin": 0,
-	"on_post_save_user":
-	[
-		{
-			"args":
-			{
-				"command": "~/.node_modules/bin/chromix-too reload 275179321"
-			},
-			"command": "shell_command"
-		}
-	],
 	"overlay_scroll_bars": "disabled",
 	"predawn_tabs_small": true,
 	"save_on_focus_lost": true,
