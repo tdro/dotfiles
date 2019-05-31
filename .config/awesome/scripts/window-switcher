@@ -6,4 +6,4 @@
 
 # Rofi
 
-rofi -no-disable-history -show window -theme-str '#prompt { enabled: false; }' -window-format {t} -font "ubuntu 12" -bw 0 -padding 15 -lines 1
+rofi -no-disable-history -show window -theme-str '#prompt { enabled: false; }' -window-format {t} -font "ubuntu 12" -padding 15 -lines 1

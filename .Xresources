@@ -92,6 +92,7 @@ rofi.fake-transparency: true
 rofi.disable-history: false
 rofi.hide-scrollbar: true
 rofi.separator-style: none
+rofi.bw: 0
 
 rofi.color-window: argb:cc222222, #FAC863, #FAC863
 rofi.color-normal: argb:00000000, #FFFFFF, argb:00000000, #FAC863, #1B2B34
