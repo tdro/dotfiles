@@ -18,7 +18,7 @@ require("awful.hotkeys_popup.keys")
 -- Naughty notification presets
 naughty.config.defaults.border_width = 2
 naughty.config.defaults['icon_size'] = 32
-naughty.config.defaults.border_color = '#000000'
+naughty.config.defaults.border_color = '#2C303C'
 naughty.config.presets.critical.fg = '#000000'
 -- Vicious library
 local vicious = require("vicious")
