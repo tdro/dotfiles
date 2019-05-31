@@ -1,15 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-# dmenu
-#if [ -f $HOME/.dmenurc ]; then
-	#. $HOME/.dmenurc
-#else
-	#DMENU='dmenu -f -i -b'
-#fi
-
-#input="$($DMENU -p "Search":)"
-#if [ "$input" != '' ]
-#then
-	#result="$(echo "$input" | locate -e -r "$input" | $DMENU -p "Result:" )"
-	#xdg-open "$result"
-#fi
+xdg-open "$(locate /home | rofi -font "ubuntu 12" -padding 20 -dmenu -i -p 'Files')"
