@@ -1,16 +1,17 @@
-
 runtime! archlinux.vim
 
 " Do not load defaults if ~/.vimrc is missing.
-"let skip_defaults_vim=1
+let skip_defaults_vim=1
 
 " Source plugins.
 so ~/.vim/plugins.vim
 
-
 "------------General Settings------------"
 
+let mapleader = ','                      " Set default map leader.
+
 syntax enable                            " Enable syntax highlighting.
+
 set ruler                                " Show the cursor position all the time.
 set nowrap                               " Do not automatically wrap on file load.
 set nonumber                             " Set line numbers.
