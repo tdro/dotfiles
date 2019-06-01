@@ -19,7 +19,10 @@ set hlsearch                             " Enable search.
 set incsearch                            " Set incremental search.
 set noswapfile                           " Disable swap files.
 set nocompatible                         " Use Vim defaults.
+set splitbelow                           " Open horizontal splits below.
+set splitright                           " Open vertical splits to the right.
 
+set mouse=a                              " Enable visual mode.
 set shortmess+=I                         " Disable startup message.
 set showtabline=0                        " Disable tab bar.
 set fillchars=                           " Set split window margin fill to none.
@@ -30,10 +33,6 @@ set history=50                           " Keep 50 lines of command line history
 set clipboard=unnamed                    " Use clipboard as default register.
 set backspace=indent,eol,start           " Enable backspacing.
 set formatoptions-=t                     " Do not auto wrap text when typing.
-let mapleader = ','                      " Set default map leader.
-
-set splitbelow                           " Open horizontal splits below.
-set splitright                           " Open vertical splits to the right.
 
 " Convert tab to spaces.
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
