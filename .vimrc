@@ -73,6 +73,12 @@ hi foldcolumn ctermbg=171717
 hi vertsplit guifg=#1b1b1b guibg=#1b1b1b
 hi vertsplit ctermfg=black ctermbg=171717
 
+" Set cursor hightlight color.
+hi CursorLine cterm=none ctermbg=darkred ctermfg=white
+
+" Remove end of buffer indicator.
+highlight EndOfBuffer ctermfg=black guifg=black
+
 
 "---------------Shortcuts---------------"
 
