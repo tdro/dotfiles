@@ -35,6 +35,7 @@ set history=50                           " Keep 50 lines of command line history
 set clipboard=unnamed                    " Use clipboard as default register.
 set backspace=indent,eol,start           " Enable backspacing.
 set formatoptions-=t                     " Do not auto wrap text when typing.
+set complete=.,w,b,u                     " Set our desired autocompletion match pattern.
 
 " Convert tab to spaces.
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
