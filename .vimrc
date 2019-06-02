@@ -6,9 +6,10 @@ let skip_defaults_vim=1
 " Source plugins.
 so ~/.vim/plugins.vim
 
+
 "------------General Settings------------"
 
-let mapleader = ','                      " Set default map leader.
+let mapleader = ';'                      " Set default map leader.
 
 syntax enable                            " Enable syntax highlighting.
 
