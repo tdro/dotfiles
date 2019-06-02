@@ -95,29 +95,97 @@ hi Normal ctermbg=none
 nmap <Leader>ev :tabedit /etc/vimrc<cr>
 
 " Exit incremental search.
-nmap <Leader><space> :nohlsearch<cr>
+nmap <Esc><Esc> :nohl<cr>
+
+" Locate search.
+nmap <Leader>f :Locate<space>
+
+" Close buffer.
+nmap <Leader>c :bd<cr>
+
+" Close buffer.
+nmap <Leader>m :Maps<cr>
+
+" Print working directory
+nmap <Leader>d :pwd<cr>
+
+" Cycle through buffers.
+nmap ' :bnext<cr>
+
+" Close Vim.
+nmap <C-c> :qa<cr>
+
+" Toggle Spell Check
+nmap <C-s> :set spell!<cr>
 
 " Remap split window keys.
-nmap <C-J> <C-W><C-J>
-nmap <C-K> <C-W><C-K>
-nmap <C-H> <C-W><C-H>
-nmap <C-L> <C-W><C-L>
+nmap <Bslash> :vsplit<cr>
+nmap <C-Bslash> :split<cr>
+nmap <C-h> :vertical resize +5<cr>
+nmap <C-l> :vertical resize -5<cr>
+nmap <C-j> :resize +5<cr>
+nmap <C-k> :resize -5<cr>
 
-" CtrlP key mappings.
-nmap <Leader>eb :CtrlPBufTag<cr>
-nmap <Leader>em :CtrlPMRUFiles<cr>
-let g:ctrlp_match_window = 'order:ttb,min:1,max:5,results:30'
+" FZF key mappings.
+nmap <C-p> :Hist<cr>
+nmap <C-f> :Lines<cr>
+nmap <C-x> :GFiles?<cr>
+nmap <C-g> :BTags<cr>
+nmap <Tab> :Buffers<cr>
+
+" FZF function mappings.
+nmap <C-o> :call fzf#run({'source': 'rg --files', 'sink': 'e', 'down': '20%'})<cr>
+nmap <C-d> :call fzf#run({'source': 'cat ~/.vim/projects', 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+
+" Move lines around.
+nnoremap = :m-2<cr>==
+xnoremap = :m-2<cr>gv=gv
+nnoremap - :m+<cr>==
+xnoremap - :m'>+<cr>gv=gv
+
+" Autoclose tags
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+
+" Grep Replace
+set grepprg=ag
+let g:grep_cmd_opts = '--line-numbers --noheading'
+
+" Vim Vinegar
+nmap . <Plug>VinegarUp
 
 " NERDTree settings.
-nmap <C-n> :NERDTreeToggle<cr>
 let NERDTreeMinimalUI = 1                " Enable minimal NERDTree UI.
-let NERDTreeHijackNetrw = 0              " Prevent NERDTree from hijacking CtrlP.
+let NERDTreeHijackNetrw = 0              " Do not hijack vinegar.
+nmap <C-n> :NERDTreeToggle<cr>
 
 
 "----------------Autorun----------------"
 
 augroup autosourcing
     autocmd!
+
+    " Reload vimrc on vimrc file save.
     autocmd BufWritePost vimrc source %
-augroup END
-  
+
+    " Automatically save the session on leaving vim.
+    autocmd! VimLeave * mksession! ~/.vim/Session.vim
+
+    " Automatically load the session when entering vim.
+    autocmd! VimEnter * source ~/.vim/Session.vim
+
+    " Automatically load variables overriden by the session.
+    autocmd VimEnter * highlight EndOfBuffer ctermfg=black guifg=black
+                \ | hi foldcolumn ctermbg=171717
+                \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
+                \ | hi vertsplit ctermfg=black ctermbg=171717
+                \ | hi Normal ctermbg=none
+
+    " Automatically remove trailing whitespace on save.
+    autocmd BufWritePre * %s/\s\+$//e
+
+    " Automatically save file on text change.
+    autocmd VimEnter,BufEnter * autocmd TextChanged,TextChangedI,InsertLeave <buffer> silent! write
+
