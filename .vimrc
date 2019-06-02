@@ -22,6 +22,7 @@ set noswapfile                           " Disable swap files.
 set nocompatible                         " Use Vim defaults.
 set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
+set cursorline                           " Set cursor line highlight.
 
 set mouse=a                              " Enable visual mode.
 set shortmess+=I                         " Disable startup message.
