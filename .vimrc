@@ -44,13 +44,17 @@ set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 let php_sql_query = 1
 let php_htmlInStrings = 1
 
+" Highlight Javascript
+let g:javascript_plugin_jsdoc = 1
+
 " Vim infinite undo.
 set undofile
 set undodir=~/.vim/undodir
 
+
 "----------------Visuals----------------"
 
-colorscheme atom-dark                    " Set colorscheme.
+colorscheme material-monokai                    " Set colorscheme.
 set t_CO=256                             " Enable 256 terminal colors.
 
 " Remove scrollbars in gui.
