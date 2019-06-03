@@ -108,13 +108,19 @@ nmap <Esc><Esc> :nohl<cr>
 nmap <Leader>f :Locate<space>
 
 " Close buffer.
-nmap <Leader>c :bd<cr>
+nmap <Leader>cb :bd<cr>
+
+" Close window.
+nmap <Leader>cw :q<cr>
 
 " Close buffer.
 nmap <Leader>m :Maps<cr>
 
 " Print working directory
 nmap <Leader>d :pwd<cr>
+
+" Reindent entire file
+nmap <Leader>r gg=G<Leader>o<Leader>o
 
 " Cycle through buffers.
 nmap ' :bnext<cr>
@@ -144,17 +150,22 @@ nmap <Tab> :Buffers<cr>
 nmap <C-o> :call fzf#run({'source': 'rg --files', 'sink': 'e', 'down': '20%'})<cr>
 nmap <C-d> :call fzf#run({'source': 'cat ~/.vim/projects', 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
 
+" Remap jump key binding.
+nnoremap <Leader>o <C-o>
+
 " Move lines around.
-nnoremap = :m-2<cr>==
-xnoremap = :m-2<cr>gv=gv
-nnoremap - :m+<cr>==
-xnoremap - :m'>+<cr>gv=gv
+nnoremap 0 :m-2<cr>==
+xnoremap 0 :m-2<cr>gv=gv
+nnoremap 9 :m+<cr>==
+xnoremap 9 :m'>+<cr>gv=gv
 
 " Autoclose tags
+inoremap " ""<left>
+inoremap ' ''<left>
 inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
+inoremap {<CR> {<CR>}<ESC>O<TAB>
 
 " Grep Replace
 set grepprg=ag
