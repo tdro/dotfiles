@@ -182,28 +182,32 @@ nmap <C-n> :NERDTreeToggle<cr>
 
 "----------------Autorun----------------"
 
-augroup autosourcing
+augroup autosaving
+
+    " Clear auto commands.
     autocmd!
 
     " Reload vimrc on vimrc file save.
     autocmd BufWritePost vimrc source %
+                \ | :silent ! cp /etc/vimrc ~/.vimrc
 
-    " Automatically save the session on leaving vim.
-    autocmd! VimLeave * mksession! ~/.vim/Session.vim
+augroup END
 
-    " Automatically load the session when entering vim.
-    autocmd! VimEnter * source ~/.vim/Session.vim
+" Automatically save the session on leaving vim.
+autocmd! VimLeave * mksession! ~/.vim/Session.vim
 
-    " Automatically load variables overriden by the session.
-    autocmd VimEnter * highlight EndOfBuffer ctermfg=black guifg=black
-                \ | hi foldcolumn ctermbg=171717
-                \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
-                \ | hi vertsplit ctermfg=black ctermbg=171717
-                \ | hi Normal ctermbg=none
+" Automatically load the session when entering vim.
+autocmd! VimEnter * source ~/.vim/Session.vim
 
-    " Automatically remove trailing whitespace on save.
-    autocmd BufWritePre * %s/\s\+$//e
+" Automatically load variables overriden by the session.
+autocmd VimEnter * highlight EndOfBuffer ctermfg=black guifg=black
+            \ | hi foldcolumn ctermbg=171717
+            \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
+            \ | hi vertsplit ctermfg=black ctermbg=171717
+            \ | hi Normal ctermbg=none
 
-    " Automatically save file on text change.
-    autocmd VimEnter,BufEnter * autocmd TextChanged,TextChangedI,InsertLeave <buffer> silent! write
+" Automatically remove trailing whitespace on save.
+autocmd BufWritePre * %s/\s\+$//e
 
+" Automatically save file on insert and idle.
+autocmd InsertEnter,InsertLeave,CursorHold,CursorHoldI * silent! write
