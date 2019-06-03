@@ -45,7 +45,7 @@ set formatoptions-=t                     " Do not auto wrap text when typing.
 set complete=.,w,b,u                     " Set our desired autocompletion match pattern.
 
 " Convert tab to spaces.
-set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 
 " Highlight HTML and SQL in PHP.
 let php_sql_query = 1
