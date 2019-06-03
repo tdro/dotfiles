@@ -18,11 +18,18 @@ set nowrap                               " Do not automatically wrap on file loa
 set nonumber                             " Set line numbers.
 set hlsearch                             " Enable search.
 set incsearch                            " Set incremental search.
-set noswapfile                           " Disable swap files.
 set nocompatible                         " Use Vim defaults.
 set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
 set cursorline                           " Set cursor line highlight.
+
+set nohidden                             " No hidden buffers.
+set nobackup                             " No write backups.
+set noswapfile                           " Disable swap files.
+set nowritebackup                        " No overwrite backups.
+set autoread                             " Auto read file on external change.
+set autowrite                            " Write if modified.
+set autowriteall                         " Write if modifed on buffer change.
 
 set mouse=a                              " Enable visual mode.
 set shortmess+=I                         " Disable startup message.
@@ -54,7 +61,7 @@ set undodir=~/.vim/undodir
 
 "----------------Visuals----------------"
 
-colorscheme material-monokai                    " Set colorscheme.
+colorscheme material-monokai             " Set colorscheme.
 set t_CO=256                             " Enable 256 terminal colors.
 
 " Remove scrollbars in gui.
