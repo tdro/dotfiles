@@ -2,11 +2,11 @@
 ! URxvt Settings
 ! -----------------
 
-URxvt.perl-ext-common: default,matcher,font-size,tabbed,vtwheel,url-select,keyboard-select
+URxvt.perl-ext-common: default,matcher,font-size,vtwheel,url-select,keyboard-select
 URxvt.url-launcher: /usr/bin/firefox
 
 URxvt.matcher.button: 1
-URxvt.cursorUnderline: 1
+URxvt.cursorUnderline: 0
 URxvt.cursorBlink: 1
 URxvt.internalBorder: 10
 URxvt.geometry: 74x20
