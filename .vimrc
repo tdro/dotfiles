@@ -81,17 +81,19 @@ hi LineNr guibg=bg
 " Define fold column and set to bg color.
 set foldcolumn=2
 hi foldcolumn guibg=bg
-hi foldcolumn ctermbg=171717
+hi foldcolumn ctermbg=none
 
 " Set vetical split column color.
-hi vertsplit guifg=#1b1b1b guibg=#1b1b1b
-hi vertsplit ctermfg=black ctermbg=171717
+hi vertsplit ctermfg=236 ctermbg=none
+
+" Set horizontal split column color.
+hi statuslinenc ctermfg=238 ctermbg=255
 
 " Set cursor hightlight color.
 hi CursorLine cterm=none ctermbg=238 ctermfg=none
 
 " Remove end of buffer indicator.
-highlight EndOfBuffer ctermfg=black guifg=black
+highlight EndOfBuffer ctermfg=black
 
 " Remove Background Color
 hi Normal ctermbg=none
