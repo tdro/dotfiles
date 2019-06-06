@@ -22,6 +22,7 @@ URxvt.boldItalicFont: xft:mono:size=10
 
 URxvt.keysym.C-Up: perl:font-size:increase
 URxvt.keysym.C-Down: perl:font-size:decrease
+URxvt.keysym.C-minus: command:\000
 
 URxvt.scrollBar: false
 URxvt.scrollTtyOutput: false
