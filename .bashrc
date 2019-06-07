@@ -1,4 +1,4 @@
-# ~/.bashrc
+#!/bin/bash
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -7,7 +7,10 @@
 shopt -s autocd;
 
 # disable ctrl+s
+stty stop '';
+stty start '';
 stty -ixon;
+stty -ixoff;
 
 # set prompt statement
 PS1='\[\e[0;34m\]\W \$\[\e[0m\] '
