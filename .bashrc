@@ -147,7 +147,19 @@ export PATH="$PATH:$HOME/.node_modules/bin"
 export PATH="$PATH:$HOME/.local/share/bin"
 
 # add npm prefix
-export npm_config_prefix=~/.node_modules
+export npm_config_prefix=$HOME/.node_modules
 
 # source fzm
-source $HOME/.config/ranger/fzf-marks/fzf-marks.plugin.bash
+source "$HOME/.config/ranger/fzf-marks/fzf-marks.plugin.bash"
+
+# change directory with fzf
+fd() {
+  DIR=$(ls -t -A1 --color=never | fzf-tmux) \
+    && cd "$DIR" || exit
+}
+
+# remove bash history duplicates
+history-remove-duplicates() {
+  awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/.bash_history.tmp;
+  mv -f /tmp/.bash_history.tmp "$HOME/.bash_history"
+}
