@@ -47,7 +47,10 @@ export HISTFILESIZE=
 export HISTCONTROL=ignoredups:erasedups
 
 # append bash history entries
-shopt -s histappend
+shopt -s histappend;
+
+# bash history one command per line
+shopt -s cmdhist;
 
 # get last command for prompt command
 lastcmd() { LASTCMD=$(history 1 | cut -c8-); echo -ne "\e]2;$LASTCMD\a\e]1;$LASTCMD\a"; }
