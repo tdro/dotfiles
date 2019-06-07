@@ -104,8 +104,8 @@ alias grep='grep --color=tty -d skip'
 # alsamixer
 alias alsamixer='alsamixer -V all'
 
-# listed history
-alias hist='history | grep'
+# fzf listed history
+alias fuzzy-history='cat $HOME/.bash_history | fzf'
 
 # pulse delay on audacity
 alias audacity='PULSE_LATENCY_MSEC=30 audacity'
