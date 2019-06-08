@@ -31,4 +31,4 @@ class fzf_select(Command):
                 self.fm.cd(fzf_file)
             else:
                 self.fm.select_file(fzf_file)
-                self.fm.run('xdg-open ' + fzf_file)
+                self.fm.run('xdg-open ' + "'" + fzf_file + "'" + ' &>/dev/null')
