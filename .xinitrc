@@ -36,12 +36,15 @@ fi
 # Start x0vncserver
 systemctl --user start x0vncserver &
 
-# xset
+# Screen timeouts
 xset s 0 0 &
 xset dpms 3600 3600 3600 &
 
 # Protect eyes with redshift
 redshift &
+
+# Key bindings
+xbindkeys
 
 # Run awesome
 exec awesome --no-argb
