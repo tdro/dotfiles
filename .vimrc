@@ -102,6 +102,7 @@ hi Normal ctermbg=none
 
 " Edit /etc/vimrc.
 nmap <Leader>ev :tabedit /etc/vimrc<cr>
+nmap <Leader>es :UltiSnipsEdit<cr>
 
 " Exit incremental search.
 nmap <Esc><Esc> :nohl<cr>
