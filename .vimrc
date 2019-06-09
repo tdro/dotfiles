@@ -120,7 +120,7 @@ nmap <Leader>cw :q<cr>
 nmap <Leader>m :Maps<cr>
 
 " Print working directory
-nmap <Leader>d :pwd<cr>
+nmap <Leader>di :pwd<cr>
 
 " Reindent entire file
 nmap <Leader>r gg=G<Leader>o<Leader>o
