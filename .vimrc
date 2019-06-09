@@ -162,14 +162,6 @@ xnoremap 0 :m-2<cr>gv=gv
 nnoremap 9 :m+<cr>==
 xnoremap 9 :m'>+<cr>gv=gv
 
-" Autoclose tags
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O<TAB>
-
 " Grep Replace
 set grepprg=ag
 let g:grep_cmd_opts = '--line-numbers --noheading'
