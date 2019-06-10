@@ -169,6 +169,17 @@ let g:grep_cmd_opts = '--line-numbers --noheading'
 " Vim Vinegar
 nmap . <Plug>VinegarUp
 
+" pdv
+let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+nnoremap <Leader>dd :call pdv#DocumentWithSnip()<CR>
+
+" UltiSnips
+let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
+let g:UltiSnipsSnippetDirectories=["ultisnips"]
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 " NERDTree settings.
 let NERDTreeMinimalUI = 1                " Enable minimal NERDTree UI.
 let NERDTreeHijackNetrw = 0              " Do not hijack vinegar.
