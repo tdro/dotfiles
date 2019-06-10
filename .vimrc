@@ -206,14 +206,17 @@ autocmd! VimLeave * mksession! ~/.vim/Session.vim
 autocmd! VimEnter * source ~/.vim/Session.vim
 
 " Automatically load variables overriden by the session.
-autocmd VimEnter * highlight EndOfBuffer ctermfg=black guifg=black
-            \ | hi foldcolumn ctermbg=171717
-            \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
-            \ | hi vertsplit ctermfg=black ctermbg=171717
+autocmd VimEnter *
+            \ highlight EndOfBuffer ctermfg=black
             \ | hi Normal ctermbg=none
+            \ | hi foldcolumn ctermbg=none
+            \ | hi vertsplit ctermfg=236 ctermbg=none
+            \ | hi statuslinenc ctermfg=238 ctermbg=255
+            \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
 
 " Automatically remove trailing whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
 
 " Automatically save file on insert and idle.
 autocmd InsertEnter,InsertLeave,CursorHold,CursorHoldI * silent! write
+      \ | silent exec "!chromix-too reload 2881 &"
