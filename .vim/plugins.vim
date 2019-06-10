@@ -12,6 +12,12 @@ Plugin 'ervandew/supertab'
 Plugin 'skwp/greplace.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'tpope/vim-surround'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'tobyS/pdv'
+Plugin 'tobyS/vmustache'
+Plugin 'SirVer/ultisnips'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
