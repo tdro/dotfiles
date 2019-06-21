@@ -1,3 +1,4 @@
 #!/bin/bash
 
-rofi -fullscreen -show run -display-run "$" -font "ubuntu 12" -padding 300
+export PATH="$PATH:$HOME/.local/share/bin";
+rofi -fullscreen -show run -display-run "$" -font "ubuntu 12" -padding 300;
