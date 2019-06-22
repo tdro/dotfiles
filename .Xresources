@@ -109,3 +109,9 @@ dmenu.background: #000000
 dmenu.foreground: #FFFFFF
 dmenu.selforeground: #000000
 dmenu.selbackground: #1B99EC
+
+! -----------------
+! X Settings
+! -----------------
+
+Xcursor.theme: Adwaita
