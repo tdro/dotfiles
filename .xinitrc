@@ -46,5 +46,8 @@ redshift &
 # Key bindings
 xbindkeys
 
+# set cursor
+xsetroot -cursor_name left_ptr
+
 # Run awesome
 exec awesome --no-argb
