@@ -161,7 +161,7 @@ separator = wibox.widget.textbox()
 separator:set_text("    ")
 
 -- Create a textdate widget
-mytextdate = awful.widget.textclock("  %a  %b %d   ", 1)
+mytextdate = awful.widget.textclock("  %a %b %d   ", 1)
 
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock("  %I:%M %p", 1)
