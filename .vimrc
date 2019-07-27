@@ -150,7 +150,7 @@ nmap <C-g> :BTags<cr>
 nmap <Tab> :Buffers<cr>
 
 " FZF function mappings.
-nmap <C-o> :call fzf#run({'source': 'rg --files', 'sink': 'e', 'down': '20%'})<cr>
+nmap <C-o> :call fzf#run({'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
 nmap <C-d> :call fzf#run({'source': 'cat ~/.vim/projects', 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
 
 " Remap jump key binding.
