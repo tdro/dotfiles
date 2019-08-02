@@ -135,7 +135,11 @@ man() {
 }
 
 # docker aliases
-alias pdf2htmlEX="docker run -ti --rm -v ${PWD}:/pdf bwits/pdf2htmlex pdf2htmlEX"
+alias pdf2htmlEX="docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2htmlEX"
+alias composer="docker run -ti --rm -v "$PWD":/app composer:1.8.6 composer"
+alias npm="docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm --prefix .node_modules"
+alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
+alias csslint="docker run --rm eeacms/csslint csslint"
 
 # add php composer path
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
@@ -145,9 +149,6 @@ export PATH="$PATH:$HOME/.node_modules/bin"
 
 # add local path
 export PATH="$PATH:$HOME/.local/share/bin"
-
-# add npm prefix
-export npm_config_prefix=$HOME/.node_modules
 
 # source fzm
 source "$HOME/.config/ranger/fzf-marks/fzf-marks.plugin.bash"
