@@ -468,17 +468,13 @@ awful.rules.rules = {
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
                      placement = awful.placement.no_overlap+awful.placement.no_offscreen
-}},
+     }
+    },
 
     -- Floating clients.
     { rule_any = {
         instance = { "copyq", },
-      }, properties = { floating = true }},
-
-    -- Honor size hints for specific clients.
-    { rule_any = {
-        instance = {},
-      }, properties = { size_hints_honor = true }},
+      }, properties = { floating = true }}
 }
 -- }}}
 
