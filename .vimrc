@@ -223,7 +223,7 @@ autocmd VimEnter *
             \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
 
 " Automatically remove trailing whitespace on save.
-autocmd BufWritePre * %s/\s\+$//e
+autocmd VimEnter,VimLeave,BufWritePre * %s/\s\+$//e
 
 " Automatically save file on insert and idle.
 autocmd InsertEnter,InsertLeave,CursorHoldI * silent! write
