@@ -156,6 +156,14 @@ nmap <C-d> :call fzf#run({'source': 'cat ~/.vim/projects', 'sink': 'cd', 'down':
 " Remap jump key binding.
 nnoremap <Leader>o <C-o>
 
+" Inverse Tabs
+nnoremap <S-Tab> <<
+inoremap <S-Tab> <C-d>
+
+" Retain visual selection when tabbing
+vnoremap < <gv
+vnoremap > >gv
+
 " Move lines around.
 nnoremap 0 :m-2<cr>==
 xnoremap 0 :m-2<cr>gv=gv
