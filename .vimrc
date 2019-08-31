@@ -102,25 +102,17 @@ highlight EndOfBuffer ctermfg=black
 " Remove Background Color
 hi Normal ctermbg=none
 
+
 "---------------Shortcuts---------------"
 
 " Edit /etc/vimrc.
 nmap <Leader>ev :tabedit /etc/vimrc<cr>
 nmap <Leader>es :UltiSnipsEdit<cr>
 
-" Exit incremental search.
-nmap <Esc><Esc> :nohl<cr>
-
 " Locate search.
 nmap <Leader>f :Locate<space>
 
-" Close buffer.
-nmap <Leader>cb :bd<cr>
-
-" Close window.
-nmap <Leader>cw :q<cr>
-
-" Close buffer.
+" Show key mappings
 nmap <Leader>m :Maps<cr>
 
 " Print working directory
