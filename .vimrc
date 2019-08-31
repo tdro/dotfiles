@@ -12,7 +12,7 @@ so ~/.vim/plugins.vim
 
 "------------General Settings------------"
 
-let mapleader = ';'                      " Set default map leader.
+let mapleader = "\<space>"               " Set default map leader.
 
 syntax enable                            " Enable syntax highlighting.
 
