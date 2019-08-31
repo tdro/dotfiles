@@ -5,7 +5,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-vinegar'
 Plugin 'ervandew/supertab'
@@ -17,7 +16,7 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'tobyS/pdv'
 Plugin 'tobyS/vmustache'
 Plugin 'SirVer/ultisnips'
-
+Plugin 'mcchrish/nnn.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
