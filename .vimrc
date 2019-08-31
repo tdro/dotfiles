@@ -187,10 +187,12 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" NERDTree settings.
-let NERDTreeMinimalUI = 1                " Enable minimal NERDTree UI.
-let NERDTreeHijackNetrw = 0              " Do not hijack vinegar.
-nmap <C-n> :NERDTreeToggle<cr>
+" nnn settings
+let g:nnn#set_default_mappings = 0      " Disable default mappings
+let g:nnn#layout = 'new'                " Opens the nnn window in a split
+let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
+
+nmap <C-n> :NnnPicker<cr>
 
 
 "----------------Autorun----------------"
