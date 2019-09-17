@@ -118,6 +118,9 @@ nmap <Leader>m :Maps<cr>
 " Print working directory
 nmap <Leader>di :pwd<cr>
 
+" Close buffer
+nmap <Leader>q :bd<cr>
+
 " Reindent entire file
 nmap <Leader>r gg=G<Leader>o<Leader>o
 
