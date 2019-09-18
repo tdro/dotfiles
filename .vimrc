@@ -195,7 +195,8 @@ let g:nnn#set_default_mappings = 0      " Disable default mappings
 let g:nnn#layout = 'new'                " Opens the nnn window in a split
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 
-nmap <C-n> :NnnPicker<cr>
+nmap <C-n> :NnnPicker<CR>
+nmap <C-m> :NnnPicker '%:p:h'<CR>
 
 
 "----------------Autorun----------------"
