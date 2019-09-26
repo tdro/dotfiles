@@ -52,11 +52,8 @@ shopt -s histappend;
 # bash history one command per line
 shopt -s cmdhist;
 
-# get last command for prompt command
-lastcmd() { LASTCMD=$(history 1 | cut -c8-); echo -ne "\e]2;$LASTCMD\a\e]1;$LASTCMD\a"; }
-
 # prompt command runs on every command
-export PROMPT_COMMAND="history -a; command -v lastcmd > /dev/null 2>&1 && lastcmd"
+export PROMPT_COMMAND="history -a;"
 
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary) && ssh'
