@@ -136,12 +136,12 @@ alias pdf2htmlEX='docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2ht
 alias composer='docker run -ti --rm -v $PWD:/app composer:1.8.6 composer'
 alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm --prefix .node_modules'
 alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
-alias php='docker run -ti --rm -v "$PWD":/var/www/html php:7.3.7-fpm-alpine php'
+#alias php='docker run -ti --rm -v "$PWD":/var/www/html php:7.3.7-fpm-alpine php'
 
-# add php composer path
+# add composer path
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 
-# add bin path
+# add node modules path
 export PATH="$PATH:$HOME/.node_modules/bin"
 
 # add local path
