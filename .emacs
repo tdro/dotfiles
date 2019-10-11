@@ -18,3 +18,6 @@
 
 ;; Disable Startup Screen
 (setq inhibit-startup-screen t)
+
+;; Use spaces only for indentation
+(setq-default indent-tabs-mode nil)
