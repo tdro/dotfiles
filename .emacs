@@ -11,7 +11,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-(load (expand-file-name ".config/quicklisp/slime-helper.el"))
+(load (expand-file-name "~/.config/quicklisp/slime-helper.el"))
 
 ;; Replace "sbcl" with the path to your implementation
 (setq inferior-lisp-program "sbcl")
