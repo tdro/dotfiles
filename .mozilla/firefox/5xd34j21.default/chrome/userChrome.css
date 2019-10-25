@@ -1,9 +1,14 @@
 /* Hide top tab bar in FF Quantum */
-@-moz-document url("chrome://browser/content/browser.xul") {
+@-moz-document url("chrome://browser/content/browser.xhtml") {
   #TabsToolbar {
     visibility: collapse !important;
     margin-bottom: 21px !important;
   }
+}
+
+/* Hide autocomplete results dropdwon */
+.urlbarView {
+  display: none !important;
 }
 
 /* Auto hide sidebar */
