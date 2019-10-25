@@ -6,7 +6,7 @@
   }
 }
 
-/* Hide autocomplete results dropdwon */
+/* Hide autocomplete results dropdown */
 .urlbarView {
   display: none !important;
 }
