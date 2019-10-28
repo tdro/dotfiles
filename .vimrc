@@ -25,6 +25,7 @@ set nocompatible                         " Use Vim defaults.
 set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
 set cursorline                           " Set cursor line highlight.
+set cmdheight=10                         " Set command height temporarily to avoid prompt.
 
 set nohidden                             " No hidden buffers.
 set nobackup                             " No write backups.
@@ -217,6 +218,7 @@ autocmd! VimLeave * mksession! ~/.vim/Session.vim
 
 " Automatically load the session when entering vim.
 autocmd! VimEnter * source ~/.vim/Session.vim
+         \ | set cmdheight=1 "Set command height back to the default
 
 " Automatically load variables overriden by the session.
 autocmd VimEnter *
