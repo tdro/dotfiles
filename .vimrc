@@ -209,7 +209,7 @@ augroup autosaving
 
     " Reload vimrc on vimrc file save.
     autocmd BufWritePost vimrc source %
-                \ | :silent ! cp /etc/vimrc ~/.vimrc
+            \ | :silent ! cp /etc/vimrc ~/.vimrc
 
 augroup END
 
@@ -218,16 +218,16 @@ autocmd! VimLeave * mksession! ~/.vim/Session.vim
 
 " Automatically load the session when entering vim.
 autocmd! VimEnter * source ~/.vim/Session.vim
-         \ | set cmdheight=1 "Set command height back to the default
+         \ | set cmdheight=1 " Set command height back to the default
 
 " Automatically load variables overriden by the session.
 autocmd VimEnter *
-            \ highlight EndOfBuffer ctermfg=black
-            \ | hi Normal ctermbg=none
-            \ | hi foldcolumn ctermbg=none
-            \ | hi vertsplit ctermfg=236 ctermbg=none
-            \ | hi statuslinenc ctermfg=238 ctermbg=255
-            \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
+        \ highlight EndOfBuffer ctermfg=black
+        \ | hi Normal ctermbg=none
+        \ | hi foldcolumn ctermbg=none
+        \ | hi vertsplit ctermfg=236 ctermbg=none
+        \ | hi statuslinenc ctermfg=238 ctermbg=255
+        \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
 
 " Automatically remove trailing whitespace on save.
 autocmd InsertLeave,BufWritePre * %s/\s\+$//e
