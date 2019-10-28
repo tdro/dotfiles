@@ -134,7 +134,7 @@ man() {
 # docker aliases
 alias pdf2htmlEX='docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2htmlEX'
 alias composer='docker run -ti --rm -v $PWD:/app composer:1.8.6 composer'
-alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm --prefix .node_modules'
+alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm'
 alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
 #alias php='docker run -ti --rm -v "$PWD":/var/www/html php:7.3.7-fpm-alpine php'
 
