@@ -211,6 +211,8 @@ augroup autosaving
     autocmd BufWritePost vimrc source %
             \ | :silent ! cp /etc/vimrc ~/.vimrc
 
+    set cmdheight=1 " Set command height back to the default
+
 augroup END
 
 " Automatically save the session on leaving vim.
