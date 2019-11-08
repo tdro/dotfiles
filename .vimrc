@@ -235,5 +235,4 @@ autocmd VimEnter *
 autocmd InsertLeave,BufWritePre * %s/\s\+$//e
 
 " Automatically save file on insert and idle.
-autocmd TextChanged,InsertLeave,CursorHoldI * silent! write
-      " \ | silent! exec "!chromix-too reload 172 > /dev/null 2>&1 &"
+autocmd InsertLeave,CursorHoldI * silent! write
