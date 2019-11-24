@@ -18,7 +18,7 @@ let mapleader = "\<space>"               " Set default map leader.
 syntax enable                            " Enable syntax highlighting.
 
 set ruler                                " Show the cursor position all the time.
-set nowrap                               " Do not automatically wrap on file load.
+set wrap                                 " Automatically wrap lines.
 set nonumber                             " Set line numbers.
 set hlsearch                             " Enable search.
 set incsearch                            " Set incremental search.
