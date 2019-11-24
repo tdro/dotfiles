@@ -33,7 +33,7 @@ set noswapfile                           " Disable swap files.
 set nowritebackup                        " No overwrite backups.
 set autoread                             " Auto read file on external change.
 set autowrite                            " Write if modified.
-set autowriteall                         " Write if modifed on buffer change.
+set autowriteall                         " Write if modified on buffer change.
 
 set mouse=a                              " Enable visual mode.
 set shortmess+=I                         " Disable startup message.
@@ -56,7 +56,7 @@ set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 let php_sql_query = 1
 let php_htmlInStrings = 1
 
-" Highlight Javascript
+" Highlight JavaScript
 let g:javascript_plugin_jsdoc = 1
 
 " Vim infinite undo.
@@ -66,7 +66,7 @@ set undodir=~/.vim/undodir
 
 "----------------Visuals----------------"
 
-colorscheme material-monokai             " Set colorscheme.
+colorscheme material-monokai             " Set color scheme.
 set t_CO=256                             " Enable 256 terminal colors.
 
 " Remove scrollbars in gui.
@@ -88,13 +88,13 @@ set foldcolumn=2
 hi foldcolumn guibg=bg
 hi foldcolumn ctermbg=none
 
-" Set vetical split column color.
+" Set vertical split column color.
 hi vertsplit ctermfg=236 ctermbg=none
 
 " Set horizontal split column color.
 hi statuslinenc ctermfg=238 ctermbg=255
 
-" Set cursor hightlight color.
+" Set cursor hight light color.
 hi CursorLine cterm=none ctermbg=238 ctermfg=none
 
 " Remove end of buffer indicator.
@@ -122,7 +122,7 @@ nmap <Leader>di :pwd<cr>
 " Close buffer
 nmap <Leader>q :bd<cr>
 
-" Reindent entire file
+" Re-indent entire file
 nmap <Leader>r gg=G<Leader>o<Leader>o
 
 " Remap jump key binding.
@@ -222,7 +222,7 @@ autocmd! VimLeave * mksession! ~/.vim/Session.vim
 autocmd! VimEnter * source ~/.vim/Session.vim
          \ | set cmdheight=1 " Set command height back to the default
 
-" Automatically load variables overriden by the session.
+" Automatically load variables overridden by the session.
 autocmd VimEnter *
         \ highlight EndOfBuffer ctermfg=black
         \ | hi Normal ctermbg=none
@@ -231,7 +231,7 @@ autocmd VimEnter *
         \ | hi statuslinenc ctermfg=238 ctermbg=255
         \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
 
-" Automatically remove trailing whitespace on save.
+" Automatically remove trailing white space on save.
 autocmd InsertLeave,BufWritePre * %s/\s\+$//e
 
 " Automatically save file on insert and idle.
