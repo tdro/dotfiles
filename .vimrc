@@ -38,7 +38,7 @@ set autowriteall                         " Write if modifed on buffer change.
 set mouse=a                              " Enable visual mode.
 set shortmess+=I                         " Disable startup message.
 set showtabline=0                        " Disable tab bar.
-set updatetime=2500                      " Set duration for cursor hold event.
+set updatetime=1750                      " Set duration for cursor hold event.
 set fillchars=                           " Set split window margin fill to none.
 set laststatus=0                         " Disable split window status bar.
 set linespace=3                          " Set line spaces.
