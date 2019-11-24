@@ -129,6 +129,9 @@ nmap <Leader>r gg=G<Leader>o<Leader>o
 " Remap jump key binding.
 nnoremap <Leader>o <C-o>
 
+" Toggle color column
+nnoremap <leader>c :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
+
 " Exit incremental search.
 nmap <Esc><Esc> :nohl<cr>
 
