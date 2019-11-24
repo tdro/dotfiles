@@ -1,7 +1,8 @@
-runtime! archlinux.vim
-
 " Clear mappings
 :mapclear
+
+runtime! archlinux.vim
+packadd! matchit
 
 " Do not load defaults if ~/.vimrc is missing.
 let skip_defaults_vim=1
