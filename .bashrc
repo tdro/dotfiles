@@ -53,7 +53,7 @@ shopt -s histappend;
 shopt -s cmdhist;
 
 # prompt command runs on every command
-export PROMPT_COMMAND="history -a"
+export PROMPT_COMMAND="cd .; history -a"
 
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary) && ssh'
