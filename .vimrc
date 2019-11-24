@@ -1,5 +1,5 @@
-" Clear mappings
-:mapclear
+" Clear all settings
+set all&
 
 runtime! archlinux.vim
 packadd! matchit
