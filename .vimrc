@@ -107,8 +107,9 @@ hi Normal ctermbg=none
 
 "---------------Shortcuts---------------"
 
-" Edit /etc/vimrc.
+" Edit shortcuts.
 nmap <Leader>ev :tabedit /etc/vimrc<cr>
+nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
 nmap <Leader>es :UltiSnipsEdit<cr>
 
 " Locate search.
