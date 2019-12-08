@@ -101,9 +101,11 @@ hi CursorLine cterm=none ctermbg=238 ctermfg=none
 " Remove end of buffer indicator.
 highlight EndOfBuffer ctermfg=black
 
-" Remove Background Color
+" Remove background color.
 hi Normal ctermbg=none
 
+" Clear gutter color.
+hi clear SignColumn
 
 "---------------Shortcuts---------------"
 
@@ -235,6 +237,7 @@ autocmd VimEnter *
         \ | hi vertsplit ctermfg=236 ctermbg=none
         \ | hi statuslinenc ctermfg=238 ctermbg=255
         \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
+        \ | hi clear SignColumn
 
 " Automatically remove trailing white space on save.
 autocmd InsertLeave,BufWritePre * %s/\s\+$//e
