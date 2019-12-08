@@ -142,7 +142,7 @@ alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 
 # add node modules path
-export PATH="$PATH:$HOME/.node_modules/bin"
+export PATH="$PATH:$HOME/.node_modules/.bin"
 
 # add local path
 export PATH="$PATH:$HOME/.local/share/bin"
