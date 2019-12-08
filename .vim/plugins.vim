@@ -7,7 +7,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-vinegar'
-Plugin 'ervandew/supertab'
 Plugin 'skwp/greplace.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'tpope/vim-surround'
@@ -17,6 +16,8 @@ Plugin 'tobyS/pdv'
 Plugin 'tobyS/vmustache'
 Plugin 'SirVer/ultisnips'
 Plugin 'mcchrish/nnn.vim'
+Plugin 'prettier/vim-prettier'
+Plugin 'neoclide/coc.nvim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
