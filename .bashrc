@@ -138,14 +138,10 @@ alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.
 alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
 #alias php='docker run -ti --rm -v "$PWD":/var/www/html php:7.3.7-fpm-alpine php'
 
-# add composer path
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-
-# add node modules path
-export PATH="$PATH:$HOME/.node_modules/.bin"
-
-# add local path
-export PATH="$PATH:$HOME/.local/share/bin"
+# paths
+PATH="$PATH:$HOME/.config/composer/vendor/bin"
+PATH="$PATH:$HOME/.node_modules/.bin"
+PATH="$PATH:$HOME/.local/bin"
 
 # source fzm
 source "$HOME/.config/ranger/fzf-marks/fzf-marks.plugin.bash"
