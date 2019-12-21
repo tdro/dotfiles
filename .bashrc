@@ -144,7 +144,9 @@ PATH="$PATH:$HOME/.node_modules/.bin"
 PATH="$PATH:$HOME/.local/bin"
 
 # source fzm
-source "$HOME/.config/ranger/fzf-marks/fzf-marks.plugin.bash"
+FZF_MARKS_COMMAND='fzf --height 40%'
+FZF_MARKS_FILE=$HOME/.config/fzf-marks/.fzf-marks
+source "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
 
 # change directory with fzf
 fd() {
