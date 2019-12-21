@@ -24,27 +24,9 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-# start some nice programs
-
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
-fi
-
-# Start x0vncserver
-systemctl --user start x0vncserver &
-
 # Screen timeouts
 xset s 0 0 &
 xset dpms 3600 3600 3600 &
-
-# Protect eyes with redshift
-redshift &
-
-# Key bindings
-xbindkeys
 
 # set cursor
 xsetroot -cursor_name left_ptr
