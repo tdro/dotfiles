@@ -163,8 +163,8 @@ nmap <C-g> :BTags<cr>
 nmap <Tab> :Buffers<cr>
 
 " FZF function mappings.
-nmap <C-o> :call fzf#run({'options': ['--info=inline', '--preview', 'head -20 {}'], 'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
-nmap <C-d> :call fzf#run({'options': ['--info=inline', '--preview', 'ls {}'], 'source': 'cat ~/.vim/projects', 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+nmap <C-o> :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
+nmap <C-d> :call fzf#run({'options': ['--preview', 'ls {}'], 'source': 'cat ~/.vim/projects', 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
 
 " Inverse Tabs
 nnoremap <S-Tab> <<
