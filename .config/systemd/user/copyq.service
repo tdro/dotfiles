@@ -1,0 +1,12 @@
+[Unit]
+Description=Copyq server
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=copyq
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target

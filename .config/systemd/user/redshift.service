@@ -1,0 +1,12 @@
+[Unit]
+Description=Redshift
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=redshift
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
