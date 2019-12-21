@@ -9,7 +9,7 @@ class fzm_select(Command):
         import subprocess
         import os.path
         fzm = self.fm.execute_command(
-          "cat $HOME/.config/fzf-marks/.fzf-marks | fzf | cut -d' ' -f3",
+          "source $HOME/.config/fzf-marks/fzf-marks.plugin.bash && fzm",
           universal_newlines=True,
           stdout=subprocess.PIPE)
         stdout, stderr = fzm.communicate()

@@ -20,7 +20,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+FZF_MARKS_COMMAND='fzf --height 40%'
+FZF_MARKS_FILE=$HOME/.config/fzf-marks/.fzf-marks
+
 command -v fzf >/dev/null 2>&1 || return
+
+function is_interactive_shell() {
+	# https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
+	[[ "$-" =~ "i" ]]
+}
 
 if [[ -z "${FZF_MARKS_FILE}" ]] ; then
     FZF_MARKS_FILE="${HOME}/.fzf-marks"
@@ -116,7 +124,11 @@ function jump {
     if [[ -n ${jumpline} ]]; then
         jumpdir=$(echo "${jumpline}" | sed 's/.*: \(.*\)$/\1/' | sed "s#~#${HOME}#")
         bookmarks=$(_handle_symlinks)
+        if is_interactive_shell; then
         cd "${jumpdir}" || return
+        else
+        echo "${jumpdir}" || return
+        fi
         if ! [[ "${FZF_MARKS_KEEP_ORDER}" == 1 ]]; then
             perl -n -i -e "print unless /^\\Q${jumpline//\//\\/}\\E\$/" "${bookmarks}"
             echo "${jumpline}" >> "${FZF_MARKS_FILE}"
@@ -145,7 +157,9 @@ function dmark {
     fi
 }
 
+if is_interactive_shell; then
 bind "\"${FZF_MARKS_JUMP:-\C-g}\":\"fzm\\n\""
+fi
 if [ "${FZF_MARKS_DMARK}" ]; then
     bind "\"${FZF_MARKS_DMARK}\":\"dmark\\n\""
 fi
