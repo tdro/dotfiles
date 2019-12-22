@@ -1,0 +1,12 @@
+[Unit]
+Description=Screenshot tool
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=flameshot
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=default.target
