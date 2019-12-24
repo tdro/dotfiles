@@ -1,5 +1,6 @@
 " Clear all settings
 set all&
+:mapclear
 
 runtime! archlinux.vim
 packadd! matchit
@@ -95,11 +96,17 @@ hi vertsplit ctermfg=236 ctermbg=none
 " Set horizontal split column color.
 hi statuslinenc ctermfg=238 ctermbg=255
 
-" Set cursor hight light color.
-hi CursorLine cterm=none ctermbg=238 ctermfg=none
+" Set cursor line color.
+hi CursorLine cterm=none ctermbg=237 ctermfg=none
+
+" Set cursor column color.
+hi CursorColumn cterm=none ctermbg=237 ctermfg=none
+
+" Set color column color.
+hi ColorColumn cterm=none ctermbg=237 ctermfg=none
 
 " Remove end of buffer indicator.
-highlight EndOfBuffer ctermfg=black
+hi EndOfBuffer ctermfg=black
 
 " Remove background color.
 hi Normal ctermbg=none
@@ -133,7 +140,10 @@ nmap <Leader>r gg=G<Leader>o<Leader>o
 nnoremap <Leader>o <C-o>
 
 " Toggle color column
-nnoremap <leader>c :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
+nnoremap <leader>cv :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
+
+" Toggle color column
+nnoremap <leader>cx :set cursorcolumn!<cr>
 
 " Exit incremental search.
 nmap <Esc><Esc> :nohl<cr>
@@ -231,12 +241,14 @@ autocmd! VimEnter * source ~/.vim/Session.vim
 
 " Automatically load variables overridden by the session.
 autocmd VimEnter *
-        \ highlight EndOfBuffer ctermfg=black
+        \ hi EndOfBuffer ctermfg=black
         \ | hi Normal ctermbg=none
         \ | hi foldcolumn ctermbg=none
         \ | hi vertsplit ctermfg=236 ctermbg=none
         \ | hi statuslinenc ctermfg=238 ctermbg=255
-        \ | hi CursorLine cterm=none ctermbg=238 ctermfg=none
+        \ | hi CursorLine cterm=none ctermbg=237 ctermfg=none
+        \ | hi ColorColumn cterm=none ctermbg=237 ctermfg=none
+        \ | hi CursorColumn cterm=none ctermbg=237 ctermfg=none
         \ | hi clear SignColumn
 
 " Automatically remove trailing white space on save.
