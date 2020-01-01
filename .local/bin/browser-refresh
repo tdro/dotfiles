@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # set target browser and title
-browser='Chromium'
-title='GSRC'
+browser=$1
+title=$2
 
 # set pid file path
 pidfile=/tmp/browser.refresh.pid
