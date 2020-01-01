@@ -1,3 +1,11 @@
 #!/bin/sh
 
-xdg-open "$(locate /home | rofi -font "ubuntu 12" -padding 20 -dmenu -i -p 'Files')"
+xdg-open "$(locate -l 100 \
+\
+/Documents \
+/Downloads \
+/.local/bin \
+/.config/awesome \
+/.vim \
+\
+| rofi -font "ubuntu 12" -padding 20 -dmenu -i -p 'Files')"
