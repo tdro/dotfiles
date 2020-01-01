@@ -18,6 +18,8 @@ Plugin 'SirVer/ultisnips'
 Plugin 'mcchrish/nnn.vim'
 Plugin 'prettier/vim-prettier'
 Plugin 'dense-analysis/ale'
+Plugin 'tpope/vim-fugitive'
+Plugin 'stephpy/vim-php-cs-fixer'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
