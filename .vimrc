@@ -1,6 +1,5 @@
-" Clear all settings
-set all&
-:mapclear
+" Clear all mappings
+mapclear
 
 runtime! archlinux.vim
 packadd! matchit
@@ -119,22 +118,30 @@ hi clear SignColumn
 " Edit shortcuts.
 nmap <Leader>ev :tabedit /etc/vimrc<cr>
 nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
+nmap <Leader>eh :tabedit ~/.vim/post-save-hook<cr>
 nmap <Leader>es :UltiSnipsEdit<cr>
 
 " Locate search.
-nmap <Leader>f :Locate<space>
+nmap <Leader>fl :Locate<space>
 
 " Show key mappings
-nmap <Leader>m :Maps<cr>
+nmap <Leader>mm :Maps<cr>
+nmap <Leader>ma :Marks<cr>
 
 " Print working directory
 nmap <Leader>di :pwd<cr>
 
-" Close buffer
+" Close buffer and window
 nmap <Leader>q :bd<cr>
+nmap <Leader>w <C-w>c<cr>
 
-" Re-indent entire file
-nmap <Leader>r gg=G<Leader>o<Leader>o
+" Linting shortcuts.
+nmap <Leader>la :ALEToggle<cr>
+
+" Re-indent entire file.
+nmap <Leader>re gg=G<Leader>o<Leader>o
+" Reset all settings and source configuration.
+nmap <Leader>ra :set all& \| :source /etc/vimrc \| :e<cr>
 
 " Remap jump key binding.
 nnoremap <Leader>o <C-o>
@@ -147,9 +154,6 @@ nnoremap <leader>cx :set cursorcolumn!<cr>
 
 " Exit incremental search.
 nmap <Esc><Esc> :nohl<cr>
-
-" Cycle through buffers.
-nmap ' :bnext<cr>
 
 " Close Vim.
 nmap <C-c> :qa<cr>
@@ -176,6 +180,10 @@ nmap <Tab> :Buffers<cr>
 nmap <C-o> :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
 nmap <C-d> :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $HOME/.config/fzf-marks/.fzf-marks", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
 
+" nnn mappings.
+nmap <C-n> :NnnPicker<CR>
+nmap <Leader>n :NnnPicker '%:p:h'<CR>
+
 " Inverse Tabs
 nnoremap <S-Tab> <<
 inoremap <S-Tab> <C-d>
@@ -190,23 +198,23 @@ xnoremap 0 :m-2<cr>gv=gv
 nnoremap 9 :m+<cr>==
 xnoremap 9 :m'>+<cr>gv=gv
 
-" Grep Replace
-set grepprg=ag
-let g:grep_cmd_opts = '--line-numbers --noheading'
-
-" Asynchronous Lint Engine (ale)
-let g:ale_enabled = 0
-nmap <Leader>l :ALEToggle<cr>
 
 " PHP Fixer
 function! Function()
   :silent !notify-send "$(phpcbf %)"
   :redraw!
 endfunction
-nmap <Leader>pcf :call Function()<cr>
+nmap <Leader>lpf :call Function()<cr>
 
-" Vim Vinegar
-nmap . <Plug>VinegarUp
+
+"---------------Plugin Settings---------------"
+
+" Grep Replace
+set grepprg=ag
+let g:grep_cmd_opts = '--line-numbers --noheading'
+
+" Asynchronous Lint Engine (ale)
+let g:ale_enabled = 0
 
 " pdv
 let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
@@ -223,9 +231,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:nnn#set_default_mappings = 0      " Disable default mappings
 let g:nnn#layout = 'new'                " Opens the nnn window in a split
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
-
-nmap <C-n> :NnnPicker<CR>
-nmap <Leader>n :NnnPicker '%:p:h'<CR>
 
 
 "----------------Autorun----------------"
