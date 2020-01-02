@@ -1,53 +1,48 @@
 #!/bin/bash
 
+# set keyboard
+keyboard=10
+
 # set target browser and title
 browser=$1
 title=$2
 
-# set pid file path
-pidfile=/tmp/browser.refresh.pid
-
-# use pid to check if program already running
-if [ -f $pidfile ]; then
-  pid=$(cat $pidfile)
-  if [ "$pid" != $$ ]; then
-    echo "Live Reload: Process is already running with PID $pid. Killing..."
-    notify-send "Live Reload: Process is already running with PID $pid. Killing...";
-    kill -9 $pid;
-    trap "rm -f -- '$pidfile'" EXIT;
-  else
-  echo $$ > "$pidfile"
-  fi
-fi
+# user ps to check if program is already running. See https://unix.stackexchange.com/a/48511
+program="$(basename "$0")";
+running=$(ps h -C "$program" | grep -wv "^$$" | wc -l);
+[[ $running > 2 ]] && exit;
 
 # browser we would like to live reload
-reload_browser_id=$(
+target_browser=$(
 
-  comm -12 <(xdotool search --name  $title  | sort) <(xdotool search --class $browser  | sort)
+  comm -12 <(xdotool search --name  $title  | sort) <(xdotool search --class $browser | sort)
 
-); # named pipe comparison comm -12 /dev/fd/63 /dev/fd/63. See  https://unix.stackexchange.com/questions/254820/xdotool-how-to-search-for-window-by-title-and-class-with-different-patterns-si
+); # named pipe comparison comm -12 /dev/fd/63 /dev/fd/63. See https://unix.stackexchange.com/questions/254820/xdotool-how-to-search-for-window-by-title-and-class-with-different-patterns-si
 
 # active window where the script was activated
-active_window_id=$(xdotool getwindowfocus)
+initial_window=$(xdotool getwindowfocus)
 
 # echo target browser id for debugging purposes
-#echo $reload_browser_id;
+#echo $target_browser;
 
 # bail on empty window id
-if [ -z $reload_browser_id ]; then
+if [ -z $target_browser ]; then
   notify-send "No match for browser $browser with title $title!";
   exit;
 fi
 
 # activate target browser
-xdotool windowactivate $reload_browser_id;
+xdotool windowactivate $target_browser;
 
 # declare the variable i as an interger
 declare -i i=0;
 
+# disable keyboard at the start of search
+xinput --disable $keyboard;
+
 while true; do
 
-    # bail out if there are too many iterations
+    # bail out if there are too many searches
     if [ "$i" -gt 10 ]; then
 
       notify-send "No match for browser $browser with title $title!";
@@ -60,17 +55,17 @@ while true; do
     i+=1
 
     # echo the amount of interations for debugging purposes
-    echo "Iteration: $i";
+    echo "Search Iteration: $i";
     
-    # get target browser window
-    focused_browser_id=$(xdotool getwindowfocus);
+    # get window focus
+    focused=$(xdotool getwindowfocus);
 
-    while [ "$reload_browser_id" -eq "$focused_browser_id" ]; do
+    while [ "$target_browser" -eq "$focused" ]; do
 
       xdotool key "ctrl+r";
 
       # echo received browser id for debugging purposes
-      #echo $reload_browser_id;
+      #echo $target_browser;
 
       # break out of both while loops
       break 2;
@@ -79,6 +74,30 @@ while true; do
 
 done
 
-xdotool windowactivate $active_window_id;
-trap "rm -f -- '$pidfile'" EXIT; 
+
+# declare the variable j as an interger
+declare -i j=0;
+
+while true; do
+
+  while [ "$initial_window" -ne "$focused" ]; do
+    
+    xdotool windowactivate $initial_window;
+    focused=$(xdotool getwindowfocus);
+
+  done;
+
+  j+=1
+
+  # bail after a few checks
+  if [ "$j" -eq 10 ]; then
+    echo "Return Iteration: $j";
+    break;
+  fi
+
+done
+
+# enable keyboard at the end of the search
+xinput --enable $keyboard;
+
 exit 0;
