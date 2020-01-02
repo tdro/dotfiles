@@ -40,7 +40,7 @@ set autowriteall                         " Write if modified on buffer change.
 set mouse=a                              " Enable visual mode.
 set shortmess+=I                         " Disable startup message.
 set showtabline=0                        " Disable tab bar.
-set updatetime=1750                      " Set duration for cursor hold event.
+set updatetime=1500                      " Set duration for cursor hold event.
 set fillchars=                           " Set split window margin fill to none.
 set laststatus=0                         " Disable split window status bar.
 set linespace=3                          " Set line spaces.
@@ -194,6 +194,17 @@ xnoremap 9 :m'>+<cr>gv=gv
 set grepprg=ag
 let g:grep_cmd_opts = '--line-numbers --noheading'
 
+" Asynchronous Lint Engine (ale)
+let g:ale_enabled = 0
+nmap <Leader>l :ALEToggle<cr>
+
+" PHP Fixer
+function! Function()
+  :silent !notify-send "$(phpcbf %)"
+  :redraw!
+endfunction
+nmap <Leader>pcf :call Function()<cr>
+
 " Vim Vinegar
 nmap . <Plug>VinegarUp
 
@@ -256,3 +267,4 @@ autocmd InsertLeave,BufWritePre * %s/\s\+$//e
 
 " Automatically save file on insert and idle.
 autocmd InsertLeave,CursorHoldI * silent! write
+        \ | silent! exec "!~/.vim/post-save-hook > /dev/null 2>&1 &"
