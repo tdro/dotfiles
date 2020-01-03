@@ -6,7 +6,6 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'junegunn/fzf.vim'
-Plugin 'tpope/vim-vinegar'
 Plugin 'skwp/greplace.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'tpope/vim-surround'
@@ -19,7 +18,6 @@ Plugin 'mcchrish/nnn.vim'
 Plugin 'prettier/vim-prettier'
 Plugin 'dense-analysis/ale'
 Plugin 'tpope/vim-fugitive'
-Plugin 'stephpy/vim-php-cs-fixer'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
