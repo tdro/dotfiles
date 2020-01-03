@@ -200,11 +200,10 @@ xnoremap 9 :m'>+<cr>gv=gv
 
 
 " PHP Fixer
-function! Function()
+function! PHPFix()
   :silent !notify-send "$(phpcbf %)"
   :redraw!
 endfunction
-nmap <Leader>lpf :call Function()<cr>
 
 
 "---------------Plugin Settings---------------"
@@ -233,7 +232,6 @@ let g:nnn#layout = 'new'                " Opens the nnn window in a split
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 
 "----------------Autorun----------------"
-
 augroup AutoSourcing
 
   " Clear auto commands.
@@ -248,6 +246,13 @@ augroup AutoSourcing
 
 augroup END
 
+augroup AutoLinting
+
+  autocmd!
+  autocmd BufWritePost *.php :call PHPFix()
+
+augroup END
+
 " Automatically save the session on leaving vim.
 autocmd! VimLeave * mksession! ~/.vim/Session.vim
 
@@ -256,10 +261,10 @@ autocmd! VimEnter * source ~/.vim/Session.vim
       \ | source ~/.vimrc " Source configuration after session load.
 
 " Automatically remove trailing white space on save.
-autocmd InsertLeave,BufWritePre * %s/\s\+$//e
+autocmd! InsertLeave,BufWritePre * %s/\s\+$//e
 
 " Automatically save file on insert and idle.
-autocmd InsertLeave,CursorHoldI * silent! write
+autocmd! InsertLeave,CursorHoldI * silent! write
       \ | silent! exec "!~/.vim/post-save-hook > /dev/null 2>&1 &"
 
 set cmdheight=1 " Set command height back to the default.
