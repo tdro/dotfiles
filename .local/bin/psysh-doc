@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# update functions and constants
+#php -r '$functions = get_defined_functions(); foreach ($functions["internal"] as $function) { echo $function . "\n"; };' > ~/.vim/tags/php
+#php -r '$constants = get_defined_constants(true); foreach ($constants as $constant) { print_r(array_keys($constant)); };' | grep -oP "=>\s+\K\w+" >> ~/.vim/tags/php
+
+# psysh doc wrapper
+echo doc "$1" | psysh;

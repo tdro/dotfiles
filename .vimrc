@@ -179,6 +179,7 @@ nmap <Tab> :Buffers<cr>
 " FZF function mappings.
 nmap <C-o> :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
 nmap <C-d> :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $HOME/.config/fzf-marks/.fzf-marks", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+nmap <Leader>rpd :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh'], 'source': "cat $HOME/.vim/tags/php", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
 " nnn mappings.
 nmap <C-n> :NnnPicker<CR>
