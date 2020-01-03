@@ -232,19 +232,19 @@ let g:nnn#set_default_mappings = 0      " Disable default mappings
 let g:nnn#layout = 'new'                " Opens the nnn window in a split
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 
-
 "----------------Autorun----------------"
 
-augroup autosaving
+augroup AutoSourcing
 
-    " Clear auto commands.
-    autocmd!
+  " Clear auto commands.
+  autocmd!
 
-    " Reload vimrc on vimrc file save.
-    autocmd BufWritePost vimrc source %
-            \ | :silent ! cp /etc/vimrc ~/.vimrc
+  " Reload vimrc on vimrc file save.
+  autocmd BufWritePost vimrc source %
+      \ | :silent ! cp /etc/vimrc ~/.vimrc
 
-    set cmdheight=1 " Set command height back to the default
+  " Reload plugins.vim on file save.
+  autocmd BufWritePost plugins.vim source %
 
 augroup END
 
@@ -253,23 +253,13 @@ autocmd! VimLeave * mksession! ~/.vim/Session.vim
 
 " Automatically load the session when entering vim.
 autocmd! VimEnter * source ~/.vim/Session.vim
-         \ | set cmdheight=1 " Set command height back to the default
-
-" Automatically load variables overridden by the session.
-autocmd VimEnter *
-        \ hi EndOfBuffer ctermfg=black
-        \ | hi Normal ctermbg=none
-        \ | hi foldcolumn ctermbg=none
-        \ | hi vertsplit ctermfg=236 ctermbg=none
-        \ | hi statuslinenc ctermfg=238 ctermbg=255
-        \ | hi CursorLine cterm=none ctermbg=237 ctermfg=none
-        \ | hi ColorColumn cterm=none ctermbg=237 ctermfg=none
-        \ | hi CursorColumn cterm=none ctermbg=237 ctermfg=none
-        \ | hi clear SignColumn
+      \ | source ~/.vimrc " Source configuration after session load.
 
 " Automatically remove trailing white space on save.
 autocmd InsertLeave,BufWritePre * %s/\s\+$//e
 
 " Automatically save file on insert and idle.
 autocmd InsertLeave,CursorHoldI * silent! write
-        \ | silent! exec "!~/.vim/post-save-hook > /dev/null 2>&1 &"
+      \ | silent! exec "!~/.vim/post-save-hook > /dev/null 2>&1 &"
+
+set cmdheight=1 " Set command height back to the default.
