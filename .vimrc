@@ -143,6 +143,12 @@ nmap <Leader>re gg=G<Leader>o<Leader>o
 " Reset all settings and source configuration.
 nmap <Leader>ra :set all& \| :source /etc/vimrc \| :e<cr>
 
+" PHP REPL
+nmap <Leader>rps :.w !psysh<cr>
+nmap <Leader>rpf :term psysh %<cr>
+nmap <Leader>rpt :term php artisan tinker<cr>
+nmap <Leader>rpl :term psysh-tinker-live %<cr>
+
 " Remap jump key binding.
 nnoremap <Leader>o <C-o>
 
