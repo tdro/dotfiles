@@ -90,10 +90,10 @@ hi foldcolumn guibg=bg
 hi foldcolumn ctermbg=none
 
 " Set vertical split column color.
-hi vertsplit ctermfg=236 ctermbg=none
+hi vertsplit ctermfg=236 ctermbg=237
 
 " Set horizontal split column color.
-hi statuslinenc ctermfg=238 ctermbg=255
+hi statuslinenc ctermfg=237 ctermbg=255
 
 " Set cursor line color.
 hi CursorLine cterm=none ctermbg=237 ctermfg=none
