@@ -113,6 +113,28 @@ hi Normal ctermbg=none
 " Clear gutter color.
 hi clear SignColumn
 
+
+"---------------Functions---------------"
+
+" PHP Fixer
+function! PHPFix()
+  :silent !notify-send "$(phpcbf %) &"
+  :redraw!
+endfunction
+
+" HTML Beautify
+function! HTMLBeautify()
+  :silent !notify-send "$(prettier --write --parser html %)"
+  :redraw!
+endfunction
+
+" CSS Beautify
+function! CSSBeautify()
+  :silent !notify-send "$(prettier --write --parser css %)"
+  :redraw!
+endfunction
+
+
 "---------------Shortcuts---------------"
 
 " Edit shortcuts.
@@ -137,6 +159,8 @@ nmap <Leader>w <C-w>c<cr>
 
 " Linting shortcuts.
 nmap <Leader>la :ALEToggle<cr>
+nmap <Leader>lph :call HTMLBeautify()<cr>
+nmap <Leader>lpc :call CSSBeautify()<cr>
 
 " Re-indent entire file.
 nmap <Leader>re gg=G<Leader>o<Leader>o
@@ -204,13 +228,6 @@ nnoremap 0 :m-2<cr>==
 xnoremap 0 :m-2<cr>gv=gv
 nnoremap 9 :m+<cr>==
 xnoremap 9 :m'>+<cr>gv=gv
-
-
-" PHP Fixer
-function! PHPFix()
-  :silent !notify-send "$(phpcbf %)"
-  :redraw!
-endfunction
 
 
 "---------------Plugin Settings---------------"
