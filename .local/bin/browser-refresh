@@ -46,8 +46,8 @@ while true; do
     if [ "$i" -gt 10 ]; then
 
       notify-send "No match for browser $browser with title $title!";
-
-      break;
+      xinput --enable $keyboard;
+      exit 1;
 
     fi
     
