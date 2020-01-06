@@ -15,7 +15,6 @@ Plugin 'tobyS/pdv'
 Plugin 'tobyS/vmustache'
 Plugin 'SirVer/ultisnips'
 Plugin 'mcchrish/nnn.vim'
-Plugin 'prettier/vim-prettier'
 Plugin 'dense-analysis/ale'
 Plugin 'tpope/vim-fugitive'
 
