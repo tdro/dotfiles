@@ -134,6 +134,12 @@ function! CSSBeautify()
   :redraw!
 endfunction
 
+" ESLint Fix
+function! ESLintFix()
+  :silent !notify-send "$(eslint --fix %)"
+  :redraw!
+endfunction
+
 
 "---------------Shortcuts---------------"
 
@@ -274,6 +280,7 @@ augroup AutoLinting
 
   autocmd!
   autocmd BufWritePost *.php :call PHPFix()
+  autocmd BufWritePost *.js :call ESLintFix()
 
 augroup END
 
