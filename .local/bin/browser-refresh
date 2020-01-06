@@ -13,9 +13,9 @@ running=$(ps h -C "$program" | grep -wv "^$$" | wc -l);
 [[ $running > 2 ]] && exit;
 
 # browser we would like to live reload
-target_browser=$(
+target_window=$(
 
-  comm -12 <(xdotool search --name  $title  | sort) <(xdotool search --class $browser | sort)
+  comm -12 <(xdotool search --name  $title  | sort) <(xdotool search --class $browser | sort) | head -n 1
 
 ); # named pipe comparison comm -12 /dev/fd/63 /dev/fd/63. See https://unix.stackexchange.com/questions/254820/xdotool-how-to-search-for-window-by-title-and-class-with-different-patterns-si
 
@@ -23,16 +23,16 @@ target_browser=$(
 initial_window=$(xdotool getwindowfocus)
 
 # echo target browser id for debugging purposes
-#echo $target_browser;
+#echo $target_window;
 
 # bail on empty window id
-if [ -z $target_browser ]; then
+if [ -z $target_window ]; then
   notify-send "No match for browser $browser with title $title!";
-  exit;
+  exit 1;
 fi
 
-# activate target browser
-xdotool windowactivate $target_browser;
+# activate target window
+xdotool windowactivate $target_window;
 
 # declare the variable i as an interger
 declare -i i=0;
@@ -46,8 +46,7 @@ while true; do
     if [ "$i" -gt 10 ]; then
 
       notify-send "No match for browser $browser with title $title!";
-      xinput --enable $keyboard;
-      exit 1;
+      break;
 
     fi
     
@@ -60,12 +59,12 @@ while true; do
     # get window focus
     focused=$(xdotool getwindowfocus);
 
-    while [ "$target_browser" -eq "$focused" ]; do
+    while [ "$target_window" -eq "$focused" ]; do
 
       xdotool key "ctrl+r";
 
-      # echo received browser id for debugging purposes
-      #echo $target_browser;
+      # echo received window id for debugging purposes
+      #echo $target_window;
 
       # break out of both while loops
       break 2;
