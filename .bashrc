@@ -134,14 +134,19 @@ man() {
 # docker aliases
 alias pdf2htmlEX='docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2htmlEX'
 alias composer='docker run -ti --rm -v $PWD:/app composer:1.8.6 composer'
-alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm'
+alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm --prefix .node_modules'
 alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
 #alias php='docker run -ti --rm -v "$PWD":/var/www/html php:7.3.7-fpm-alpine php'
 
 # paths
 PATH="$PATH:$HOME/.config/composer/vendor/bin"
-PATH="$PATH:$HOME/.node_modules/.bin"
+PATH="$PATH:$HOME/.node_modules/node_modules/.bin"
 PATH="$PATH:$HOME/.local/bin"
+
+export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
+ --color=fg+:81,bg+:237,hl+:9 \
+ --color=info:188,prompt:69,pointer:199 \
+ --color=marker:109,spinner:248,header:255"
 
 # source fzm
 source "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
