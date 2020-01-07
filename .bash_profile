@@ -1,3 +1,5 @@
 # ~/.bash_profile
 
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx &> /dev/null
+[[ $XDG_VTNR -ne 1 ]] && . ~/.bashrc;
+
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx &> /dev/null;
