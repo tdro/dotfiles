@@ -4,9 +4,10 @@ Description=Keyboard shortcut binder
 [Service]
 Type=simple
 Environment=DISPLAY=:0
-ExecStart=xbindkeys -p -n
+ExecStart=xbindkeys -f %h/.config/xbindkeysrc -p -n
 Restart=always
 RestartSec=5s
+KillMode=process
 
 [Install]
 WantedBy=default.target
