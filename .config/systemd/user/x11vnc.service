@@ -5,7 +5,7 @@ After=syslog.target network.target
 [Service]
 Type=simple
 Environment=DISPLAY=:0
-ExecStart=x11vnc -usepw -nowf -repeat -forever -noxrecord -auth %h/.Xauthority
+ExecStart=/usr/bin/env x11vnc -usepw -nowf -repeat -forever -noxrecord -auth %h/.Xauthority
 Restart=always
 RestartSec=1s
 StartLimitIntervalSec=0

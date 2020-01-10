@@ -4,7 +4,7 @@ Description=Keyboard shortcut binder
 [Service]
 Type=simple
 Environment=DISPLAY=:0
-ExecStart=xbindkeys -f %h/.config/xbindkeysrc -p -n
+ExecStart=/usr/bin/env xbindkeys -f %h/.config/xbindkeysrc -p -n
 Restart=always
 RestartSec=5s
 KillMode=process
