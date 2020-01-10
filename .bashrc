@@ -1,19 +1,26 @@
 #!/bin/bash
 
-# If not running interactively, don't do anything
+# bail if not interactive
 [[ $- != *i* ]] && return
+
+# set prompt
+[[ "$EUID" -ne 0 ]] && PS1='\[\e[0;34m\]\W \$\[\e[0m\] '
+[[ "$EUID" -eq 0 ]] && PS1='\[\e[1;31m\]\W \$\[\e[0m\] '
 
 # cd using directory name
 shopt -s autocd;
+
+# append bash history entries
+shopt -s histappend;
+
+# bash history one command per line
+shopt -s cmdhist;
 
 # disable ctrl+s
 stty stop '';
 stty start '';
 stty -ixon;
 stty -ixoff;
-
-# set prompt statement
-PS1='\[\e[0;34m\]\W \$\[\e[0m\] '
 
 # set virtual console colors
 if [ "$TERM" = "linux" ]; then
@@ -50,7 +57,7 @@ man() {
 
 # ssh bash prompt color change
 if [ -n "$SSH_CLIENT" ]; then
-  export PS1='\[\e[0;32m\][ \W ] \$\[\e[0m\] '
+  export PS1='\[\e[1;32m\]\W \$\[\e[0m\] '
 fi
 
 # disable less history
@@ -60,12 +67,6 @@ export LESSHISTFILE=-
 export HISTSIZE=
 export HISTFILESIZE=
 export HISTCONTROL=ignoredups:erasedups
-
-# append bash history entries
-shopt -s histappend;
-
-# bash history one command per line
-shopt -s cmdhist;
 
 # prompt command runs on every command
 export PROMPT_COMMAND="cd .; history -a"
