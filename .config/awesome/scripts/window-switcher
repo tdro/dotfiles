@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # Copyright 2013 Tom Vincent <http://tlvince.com/contact/>
 

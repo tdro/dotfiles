@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 # Prevent multiple instances
 pidof -s -o '%PPID' -x $( basename $0 ) > /dev/null 2>&1 && killall skippy-xd && exit

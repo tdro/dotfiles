@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-export BROWSER=/usr/bin/chromium;
+export BROWSER=/usr/bin/firefox;
 
 echo | rofi -dmenu -show run -font "ubuntu 16" -padding 10 -lines 0 -p " " | xargs -r surfraw d

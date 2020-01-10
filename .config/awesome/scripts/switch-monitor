@@ -1,5 +1,4 @@
-#!/bin/bash
-# This script toggles the extended monitor outputs if something is connected
+#!/usr/bin/env bash
 
 # your notebook monitor
 DEFAULT_OUTPUT='LVDS1'
