@@ -53,6 +53,9 @@ if [ -n "$SSH_CLIENT" ]; then
   export PS1='\[\e[0;32m\][ \W ] \$\[\e[0m\] '
 fi
 
+# disable less history
+export LESSHISTFILE=-
+
 # bash history settings
 export HISTSIZE=
 export HISTFILESIZE=
