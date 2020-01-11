@@ -17,10 +17,10 @@ URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-m: perl:url-select:select_next
 URxvt.url-select.launcher: /usr/bin/firefox
 
-URxvt*font: xft:mono:size=10
-URxvt.boldFont: xft:mono:size=10
-URxvt.italicFont: xft:mono:size=10
-URxvt.boldItalicFont: xft:mono:size=10
+URxvt*font: xft:monospace:size=10
+URxvt.boldFont: xft:monospace:size=10
+URxvt.italicFont: xft:monospace:size=10
+URxvt.boldItalicFont: xft:monospace:size=10
 
 URxvt.keysym.C-Up: perl:font-size:increase
 URxvt.keysym.C-Down: perl:font-size:decrease
