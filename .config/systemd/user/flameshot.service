@@ -3,8 +3,7 @@ Description=Screenshot tool
 
 [Service]
 Type=simple
-Environment=DISPLAY=:0
-ExecStart=flameshot
+ExecStart=/usr/bin/env flameshot
 Restart=always
 RestartSec=5s
 

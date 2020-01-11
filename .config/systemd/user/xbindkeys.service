@@ -3,7 +3,6 @@ Description=Keyboard shortcut binder
 
 [Service]
 Type=simple
-Environment=DISPLAY=:0
 ExecStart=/usr/bin/env xbindkeys -f %h/.config/xbindkeysrc -p -n
 Restart=always
 RestartSec=5s

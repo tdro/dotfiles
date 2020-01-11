@@ -4,8 +4,7 @@ After=syslog.target network.target
 
 [Service]
 Type=forking
-Environment=DISPLAY=:0
-ExecStart=/usr/bin/sh -c '/usr/bin/x0vncserver -rfbport 5900 -RemapKeys="0x3c->0x2c" -passwordfile %h/.vnc/passwd &'
+ExecStart=/usr/bin/env /usr/bin/sh -c '/usr/bin/x0vncserver -rfbport 5900 -RemapKeys="0x3c->0x2c" -passwordfile %h/.vnc/passwd &'
 Restart=always
 RestartSec=5s
 

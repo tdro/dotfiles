@@ -3,8 +3,7 @@ Description=Redshift
 
 [Service]
 Type=simple
-Environment=DISPLAY=:0
-ExecStart=redshift
+ExecStart=/usr/bin/env redshift
 Restart=always
 RestartSec=5s
 

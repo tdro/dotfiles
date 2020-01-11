@@ -3,8 +3,7 @@ Description=Copyq server
 
 [Service]
 Type=simple
-Environment=DISPLAY=:0
-ExecStart=copyq
+ExecStart=/usr/bin/env copyq
 Restart=always
 RestartSec=5s
 
