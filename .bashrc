@@ -156,7 +156,7 @@ export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
  --color=marker:109,spinner:248,header:255"
 
 # source fzm
-source "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
+[ -f "$HOME"/.config/fzf-marks/fzf-marks.plugin.bash ] && source "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
 
 # change directory with fzf
 fd() {
