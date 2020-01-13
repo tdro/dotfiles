@@ -18,6 +18,9 @@ Plugin 'mcchrish/nnn.vim'
 Plugin 'dense-analysis/ale'
 Plugin 'tpope/vim-fugitive'
 
+" Enable fzf.vim on Debian
+silent! source /usr/share/doc/fzf/examples/fzf.vim
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
