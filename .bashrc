@@ -138,6 +138,11 @@ alias rangerinf='while true; do ranger; done'
 # archey3
 alias archey3="archey3 --config=~/.config/archey3.cfg"
 
+# lxc
+alias lxc-attach='lxc-attach --clear-env -n'
+alias lxc-ls='lxc-ls -f'
+lxc-copy() { /usr/bin/lxc-copy -n "$1" -N "$2"; }
+
 # docker aliases
 alias pdf2htmlEX='docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2htmlEX'
 alias composer='docker run -ti --rm -v $PWD:/app composer:1.8.6 composer'
