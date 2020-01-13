@@ -159,6 +159,10 @@ nmap <Leader>ma :Marks<cr>
 " Print working directory
 nmap <Leader>di :pwd<cr>
 
+" Load and save sessions
+nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
+nmap <Leader>ss :silent! exec "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
+
 " Close buffer and window
 nmap <Leader>q :bd<cr>
 nmap <Leader>w <C-w>c<cr>
@@ -284,18 +288,11 @@ augroup AutoLinting
 
 augroup END
 
-" Automatically save the session on leaving vim.
-autocmd! VimLeave * mksession! ~/.vim/Session.vim
-
-" Automatically load the session when entering vim.
-autocmd! VimEnter * source ~/.vim/Session.vim
-      \ | source ~/.vimrc " Source configuration after session load.
-
 " Automatically remove trailing white space on save.
 autocmd! InsertLeave,BufWritePre * %s/\s\+$//e
 
 " Automatically save file on insert and idle.
 autocmd! InsertLeave,CursorHoldI * silent! write
-      \ | silent! exec "!~/.vim/post-save-hook > /dev/null 2>&1 &"
+      \ | silent! exec "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
 
 set cmdheight=1 " Set command height back to the default.
