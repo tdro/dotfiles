@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 ACTION=`zenity --width=90 --height=181 --list --radiolist --text="Select Action" --title="Logout" --column "Choice" --column "Action" TRUE Shutdown FALSE Reboot FALSE Suspend FALSE Lock`
 

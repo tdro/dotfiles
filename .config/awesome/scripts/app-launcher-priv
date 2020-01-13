@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 PATH="$PATH:$HOME/.local/bin";
 rofi -fullscreen -show run -display-run "#" -run-command 'gksudo {cmd}' -font "ubuntu 12" -padding 300;
