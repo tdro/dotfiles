@@ -3,17 +3,18 @@
 	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
 	"convert_tabspaces_on_save": true,
 	"ensure_newline_at_eof_on_save": true,
-	"font_face": "UW Ttyp0",
+	"font_face": "Monospace",
 	"font_options":
 	[
 		"no_italic",
 		"no_bold"
 	],
-	"font_size": 9,
+	"font_size": 10,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"Sass"
 	],
 	"index_files": false,
 	"line_numbers": false,
