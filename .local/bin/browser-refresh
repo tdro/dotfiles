@@ -22,7 +22,7 @@ target_window=$(
 # active window where the script was activated
 initial_window=$(xdotool getwindowfocus)
 
-# echo target browser id for debugging purposes
+# echo target window id for debugging purposes
 #echo $target_window;
 
 # bail on empty window id
