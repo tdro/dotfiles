@@ -35,6 +35,10 @@ set nowritebackup                        " No overwrite backups.
 set autoread                             " Auto read file on external change.
 set autowrite                            " Write if modified.
 set autowriteall                         " Write if modified on buffer change.
+set autoindent                           " Copy indent from current line to new line.
+set ignorecase                           " Ignore case on search.
+set smartcase                            " Search by case smartly.
+set lazyredraw                           " Do not redraw screen when using macros.
 
 set mouse=a                              " Enable visual mode.
 set shortmess+=I                         " Disable startup message.
