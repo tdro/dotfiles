@@ -64,8 +64,8 @@ man() {
   man "$@"
 }
 
-# disable less history
-export LESSHISTFILE=-
+# set less history path
+export LESSHISTFILE=$HOME/.cache/less.history
 
 # bash history settings
 export HISTSIZE=
@@ -74,6 +74,9 @@ export HISTCONTROL=ignoredups:erasedups
 
 # prompt command runs on every command
 export PROMPT_COMMAND="cd .; history -a"
+
+# set wget history path
+alias wget="wget --hsts-file $HOME/.cache/wget.history"
 
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary) && ssh'
@@ -100,15 +103,6 @@ alias chgrp='chgrp --preserve-root'
 # locate replaced with locate -e
 alias locate='locate -ie'
 
-# reboot / halt / poweroff which are symlink'd to systemd
-alias reboot='sudo /sbin/reboot'
-alias poweroff='sudo /sbin/poweroff'
-alias halt='sudo /sbin/halt'
-alias shutdown='sudo /sbin/shutdown'
-
-# journalctl
-alias journalctl='sudo journalctl -q'
-
 # wavemon
 alias wavemon='sudo wavemon'
 
@@ -122,7 +116,7 @@ alias grep='grep --color=tty -d skip'
 alias alsamixer='alsamixer -V all'
 
 # fzf listed history
-alias fuzzy-history='cat $HOME/.bash_history | fzf'
+alias fzh='cat $HOME/.bash_history | fzf'
 
 # pulse delay on audacity
 alias audacity='PULSE_LATENCY_MSEC=30 audacity'
