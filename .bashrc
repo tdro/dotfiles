@@ -82,7 +82,7 @@ alias wget="wget --hsts-file $HOME/.cache/wget.history"
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary) && ssh'
 
 # colorize the ls output
-alias ls='ls --color=always'
+alias ls='ls -hN --color=always --group-directories-first'
 
 # lsblk
 alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
