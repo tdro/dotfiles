@@ -2,4 +2,4 @@
 
 . /etc/profile.d/theme.sh
 PATH="$PATH:$HOME/.local/bin";
-rofi -fullscreen -show run -display-run "$" -font "ubuntu 12" -padding 300;
+rofi -fullscreen -show run -display-run "$" -font "ubuntu 12" -padding 250;
