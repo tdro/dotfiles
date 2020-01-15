@@ -1,0 +1,13 @@
+[Unit]
+Description=Plank
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Environment=XDG_SESSION_TYPE=X11
+ExecStart=/usr/bin/env plank
+Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target
