@@ -22,6 +22,7 @@ set wrap                                 " Automatically wrap lines.
 set nonumber                             " Set line numbers.
 set hlsearch                             " Enable search.
 set incsearch                            " Set incremental search.
+set showmatch                            " Briefly show matching tags.
 set nocompatible                         " Use Vim defaults.
 set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
