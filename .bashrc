@@ -7,6 +7,12 @@
 [[ "$EUID" -ne 0 ]] && PS1='\[\e[0;34m\]\W \$\[\e[0m\] '
 [[ "$EUID" -eq 0 ]] && PS1='\[\e[1;31m\]\W \$\[\e[0m\] '
 
+# ssh bash prompt color change
+if [ -n "$SSH_CLIENT" ]; then
+  [[ "$EUID" -ne 0 ]] && export PS1='\[\e[1;32m\]\W \$\[\e[0m\] ';
+  [[ "$EUID" -eq 0 ]] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] '
+fi
+
 # cd using directory name
 shopt -s autocd;
 
@@ -54,11 +60,6 @@ man() {
   LESS_TERMCAP_us="$(printf "\e[1;32m")" \
   man "$@"
 }
-
-# ssh bash prompt color change
-if [ -n "$SSH_CLIENT" ]; then
-  export PS1='\[\e[1;32m\]\W \$\[\e[0m\] '
-fi
 
 # disable less history
 export LESSHISTFILE=-
