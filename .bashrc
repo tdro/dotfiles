@@ -22,6 +22,9 @@ shopt -s histappend;
 # bash history one command per line
 shopt -s cmdhist;
 
+# enable vi mode
+set -o vi
+
 # disable ctrl+s
 stty stop '';
 stty start '';
