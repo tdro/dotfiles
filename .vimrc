@@ -238,13 +238,6 @@ inoremap <S-Tab> <C-d>
 vnoremap < <gv
 vnoremap > >gv
 
-" Move lines around.
-nnoremap 0 :m-2<cr>==
-xnoremap 0 :m-2<cr>gv=gv
-nnoremap 9 :m+<cr>==
-xnoremap 9 :m'>+<cr>gv=gv
-
-
 "---------------Plugin Settings---------------"
 
 " Grep Replace
