@@ -146,7 +146,6 @@ alias pdf2htmlEX='docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2ht
 alias composer='docker run -ti --rm -v $PWD:/app composer:1.8.6 composer'
 alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm'
 alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
-#alias php='docker run -ti --rm -v "$PWD":/var/www/html php:7.3.7-fpm-alpine php'
 
 # paths
 PATH="$PATH:$HOME/.config/composer/vendor/bin"
@@ -172,3 +171,9 @@ history-remove-duplicates() {
   awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/.bash_history.tmp;
   mv -f /tmp/.bash_history.tmp "$HOME/.bash_history"
 }
+
+# extract docker container as rootfs
+docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export -o "$2" "$id" && docker container rm "$id"; }
+
+# remove dangling docker images
+alias docker-remove-dangling='docker rmi $(docker images -f "dangling=true" -q)'
