@@ -123,7 +123,7 @@ hi clear SignColumn
 
 " PHP Fixer
 function! PHPFix()
-  :silent !notify-send "$(phpcbf %) &"
+  :silent !notify-send "$(phpcbf %)" &
   :redraw!
 endfunction
 
@@ -142,6 +142,12 @@ endfunction
 " ESLint Fix
 function! ESLintFix()
   :silent !notify-send "$(eslint --fix %)"
+  :redraw!
+endfunction
+
+" Ansible Check
+function! AnsibleCheck()
+  :silent !notify-send "$(ansible-playbook --syntax-check % 2> /dev/null)" &
   :redraw!
 endfunction
 
@@ -176,6 +182,7 @@ nmap <Leader>w <C-w>c<cr>
 nmap <Leader>la :ALEToggle<cr>
 nmap <Leader>lph :call HTMLBeautify()<cr>
 nmap <Leader>lpc :call CSSBeautify()<cr>
+nmap <Leader>lpa :call AnsibleCheck()<cr>
 
 " Re-indent entire file.
 nmap <Leader>re gg=G<Leader>o<Leader>o
