@@ -194,9 +194,6 @@ nmap <Leader>rpf :term psysh %<cr>
 nmap <Leader>rpt :term php artisan tinker<cr>
 nmap <Leader>rpl :term psysh-tinker-live %<cr>
 
-" Remap jump key binding.
-nnoremap <Leader>o <C-o>
-
 " Toggle color column
 nnoremap <leader>cv :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 
@@ -228,8 +225,9 @@ nmap <C-g> :BTags<cr>
 nmap <Tab> :Buffers<cr>
 
 " FZF function mappings.
-nmap <C-o> :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
 nmap <C-d> :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $HOME/.config/fzf-marks/.fzf-marks", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+nmap <Leader>oo :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
+nmap <Leader>oa :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
 nmap <Leader>rpd
       \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "cat $HOME/.vim/tags/php", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
