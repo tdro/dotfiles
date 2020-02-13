@@ -147,8 +147,7 @@ endfunction
 
 " Ansible Check
 function! AnsibleCheck()
-  :silent !notify-send "$(ansible-playbook --syntax-check % 2> /dev/null)" &
-  :redraw!
+  :term ansible-playbook --syntax-check %
 endfunction
 
 
