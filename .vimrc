@@ -234,6 +234,7 @@ nmap <Leader>rpd
       \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "cat $HOME/.vim/tags/php", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
 " nnn mappings.
+let g:nnn#command = 'nnn -H'
 nmap <C-n> :NnnPicker<CR>
 nmap <Leader>n :NnnPicker '%:p:h'<CR>
 
