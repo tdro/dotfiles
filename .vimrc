@@ -232,7 +232,6 @@ nmap <Leader>rpd
       \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "cat $HOME/.vim/tags/php", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
 " nnn mappings.
-let g:nnn#command = 'nnn -H'
 nmap <C-n> :NnnPicker<CR>
 nmap <Leader>n :NnnPicker '%:p:h'<CR>
 
@@ -243,6 +242,10 @@ inoremap <S-Tab> <C-d>
 " Retain visual selection when tabbing
 vnoremap < <gv
 vnoremap > >gv
+
+" pdv
+nnoremap <Leader>dd :call pdv#DocumentWithSnip()<CR>
+
 
 "---------------Plugin Settings---------------"
 
@@ -255,7 +258,6 @@ let g:ale_enabled = 0
 
 " pdv
 let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
-nnoremap <Leader>dd :call pdv#DocumentWithSnip()<CR>
 
 " UltiSnips
 let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
@@ -265,9 +267,11 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " nnn settings
+let g:nnn#command = 'nnn -H'            " Override default command
 let g:nnn#set_default_mappings = 0      " Disable default mappings
 let g:nnn#layout = 'new'                " Opens the nnn window in a split
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
+
 
 "----------------Autorun----------------"
 augroup AutoSourcing
