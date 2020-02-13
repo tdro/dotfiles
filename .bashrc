@@ -176,4 +176,4 @@ history-remove-duplicates() {
 docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export -o "$2" "$id" && docker container rm "$id"; }
 
 # remove dangling docker images
-docker-remove-dangling() { docker container prune --force && docker rmi "$(docker images -f 'dangling=true' -q)"; }
+docker-cprune() { docker container prune --force && docker rmi "$(docker images -f 'dangling=true' -q)"; }
