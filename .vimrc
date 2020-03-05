@@ -150,6 +150,11 @@ function! AnsibleCheck()
   :term ansible-playbook --syntax-check %
 endfunction
 
+" Shell Check
+function! ShellCheck()
+  :term shellcheck -x %
+endfunction
+
 
 "---------------Shortcuts---------------"
 
@@ -182,6 +187,7 @@ nmap <Leader>la :ALEToggle<cr>
 nmap <Leader>lph :call HTMLBeautify()<cr>
 nmap <Leader>lpc :call CSSBeautify()<cr>
 nmap <Leader>lpa :call AnsibleCheck()<cr>
+nmap <Leader>lps :call ShellCheck()<cr>
 
 " Re-indent entire file.
 nmap <Leader>re gg=G<Leader>o<Leader>o
