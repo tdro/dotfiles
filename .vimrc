@@ -1,4 +1,4 @@
-" Clear all mappings
+" Clear all mappings.
 mapclear
 
 runtime! archlinux.vim
@@ -158,14 +158,19 @@ endfunction
 
 "---------------Shortcuts---------------"
 
-" Edit shortcuts.
+" Edit shortcuts
 nmap <Leader>ev :tabedit /etc/vimrc<cr>
 nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
 nmap <Leader>eh :tabedit ~/.vim/post-save-hook<cr>
 nmap <Leader>es :UltiSnipsEdit<cr>
 
-" Locate search.
-nmap <Leader>fl :Locate<space>
+" Git, tags, and help commands
+nmap <Leader>fgf :GFiles<cr>
+nmap <Leader>fgs :GFiles?<cr>
+nmap <Leader>fgc :Commits<cr>
+nmap <Leader>ftb :BTags<cr>
+nmap <Leader>flh :Helptags<cr>
+nmap <Leader>flc :Commands<cr>
 
 " Show key mappings
 nmap <Leader>mm :Maps<cr>
@@ -182,15 +187,16 @@ nmap <Leader>ss :silent! exec "!~/.vim/hooks/pre-session-save && notify-send 'Vi
 nmap <Leader>q :bd<cr>
 nmap <Leader>w <C-w>c<cr>
 
-" Linting shortcuts.
-nmap <Leader>la :ALEToggle<cr>
+" Linting shortcuts
+nmap <Leader>lat :ALEToggle<cr>
 nmap <Leader>lph :call HTMLBeautify()<cr>
 nmap <Leader>lpc :call CSSBeautify()<cr>
 nmap <Leader>lpa :call AnsibleCheck()<cr>
 nmap <Leader>lps :call ShellCheck()<cr>
 
-" Re-indent entire file.
+" Re-indent entire file
 nmap <Leader>re gg=G<Leader>o<Leader>o
+
 " Reset all settings and source configuration.
 nmap <Leader>ra :set all& \| :source /etc/vimrc \| :e<cr>
 
@@ -201,21 +207,41 @@ nmap <Leader>rpt :term php artisan tinker<cr>
 nmap <Leader>rpl :term psysh-tinker-live %<cr>
 
 " Toggle color column
-nnoremap <leader>cv :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
+nmap <leader>cv :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 
 " Toggle color column
-nnoremap <leader>cx :set cursorcolumn!<cr>
+nmap <leader>cx :set cursorcolumn!<cr>
 
-" Exit incremental search.
+" File open mappings
+nmap <Leader>oh :History<cr>
+nmap <Leader>oc :History:<cr>
+nmap <Leader>ol :Locate<space>
+nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $HOME/.config/fzf-marks/.fzf-marks", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+nmap <Leader>oo :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
+nmap <Leader>oa :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
+nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $HOME/.config/fzf-marks/.fzf-fmarks", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
+
+" View function documentation
+nmap <Leader>vdp
+      \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "cat $HOME/.vim/tags/php", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
+
+" Mappings for nnn
+nmap <Leader>nn :NnnPicker<CR>
+nmap <Leader>n. :NnnPicker '%:p:h'<CR>
+
+" Mappings for pdv
+nmap <Leader>dd :call pdv#DocumentWithSnip()<CR>
+
+" Exit incremental search
 nmap <Esc><Esc> :nohl<cr>
-
-" Close Vim.
-nmap <C-c> :qa<cr>
 
 " Toggle Spell Check
 nmap <C-s> :set spell!<cr>
 
-" Remap split window keys.
+" Close Vim.
+nmap <C-c> :qa<cr>
+
+" Split window mappings
 nmap <Bslash> :vsplit<cr>
 nmap <C-Bslash> :split<cr>
 nmap <C-h> :vertical resize +5<cr>
@@ -223,24 +249,13 @@ nmap <C-l> :vertical resize -5<cr>
 nmap <C-j> :resize +5<cr>
 nmap <C-k> :resize -5<cr>
 
-" FZF key mappings.
-nmap <C-p> :Hist<cr>
-nmap <C-f> :Lines<cr>
-nmap <C-x> :GFiles?<cr>
-nmap <C-g> :BTags<cr>
+" Show open buffers
 nmap <Tab> :Buffers<cr>
 
-" FZF function mappings.
-nmap <C-d> :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $HOME/.config/fzf-marks/.fzf-marks", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
-nmap <Leader>oo :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
-nmap <Leader>oa :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
-nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $HOME/.config/fzf-marks/.fzf-fmarks", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
-nmap <Leader>rpd
-      \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "cat $HOME/.vim/tags/php", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
-
-" nnn mappings.
-nmap <C-n> :NnnPicker<CR>
-nmap <Leader>n :NnnPicker '%:p:h'<CR>
+" Search lines in buffer and open files
+nmap <C-f> :BLines<cr>
+nmap <C-d> :Lines<cr>
+nmap <C-p> :Hist<cr>
 
 " Inverse Tabs
 nnoremap <S-Tab> <<
@@ -249,9 +264,6 @@ inoremap <S-Tab> <C-d>
 " Retain visual selection when tabbing
 vnoremap < <gv
 vnoremap > >gv
-
-" pdv
-nnoremap <Leader>dd :call pdv#DocumentWithSnip()<CR>
 
 
 "---------------Plugin Settings---------------"
