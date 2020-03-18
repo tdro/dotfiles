@@ -64,6 +64,9 @@ man() {
   man "$@"
 }
 
+# set editor
+export EDITOR=vim
+
 # set less history path
 export LESSHISTFILE=$HOME/.cache/less.history
 
