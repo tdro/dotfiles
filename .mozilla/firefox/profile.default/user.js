@@ -14,6 +14,7 @@ user_pref("browser.cache.offline.enable", false);                 // PREF: Do no
 user_pref("beacon.enabled",	false);                               // PREF: Disable "beacon" asynchronous HTTP transfers (used for analytics)
 
 user_pref("dom.event.clipboardevents.enabled", false);            // PREF: Disable clipboard event detection (onCut/onCopy/onPaste) via Javascript
+user_pref("dom.event.contextmenu.enabled", false);                // PREF: Don't allow websites to prevent use of right-click
 user_pref("dom.allow_cut_copy", false);                           // PREF: Disable "copy to clipboard" functionality via Javascript (Firefox >= 41)
 user_pref("dom.battery.enabled", false);                          // PREF: Disable battery API (Firefox < 52)
 user_pref("dom.webnotifications.enabled", false);                 // PREF: Disable web notifications
@@ -84,3 +85,5 @@ user_pref("devtools.command-button-rulers.enabled", true);
 user_pref("devtools.command-button-screenshot.enabled", true);
 
 user_pref("dom.maxHardwareConcurrency", 2);                       // PREF: Spoof dual-core CPU https://bugzilla.mozilla.org/show_bug.cgi?id=1360039
+
+user_pref("network.IDN_show_punycode", true);                     // PREF: Show punycode. Help protect from character 'spoofing' https://www.xudongz.com/blog/2017/idn-phishing/)
