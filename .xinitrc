@@ -19,6 +19,9 @@ xset dpms 3600 3600 3600 &
 # set cursor
 xsetroot -cursor_name left_ptr;
 
+# set keypress repeat
+xset r rate 200 60;
+
 # import systemd environment
 systemctl --user import-environment;
 
