@@ -226,8 +226,8 @@ nmap <Leader>vdp
       \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "cat $HOME/.vim/tags/php", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
 " Mappings for nnn
-nmap <Leader>nn :NnnPicker<CR>
-nmap <Leader>n. :NnnPicker '%:p:h'<CR>
+nmap <Leader>nn :NnnPicker '%:p:h'<CR>
+nmap <Leader>nm :NnnPicker<CR>
 
 " Mappings for pdv
 nmap <Leader>dd :call pdv#DocumentWithSnip()<CR>
