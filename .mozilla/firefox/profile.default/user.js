@@ -87,3 +87,7 @@ user_pref("devtools.command-button-screenshot.enabled", true);
 user_pref("dom.maxHardwareConcurrency", 2);                       // PREF: Spoof dual-core CPU https://bugzilla.mozilla.org/show_bug.cgi?id=1360039
 
 user_pref("network.IDN_show_punycode", true);                     // PREF: Show punycode. Help protect from character 'spoofing' https://www.xudongz.com/blog/2017/idn-phishing/)
+
+user_pref("browser.cache.memory.capacity", 30);                   // PREF: Limit browser cache size
+user_pref("browser.sessionhistory.max_entries", 20);              // PREF: Limit forward and back button storage
+user_pref("javascript.options.mem.max", 51200);                   // PREF: Limit JavaScript memory usage
