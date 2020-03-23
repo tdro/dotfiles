@@ -1,5 +1,5 @@
 #!/bin/sh
-file=$HOME/.config/fzf-marks/.fzf-fmarks
+file=$HOME/Documents/.fzf-fmarks
 temp=/tmp/.fzf-fmarks.tmp
 
 realpath "$1" && realpath "$1" >> "$file";

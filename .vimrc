@@ -216,10 +216,10 @@ nmap <leader>cx :set cursorcolumn!<cr>
 nmap <Leader>oh :History<cr>
 nmap <Leader>oc :History:<cr>
 nmap <Leader>ol :Locate<space>
-nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $HOME/.config/fzf-marks/.fzf-marks", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $HOME/Documents/.fzf-marks", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
 nmap <Leader>oo :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden', 'sink': 'e', 'down': '20%'})<cr>
 nmap <Leader>oa :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
-nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $HOME/.config/fzf-marks/.fzf-fmarks", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
+nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $HOME/Documents/.fzf-fmarks", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
 
 " View function documentation
 nmap <Leader>vdp

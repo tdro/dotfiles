@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 FZF_MARKS_COMMAND='fzf --height 40%'
-FZF_MARKS_FILE=$HOME/.config/fzf-marks/.fzf-marks
+FZF_MARKS_FILE=$HOME/Documents/.fzf-marks
 
 command -v fzf >/dev/null 2>&1 || return
 
