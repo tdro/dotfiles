@@ -6,6 +6,7 @@ Type=simple
 ExecStart=/usr/bin/env redshift
 Restart=always
 RestartSec=5s
+SyslogIdentifier=redshift
 
 [Install]
 WantedBy=default.target

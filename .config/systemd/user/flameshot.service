@@ -6,6 +6,7 @@ Type=simple
 ExecStart=/usr/bin/env flameshot
 Restart=always
 RestartSec=5s
+SyslogIdentifier=flameshot
 
 [Install]
 WantedBy=default.target

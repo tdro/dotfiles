@@ -8,6 +8,7 @@ Type=simple
 ExecStart=/usr/bin/env x11vnc -usepw -nowf -repeat -forever -noxrecord -auth %h/.Xauthority
 Restart=always
 RestartSec=1s
+SyslogIdentifier=x11vnc
 
 [Install]
 WantedBy=default.target

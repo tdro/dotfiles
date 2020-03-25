@@ -7,6 +7,7 @@ ExecStart=/usr/bin/env xbindkeys -f %h/.config/xbindkeysrc -p -n
 Restart=always
 RestartSec=5s
 KillMode=process
+SyslogIdentifier=xbindkeys
 
 [Install]
 WantedBy=default.target

@@ -6,6 +6,7 @@ Type=simple
 ExecStart=/usr/bin/env copyq
 Restart=always
 RestartSec=5s
+SyslogIdentifier=copyq
 
 [Install]
 WantedBy=default.target
