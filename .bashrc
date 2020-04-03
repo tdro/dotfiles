@@ -158,7 +158,7 @@ PATH="$PATH:$HOME/.local/bin"
 export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
  --color=fg+:81,bg+:237,hl+:9 \
  --color=info:188,prompt:69,pointer:199 \
- --color=marker:109,spinner:248,header:255"
+ --color=marker:109,spinner:236,header:255"
 
 # source fzm
 [ -f "$HOME/.config/fzf-marks/fzf-marks.plugin.bash" ] && . "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
