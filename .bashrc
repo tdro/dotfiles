@@ -72,6 +72,12 @@ export HISTFILESIZE=
 export HISTCONTROL=ignoredups:erasedups
 export PROMPT_COMMAND="cd .; history -a"
 
+# fzf settings
+export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
+ --color=fg+:81,bg+:237,hl+:9 \
+ --color=info:188,prompt:69,pointer:199 \
+ --color=marker:109,spinner:236,header:255"
+
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary) && ssh'
 
@@ -122,25 +128,11 @@ PATH="$PATH:$HOME/.config/composer/vendor/bin"
 PATH="$PATH:$HOME/.node_modules/node_modules/.bin"
 PATH="$PATH:$HOME/.local/bin"
 
-export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
- --color=fg+:81,bg+:237,hl+:9 \
- --color=info:188,prompt:69,pointer:199 \
- --color=marker:109,spinner:236,header:255"
-
 # source fzm
 [ -f "$HOME/.config/fzf-marks/fzf-marks.plugin.bash" ] && . "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
 
-# change directory with fzf
-fd() {
-  DIR=$(ls -t -A1 --color=never | fzf-tmux) \
-    && cd "$DIR" || exit
-}
-
 # remove bash history duplicates
-history-remove-duplicates() {
-  awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/.bash_history.tmp;
-  mv -f /tmp/.bash_history.tmp "$HOME/.bash_history"
-}
+history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/.bash_history.tmp && mv -f /tmp/.bash_history.tmp "$HOME/.bash_history"; }
 
 # extract docker container as rootfs
 docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export -o "$2" "$id" && docker container rm "$id"; }
