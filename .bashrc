@@ -64,80 +64,44 @@ man() {
   man "$@"
 }
 
-# set editor
+# general exports
 export EDITOR=vim
-
-# set less history path
 export LESSHISTFILE=$HOME/.cache/less.history
-
-# bash history settings
 export HISTSIZE=
 export HISTFILESIZE=
 export HISTCONTROL=ignoredups:erasedups
-
-# prompt command runs on every command
 export PROMPT_COMMAND="cd .; history -a"
-
-# set wget history path
-alias wget='wget --hsts-file $HOME/.cache/wget.history'
 
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary) && ssh'
 
-# colorize the ls output
-alias ls='ls -hN --color=always --group-directories-first'
-
-# lsblk
-alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
-
-# do not delete / or prompt if deleting more than 3 files
-alias rm='rm -I --preserve-root'
-
-# confirmation
+# parenting
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
-
-# parenting changing perms on /
+alias rm='rm -I --preserve-root'
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
-# locate replaced with locate -e
+# general aliases
 alias locate='locate -ie'
-
-# wavemon
 alias wavemon='sudo wavemon'
-
-# pacman
 alias pacman='sudo pacman'
-
-# color grep
 alias grep='grep --color=tty -d skip'
-
-# alsamixer
 alias alsamixer='alsamixer -V all'
-
-# fzf listed history
 alias fzh='cat $HOME/.bash_history | fzf'
+alias dmesg='dmesg -e'
+alias diceware='diceware -d " "'
+alias colortest='msgcat --color=test'
+alias rangerinf='while true; do ranger; done'
+alias archey3="archey3 --config=~/.config/archey3.cfg"
+alias wget='wget --hsts-file $HOME/.cache/wget.history'
+alias ls='ls -hN --color=always --group-directories-first'
+alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
 
 # pulse delay on audacity
 alias audacity='PULSE_LATENCY_MSEC=30 audacity'
-
-# dmesg
-alias dmesg='dmesg -e'
-
-# diceware
-alias diceware='diceware -d " "'
-
-# colortest
-alias colortest='msgcat --color=test'
-
-# ranger keep running
-alias rangerinf='while true; do ranger; done'
-
-# archey3
-alias archey3="archey3 --config=~/.config/archey3.cfg"
 
 # lxc helpers
 alias lxc-attach='lxc-attach --clear-env -n'
