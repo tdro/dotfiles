@@ -1,8 +1,7 @@
 #!/bin/sh
+ACTION=`zenity --width=90 --height=210 --list --radiolist --text="Select Action" --title="Logout" --column "Choice" --column "Action" FALSE Shutdown FALSE Reboot TRUE Suspend FALSE Lock`
 
-ACTION=`zenity --width=90 --height=181 --list --radiolist --text="Select Action" --title="Logout" --column "Choice" --column "Action" TRUE Shutdown FALSE Reboot FALSE Suspend FALSE Lock`
-
-if [ -n "${ACTION}" ];then
+if [ -n "${ACTION}" ]; then
   case $ACTION in
   Shutdown)
     zenity --question --text "Are you sure you want to halt?" &&  gksudo 'systemctl poweroff'
