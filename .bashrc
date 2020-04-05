@@ -1,16 +1,19 @@
 #!/bin/bash
 
+# source exports
+. "$HOME/.bash_profile"
+
 # bail if not interactive
-[[ $- != *i* ]] && return
+[[ $- != *i* ]] && return;
 
 # set prompt
-[[ "$EUID" -ne 0 ]] && PS1='\[\e[0;34m\]\W \$\[\e[0m\] '
-[[ "$EUID" -eq 0 ]] && PS1='\[\e[1;31m\]\W \$\[\e[0m\] '
+[[ "$EUID" -ne 0 ]] && PS1='\[\e[0;34m\]\W \$\[\e[0m\] ';
+[[ "$EUID" -eq 0 ]] && PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
 
 # ssh bash prompt color change
 if [ -n "$SSH_CLIENT" ]; then
   [[ "$EUID" -ne 0 ]] && export PS1='\[\e[1;32m\]\W \$\[\e[0m\] ';
-  [[ "$EUID" -eq 0 ]] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] '
+  [[ "$EUID" -eq 0 ]] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
 fi
 
 # cd using directory name
@@ -64,9 +67,6 @@ man() {
   man "$@"
 }
 
-# source exports
-. "$HOME/.bash_profile"
-
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary) && ssh'
 
@@ -111,14 +111,6 @@ alias pdf2htmlEX='docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2ht
 alias composer='docker run -ti --rm -v $PWD:/app composer:1.8.6 composer'
 alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm'
 alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
-
-# paths
-PATH="$PATH:$HOME/.config/composer/vendor/bin"
-PATH="$PATH:$HOME/.node_modules/node_modules/.bin"
-PATH="$PATH:$HOME/.local/bin"
-
-# source fzm
-[ -f "$HOME/.config/fzf-marks/fzf-marks.plugin.bash" ] && . "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
 
 # remove bash history duplicates
 history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/.bash_history.tmp && mv -f /tmp/.bash_history.tmp "$HOME/.bash_history"; }
