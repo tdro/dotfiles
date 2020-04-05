@@ -112,6 +112,9 @@ alias composer='docker run -ti --rm -v $PWD:/app composer:1.8.6 composer'
 alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm'
 alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
 
+# source fzm
+[ -f "$HOME/.config/fzf-marks/fzf-marks.plugin.bash" ] && . "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
+
 # remove bash history duplicates
 history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/.bash_history.tmp && mv -f /tmp/.bash_history.tmp "$HOME/.bash_history"; }
 

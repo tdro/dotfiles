@@ -26,6 +26,3 @@ export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
 
 # source frequently changed files
 . /etc/profile.d/theme.sh
-
-# source fzm
-[ -f "$HOME/.config/fzf-marks/fzf-marks.plugin.bash" ] && . "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
