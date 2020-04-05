@@ -64,19 +64,8 @@ man() {
   man "$@"
 }
 
-# general exports
-export EDITOR=vim
-export LESSHISTFILE=$HOME/.cache/less.history
-export HISTSIZE=
-export HISTFILESIZE=
-export HISTCONTROL=ignoredups:erasedups
-export PROMPT_COMMAND="cd .; history -a"
-
-# fzf settings
-export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
- --color=fg+:81,bg+:237,hl+:9 \
- --color=info:188,prompt:69,pointer:199 \
- --color=marker:109,spinner:236,header:255"
+# source exports
+. "$HOME/.bash_profile"
 
 # ssh agent with keychain
 alias ssh='eval $(/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary) && ssh'
