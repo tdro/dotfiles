@@ -3,11 +3,11 @@
 ###########################
 
 # App Launcher
-"$HOME/.config/awesome/scripts/app-launcher"
+"$HOME/.local/bin/scripts/app-launcher"
     Mod4 + r
 
 # Priv App Launcher
-"$HOME/.config/awesome/scripts/app-launcher-priv"
+"$HOME/.local/bin/scripts/app-launcher-priv"
     Mod4 + d
 
 # Copyq Toggle
@@ -15,43 +15,43 @@
     Mod4 + z
 
 # Internet Search
-"$HOME/.config/awesome/scripts/file-search"
+"$HOME/.local/bin/scripts/file-search"
     Mod4 + p
 
 # Window Switcher
-"$HOME/.config/awesome/scripts/window-switcher"
+"$HOME/.local/bin/scripts/window-switcher"
     Alt + Tab
 
 # Window Overview
-"$HOME/.config/awesome/scripts/window-overview"
+"$HOME/.local/bin/scripts/window-overview"
     Mod4 + Tab
 
 # File Search
-"$HOME/.config/awesome/scripts/internet-search"
+"$HOME/.local/bin/scripts/internet-search"
     Mod4 + a
 
 # Volume Up
-"$HOME/.config/awesome/scripts/volume-up"
+"$HOME/.local/bin/scripts/volume-up"
     XF86AudioRaiseVolume
 
 # Volume Down
-"$HOME/.config/awesome/scripts/volume-down"
+"$HOME/.local/bin/scripts/volume-down"
     XF86AudioLowerVolume
 
 # Volume Mute
-"$HOME/.config/awesome/scripts/volume-mute"
+"$HOME/.local/bin/scripts/volume-mute"
     XF86AudioMute
 
 # Lock Screen
-"$HOME/.config/awesome/scripts/lockscreen"
+"$HOME/.local/bin/scripts/lockscreen"
     XF86ScreenSaver
 
 # Snipping Tool
-"$HOME/.config/awesome/scripts/snipping-tool"
+"$HOME/.local/bin/scripts/snipping-tool"
     Print
 
 # Switch Monitor
-"$HOME/.config/awesome/scripts/switch-monitor"
+"$HOME/.local/bin/scripts/switch-monitor"
     XF86Display
 
 # Screen Record
