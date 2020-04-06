@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # auto login
-[ "$EUID" -ne 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] && exec startx >/dev/null 2>&1;
+[ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] && exec startx >/dev/null 2>&1;
 
 # set prompt
-[ "$EUID" -ne 0 ] && export PS1='\[\e[0;34m\]\W \$\[\e[0m\] ';
-[ "$EUID" -eq 0 ] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
+[ "$EUID" != 0 ] && export PS1='\[\e[0;34m\]\W \$\[\e[0m\] ';
+[ "$EUID" = 0 ] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
 
 # ssh set prompt
 [ -n "$SSH_CLIENT" ] && [ "$EUID" -ne 0 ] && export PS1='\[\e[1;32m\]\W \$\[\e[0m\] ';
@@ -34,3 +34,6 @@ export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
 
 # source frequently changed files
 . /etc/profile.d/theme.sh
+
+# source bashrc
+[ -z "$DISPLAY" ] && . "$HOME/.bashrc"

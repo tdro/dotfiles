@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # source exports
-. "$HOME/.bash_profile"
+[ -z "$DISPLAY" ] || . "$HOME/.bash_profile"
 
 # bail if not interactive
 [[ $- != *i* ]] && return;
