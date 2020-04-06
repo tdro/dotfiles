@@ -1,7 +1,15 @@
 #!/bin/bash
 
 # auto login
-[ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] && exec startx >/dev/null 2>&1;
+[ "$EUID" -ne 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] && exec startx >/dev/null 2>&1;
+
+# set prompt
+[ "$EUID" -ne 0 ] && export PS1='\[\e[0;34m\]\W \$\[\e[0m\] ';
+[ "$EUID" -eq 0 ] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
+
+# ssh set prompt
+[ -n "$SSH_CLIENT" ] && [ "$EUID" -ne 0 ] && export PS1='\[\e[1;32m\]\W \$\[\e[0m\] ';
+[ -n "$SSH_CLIENT" ] && [ "$EUID" -eq 0 ] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
 
 # path exports
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"

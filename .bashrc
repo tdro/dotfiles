@@ -6,16 +6,6 @@
 # bail if not interactive
 [[ $- != *i* ]] && return;
 
-# set prompt
-[[ "$EUID" -ne 0 ]] && PS1='\[\e[0;34m\]\W \$\[\e[0m\] ';
-[[ "$EUID" -eq 0 ]] && PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
-
-# ssh bash prompt color change
-if [ -n "$SSH_CLIENT" ]; then
-  [[ "$EUID" -ne 0 ]] && export PS1='\[\e[1;32m\]\W \$\[\e[0m\] ';
-  [[ "$EUID" -eq 0 ]] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
-fi
-
 # cd using directory name
 shopt -s autocd;
 
@@ -26,7 +16,7 @@ shopt -s histappend;
 shopt -s cmdhist;
 
 # enable vi mode
-set -o vi
+set -o vi;
 
 # disable ctrl+s
 stty stop '';
