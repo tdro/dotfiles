@@ -293,7 +293,7 @@ let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 
 
 "----------------Autorun----------------"
-augroup AutoSourcing
+augroup AutoCommands
 
   " Clear auto commands.
   autocmd!
@@ -305,21 +305,20 @@ augroup AutoSourcing
   " Reload plugins.vim on file save.
   autocmd BufWritePost plugins.vim source %
 
-augroup END
-
-augroup AutoLinting
-
-  autocmd!
+  " Linting auto commands.
   autocmd BufWritePost *.php :call PHPFix()
   autocmd BufWritePost *.js :call ESLintFix()
 
+  " Automatically create quotes database on save.
+  autocmd BufWritePost quotes silent !notify-send "$(strfile %)"
+
+  " Automatically remove trailing white space on save.
+  autocmd InsertLeave,BufWritePre * %s/\s\+$//e
+
+  " Automatically save file on insert and idle.
+  autocmd InsertLeave,CursorHoldI * silent! write
+        \ | silent! exec "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
+
 augroup END
-
-" Automatically remove trailing white space on save.
-autocmd! InsertLeave,BufWritePre * %s/\s\+$//e
-
-" Automatically save file on insert and idle.
-autocmd! InsertLeave,CursorHoldI * silent! write
-      \ | silent! exec "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
 
 set cmdheight=1 " Set command height back to the default.
