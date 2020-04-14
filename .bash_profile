@@ -36,4 +36,4 @@ export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
 . /etc/profile.d/theme.sh
 
 # source bashrc
-[ -z "$DISPLAY" ] && . "$HOME/.bashrc"
+[ -z "$BASH_PROFILE" ] && . "$HOME/.bashrc"
