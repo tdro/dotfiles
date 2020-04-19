@@ -4,7 +4,7 @@
 [ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] && exec startx >/dev/null 2>&1;
 
 # set prompt
-PS1_USER='$(date +%T) \[\e[38;5;81m\]\W\[\e[0m\] \[\e[38;5;81m\]\$\[\e[0m\] '
+PS1_USER='$(date +%T) \[\e[0;34m\]\W\[\e[0m\] \[\e[0;34m\]\$\[\e[0m\] '
 PS1_ROOT='$(date +%T) \[\e[0;31m\]\W\[\e[0m\] \[\e[0;31m\]\$\[\e[0m\] '
 PS1_SSHD='$(date +%T) \[\e[0;32m\]\W\[\e[0m\] \[\e[0;32m\]\$\[\e[0m\] '
 
