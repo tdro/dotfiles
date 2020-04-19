@@ -24,6 +24,12 @@ stty start '';
 stty -ixon;
 stty -ixoff;
 
+# fzf bindings
+[ -f '/usr/share/fzf/completion.bash' ] && . /usr/share/fzf/completion.bash
+[ -f '/usr/share/fzf/key-bindings.bash' ] && . /usr/share/fzf/key-bindings.bash
+[ -f '/usr/share/doc/fzf/examples/completion.bash' ] && . /usr/share/doc/fzf/examples/completion.bash
+[ -f '/usr/share/doc/fzf/examples/key-bindings.bash' ] && . /usr/share/doc/fzf/examples/key-bindings.bash
+
 # set virtual console colors
 if [ "$TERM" = "linux" ]; then
   echo -en "\e]P0111111" #black [background]
@@ -75,7 +81,6 @@ alias wavemon='sudo wavemon'
 alias pacman='sudo pacman'
 alias grep='grep --color=tty -d skip'
 alias alsamixer='alsamixer -V all'
-alias fzh='cat $HOME/.bash_history | fzf'
 alias dmesg='dmesg -e'
 alias diceware='diceware -d " "'
 alias colortest='msgcat --color=test'
@@ -108,6 +113,7 @@ alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
 
 # remove bash history duplicates
 history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/.bash_history.tmp && mv -f /tmp/.bash_history.tmp "$HOME/.bash_history"; }
+history-remove-duplicates;
 
 # extract docker container as rootfs
 docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export -o "$2" "$id" && docker container rm "$id"; }
