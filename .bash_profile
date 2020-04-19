@@ -4,12 +4,15 @@
 [ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] && exec startx >/dev/null 2>&1;
 
 # set prompt
-[ "$EUID" != 0 ] && export PS1='\[\e[0;34m\]\W \$\[\e[0m\] ';
-[ "$EUID" = 0 ] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
+PS1_USER='$(date +%T) \[\e[38;5;81m\]\W\[\e[0m\] \[\e[38;5;81m\]\$\[\e[0m\] '
+PS1_ROOT='$(date +%T) \[\e[0;31m\]\W\[\e[0m\] \[\e[0;31m\]\$\[\e[0m\] '
+PS1_SSHD='$(date +%T) \[\e[0;32m\]\W\[\e[0m\] \[\e[0;32m\]\$\[\e[0m\] '
+
+[ "$EUID" != 0 ] && export PS1="$PS1_USER";
+[ "$EUID" = 0 ] && export PS1="$PS1_ROOT";
 
 # ssh set prompt
-[ -n "$SSH_CLIENT" ] && [ "$EUID" -ne 0 ] && export PS1='\[\e[1;32m\]\W \$\[\e[0m\] ';
-[ -n "$SSH_CLIENT" ] && [ "$EUID" -eq 0 ] && export PS1='\[\e[1;31m\]\W \$\[\e[0m\] ';
+[ -n "$SSH_CLIENT" ] && [ "$EUID" -ne 0 ] && export PS1="$PS1_SSHD";
 
 # path exports
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
@@ -19,9 +22,10 @@ export PATH="$PATH:$HOME/.local/bin"
 # general exports
 export EDITOR=vim
 export TERMINAL=urxvt
-export PROMPT_COMMAND="cd .; history -a"
+export PROMPT_COMMAND='cd .; history -a'
 export HISTSIZE=
 export HISTFILESIZE=
+export HISTTIMEFORMAT="%d/%m/%y %T "
 export HISTCONTROL=ignoredups:erasedups
 export LESSHISTFILE=$HOME/.cache/less.history
 export SUDO_ASKPASS=$HOME/.local/bin/rofi-askpass
