@@ -84,6 +84,7 @@ alias archey3="archey3 --config=~/.config/archey3.cfg"
 alias wget='wget --hsts-file $HOME/.cache/wget.history'
 alias ls='ls -hN --color=always --group-directories-first'
 alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
+alias emacs='TERM=xterm-256color emacs -nw --load ~/.config/emacs/emacs.el'
 
 # pulse delay on audacity
 alias audacity='PULSE_LATENCY_MSEC=30 audacity'
