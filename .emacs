@@ -14,10 +14,13 @@
 ;; disable startup screen
 (setq inhibit-startup-screen t)
 
+;; disable menu bar
+(menu-bar-mode -1)
+
 ;; use spaces for indentation
 (setq-default indent-tabs-mode nil)
 
-;; Set up package.el to work with MELPA
+;; set up package.el to work with MELPA
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
