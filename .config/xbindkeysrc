@@ -56,7 +56,7 @@
 
 # Screen Record
 "peek"
-    Shift + Print
+    Alt + Print
 
 # Flameshot Screenshots
 "flameshot gui"
