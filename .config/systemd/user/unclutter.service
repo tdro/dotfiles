@@ -3,7 +3,7 @@ Description=Hide mouse on idle
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env unclutter --timeout 1
+ExecStart=/usr/bin/env unclutter -idle 1
 Restart=always
 RestartSec=5s
 SyslogIdentifier=unclutter
