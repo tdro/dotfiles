@@ -40,6 +40,7 @@ set autoindent                           " Copy indent from current line to new 
 set ignorecase                           " Ignore case on search.
 set smartcase                            " Search by case smartly.
 set lazyredraw                           " Do not redraw screen when using macros.
+set viminfo+=n~/.vim/viminfo             " Set viminfo file path
 
 set mouse=a                              " Enable visual mode.
 set shortmess+=I                         " Disable startup message.
