@@ -142,7 +142,7 @@ endfunction
 
 " ESLint Fix
 function! ESLintFix()
-  :silent !notify-send "$(eslint --fix %)"
+  :silent !notify-send -t 10000 "$(eslint -c $HOME/.config/eslintrc.yml --fix %)"
   :redraw!
 endfunction
 

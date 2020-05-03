@@ -8,6 +8,8 @@ globals:
   SharedArrayBuffer: readonly
 parserOptions:
   ecmaVersion: 2018
+  sourceType: module
+  allowImportExportEverywhere: true
 rules:
   semi: error
   curly: error
