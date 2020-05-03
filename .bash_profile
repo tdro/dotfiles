@@ -38,14 +38,18 @@ export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
+# themes
+export DESKTOP_SESSION=gnome
+export XDG_CURRENT_DESKTOP=gnome
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+export QT_STYLE_OVERRIDE=adwaita
+[ -f "/etc/debian_version" ] && export QT_STYLE_OVERRIDE=adwaita-dark
+
 # fzf settings
 export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
  --color=fg+:81,bg+:237,hl+:9 \
  --color=info:188,prompt:69,pointer:199 \
  --color=marker:109,spinner:236,header:255"
-
-# source frequently changed files
-. /etc/profile.d/theme.sh
 
 # source bashrc
 [ -z "$BASH_PROFILE" ] && . "$HOME/.bashrc"
