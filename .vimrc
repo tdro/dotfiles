@@ -57,7 +57,7 @@ set formatoptions-=t                     " Do not auto wrap text when typing.
 set complete=.,w,b,u                     " Set our desired autocompletion match pattern.
 
 " Convert tab to spaces.
-set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
 
 " Highlight HTML and SQL in PHP.
 let php_sql_query = 1
@@ -183,6 +183,10 @@ nmap <Leader>di :pwd<cr>
 " Load and save sessions
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
 nmap <Leader>ss :silent! exec "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
+
+" Switch between spaces and tabs
+nmap <Leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab \| :%retab!<cr>
+nmap <Leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab \| :%retab!<cr>
 
 " Close buffer and window
 nmap <Leader>q :bd<cr>
