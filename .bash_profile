@@ -27,14 +27,16 @@ export HISTSIZE=
 export HISTFILESIZE=
 export HISTTIMEFORMAT="%d/%m/%y %T "
 export HISTCONTROL=ignoredups:erasedups
-export SUDO_ASKPASS=$HOME/.local/bin/rofi-askpass
 
+export SUDO_ASKPASS="$HOME/.local/bin/rofi-askpass"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export LESSHISTFILE="$XDG_CACHE_HOME/less.history"
 export GOPATH="$XDG_DATA_HOME/go"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
+export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
+export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
 # fzf settings
 export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \

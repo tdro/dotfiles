@@ -90,6 +90,7 @@ alias wget='wget --hsts-file $HOME/.cache/wget.history'
 alias ls='ls -hN --color=always --group-directories-first'
 alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
 alias emacs='TERM=xterm-256color emacs -nw --load ~/.config/emacs/emacs.el'
+alias mocp='mocp -M "$XDG_CONFIG_HOME"/moc'
 
 # pulse delay on audacity
 alias audacity='PULSE_LATENCY_MSEC=30 audacity'
