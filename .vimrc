@@ -182,7 +182,7 @@ nmap <Leader>di :pwd<cr>
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
 nmap <Leader>ss :silent! exec "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
 
-" Switch between spaces and tabs
+" Switch between tabs and spaces
 nmap <Leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab \| :%retab!<cr>
 nmap <Leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab \| :%retab!<cr>
 
