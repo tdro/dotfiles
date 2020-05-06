@@ -274,6 +274,9 @@ inoremap <S-Tab> <C-d>
 vnoremap < <gv
 vnoremap > >gv
 
+" Prevent cursor from jumping in visual select context https://ddrscott.github.io/blog/2016/yank-without-jank/
+vnoremap <expr>y "my\"" . v:register . "y`y"
+
 
 "---------------Plugin Settings---------------"
 
