@@ -261,7 +261,6 @@ nmap <C-d> :Lines<cr>
 nmap <C-p> :Hist<cr>
 
 " Inverse Tabs
-nnoremap <S-Tab> <<
 inoremap <S-Tab> <C-d>
 
 " Retain visual selection when tabbing
