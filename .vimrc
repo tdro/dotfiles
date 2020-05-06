@@ -49,7 +49,7 @@ set shortmess+=I                         " Disable startup message.
 set showtabline=0                        " Disable tab bar.
 set updatetime=1500                      " Set duration for cursor hold event.
 set fillchars=                           " Set split window margin fill to none.
-set laststatus=0                         " Disable split window status bar.
+set laststatus=0                         " Disable status bar.
 set linespace=3                          " Set line spaces.
 set guiheadroom=0                        " Disable headroom on window maximize.
 set history=50                           " Keep 50 lines of command line history.
@@ -57,6 +57,7 @@ set clipboard=unnamed                    " Use clipboard as default register.
 set backspace=indent,eol,start           " Enable backspacing.
 set formatoptions-=t                     " Do not auto wrap text when typing.
 set complete=.,w,b,u                     " Set our desired autocompletion match pattern.
+set encoding=utf-8                       " Set UTF8 encoding.
 
 " Convert tab to spaces.
 set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
