@@ -244,6 +244,9 @@ nmap <C-s> :set spell!<cr>
 " Close Vim.
 nmap <C-c> :qa<cr>
 
+" Disable Ex Mode
+nnoremap Q <Nop>
+
 " Split window mappings
 nmap <Bslash> :vsplit<cr>
 nmap <C-Bslash> :split<cr>
