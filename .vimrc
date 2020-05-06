@@ -57,7 +57,9 @@ set clipboard=unnamed                    " Use clipboard as default register.
 set backspace=indent,eol,start           " Enable backspacing.
 set formatoptions-=t                     " Do not auto wrap text when typing.
 set complete=.,w,b,u                     " Set our desired autocompletion match pattern.
-set encoding=utf-8                       " Set UTF8 encoding.
+set encoding=utf-8                       " Set UTF-8 encoding.
+set scrolloff=3                          " Set vertical scroll headroom.
+set sidescroll=3                         " Set horizontal scroll headroom.
 
 " Convert tab to spaces.
 set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
