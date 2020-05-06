@@ -40,7 +40,9 @@ set autoindent                           " Copy indent from current line to new 
 set ignorecase                           " Ignore case on search.
 set smartcase                            " Search by case smartly.
 set lazyredraw                           " Do not redraw screen when using macros.
+set undofile                             " Enable undofile
 set viminfo+=n~/.vim/viminfo             " Set viminfo file path
+set undodir=~/.vim/undodir               " Set undofile directory
 
 set mouse=a                              " Enable visual mode.
 set shortmess+=I                         " Disable startup message.
@@ -65,10 +67,6 @@ let php_htmlInStrings = 1
 
 " Highlight JavaScript
 let g:javascript_plugin_jsdoc = 1
-
-" Vim infinite undo.
-set undofile
-set undodir=~/.vim/undodir
 
 
 "----------------Visuals----------------"
