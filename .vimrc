@@ -198,7 +198,7 @@ nmap <Leader>lpa :call AnsibleCheck()<cr>
 nmap <Leader>lps :call ShellCheck()<cr>
 
 " Re-indent entire file
-nmap <Leader>re gg=G<Leader>o<Leader>o
+nmap <Leader>re gg=G<C-o><C-o>
 
 " Reset all settings and source configuration.
 nmap <Leader>ra :set all& \| :source /etc/vimrc \| :e<cr>
@@ -303,7 +303,7 @@ augroup AutoCommands
 
   " Reload vimrc on vimrc file save.
   autocmd BufWritePost vimrc source %
-      \ | :silent ! cp /etc/vimrc ~/.vimrc
+        \ | :silent ! cp /etc/vimrc ~/.vimrc
 
   " Reload plugins.vim on file save.
   autocmd BufWritePost plugins.vim source %
