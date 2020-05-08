@@ -1,7 +1,7 @@
 " Clear all mappings.
 mapclear
 
-runtime! archlinux.vim
+" Add match tag pairs package.
 packadd! matchit
 
 " Do not load defaults if ~/.vimrc is missing.
@@ -44,7 +44,7 @@ set undofile                             " Enable undofile
 set viminfo+=n~/.vim/viminfo             " Set viminfo file path
 set undodir=~/.vim/undodir               " Set undofile directory
 
-set mouse=a                              " Enable visual mode.
+set mouse=a                              " Enable mouse.
 set shortmess+=I                         " Disable startup message.
 set showtabline=0                        " Disable tab bar.
 set updatetime=1500                      " Set duration for cursor hold event.
