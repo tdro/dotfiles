@@ -27,7 +27,6 @@ set nocompatible                         " Use Vim defaults.
 set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
 set cursorline                           " Set cursor line highlight.
-set cmdheight=10                         " Set command height temporarily to avoid prompt.
 
 set nohidden                             " No hidden buffers.
 set nobackup                             " No write backups.
@@ -333,4 +332,5 @@ augroup AutoCommands
 
 augroup END
 
-set cmdheight=1 " Set command height back to the default.
+set cmdheight=999     " Set command height temporarily to avoid prompt.
+set cmdheight=1       " Set command height back to the default.
