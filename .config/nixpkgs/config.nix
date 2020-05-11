@@ -88,6 +88,7 @@
         xzoom
         libreoffice
         gcolor2
+        libnotify
       ];
       pathsToLink = [ "/share" "/bin" ];
     };
