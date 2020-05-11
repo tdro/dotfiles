@@ -151,11 +151,11 @@ vicious.register(swapwidget, vicious.widgets.mem, '  $8 mB', 5)
 
 -- Create network wifi widget
 netwidgetwifi = wibox.widget.textbox()
-vicious.register(netwidgetwifi, vicious.widgets.net, '  ${wifi down_kb} kB      ${wifi up_kb} kB   ', 3)
+vicious.register(netwidgetwifi, vicious.widgets.net, '  ${wifi down_kb} kB     ${wifi up_kb} kB', 3)
 
 -- Create network net widget
 netwidgetnet = wibox.widget.textbox()
-vicious.register(netwidgetnet, vicious.widgets.net, '⇆    ${net down_kb} kB      ${net up_kb} kB', 2)
+vicious.register(netwidgetnet, vicious.widgets.net, '  ${net down_kb} kB     ${net up_kb} kB', 2)
 
 -- Create separator widget
 separator = wibox.widget.textbox()
@@ -247,6 +247,7 @@ awful.screen.connect_for_each_screen(function(s)
     -- left_layout:add(mypromptbox[s])
     -- left_layout:add(separator)
     left_layout:add(netwidgetwifi)
+    left_layout:add(separator)
     left_layout:add(netwidgetnet)
     left_layout:add(separator)
     left_layout:add(cpuwidget)
