@@ -122,8 +122,8 @@
       pathsToLink = [ "/share" "/bin" ];
     };
 
-    fonts = pkgs.buildEnv {
-      name = "fonts";
+    fontset = pkgs.buildEnv {
+      name = "fontset";
       paths = [
         corefonts
         font-awesome_4
