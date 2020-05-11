@@ -32,8 +32,6 @@ local lain = require("lain")
 awesome.font = ("FontAwesome 8")
 -- Startup
 -- os.execute("sleep 1 && i3lock-fancy -t '' -- scrot &")
--- Exit Signals
-awesome.connect_signal("exit", function() awful.util.spawn_with_shell("~/.config/awesome/atexit") end)
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
