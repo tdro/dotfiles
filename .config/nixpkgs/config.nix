@@ -44,6 +44,8 @@
         pngquant
         pngnq
         imagemagick
+        moc
+        libqalculate
       ];
       pathsToLink = [ "/share" "/bin" ];
     };
@@ -124,8 +126,8 @@
       pathsToLink = [ "/share" "/bin" ];
     };
 
-    fontset = pkgs.buildEnv {
-      name = "fontset";
+    fonts = pkgs.buildEnv {
+      name = "fonts";
       paths = [
         corefonts
         font-awesome_4
@@ -136,7 +138,7 @@
     };
 
     themes = pkgs.buildEnv {
-      name = "fonts";
+      name = "themes";
       paths = [
        gnome-themes-extra
        papirus-icon-theme
