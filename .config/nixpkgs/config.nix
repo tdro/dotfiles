@@ -8,7 +8,6 @@
       paths = [
         htop
         fzf
-        rofi
         nmap
         ffmpeg
         nixops
@@ -27,11 +26,11 @@
         ncdu
         ldns
         vim
+        emacs
         alsaUtils
         iperf2
         diceware
         mimeo
-        dmenu
         bfg-repo-cleaner
         html-tidy
         davmail
@@ -74,7 +73,6 @@
         zathura
         gparted
         tigervnc
-        x11vnc
         flameshot
         copyq
         audacity
@@ -114,7 +112,13 @@
         xorg.xf86videoamdgpu
         xorg.xf86inputlibinput
         xorg.xf86inputevdev
+        x11vnc
         xdotool
+        xzoom
+        xbindkeys
+        wmctrl
+        rofi
+        dmenu
       ];
     };
 
