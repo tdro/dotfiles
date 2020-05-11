@@ -4,13 +4,8 @@ userresources=$HOME/.config/Xresources
 usermodmap=$HOME/.config/Xmodmap
 
 # merge in defaults and keymaps
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources";
-fi
-
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap";
-fi
+[ -f "$userresources" ] && xrdb -merge "$userresources";
+[ -f "$usermodmap" ] && xmodmap "$usermodmap";
 
 # screen timeouts
 xset s 0 0 &
