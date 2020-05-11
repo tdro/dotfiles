@@ -39,12 +39,37 @@
         exercism
         ideviceinstaller
         iozone
+        iotop
         kjv
         pngquant
         pngnq
         imagemagick
         moc
         libqalculate
+        encfs
+        bats
+        bleachbit
+        docker-compose
+        electrum
+        fortune
+        ansible_2_9
+        gifsicle
+        shellcheck
+        hugo
+        img2pdf
+        p7zip
+        powertop
+        rclone
+        smem
+        udevil
+        wavemon
+        weechat
+        w3m
+        wget
+        curl
+        wol
+        youtube-dl
+        groff
       ];
       pathsToLink = [ "/share" "/bin" ];
     };
@@ -64,13 +89,15 @@
         treesheets
         virt-manager
         mplayer
-        texworks
-        gummi
+        gnome3.zenity
+        gnome3.simple-scan
+        mate.engrampa
         treesheets
         vscode
         pavucontrol
         mupdf
         zathura
+        evince
         gparted
         tigervnc
         flameshot
@@ -80,16 +107,27 @@
         redshift
         unclutter
         lxappearance
-        xbindkeys
         syncthing
-        gnome3.zenity
         qownnotes
         keepassxc
         krop
-        xzoom
         libreoffice
         gcolor2
         libnotify
+        feh
+        aegisub
+        scribus
+        ardour
+        meld
+        gimp
+        gImageReader
+        i3lock-fancy
+        recoll
+        sigil
+        sublime3-dev
+        tabula
+        xournalpp
+        zim
       ];
       pathsToLink = [ "/share" "/bin" ];
     };
