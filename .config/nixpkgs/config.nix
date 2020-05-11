@@ -86,6 +86,8 @@
         keepassxc
         krop
         xzoom
+        libreoffice
+        gcolor2
       ];
       pathsToLink = [ "/share" "/bin" ];
     };
@@ -127,6 +129,17 @@
         noto-fonts
         noto-fonts-cjk
         noto-fonts-emoji
+      ];
+    };
+
+    themes = pkgs.buildEnv {
+      name = "fonts";
+      paths = [
+       gnome-themes-extra
+       papirus-icon-theme
+       adwaita-qt
+       vanilla-dmz
+       gtk3
       ];
     };
 
