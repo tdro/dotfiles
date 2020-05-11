@@ -190,5 +190,14 @@
       ];
     };
 
+    latex = pkgs.buildEnv {
+      name = "latex";
+      paths = [
+        gummi
+        texworks
+        texlive.combined.scheme-full
+      ];
+    };
+
   };
 }
