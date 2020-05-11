@@ -57,6 +57,7 @@
         google-chrome
         thunderbird
         spaceFM
+        skippy-xd
         peek
         scrcpy
         treesheets
@@ -101,8 +102,9 @@
         xorg.xrdb
         xorg.xinit
         xorg.xauth
-        xorg.xsetroot
         xorg.xrandr
+        xorg.xmodmap
+        xorg.xsetroot
         xorg.xorgserver
         xorg.xf86videonouveau
         xorg.xf86videointel
