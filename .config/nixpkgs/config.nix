@@ -70,6 +70,7 @@
         wol
         youtube-dl
         groff
+        gnupg
       ];
       pathsToLink = [ "/share" "/bin" ];
     };
