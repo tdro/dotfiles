@@ -114,7 +114,6 @@ alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
 
 # remove bash history duplicates
 history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/.bash_history.tmp && mv -f /tmp/.bash_history.tmp "$HOME/.bash_history"; }
-history-remove-duplicates;
 
 # extract docker container as rootfs
 docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export -o "$2" "$id" && docker container rm "$id"; }
