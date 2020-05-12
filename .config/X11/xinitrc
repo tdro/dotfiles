@@ -1,7 +1,7 @@
 #!/bin/sh
 
-userresources=$HOME/.config/Xresources
-usermodmap=$HOME/.config/Xmodmap
+userresources=$HOME/.config/X11/Xresources
+usermodmap=$HOME/.config/X11/Xmodmap
 
 # merge in defaults and keymaps
 [ -f "$userresources" ] && xrdb -merge "$userresources";
@@ -16,6 +16,9 @@ xsetroot -cursor_name left_ptr;
 
 # set keypress repeat
 xset r rate 200 60;
+
+# generate xauth
+xauth generate :0 . trusted;
 
 # import systemd environment
 systemctl --user import-environment;
