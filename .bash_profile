@@ -1,13 +1,18 @@
 #!/bin/bash
 
+# set xauthority path
+export XAUTHORITY=$HOME/.config/X11/Xauthority;
+
 # auto login
-[ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] && exec startx >/dev/null 2>&1;
+[ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] \
+  && exec xinit "$HOME/.config/X11/xinitrc" -- :0 -logfile "$HOME/.cache/xorg.log" vt1 -keeptty -auth "$XAUTHORITY";
 
 # set prompt
 PS1_USER='$(E=$? && [ "$E" != 0 ] && echo "$E ")\[\e[0;34m\]\W\[\e[0m\] \[\e[0;34m\]\$\[\e[0m\] '
 PS1_ROOT='$(E=$? && [ "$E" != 0 ] && echo "$E ")\[\e[0;31m\]\W\[\e[0m\] \[\e[0;31m\]\$\[\e[0m\] '
 PS1_SSHD='$(E=$? && [ "$E" != 0 ] && echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;32m\]\$\[\e[0m\] '
 
+# export prompt
 [ "$EUID" != 0 ] && export PS1="$PS1_USER";
 [ "$EUID" = 0 ] && export PS1="$PS1_ROOT";
 
