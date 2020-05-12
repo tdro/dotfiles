@@ -5,7 +5,7 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env x11vnc -usepw -nowf -repeat -forever -noxrecord -auth %h/.Xauthority
+ExecStart=/usr/bin/env x11vnc -usepw -nowf -repeat -forever -noxrecord -auth $XAUTHORITY
 Restart=always
 RestartSec=1s
 SyslogIdentifier=x11vnc
