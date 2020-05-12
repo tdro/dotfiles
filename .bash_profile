@@ -48,7 +48,9 @@ export DESKTOP_SESSION=gnome
 export XDG_CURRENT_DESKTOP=gnome
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export QT_STYLE_OVERRIDE=adwaita
-[ -f "/etc/debian_version" ] && export QT_STYLE_OVERRIDE=adwaita-dark
+
+# specific themes
+[ "$(cat /etc/hostname)" = "tiger" ] && export QT_STYLE_OVERRIDE=adwaita-dark
 
 # fzf settings
 export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
