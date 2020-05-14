@@ -29,6 +29,8 @@ stty -ixoff;
 [ -f '/usr/share/fzf/key-bindings.bash' ] && . /usr/share/fzf/key-bindings.bash
 [ -f '/usr/share/doc/fzf/examples/completion.bash' ] && . /usr/share/doc/fzf/examples/completion.bash
 [ -f '/usr/share/doc/fzf/examples/key-bindings.bash' ] && . /usr/share/doc/fzf/examples/key-bindings.bash
+[ -f "$HOME/.config/fzf/shell/completion.bash" ] && . "$HOME/.config/fzf/shell/completion.bash"
+[ -f "$HOME/.config/fzf/shell/key-bindings.bash" ] && . "$HOME/.config/fzf/shell/key-bindings.bash"
 
 # set virtual console colors
 if [ "$TERM" = "linux" ]; then
