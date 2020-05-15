@@ -5,7 +5,9 @@ export XAUTHORITY=$HOME/.config/X11/Xauthority;
 
 # auto login
 [ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] \
-  && exec xinit "$HOME/.config/X11/xinitrc" -- :0 -logfile "$HOME/.cache/xorg.log" vt1 -keeptty -auth "$XAUTHORITY";
+  && exec xinit "$HOME/.config/X11/xinitrc" -- :0 \
+  -configdir "$HOME/.config/X11/xorg.conf.d" \
+  -logfile "$HOME/.cache/xorg.log" vt1 -keeptty -auth "$XAUTHORITY";
 
 # set prompt
 PS1_USER='$(E=$? && [ "$E" != 0 ] && echo "$E ")\[\e[0;34m\]\W\[\e[0m\] \[\e[0;34m\]\$\[\e[0m\] '
