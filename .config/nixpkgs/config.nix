@@ -129,6 +129,7 @@
         tabula
         xournalpp
         zim
+        (callPackage ./packages/ntrviewer/default.nix {})
       ];
       pathsToLink = [ "/share" "/bin" ];
     };
