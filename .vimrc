@@ -193,7 +193,6 @@ nmap <Leader>q :bd<cr>
 nmap <Leader>w <C-w>c<cr>
 
 " Linting shortcuts
-nmap <Leader>lat :ALEToggle<cr>
 nmap <Leader>lph :call HTMLBeautify()<cr>
 nmap <Leader>lpc :call CSSBeautify()<cr>
 nmap <Leader>lpa :call AnsibleCheck()<cr>
@@ -233,9 +232,6 @@ nmap <Leader>vdp
 " Mappings for nnn
 nmap <Leader>nn :NnnPicker '%:p:h'<CR>
 nmap <Leader>nm :NnnPicker<CR>
-
-" Mappings for pdv
-nmap <Leader>dd :call pdv#DocumentWithSnip()<CR>
 
 " Exit incremental search
 nmap <Esc><Esc> :nohl<cr>
@@ -278,15 +274,6 @@ vnoremap <expr>y "my\"" . v:register . "y`y"
 
 "---------------Plugin Settings---------------"
 
-" Grep Replace
-set grepprg=ag
-let g:grep_cmd_opts = '--line-numbers --noheading'
-
-" Asynchronous Lint Engine (ale)
-let g:ale_enabled = 0
-
-" pdv
-let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
 
 " nnn settings
 let g:nnn#command = 'nnn -H'            " Override default command
