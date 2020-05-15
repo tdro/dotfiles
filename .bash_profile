@@ -19,7 +19,7 @@ PS1_SSHD='$(E=$? && [ "$E" != 0 ] && echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;3
 [ "$EUID" = 0 ] && export PS1="$PS1_ROOT";
 
 # ssh set prompt
-[ -n "$SSH_CLIENT" ] && [ "$EUID" -ne 0 ] && export PS1="$PS1_SSHD";
+[ -n "$SSH_CLIENT" ] && [ "$EUID" != 0 ] && export PS1="$PS1_SSHD";
 
 # path exports
 export PATH="$PATH:$HOME/.config/composer/vendor/bin"
