@@ -207,5 +207,13 @@
       ];
     };
 
+    javascript = pkgs.buildEnv {
+      name = "javascript";
+      paths = [
+        nodePackages.prettier
+        nodePackages.eslint
+      ];
+      pathsToLink = [ "/bin" ];
+    };
   };
 }
