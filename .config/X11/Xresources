@@ -15,7 +15,7 @@ URxvt.cursorColor: #69AEFF
 
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-m: perl:url-select:select_next
-URxvt.url-select.launcher: /usr/bin/firefox
+URxvt.url-select.launcher: /usr/bin/env firefox
 
 URxvt*font: xft:monospace:size=10
 URxvt.boldFont: xft:monospace:size=10
