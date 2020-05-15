@@ -164,7 +164,6 @@ endfunction
 nmap <Leader>ev :tabedit /etc/vimrc<cr>
 nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
 nmap <Leader>eh :tabedit ~/.vim/post-save-hook<cr>
-nmap <Leader>es :UltiSnipsEdit<cr>
 
 " Git, tags, and help commands
 nmap <Leader>fgf :GFiles<cr>
@@ -288,13 +287,6 @@ let g:ale_enabled = 0
 
 " pdv
 let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
-
-" UltiSnips
-let g:UltiSnipsSnippetsDir='~/.vim/ultisnips'
-let g:UltiSnipsSnippetDirectories=["ultisnips"]
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " nnn settings
 let g:nnn#command = 'nnn -H'            " Override default command

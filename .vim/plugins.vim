@@ -14,7 +14,6 @@ Plug 'MarcWeber/vim-addon-mw-utils',  { 'tag': '6aaf4fee472db7cbec6d2c8eea69fdf3
 Plug 'tomtom/tlib_vim',               { 'tag': 'a071b6d41b20069a3520e0d101194a752968973b' }
 Plug 'tobyS/pdv',                     { 'tag': '0e4b5aa689400246069953147ce53905c912087d' }
 Plug 'tobyS/vmustache',               { 'tag': 'd39f77bafef57ba7af304c74b3cfc91a83fd86e0' }
-Plug 'SirVer/ultisnips',              { 'tag': 'ee31ea1c7d08ced8577120b4c1d55c5a05351a75' }
 Plug 'dense-analysis/ale',            { 'tag': '64b9a2708d1b5c2ce2c04eee1f64508c75b7bbb4' }
 Plug 'tpope/vim-fugitive',            { 'tag': '85e2c73830b6bb01ce7fc3a926d2b25836a253eb' }
 
