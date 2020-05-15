@@ -140,6 +140,7 @@
         xorg.xset
         xorg.xrdb
         xorg.xinit
+        xorg.xinput
         xorg.xauth
         xorg.xrandr
         xorg.xmodmap
