@@ -137,6 +137,7 @@ in
           sqlitebrowser
           qrencode
           xsane
+          connman-gtk
           (callPackage ./packages/ntrviewer/default.nix {})
         ];
         pathsToLink = [ "/share" "/bin" ];
@@ -161,6 +162,7 @@ in
           xorg.xf86videoamdgpu
           xorg.xf86inputlibinput
           xorg.xf86inputevdev
+          xorg.xf86inputsynaptics
           x11vnc
           xdotool
           xzoom
