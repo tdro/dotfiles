@@ -7,6 +7,7 @@
       name = "terminal";
       paths = [
         htop
+        sshfs
         fzf
         nmap
         ffmpeg
@@ -129,6 +130,9 @@
         tabula
         xournalpp
         zim
+        sqlitebrowser
+        qrencode
+        xsane
         (callPackage ./packages/ntrviewer/default.nix {})
       ];
       pathsToLink = [ "/share" "/bin" ];
@@ -160,6 +164,7 @@
         wmctrl
         rofi
         dmenu
+        scrot
       ];
     };
 
