@@ -25,7 +25,7 @@
         hdparm
         ncdu
         ldns
-        vim
+        vimHugeX
         emacs
         alsaUtils
         iperf2
