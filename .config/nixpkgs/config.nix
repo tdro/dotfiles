@@ -42,6 +42,7 @@ in
           dive
           drone-cli
           exercism
+          xdg_utils
           ideviceinstaller
           iozone
           iotop
