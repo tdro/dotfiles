@@ -53,6 +53,7 @@ export QT_STYLE_OVERRIDE=adwaita
 
 # specific themes
 [ "$(cat /etc/hostname)" = "tiger" ] && export QT_STYLE_OVERRIDE=adwaita-dark
+[ "$(cat /etc/hostname)" = "talon" ] && export QT_STYLE_OVERRIDE=adwaita-dark
 
 # fzf settings
 export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
