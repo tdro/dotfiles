@@ -85,6 +85,7 @@ in
         paths = [
           firefox
           palemoon
+          unstable.ungoogled-chromium
           google-chrome
           thunderbird
           spaceFM
