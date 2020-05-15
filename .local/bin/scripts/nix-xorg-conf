@@ -1,0 +1,4 @@
+#!/bin/sh
+echo 'Section "Files"'
+echo "  ModulePath $(nix show-derivation -f '<nixpkgs>' xserver | grep '"path":' | awk '{print $2}' | head -c -2)/lib/xorg/modules\""
+echo 'EndSection';
