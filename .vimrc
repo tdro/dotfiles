@@ -161,7 +161,7 @@ endfunction
 "---------------Shortcuts---------------"
 
 " Edit shortcuts
-nmap <Leader>ev :tabedit /etc/vimrc<cr>
+nmap <Leader>ev :tabedit ~/.vimrc<cr>
 nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
 nmap <Leader>eh :tabedit ~/.vim/post-save-hook<cr>
 
@@ -202,7 +202,7 @@ nmap <Leader>lps :call ShellCheck()<cr>
 nmap <Leader>re gg=G<C-o><C-o>
 
 " Reset all settings and source configuration.
-nmap <Leader>ra :set all& \| :source /etc/vimrc \| :e<cr>
+nmap <Leader>ra :set all& \| :source ~/.vimrc \| :e<cr>
 
 " PHP REPL
 nmap <Leader>rps :.w !psysh<cr>
@@ -289,8 +289,7 @@ augroup AutoCommands
   autocmd!
 
   " Reload vimrc on vimrc file save.
-  autocmd BufWritePost vimrc source %
-        \ | :silent ! cp /etc/vimrc ~/.vimrc
+  autocmd BufWritePost .vimrc source %
 
   " Reload plugins.vim on file save.
   autocmd BufWritePost plugins.vim source %
