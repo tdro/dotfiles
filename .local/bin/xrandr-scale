@@ -1,0 +1,2 @@
+#!/bin/sh
+xrandr --output "$1" --scale "$2"x"$2"
