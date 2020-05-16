@@ -77,6 +77,7 @@ in
           youtube-dl
           groff
           gnupg
+          ocrmypdf
         ];
         pathsToLink = [ "/share" "/bin" ];
       };
