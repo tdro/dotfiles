@@ -143,7 +143,7 @@ endfunction
 
 " ESLint Fix
 function! ESLintFix()
-  :silent !notify-send -t 10000 "$(eslint -c $HOME/.config/eslintrc.yml --fix %)"
+  :silent !notify-send -t 10000 "$(eslint -c $HOME/.config/eslintrc.yml --fix %)" >/dev/null 2>&1
   :redraw!
 endfunction
 
@@ -154,7 +154,7 @@ endfunction
 
 " Shell Check
 function! ShellCheck()
-  :term shellcheck -x %
+  :silent !notify-send -t 10000 "$(shellcheck %)" >/dev/null 2>&1
 endfunction
 
 
@@ -289,16 +289,17 @@ augroup AutoCommands
   autocmd!
 
   " Reload vimrc on vimrc file save.
-  autocmd BufWritePost .vimrc source %
+  autocmd BufWritePost .vimrc source % | silent !notify-send 'Sourcing vimrc...'
 
   " Reload plugins.vim on file save.
-  autocmd BufWritePost plugins.vim source %
+  autocmd BufWritePost plugins.vim source % | silent !notify-send 'Sourcing plugins...'
 
   " Linting auto commands.
   autocmd BufWritePost *.php :call PHPFix()
   autocmd BufWritePost *.js :call ESLintFix()
+  autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
 
-  " Automatically create quotes database on save.
+  " General auto commands.
   autocmd BufWritePost quotes silent !notify-send "$(strfile %)"
 
   " Automatically remove trailing white space on save.
