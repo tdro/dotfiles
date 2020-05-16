@@ -4,7 +4,8 @@ After=network.target
 
 [Service]
 ExecStart=/usr/bin/env syncthing -no-browser -no-restart -logflags=0
-Restart=on-failure
+Restart=always
+RestartSec=5s
 SuccessExitStatus=3 4
 RestartForceExitStatus=3 4
 SyslogIdentifier=syncthing
@@ -17,4 +18,4 @@ MemoryDenyWriteExecute=true
 NoNewPrivileges=true
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
