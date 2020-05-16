@@ -193,6 +193,18 @@ in
           noto-fonts
           noto-fonts-cjk
           noto-fonts-emoji
+          etBook
+          ibm-plex
+          cooper-hewitt
+          fira
+          fira-code
+          fira-code-symbols
+          fira-mono
+          source-serif-pro
+          source-code-pro
+          yanone-kaffeesatz
+          cm_unicode
+          charis-sil
         ];
       };
 
