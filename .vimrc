@@ -301,13 +301,14 @@ augroup AutoCommands
 
   " General auto commands.
   autocmd BufWritePost quotes silent !notify-send "$(strfile %)"
+  autocmd BufWritePost Xresources silent !xrdb ~/.config/X11/Xresources && notify-send 'Reloading Xresources...'
 
   " Automatically remove trailing white space on save.
   autocmd InsertLeave,BufWritePre * %s/\s\+$//e
 
   " Automatically save file on insert and idle.
   autocmd InsertLeave,CursorHoldI * silent! write
-        \ | silent! exec "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
+        \| silent! exec "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
 
 augroup END
 
