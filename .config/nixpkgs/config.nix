@@ -212,6 +212,7 @@ in
         name = "themes";
         paths = [
           gnome-themes-extra
+          deepin.deepin-gtk-theme
           papirus-icon-theme
           adwaita-qt
           vanilla-dmz
