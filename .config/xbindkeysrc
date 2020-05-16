@@ -66,6 +66,10 @@
 "urxvt -e xbindkeys --multikey"
     Shift+Mod4 + b
 
+# Terminal
+"urxvt"
+    Mod4 + Return
+
 # Terminal Tabbed
 "urxvt -pe tabbed"
     Alt+Mod4 + Return

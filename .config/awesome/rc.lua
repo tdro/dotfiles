@@ -317,8 +317,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey, }, "q", function () awful.screen.focused().quake:toggle() end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal, { placement = awful.placement.under_mouse }) end,
-              {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "q", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
