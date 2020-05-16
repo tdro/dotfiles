@@ -173,7 +173,7 @@ in
           wmctrl
           rofi
           dmenu
-          scrot
+          escrotum
         ];
       };
 
