@@ -25,12 +25,10 @@ stty -ixon;
 stty -ixoff;
 
 # fzf bindings
-[ -f '/usr/share/fzf/completion.bash' ] && . /usr/share/fzf/completion.bash
-[ -f '/usr/share/fzf/key-bindings.bash' ] && . /usr/share/fzf/key-bindings.bash
-[ -f '/usr/share/doc/fzf/examples/completion.bash' ] && . /usr/share/doc/fzf/examples/completion.bash
-[ -f '/usr/share/doc/fzf/examples/key-bindings.bash' ] && . /usr/share/doc/fzf/examples/key-bindings.bash
-[ -f "$HOME/.config/fzf/shell/completion.bash" ] && . "$HOME/.config/fzf/shell/completion.bash"
-[ -f "$HOME/.config/fzf/shell/key-bindings.bash" ] && . "$HOME/.config/fzf/shell/key-bindings.bash"
+fzfcompletion=$(readlink "$(command -v fzf)" | cut -d '/' -f -4)/share/fzf/completion.bash;
+fzfkeybindings=$(readlink "$(command -v fzf)" | cut -d '/' -f -4)/share/fzf/key-bindings.bash;
+[ -f "$fzfcompletion" ] && . "$fzfcompletion";
+[ -f "$fzfkeybindings" ] && . "$fzfkeybindings";
 
 # set virtual console colors
 if [ "$TERM" = "linux" ]; then
