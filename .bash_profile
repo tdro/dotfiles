@@ -5,6 +5,7 @@ export XAUTHORITY=$HOME/.config/X11/Xauthority;
 
 # auto login
 [ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] \
+  && command -v nix && "$HOME"/.local/bin/scripts/nix-xorg-conf > "$HOME"/.config/X11/xorg.conf.d/00-modules.conf \
   && exec xinit "$HOME/.config/X11/xinitrc" -- :0 \
   -configdir "$HOME/.config/X11/xorg.conf.d" \
   -logfile "$HOME/.cache/xorg.log" vt1 -keeptty -auth "$XAUTHORITY";
