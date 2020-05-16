@@ -1,0 +1,10 @@
+#!/bin/sh
+external=$1
+option=$2
+internal=$3
+
+if xrandr | grep -q "$exernal connected [0-9]"; then
+    xrandr --output "$external" --off;
+else
+    xrandr --output "$external" --auto --"$option" "$internal";
+fi
