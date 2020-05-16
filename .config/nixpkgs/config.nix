@@ -6,7 +6,7 @@ in
 
     packageOverrides = pkgs: with pkgs; {
 
-      terminal = pkgs.buildEnv {
+      Terminal = pkgs.buildEnv {
         name = "terminal";
         paths = [
           htop
@@ -82,7 +82,7 @@ in
         pathsToLink = [ "/share" "/bin" ];
       };
 
-      graphical = pkgs.buildEnv {
+      Graphical = pkgs.buildEnv {
         name = "graphical";
         paths = [
           firefox
@@ -146,8 +146,8 @@ in
         pathsToLink = [ "/share" "/bin" ];
       };
 
-      xserver = pkgs.buildEnv {
-        name = "xserver";
+      Xorg = pkgs.buildEnv {
+        name = "xorg";
         paths = [
           xorg.xev
           xorg.xset
@@ -177,7 +177,7 @@ in
         ];
       };
 
-      awesome = pkgs.buildEnv {
+      Awesome = pkgs.buildEnv {
         name = "awesome";
         paths = [
           awesome
@@ -185,7 +185,7 @@ in
         pathsToLink = [ "/share" "/bin" ];
       };
 
-      fonts = pkgs.buildEnv {
+      Fonts = pkgs.buildEnv {
         name = "fonts";
         paths = [
           corefonts
@@ -196,7 +196,7 @@ in
         ];
       };
 
-      themes = pkgs.buildEnv {
+      Themes = pkgs.buildEnv {
         name = "themes";
         paths = [
           gnome-themes-extra
@@ -207,7 +207,7 @@ in
         ];
       };
 
-      latex = pkgs.buildEnv {
+      LaTeX = pkgs.buildEnv {
         name = "latex";
         paths = [
           gummi
@@ -216,7 +216,7 @@ in
         ];
       };
 
-      javascript = pkgs.buildEnv {
+      JavaScript = pkgs.buildEnv {
         name = "javascript";
         paths = [
           nodePackages.prettier
