@@ -98,10 +98,10 @@ alias audacity='PULSE_LATENCY_MSEC=30 audacity'
 # lxc helpers
 alias lxc-attach='lxc-attach --clear-env -n'
 alias lxc-ls='lxc-ls -f'
-lxc-copy() { $(which lxc-copy) -n "$1" -N "$2"; }
-lxc-restart() { $(which lxc-stop) -n "$1"; $(which lxc-start) -n "$1"; }
-lxc-start() { for container in "$@"; do $(which lxc-start) -n "$container"; done }
-lxc-stop() { for container in "$@"; do $(which lxc-stop) -kn "$container"; done }
+lxc-copy() { $(command -v lxc-copy) -n "$1" -N "$2"; }
+lxc-restart() { $(command -v lxc-stop) -n "$1"; $(command -v lxc-start) -n "$1"; }
+lxc-start() { for container in "$@"; do $(command -v lxc-start) -n "$container"; done }
+lxc-stop() { for container in "$@"; do $(command -v lxc-stop) -kn "$container"; done }
 
 # docker aliases
 alias pdf2htmlEX='docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2htmlEX'
