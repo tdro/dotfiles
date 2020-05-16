@@ -24,7 +24,7 @@ xauth generate :0 . trusted;
 systemctl --user import-environment;
 
 # resolve xorg module path if nix exists
-command -v nix && $HOME/.local/bin/scripts/nix-xorg-conf > $HOME/.config/X11/xorg.conf.d/00-modules.conf;
+command -v nix && "$HOME"/.local/bin/scripts/nix-xorg-conf > "$HOME"/.config/X11/xorg.conf.d/00-modules.conf;
 
 # Run awesome
 exec awesome --no-argb;
