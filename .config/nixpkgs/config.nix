@@ -237,6 +237,11 @@ in
         pathsToLink = [ "/bin" ];
       };
 
-
+      Python = pkgs.buildEnv {
+        name = "python";
+        paths = [
+          (python38.withPackages (ps: with ps; [ ]))
+        ];
+      };
     };
   }
