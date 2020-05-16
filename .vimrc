@@ -149,7 +149,7 @@ endfunction
 
 " Ansible Check
 function! AnsibleCheck()
-  :term ansible-playbook --syntax-check %
+  :silent !notify-send -t 10000 "$(ansible-playbook --syntax-check % 2>&1)" &
 endfunction
 
 " Shell Check
@@ -297,6 +297,7 @@ augroup AutoCommands
   " Linting auto commands.
   autocmd BufWritePost *.php :call PHPFix()
   autocmd BufWritePost *.js :call ESLintFix()
+  autocmd BufWritePost *.yml :call AnsibleCheck()
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
 
   " General auto commands.
