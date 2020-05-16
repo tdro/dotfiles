@@ -57,8 +57,8 @@ export QT_STYLE_OVERRIDE=adwaita
 [ "$(cat /etc/hostname)" = "talon" ] && export QT_STYLE_OVERRIDE=adwaita-dark
 
 # fzf settings
-export FZF_DEFAULT_OPTS="--color=fg:255,hl:9 \
- --color=fg+:81,bg+:237,hl+:9 \
+export FZF_DEFAULT_OPTS="--color=fg:255,hl:203 \
+ --color=fg+:81,bg+:237,hl+:203 \
  --color=info:188,prompt:69,pointer:199 \
  --color=marker:109,spinner:236,header:255"
 
