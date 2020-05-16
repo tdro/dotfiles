@@ -1,7 +1,0 @@
-[Unit]
-Description=Pacman update notifications
-
-[Service]
-Type=oneshot
-Environment=DISPLAY=:0
-ExecStart=/bin/sh -c 'notify-send "$(checkupdates)" || exit 0'
