@@ -140,6 +140,7 @@ in
           qrencode
           xsane
           connman-gtk
+          freerdp
           (callPackage ./packages/ntrviewer/default.nix {})
         ];
         pathsToLink = [ "/share" "/bin" ];
