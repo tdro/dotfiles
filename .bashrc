@@ -96,6 +96,9 @@ alias rofi='rofi -cache-dir $XDG_DATA_HOME'
 # pulse delay on audacity
 alias audacity='PULSE_LATENCY_MSEC=30 audacity'
 
+# nix helpers
+nix-which() { readlink "$(type -P "$1")"; }
+
 # lxc helpers
 alias lxc-attach='lxc-attach --clear-env -n'
 alias lxc-ls='lxc-ls -f'
