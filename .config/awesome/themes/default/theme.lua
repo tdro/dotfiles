@@ -4,20 +4,20 @@ theme.wallpaper = "~/.config/awesome/themes/default/wallpaper"
 -- }}}
 
 -- {{{ Styles
-theme.font = "FontAwesome Bold 8"
+theme.font = "FontAwesome Bold 9"
 -- }}}
 
 -- {{{ Colors
 theme.fg_normal  	= "#FFFFFF"
 theme.fg_focus   	= "#000000"
 theme.fg_urgent  	= "#FF0000"
-theme.fg_minimize = "#ffffff"
+theme.fg_minimize       = "#ffffff"
 
 theme.bg_normal  	= "#2C303C"
 theme.bg_focus   	= "#00AFF0"
 theme.bg_urgent  	= "#000000"
-theme.bg_minimize = "#444444"
-theme.bg_systray  = theme.bg_normal
+theme.bg_minimize       = "#444444"
+theme.bg_systray        = theme.bg_normal
 -- }}}
 
 -- {{{ Borders

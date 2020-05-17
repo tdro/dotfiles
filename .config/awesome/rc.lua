@@ -29,7 +29,7 @@ local vicious = require("vicious")
 -- Lain library
 local lain = require("lain")
 -- Set font
-awesome.font = ("FontAwesome 8")
+awesome.font = ("FontAwesome 9")
 -- Startup
 -- os.execute("sleep 1 && i3lock-fancy -t '' -- scrot &")
 
