@@ -117,6 +117,9 @@ hi EndOfBuffer ctermfg=black
 " Remove background color.
 hi Normal ctermbg=none
 
+" Set search highlight color.
+hi Search ctermfg=0
+
 " Clear gutter color.
 hi clear SignColumn
 
