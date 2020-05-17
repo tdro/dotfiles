@@ -23,8 +23,6 @@ PS1_SSHD='$(E=$? && [ "$E" != 0 ] && echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;3
 [ -n "$SSH_CLIENT" ] && [ "$EUID" != 0 ] && export PS1="$PS1_SSHD";
 
 # path exports
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
-export PATH="$PATH:$HOME/.node_modules/node_modules/.bin"
 export PATH="$PATH:$HOME/.local/bin"
 
 # general exports
