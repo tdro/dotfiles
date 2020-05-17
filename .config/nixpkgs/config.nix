@@ -141,6 +141,7 @@ in
           xsane
           connman-gtk
           freerdp
+          pdf2htmlEX
           (callPackage ./packages/ntrviewer/default.nix {})
         ];
         pathsToLink = [ "/share" "/bin" ];
