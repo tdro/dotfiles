@@ -120,6 +120,9 @@ hi Normal ctermbg=none
 " Set search highlight color.
 hi Search ctermfg=0
 
+" Set spell hightlight color.
+hi SpellBad ctermbg=197 ctermfg=0
+
 " Clear gutter color.
 hi clear SignColumn
 
