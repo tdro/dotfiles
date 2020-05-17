@@ -4,7 +4,7 @@
 export BASH_PROFILE=loaded && . "$HOME/.bash_profile";
 
 # bail if not interactive
-[[ $- != *i* ]] && return;
+echo $- | grep -q "i" || return;
 
 # cd using directory name
 shopt -s autocd;
