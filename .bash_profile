@@ -11,9 +11,9 @@ export XAUTHORITY=$HOME/.config/X11/Xauthority;
   -logfile "$HOME/.cache/xorg.log" vt1 -keeptty -auth "$XAUTHORITY";
 
 # set prompt
-PS1_USER='$(E=$? && [ "$E" != 0 ] && echo "$E ")\[\e[0;34m\]\W\[\e[0m\] \[\e[0;34m\]\$\[\e[0m\] '
-PS1_ROOT='$(E=$? && [ "$E" != 0 ] && echo "$E ")\[\e[0;31m\]\W\[\e[0m\] \[\e[0;31m\]\$\[\e[0m\] '
-PS1_SSHD='$(E=$? && [ "$E" != 0 ] && echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;32m\]\$\[\e[0m\] '
+PS1_USER='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;34m\]\W\[\e[0m\] \[\e[0;34m\]\$\[\e[0m\] '
+PS1_ROOT='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;31m\]\W\[\e[0m\] \[\e[0;31m\]\$\[\e[0m\] '
+PS1_SSHD='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;32m\]\$\[\e[0m\] '
 
 # export prompt
 [ "$EUID" != 0 ] && export PS1="$PS1_USER";
