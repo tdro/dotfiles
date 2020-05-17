@@ -1,5 +1,5 @@
 #!/bin/sh
-export PATH=$PATH:$HOME/.local/bin
+export BASH_PROFILE=loaded && . "$HOME/.bash_profile";
 xset r rate 200 25;
 rofi -cache-dir "$HOME/.local/share" -fullscreen -show run -display-run '$' -font 'ubuntu 12' -padding 250;
 xset r rate 200 60;
