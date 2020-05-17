@@ -92,26 +92,14 @@ alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
 alias emacs='TERM=xterm-256color emacs -nw --load ~/.config/emacs/emacs.el'
 alias mocp='mocp -M "$XDG_CONFIG_HOME"/moc'
 alias rofi='rofi -cache-dir $XDG_DATA_HOME'
-
-# pulse delay on audacity
+alias lxc-attach='lxc-attach --clear-env -n'
+alias lxc-ls='lxc-ls -f'
 alias audacity='PULSE_LATENCY_MSEC=30 audacity'
 
 # nix helpers
 nix-which() { readlink "$(type -P "$1")"; }
 
 # lxc helpers
-alias lxc-attach='lxc-attach --clear-env -n'
-alias lxc-ls='lxc-ls -f'
-lxc-copy() { $(command -v lxc-copy) -n "$1" -N "$2"; }
-lxc-restart() { $(command -v lxc-stop) -n "$1"; $(command -v lxc-start) -n "$1"; }
-lxc-start() { for container in "$@"; do $(command -v lxc-start) -n "$container"; done }
-lxc-stop() { for container in "$@"; do $(command -v lxc-stop) -kn "$container"; done }
-
-# docker aliases
-alias pdf2htmlEX='docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2htmlEX'
-alias composer='docker run -ti --rm -v $PWD:/app composer:1.8.6 composer'
-alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm'
-alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
 lxc-copy() { $(type -P lxc-copy) -n "$1" -N "$2"; }
 lxc-restart() { $(type -P lxc-stop) -n "$1"; $(type -P lxc-start) -n "$1"; }
 lxc-start() { for container in "$@"; do $(type -P lxc-start) -n "$container"; done }
