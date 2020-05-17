@@ -25,8 +25,8 @@ stty -ixon;
 stty -ixoff;
 
 # fzf bindings
-fzfcompletion=$(readlink "$(command -v fzf)" | cut -d '/' -f -4)/share/fzf/completion.bash;
-fzfkeybindings=$(readlink "$(command -v fzf)" | cut -d '/' -f -4)/share/fzf/key-bindings.bash;
+fzfcompletion=$(readlink "$(type -P fzf)" | cut -d '/' -f -4)/share/fzf/completion.bash;
+fzfkeybindings=$(readlink "$(type -P fzf)" | cut -d '/' -f -4)/share/fzf/key-bindings.bash;
 [ -f "$fzfcompletion" ] && . "$fzfcompletion";
 [ -f "$fzfkeybindings" ] && . "$fzfkeybindings";
 
@@ -112,6 +112,10 @@ alias pdf2htmlEX='docker run -ti --rm -v "$PWD":/pdf bwits/pdf2htmlex:1.0 pdf2ht
 alias composer='docker run -ti --rm -v $PWD:/app composer:1.8.6 composer'
 alias npm='docker run -ti --rm -v "$PWD":/usr/src/app -w /usr/src/app node:12.7.0-alpine npm'
 alias pgloader="docker run --rm dimitri/pgloader:latest pgloader"
+lxc-copy() { $(type -P lxc-copy) -n "$1" -N "$2"; }
+lxc-restart() { $(type -P lxc-stop) -n "$1"; $(type -P lxc-start) -n "$1"; }
+lxc-start() { for container in "$@"; do $(type -P lxc-start) -n "$container"; done }
+lxc-stop() { for container in "$@"; do $(type -P lxc-stop) -kn "$container"; done }
 
 # source fzm
 [ -f "$HOME/.config/fzf-marks/fzf-marks.plugin.bash" ] && . "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
