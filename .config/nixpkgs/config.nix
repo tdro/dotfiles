@@ -253,5 +253,12 @@ in
           go
         ];
       };
+
+      PHP = pkgs.buildEnv {
+        name = "php";
+        paths = [
+          php74
+        ];
+      };
     };
   }
