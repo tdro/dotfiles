@@ -96,6 +96,7 @@ alias lxc-attach='lxc-attach --clear-env -n'
 alias lxc-ls='lxc-ls -f'
 alias audacity='PULSE_LATENCY_MSEC=30 audacity'
 alias go='GOPATH=$(pwd)/go go'
+alias tidy='tidy -config $HOME/.config/tidy.conf'
 
 # nix helpers
 nix-which() { readlink "$(type -P "$1")"; }
