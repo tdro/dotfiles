@@ -78,6 +78,7 @@ in
           groff
           gnupg
           ocrmypdf
+          libxml2
         ];
         pathsToLink = [ "/share" "/bin" ];
       };
@@ -232,6 +233,7 @@ in
       JavaScript = pkgs.buildEnv {
         name = "javascript";
         paths = [
+          nodejs-13_x
           nodePackages.prettier
           nodePackages.eslint
         ];
