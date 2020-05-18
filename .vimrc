@@ -185,6 +185,7 @@ nmap <Leader>ma :Marks<cr>
 
 " Print working directory
 nmap <Leader>di :pwd<cr>
+nmap <Leader>df :echo @%<cr>
 
 " Load and save sessions
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
