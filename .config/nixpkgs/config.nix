@@ -246,5 +246,12 @@ in
           (python38.withPackages (ps: with ps; [ ]))
         ];
       };
+
+      Golang = pkgs.buildEnv {
+        name = "golang";
+        paths = [
+          go
+        ];
+      };
     };
   }
