@@ -263,5 +263,13 @@ in
           php74
         ];
       };
+
+      Lua = pkgs.buildEnv {
+        name = "lua";
+        paths = [
+          lua5_3
+          (callPackage ./packages/luaformatter/default.nix {})
+        ];
+      };
     };
   }
