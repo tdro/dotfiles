@@ -271,5 +271,16 @@ in
           (callPackage ./packages/luaformatter/default.nix {})
         ];
       };
+
+      C = pkgs.buildEnv {
+        name = "c";
+        paths = [
+          gnumake
+          meson
+          ninja
+          gcc
+        ];
+      };
+
     };
   }
