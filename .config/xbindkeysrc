@@ -11,7 +11,7 @@
     Mod4 + d
 
 # Copyq Toggle
-"copyq toggle"
+"$HOME/.local/bin/scripts/clipboard"
     Mod4 + z
 
 # Internet Search

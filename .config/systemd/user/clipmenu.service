@@ -1,0 +1,20 @@
+[Unit]
+Description=Clipmenu clipboard daemon
+
+[Service]
+Environment=CM_DIR=%h/.local/share
+Type=simple
+ExecStart=/usr/bin/env clipmenud
+Restart=always
+RestartSec=5s
+SyslogIdentifier=clipmenud
+
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+ProtectControlGroups=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=
+RestrictRealtime=yes
+
+[Install]
+WantedBy=default.target

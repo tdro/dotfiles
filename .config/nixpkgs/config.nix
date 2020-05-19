@@ -178,6 +178,7 @@ in
           rofi
           dmenu
           escrotum
+          clipmenu
         ];
       };
 
