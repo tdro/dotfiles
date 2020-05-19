@@ -63,7 +63,6 @@ in
           shellcheck
           hugo
           img2pdf
-          p7zip
           powertop
           rclone
           smem
@@ -78,7 +77,11 @@ in
           groff
           gnupg
           ocrmypdf
+          file
+          p7zip
+          unzip
           libxml2
+          html-xml-utils
         ];
         pathsToLink = [ "/share" "/bin" ];
       };
