@@ -4,3 +4,8 @@
 set show-mode-in-prompt on
 set vi-ins-mode-string "+ "
 set vi-cmd-mode-string ": "
+
+set colored-stats on
+set completion-ignore-case on
+set show-all-if-ambiguous on
+set skip-completed-text on
