@@ -131,7 +131,7 @@ hi clear SignColumn
 
 " PHP Fixer
 function! PHPFix()
-  :silent !notify-send "$(phpcbf %)" &
+  :silent !notify-send "$(phpcbf % 2>&1)" &
   :redraw!
 endfunction
 
