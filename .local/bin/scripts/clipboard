@@ -1,4 +1,2 @@
 #!/bin/sh
-export CM_LAUNCHER=rofi;
-export CM_DIR=$HOME/.local/share;
-clipmenu -theme-str '#prompt { enabled: false; }' -font "ubuntu 12" -i;
+copyq toggle;
