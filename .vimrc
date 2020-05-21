@@ -241,6 +241,9 @@ nmap <Leader>vdp
 nmap <Leader>nn :NnnPicker '%:p:h'<CR>
 nmap <Leader>nm :NnnPicker<CR>
 
+" Quick exit from insert when notimeout is set
+inoremap <Esc> <Esc><Esc>
+
 " Exit incremental search
 nmap <Esc><Esc> :nohl<cr>
 
