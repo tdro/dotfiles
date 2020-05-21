@@ -27,6 +27,8 @@ set nocompatible                         " Use Vim defaults.
 set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
 set cursorline                           " Set cursor line highlight.
+set notimeout                            " Wait indefinitely for complete key combinations.
+set showcmd                              " Show key presses in status line.
 
 set hidden                               " Set hidden buffers.
 set nobackup                             " No write backups.
@@ -39,9 +41,9 @@ set autoindent                           " Copy indent from current line to new 
 set ignorecase                           " Ignore case on search.
 set smartcase                            " Search by case smartly.
 set lazyredraw                           " Do not redraw screen when using macros.
-set undofile                             " Enable undofile
-set viminfo+=n~/.vim/viminfo             " Set viminfo file path
-set undodir=~/.vim/undodir               " Set undofile directory
+set undofile                             " Enable undofile.
+set viminfo+=n~/.vim/viminfo             " Set viminfo file path.
+set undodir=~/.vim/undodir               " Set undofile directory.
 
 set mouse=a                              " Enable mouse.
 set shortmess+=I                         " Disable startup message.
