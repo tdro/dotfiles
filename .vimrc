@@ -28,6 +28,7 @@ set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
 set cursorline                           " Set cursor line highlight.
 set notimeout                            " Wait indefinitely for complete key combinations.
+set ttimeout                             " Prevent pressing <Esc> twice.
 set showcmd                              " Show key presses in status line.
 
 set hidden                               " Set hidden buffers.
@@ -240,9 +241,6 @@ nmap <Leader>vdp
 " Mappings for nnn
 nmap <Leader>nn :NnnPicker '%:p:h'<CR>
 nmap <Leader>nm :NnnPicker<CR>
-
-" Quick exit from insert when notimeout is set
-inoremap <Esc> <Esc><Esc>
 
 " Exit incremental search
 nmap <Esc><Esc> :nohl<cr>
