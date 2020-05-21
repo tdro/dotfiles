@@ -239,6 +239,8 @@ in
           nodejs-13_x
           nodePackages.prettier
           nodePackages.eslint
+          nodePackages.node2nix
+          nodePackages.bower2nix
         ];
         pathsToLink = [ "/bin" ];
       };
@@ -246,7 +248,9 @@ in
       Python = pkgs.buildEnv {
         name = "python";
         paths = [
-          (python38.withPackages (ps: with ps; [ ]))
+          (python38.withPackages (ps: with ps; [
+            pip2nix
+          ]))
         ];
       };
 
