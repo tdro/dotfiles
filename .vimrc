@@ -28,7 +28,7 @@ set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
 set cursorline                           " Set cursor line highlight.
 
-set nohidden                             " No hidden buffers.
+set hidden                               " Set hidden buffers.
 set nobackup                             " No write backups.
 set noswapfile                           " Disable swap files.
 set nowritebackup                        " No overwrite backups.
