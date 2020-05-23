@@ -208,7 +208,6 @@ in
           source-code-pro
           yanone-kaffeesatz
           cm_unicode
-          charis-sil
         ];
       };
 
