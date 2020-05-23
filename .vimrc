@@ -78,7 +78,6 @@ let g:javascript_plugin_jsdoc = 1
 "----------------Visuals----------------"
 
 colorscheme material-monokai             " Set color scheme.
-set t_CO=256                             " Enable 256 terminal colors.
 
 " Remove scrollbars in gui.
 set guioptions-=l
