@@ -82,6 +82,7 @@ in
           unzip
           libxml2
           html-xml-utils
+          vault
         ];
         pathsToLink = [ "/share" "/bin" ];
       };
