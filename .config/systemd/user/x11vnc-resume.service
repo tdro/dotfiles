@@ -1,0 +1,11 @@
+[Unit]
+Description=Restart x11vnc after resume
+After=suspend.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env systemctl --user --no-block restart x11vnc
+SyslogIdentifier=x11vnc-resume
+
+[Install]
+WantedBy=suspend.target
