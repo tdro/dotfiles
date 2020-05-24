@@ -1,11 +1,10 @@
 [Unit]
 Description=Restart x11vnc after resume
-After=suspend.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env systemctl --user --no-block restart x11vnc
+ExecStart=/usr/bin/env sh -c 'dbus-monitor --system | while read; do grep -q 'post-resume.target' && systemctl --user restart x11vnc; done'
 SyslogIdentifier=x11vnc-resume
 
 [Install]
-WantedBy=suspend.target
+WantedBy=default.target
