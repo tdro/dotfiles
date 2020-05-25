@@ -20,7 +20,10 @@ xset r rate 200 60;
 # generate xauth
 xauth generate :0 . trusted;
 
-# import systemd environment
+# dbus activate session
+eval "$(dbus-launch --exit-with-session --sh-syntax)";
+
+# import systemctl environment
 systemctl --user import-environment;
 
 # Run awesome
