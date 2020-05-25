@@ -142,7 +142,6 @@ in
           sqlitebrowser
           qrencode
           xsane
-          connman-gtk
           freerdp
           wmctrl
           rofi
@@ -181,23 +180,12 @@ in
         ];
       };
 
-      Themes = pkgs.buildEnv {
-        name = "themes";
-        paths = [
-          gtk3
-          vanilla-dmz
-          papirus-icon-theme
-        ];
-      };
-
       Awesome = pkgs.buildEnv {
         name = "awesome";
         paths = [
           awesome
-          adwaita-qt
-          gnome-themes-extra
-          deepin.deepin-gtk-theme
           lxappearance
+          deepin.deepin-gtk-theme
         ];
         pathsToLink = [ "/share" "/bin" ];
       };
@@ -207,6 +195,8 @@ in
         paths = [
           plank
           deadbeef
+          zuki-themes
+          polkit_gnome
           xfce.exo
           xfce.gvfs
           xfce.garcon
@@ -222,8 +212,6 @@ in
           xfce.libxfce4util
           xfce.xfce4-session
           xfce.xfce4-settings
-          zuki-themes
-          polkit_gnome
         ];
       };
 
