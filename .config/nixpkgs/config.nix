@@ -80,9 +80,9 @@ in
           file
           p7zip
           unzip
+          vault
           libxml2
           html-xml-utils
-          vault
         ];
         pathsToLink = [ "/share" "/bin" ];
       };
@@ -119,14 +119,12 @@ in
           blender
           redshift
           unclutter
-          lxappearance
           syncthing
           qownnotes
           keepassxc
           krop
           libreoffice
           gcolor2
-          libnotify
           feh
           aegisub
           scribus
@@ -146,6 +144,11 @@ in
           xsane
           connman-gtk
           freerdp
+          wmctrl
+          rofi
+          dmenu
+          escrotum
+          libnotify
           (callPackage ./packages/ntrviewer/default.nix {})
         ];
         pathsToLink = [ "/share" "/bin" ];
@@ -175,10 +178,15 @@ in
           xdotool
           xzoom
           xbindkeys
-          wmctrl
-          rofi
-          dmenu
-          escrotum
+        ];
+      };
+
+      Themes = pkgs.buildEnv {
+        name = "themes";
+        paths = [
+          gtk3
+          vanilla-dmz
+          papirus-icon-theme
         ];
       };
 
@@ -186,8 +194,37 @@ in
         name = "awesome";
         paths = [
           awesome
+          adwaita-qt
+          gnome-themes-extra
+          deepin.deepin-gtk-theme
+          lxappearance
         ];
         pathsToLink = [ "/share" "/bin" ];
+      };
+
+      Xfce = pkgs.buildEnv {
+        name = "xfce";
+        paths = [
+          plank
+          deadbeef
+          xfce.exo
+          xfce.gvfs
+          xfce.garcon
+          xfce.tumbler
+          xfce.xfwm4
+          xfce.xfwm4-themes
+          xfce.thunar
+          xfce.thunar-archive-plugin
+          xfce.thunar-volman
+          xfce.xfconf
+          xfce.xfdesktop
+          xfce.libxfce4ui
+          xfce.libxfce4util
+          xfce.xfce4-session
+          xfce.xfce4-settings
+          zuki-themes
+          polkit_gnome
+        ];
       };
 
       Fonts = pkgs.buildEnv {
@@ -209,18 +246,6 @@ in
           source-code-pro
           yanone-kaffeesatz
           cm_unicode
-        ];
-      };
-
-      Themes = pkgs.buildEnv {
-        name = "themes";
-        paths = [
-          gnome-themes-extra
-          deepin.deepin-gtk-theme
-          papirus-icon-theme
-          adwaita-qt
-          vanilla-dmz
-          gtk3
         ];
       };
 
