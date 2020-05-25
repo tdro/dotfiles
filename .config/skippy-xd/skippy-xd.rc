@@ -30,8 +30,8 @@ tintOpacity = 0
 opacity = 200
 
 [highlight]
-tint = #101020
-tintOpacity = 64
+tint = #111111
+tintOpacity = 50
 opacity = 255
 
 [tooltip]
