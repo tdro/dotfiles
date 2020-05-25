@@ -8,6 +8,7 @@ Environment=XDG_SESSION_TYPE=X11
 ExecStart=/usr/bin/env plank
 Restart=always
 RestartSec=1s
+KillMode=process
 SyslogIdentifier=plank
 
 [Install]
