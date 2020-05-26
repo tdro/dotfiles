@@ -81,10 +81,11 @@ in
           p7zip
           unzip
           vault
+          surfraw
           libxml2
           html-xml-utils
         ];
-        pathsToLink = [ "/share" "/bin" ];
+        pathsToLink = [ "/etc" "/share" "/bin" ];
       };
 
       Graphical = pkgs.buildEnv {
