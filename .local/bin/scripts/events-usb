@@ -1,0 +1,3 @@
+#!/bin/sh
+xmodmap "$HOME/.config/X11/Xmodmap";
+xset r rate 200 60;
