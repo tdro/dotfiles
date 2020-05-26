@@ -9,6 +9,8 @@ RestartSec=5s
 SuccessExitStatus=3 4
 RestartForceExitStatus=3 4
 SyslogIdentifier=syncthing
+CPUQuota=60%
+IOWeight=60
 
 # Hardening
 ProtectSystem=full
