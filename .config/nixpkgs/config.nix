@@ -81,6 +81,7 @@ in
           p7zip
           unzip
           vault
+          neofetch
           surfraw
           libxml2
           html-xml-utils
