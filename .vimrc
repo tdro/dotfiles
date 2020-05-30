@@ -291,6 +291,7 @@ let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 
 
 "----------------Autorun----------------"
+
 augroup AutoCommands
 
   " Clear auto commands.
