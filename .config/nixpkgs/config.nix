@@ -1,5 +1,5 @@
 let
-  unstable = import (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/master) {};
+  unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz) {};
 in
   {
     allowUnfree = true;
@@ -300,6 +300,5 @@ in
           gcc
         ];
       };
-
     };
   }
