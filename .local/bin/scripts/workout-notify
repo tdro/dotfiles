@@ -1,0 +1,5 @@
+#!/bin/sh
+workout=$(fortune ~/Documents/text/databases/exercises.fortune);
+notify-send -u critical \
+"You have $(shuf -i 10-25 -n1) minutes to complete \
+$(shuf -i "${workout%% *}" -n1) ${workout#* }.";

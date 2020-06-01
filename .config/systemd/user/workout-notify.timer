@@ -1,0 +1,10 @@
+[Unit]
+Description=Workout notification timer
+
+[Timer]
+OnBootSec=90m
+OnUnitActiveSec=90m
+RandomizedDelaySec=15m
+
+[Install]
+WantedBy=default.target

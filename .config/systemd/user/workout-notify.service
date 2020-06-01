@@ -1,0 +1,8 @@
+[Unit]
+Description=Workout notifications
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=%h/.local/bin/scripts/workout-notify
+SyslogIdentifier=workout-notify
