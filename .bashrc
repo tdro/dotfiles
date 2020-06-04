@@ -106,6 +106,7 @@ lxc-copy() { $(type -P lxc-copy) -n "$1" -N "$2"; }
 lxc-restart() { $(type -P lxc-stop) -n "$1"; $(type -P lxc-start) -n "$1"; }
 lxc-start() { for container in "$@"; do $(type -P lxc-start) -n "$container"; done }
 lxc-stop() { for container in "$@"; do $(type -P lxc-stop) -kn "$container"; done }
+lxc-destroy() { for container in "$@"; do $(type -P lxc-destroy) -n "$container"; done }
 
 # source fzm
 [ -f "$HOME/.config/fzf-marks/fzf-marks.plugin.bash" ] && . "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
