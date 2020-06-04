@@ -115,6 +115,3 @@ history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/
 
 # extract docker container as rootfs
 docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export -o "$2" "$id" && docker container rm "$id"; }
-
-# remove dangling docker images
-docker-cprune() { docker container prune --force && docker rmi "$(docker images -f 'dangling=true' -q)"; }
