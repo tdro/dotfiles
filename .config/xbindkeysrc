@@ -6,6 +6,10 @@
 "$HOME/.local/bin/scripts/app-launcher"
     Mod4 + r
 
+# Close active window
+"wmctrl -c :ACTIVE:"
+    Mod4 + Shift + c
+
 # Priv App Launcher
 "$HOME/.local/bin/scripts/app-launcher-priv"
     Mod4 + d
