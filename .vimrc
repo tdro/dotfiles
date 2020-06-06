@@ -318,8 +318,10 @@ augroup AutoCommands
   autocmd InsertLeave,BufWritePre * %s/\s\+$//e
 
   " Automatically save file on insert and idle.
-  autocmd InsertLeave,CursorHoldI * silent! write
-        \| silent! exec "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
+  autocmd InsertLeave,CursorHold * silent! write
+    \| silent! exec "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
+    \| :echo 'Saved' @% '...'
+
 
 augroup END
 
