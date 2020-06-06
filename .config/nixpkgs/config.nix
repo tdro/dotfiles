@@ -1,5 +1,5 @@
 let
-  unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/master.tar.gz) {};
+  unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/0e2444aacb02b8c12416b71febca5cea416405f0.tar.gz) {};
 in
   {
     allowUnfree = true;
@@ -12,7 +12,7 @@ in
           htop
           psmisc
           sshfs
-          fzf
+          unstable.fzf
           nmap
           ffmpeg
           nixops
@@ -40,7 +40,6 @@ in
           html-tidy
           davmail
           dive
-          drone-cli
           exercism
           xdg_utils
           ideviceinstaller
