@@ -61,7 +61,7 @@ in
           ansible_2_9
           gifsicle
           shellcheck
-          hugo
+          unstable.hugo
           img2pdf
           powertop
           rclone
