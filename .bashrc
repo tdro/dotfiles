@@ -115,4 +115,4 @@ lxc-destroy() { for container in "$@"; do $(type -P lxc-destroy) -n "$container"
 history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" > /tmp/.bash_history.tmp && mv -f /tmp/.bash_history.tmp "$HOME/.bash_history"; }
 
 # extract docker container as rootfs
-docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export -o "$2" "$id" && docker container rm "$id"; }
+docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export "$id" -o "$2.tar" && docker container rm "$id"; }
