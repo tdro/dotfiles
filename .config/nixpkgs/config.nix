@@ -65,7 +65,6 @@ in
           powertop
           rclone
           smem
-          udevil
           wavemon
           weechat
           w3m
