@@ -42,6 +42,7 @@ export LESSHISTFILE="$XDG_CACHE_HOME/less.history"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npmrc"
 
 # themes
 export DESKTOP_SESSION=gnome
