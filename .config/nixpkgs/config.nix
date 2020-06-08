@@ -83,6 +83,7 @@ in
           surfraw
           libxml2
           html-xml-utils
+          moreutils
         ];
         pathsToLink = [ "/etc" "/share" "/bin" ];
       };
