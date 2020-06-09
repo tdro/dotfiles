@@ -116,3 +116,6 @@ history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" | spong
 
 # extract docker container as rootfs
 docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export "$id" -o "$2.tar" && docker container rm "$id"; }
+
+# swallow
+swallow() { "$@" & disown; exit; }
