@@ -1,0 +1,17 @@
+#!/bin/sh
+
+input="$1"
+host="${input#*@}"
+folder="${input%@*}"
+mount_path="$HOME/Shares/SSHFS/$folder"
+
+[ "$2" = 'stop' ] && fusermount -u "$mount_path";
+[ "$2" = 'stop' ] && exit;
+
+# evaulate the keychain
+eval "$(keychain --dir "$HOME"/.cache/keychain --eval --agents ssh -Q --quiet "$HOME"/.ssh/mobile)";
+
+# mount the directory
+mkdir -p "$mount_path";
+fusermount -u "$mount_path";
+sshfs -f -o follow_symlinks,idmap=user,identityfile="$HOME"/.ssh/mobile,identityfile="$HOME"/.ssh/ansible  root@"$host":/ "$mount_path";
