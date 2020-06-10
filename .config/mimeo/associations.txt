@@ -1,0 +1,2 @@
+chromium %U
+  ^https?://
