@@ -9,42 +9,30 @@ in
       Terminal = pkgs.buildEnv {
         name = "terminal";
         paths = [
-          htop
-          psmisc
-          sshfs
           unstable.fzf
-          nmap
+          unstable.hugo
+          sshfs
           ffmpeg
-          nixops
-          git
           ripgrep
           rxvt-unicode
           pulsemixer
           entr
-          rsync
           keychain
           nnn
           ranger
           aerc
-          unrar
-          hdparm
-          ncdu
-          ldns
           vimHugeX
           emacs
           alsaUtils
-          iperf2
           diceware
-          mimeo
           bfg-repo-cleaner
           html-tidy
           davmail
           dive
           exercism
-          xdg_utils
+          mimeo
+          xdg-user-dirs
           ideviceinstaller
-          iozone
-          iotop
           kjv
           pngquant
           pngnq
@@ -60,7 +48,6 @@ in
           ansible_2_9
           gifsicle
           shellcheck
-          unstable.hugo
           img2pdf
           powertop
           rclone
@@ -68,22 +55,14 @@ in
           wavemon
           weechat
           w3m
-          wget
-          curl
-          wol
           youtube-dl
           groff
-          gnupg
           ocrmypdf
-          file
-          p7zip
-          unzip
           vault
           neofetch
           surfraw
           libxml2
           html-xml-utils
-          moreutils
         ];
         pathsToLink = [ "/etc" "/share" "/bin" ];
       };
@@ -91,9 +70,10 @@ in
       Graphical = pkgs.buildEnv {
         name = "graphical";
         paths = [
+          (callPackage ./packages/ntrviewer/default.nix {})
+          unstable.ungoogled-chromium
           firefox
           palemoon
-          unstable.ungoogled-chromium
           google-chrome
           thunderbird
           spaceFM
@@ -149,7 +129,6 @@ in
           dmenu
           escrotum
           libnotify
-          (callPackage ./packages/ntrviewer/default.nix {})
         ];
         pathsToLink = [ "/share" "/bin" ];
       };
@@ -285,8 +264,8 @@ in
       Lua = pkgs.buildEnv {
         name = "lua";
         paths = [
-          lua5_3
           (callPackage ./packages/luaformatter/default.nix {})
+          lua5_3
         ];
       };
 
