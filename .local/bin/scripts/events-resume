@@ -1,2 +1,9 @@
 #!/bin/sh
+
+# restart x11vnc
 systemctl --user restart x11vnc;
+
+# reset input devices
+for device in $(xinput --list --id-only)
+  do xinput --disable "$device" && xinput --enable "$device";
+done;
