@@ -1,0 +1,4 @@
+[Desktop Entry]
+Exec=vim %U
+Terminal=true
+NoDisplay=true

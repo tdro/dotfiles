@@ -1,0 +1,4 @@
+[Desktop Entry]
+Exec=mocp -M $XDG_CONFIG_HOME/moc %U
+Terminal=true
+NoDisplay=true

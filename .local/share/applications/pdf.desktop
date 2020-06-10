@@ -1,4 +1,4 @@
 [Desktop Entry]
-Exec=feh -. -g 640x480 --start-at %U
+Exec=mupdf %U
 Terminal=false
 NoDisplay=true
