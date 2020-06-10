@@ -1,2 +1,7 @@
 chromium %U
   ^https?://
+
+xournalpp %U
+  \.xoj$
+  \.xopp$
+

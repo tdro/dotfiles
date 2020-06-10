@@ -1,4 +1,5 @@
 [Desktop Entry]
+Name=Music Player
 Exec=mocp -M $XDG_CONFIG_HOME/moc %U
 Terminal=true
 NoDisplay=true

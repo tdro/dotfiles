@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=PDF Viewer
-Exec=mupdf %U
+Name=LibreOffice
+Exec=libreoffice %U
 Terminal=false
 NoDisplay=true

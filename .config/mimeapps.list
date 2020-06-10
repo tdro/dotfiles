@@ -1,5 +1,13 @@
 [Added Associations]
 application/pdf=pdf.desktop;
+application/vnd.openxmlformats-officedocument.presentationml.presentation=libreoffice.desktop;
+application/vnd.openxmlformats-officedocument.presentationml.slide=libreoffice.desktop;
+application/vnd.openxmlformats-officedocument.presentationml.slideshow=libreoffice.desktop;
+application/vnd.openxmlformats-officedocument.presentationml.template=libreoffice.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.template=libreoffice.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.template=libreoffice.desktop;
 application/x-shellscript=vim.desktop;
 audio/32kadpcm=music.desktop;
 audio/AMR=music.desktop;

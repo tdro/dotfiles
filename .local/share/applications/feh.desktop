@@ -1,4 +1,5 @@
 [Desktop Entry]
+Name=Image Viewer
 Exec=feh -. -g 640x480 --start-at %U
 Terminal=false
 NoDisplay=true
