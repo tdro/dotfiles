@@ -14,6 +14,7 @@ in
           sshfs
           ffmpeg
           ripgrep
+          dtrx
           rxvt-unicode
           pulsemixer
           entr
@@ -51,10 +52,10 @@ in
           img2pdf
           powertop
           rclone
-          smem
           wavemon
           weechat
           w3m
+          lynx
           youtube-dl
           groff
           ocrmypdf
@@ -63,6 +64,8 @@ in
           surfraw
           libxml2
           html-xml-utils
+          hunspell
+          hunspellDicts.en-us-large
         ];
         pathsToLink = [ "/etc" "/share" "/bin" ];
       };
@@ -109,7 +112,6 @@ in
           feh
           aegisub
           scribus
-          ardour
           meld
           gimp
           gImageReader
@@ -129,6 +131,7 @@ in
           dmenu
           escrotum
           libnotify
+          screenkey
         ];
         pathsToLink = [ "/share" "/bin" ];
       };
@@ -223,6 +226,16 @@ in
           gummi
           texworks
           texlive.combined.scheme-full
+        ];
+      };
+
+      Audio = pkgs.buildEnv {
+        name = "audio";
+        paths = [
+          ardour
+          cadence
+          qjackctl
+          jack2
         ];
       };
 
