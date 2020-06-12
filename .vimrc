@@ -162,7 +162,7 @@ endfunction
 
 " Shell Check
 function! ShellCheck()
-  :silent !notify-send -t 10000 "$(shellcheck -x --exclude=SC1090,SC1091 %)" >/dev/null 2>&1 &
+  :silent !notify-send -t 10000 "$(shellcheck -x --exclude=SC1090,SC1091 % && echo 'Shellcheck OK: %')" >/dev/null 2>&1 &
 endfunction
 
 
