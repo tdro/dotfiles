@@ -1,5 +1,7 @@
 let
-  unstable = import (builtins.fetchTarball https://github.com/NixOS/nixpkgs/archive/0e2444aacb02b8c12416b71febca5cea416405f0.tar.gz) {};
+  unstable = import (builtins.fetchTarball {
+    url= "https://github.com/NixOS/nixpkgs/archive/0e2444aacb02b8c12416b71febca5cea416405f0.tar.gz";
+    sha256 = "18lki60qb77h8akbzpzyang08i5iqppqz65msm7gmdhrky7f3i07"; }) {};
 in
   {
     allowUnfree = true;
