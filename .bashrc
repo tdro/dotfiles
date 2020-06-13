@@ -102,7 +102,7 @@ alias tidy='tidy -config $HOME/.config/tidy.conf'
 nix-which() { readlink "$(type -P "$1")"; }
 
 # lxc helpers
-lxc-copy() { A=$1 && B=$2 && shift 2 && $(type -P lxc-copy) -n "$A" -N "$B" "$@"; }
+lxc-copy() { A=$1 && B=$2 && shift 2 && $(type -P lxc-copy) -an "$A" -N "$B" "$@"; }
 lxc-restart() { $(type -P lxc-stop) -kn "$1"; $(type -P lxc-start) -n "$1"; }
 lxc-start() { for container in "$@"; do $(type -P lxc-start) -n "$container"; done }
 lxc-stop() { for container in "$@"; do $(type -P lxc-stop) -kn "$container"; done }
