@@ -4,6 +4,7 @@ mkShell {
   name = "ansible";
   buildInputs = with python38.pkgs; [ pip ];
   shellHook = ''
+    export VAULT_ADDR='http://vault.test'
     export virtualenvs=$HOME/.local/share/virtualenvs
     mkdir -p $virtualenvs
     python -m venv $virtualenvs/ansible-mitogen
