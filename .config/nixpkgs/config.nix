@@ -26,6 +26,7 @@ in
           aerc
           vimHugeX
           emacs
+          sbcl_2_0_1
           alsaUtils
           diceware
           bfg-repo-cleaner
