@@ -163,6 +163,7 @@ in
           xdotool
           xzoom
           xbindkeys
+          glxinfo
         ];
       };
 
