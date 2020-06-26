@@ -282,6 +282,8 @@ vnoremap <expr>y "my\"" . v:register . "y`y"
 
 "---------------Plugin Settings---------------"
 
+" netrw settings
+let g:netrw_banner=0
 
 " nnn settings
 let g:nnn#command = 'nnn -H'            " Override default command
