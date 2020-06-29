@@ -1,4 +1,8 @@
 let
+  stable = import (builtins.fetchTarball {
+    url= "https://github.com/NixOS/nixpkgs/archive/f8248ab6d9e69ea9c07950d73d48807ec595e923.tar.gz";
+    sha256 = "009i9j6mbq6i481088jllblgdnci105b2q4mscprdawg3knlyahk"; }) {};
+
   unstable = import (builtins.fetchTarball {
     url= "https://github.com/NixOS/nixpkgs/archive/0e2444aacb02b8c12416b71febca5cea416405f0.tar.gz";
     sha256 = "18lki60qb77h8akbzpzyang08i5iqppqz65msm7gmdhrky7f3i07"; }) {};
@@ -6,7 +10,7 @@ in
   {
     allowUnfree = true;
 
-    packageOverrides = pkgs: with pkgs; {
+    packageOverrides = pkgs: with stable; {
 
       Terminal = pkgs.buildEnv {
         name = "terminal";
@@ -26,7 +30,7 @@ in
           aerc
           vimHugeX
           emacs
-          sbcl_2_0_1
+          sbcl
           alsaUtils
           diceware
           bfg-repo-cleaner
