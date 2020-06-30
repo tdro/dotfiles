@@ -1,4 +1,4 @@
 #!/bin/sh
 echo 'Section "Files"'
-echo "  ModulePath $(nix show-derivation -f '<nixpkgs>' Xorg | grep '"path":' | awk '{print $2}' | head -c -2)/lib/xorg/modules\""
+echo "  ModulePath \"$(readlink "$(type -P X)" | cut -d'/' -f-4)/lib/xorg/modules\""
 echo 'EndSection';
