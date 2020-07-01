@@ -281,6 +281,7 @@ in
           php74
           php74Packages.composer
           php74Packages.phpcbf
+          php74Packages.psysh
         ];
       };
 
