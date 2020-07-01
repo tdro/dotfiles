@@ -292,6 +292,13 @@ in
         ];
       };
 
+      Elixir = pkgs.buildEnv {
+        name = "elixir";
+        paths = [
+          elixir
+        ];
+      };
+
       C = pkgs.buildEnv {
         name = "c";
         paths = [
