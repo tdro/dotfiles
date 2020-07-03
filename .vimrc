@@ -256,12 +256,14 @@ let g:nnn#layout = 'new'                " Opens the nnn window in a split
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 
 " Send command to terminal https://vi.stackexchange.com/questions/14300/vim-how-to-send-entire-line-to-a-buffer-of-type-terminal
-function s:repl(start, end)
+function s:repl(start, end, language)
   let g:terminal_buffer = get(g:, 'terminal_buffer', -1)
   if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer)
     terminal
     let g:terminal_buffer = bufnr('')
+    call term_sendkeys(g:terminal_buffer, "exec " . a:language . "\<cr>")
     wincmd p
+    return
   elseif bufwinnr(g:terminal_buffer) == -1
     exec 'sbuffer ' . g:terminal_buffer
     wincmd p
@@ -269,7 +271,7 @@ function s:repl(start, end)
   call term_sendkeys(g:terminal_buffer, join(getline(a:start, a:end), "\<cr>") . "\<cr>")
 endfunction
 
-command! -range Repl call s:repl(<line1>, <line2>)
+command! -nargs=? -range Repl call s:repl(<line1>, <line2>, <f-args>)
 
 nnoremap <leader>cc :Repl<cr>
 vnoremap <leader>cc :Repl<cr>
