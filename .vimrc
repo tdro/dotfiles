@@ -307,7 +307,6 @@ augroup AutoCommands
     \| silent! exec "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
     \| :echo @% '[filetype=' . &filetype . ']'
 
-
 augroup END
 
 set cmdheight=999     " Set command height temporarily to avoid prompt.

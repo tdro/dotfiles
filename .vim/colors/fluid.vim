@@ -7,6 +7,7 @@ let g:colors_name = "fluid"
 
 let s:none='NONE'
 let s:bold='bold'
+let s:t_clear=0
 
 let  s:t_background  =  s:none  |  let  s:g_background  =  '#2c303c'
 let  s:t_white       =  '254'   |  let  s:g_white       =  '#cdd3de'
@@ -29,7 +30,7 @@ let  s:t_silver      =  '250'   |  let  s:g_silver      =  '#c0c0c0'
 exe  'hi  ColorColumn   guifg='.s:none          .  '  guibg='.s:g_grey        .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:t_grey    .  '  cterm='.s:none
 exe  'hi  CursorColumn  guifg='.s:none          .  '  guibg='.s:g_grey        .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:t_grey    .  '  cterm='.s:none
 exe  'hi  CursorLine    guifg='.s:none          .  '  guibg='.s:g_grey        .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:t_grey    .  '  cterm='.s:none
-exe  'hi  EndOfBuffer   guifg='.s:g_background  .  '  guibg='.s:none          .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:none      .  '  cterm='.s:none
+exe  'hi  EndOfBuffer   guifg='.s:g_background  .  '  guibg='.s:none          .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_clear   .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  ErrorMsg      guifg='.s:g_black       .  '  guibg='.s:g_red         .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:t_red     .  '  cterm='.s:bold
 exe  'hi  FoldColumn    guifg='.s:none          .  '  guibg='.s:none          .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  ModeMsg       guifg='.s:g_yellow      .  '  guibg='.s:none          .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_yellow  .  '  ctermbg='.s:none      .  '  cterm='.s:none
