@@ -170,8 +170,6 @@ nmap <Leader>w <C-w>c<cr>
 " Linting shortcuts
 nmap <Leader>lph :call HTMLBeautify()<cr>
 nmap <Leader>lpc :call CSSBeautify()<cr>
-nmap <Leader>lpa :call AnsibleCheck()<cr>
-nmap <Leader>lps :call ShellCheck()<cr>
 
 " Re-indent entire file
 nmap <Leader>re gg=G<C-o><C-o>
@@ -190,6 +188,9 @@ nmap <leader>cv :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<c
 
 " Toggle color column
 nmap <leader>cx :set cursorcolumn!<cr>
+
+" Justify columns
+vnoremap <leader>ct !column -t<cr>
 
 " File open mappings
 nmap <Leader>oh :History<cr>
@@ -212,9 +213,6 @@ nmap <Esc><Esc> :nohl<cr>
 
 " Toggle Spell Check
 nmap <C-s> :set spell!<cr>
-
-" Close Vim.
-nmap <C-c> :qa<cr>
 
 " Disable Ex Mode
 nnoremap Q <Nop>
