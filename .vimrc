@@ -77,7 +77,8 @@ let g:javascript_plugin_jsdoc = 1
 
 "----------------Visuals----------------"
 
-colorscheme material-monokai             " Set color scheme.
+" Set color scheme.
+colorscheme fluid
 
 " Remove scrollbars in gui.
 set guioptions-=l
@@ -90,43 +91,8 @@ set guioptions-=m
 set guioptions-=T
 set guioptions-=e
 
-" Set line number column bg color.
-hi LineNr guibg=bg
-
-" Define fold column and set to bg color.
+" Set fold column
 set foldcolumn=2
-hi foldcolumn guibg=bg
-hi foldcolumn ctermbg=none
-
-" Set vertical split column color.
-hi vertsplit ctermfg=236 ctermbg=237
-
-" Set horizontal split column color.
-hi statuslinenc ctermfg=237 ctermbg=255
-
-" Set cursor line color.
-hi CursorLine cterm=none ctermbg=237 ctermfg=none
-
-" Set cursor column color.
-hi CursorColumn cterm=none ctermbg=237 ctermfg=none
-
-" Set color column color.
-hi ColorColumn cterm=none ctermbg=237 ctermfg=none
-
-" Remove end of buffer indicator.
-hi EndOfBuffer ctermfg=black
-
-" Remove background color.
-hi Normal ctermbg=none
-
-" Set search highlight color.
-hi Search ctermfg=0
-
-" Set spell hightlight color.
-hi SpellBad ctermbg=197 ctermfg=0
-
-" Clear gutter color.
-hi clear SignColumn
 
 
 "---------------Functions---------------"
