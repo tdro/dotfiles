@@ -259,7 +259,7 @@ let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 function s:repl(start, end, language)
   let g:terminal_buffer = get(g:, 'terminal_buffer', -1)
   if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer)
-    terminal
+    terminal++rows=10
     let g:terminal_buffer = bufnr('')
     call term_sendkeys(g:terminal_buffer, "exec " . a:language . "\<cr>")
     wincmd p
