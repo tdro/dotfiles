@@ -151,9 +151,8 @@ nmap <Leader>flc :Commands<cr>
 nmap <Leader>mm :Maps<cr>
 nmap <Leader>ma :Marks<cr>
 
-" Print working directory
-nmap <Leader>di :pwd<cr>
-nmap <Leader>df :echo @%<cr>
+" Search documentation under cursor
+nmap <Leader>di :execute ':help ' . expand('<cword>')<cr>
 
 " Load and save sessions
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
