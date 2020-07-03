@@ -177,12 +177,6 @@ nmap <Leader>re gg=G<C-o><C-o>
 " Reset all settings and source configuration.
 nmap <Leader>ra :set all& \| :source ~/.vimrc \| :e<cr>
 
-" PHP REPL
-nmap <Leader>rps :.w !psysh<cr>
-nmap <Leader>rpf :term psysh %<cr>
-nmap <Leader>rpt :term php artisan tinker<cr>
-nmap <Leader>rpl :term psysh-tinker-live %<cr>
-
 " Toggle color column
 nmap <leader>cv :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 
@@ -272,9 +266,6 @@ endfunction
 
 command! -nargs=? -range Repl call s:repl(<line1>, <line2>, <f-args>)
 
-nnoremap <leader>cc :Repl<cr>
-vnoremap <leader>cc :Repl<cr>
-
 
 "----------------Autorun----------------"
 
@@ -294,6 +285,22 @@ augroup AutoCommands
   autocmd BufWritePost *.js :call ESLintFix()
   autocmd BufWritePost *.yml :call AnsibleCheck()
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
+
+  " REPL commands
+  autocmd FileType go nnoremap <buffer> <leader>cc :Repl gore<cr>
+  autocmd FileType go vnoremap <buffer> <leader>cc :Repl gore<cr>
+  autocmd FileType lua nnoremap <buffer> <leader>cc :Repl lua<cr>
+  autocmd FileType lua vnoremap <buffer> <leader>cc :Repl lua<cr>
+  autocmd FileType php nnoremap <buffer> <leader>cc :Repl psysh<cr>
+  autocmd FileType php vnoremap <buffer> <leader>cc :Repl psysh<cr>
+  autocmd FileType elixir nnoremap <buffer> <leader>cc :Repl iex<cr>
+  autocmd FileType elixir vnoremap <buffer> <leader>cc :Repl iex<cr>
+  autocmd FileType python nnoremap <buffer> <leader>cc :Repl python<cr>
+  autocmd FileType python vnoremap <buffer> <leader>cc :Repl python<cr>
+  autocmd FileType sh,bash nnoremap <buffer> <leader>cc :Repl sh -x<cr>
+  autocmd FileType sh,bash vnoremap <buffer> <leader>cc :Repl sh -x<cr>
+  autocmd FileType javascript nnoremap <buffer> <leader>cc :Repl node<cr>
+  autocmd FileType javascript vnoremap <buffer> <leader>cc :Repl node<cr>
 
   " General auto commands.
   autocmd BufWritePost quotes silent !notify-send "$(strfile %)"

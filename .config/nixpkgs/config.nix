@@ -4,8 +4,8 @@ let
     sha256 = "009i9j6mbq6i481088jllblgdnci105b2q4mscprdawg3knlyahk"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url= "https://github.com/NixOS/nixpkgs/archive/0e2444aacb02b8c12416b71febca5cea416405f0.tar.gz";
-    sha256 = "18lki60qb77h8akbzpzyang08i5iqppqz65msm7gmdhrky7f3i07"; }) {};
+    url= "https://github.com/NixOS/nixpkgs/archive/c308da1c4b14b0ffdfe9c2e2a948320124938220.tar.gz";
+    sha256 = "0ab9jhnlscxl1fl9rc7l978n26al1n77w32sr8gdbb11pfnhsizp"; }) {};
 in
   {
     allowUnfree = true;
@@ -251,6 +251,7 @@ in
         name = "javascript";
         paths = [
           nodejs-13_x
+          unstable.deno
           nodePackages.prettier
           nodePackages.eslint
           nodePackages.node2nix
@@ -272,6 +273,7 @@ in
         name = "golang";
         paths = [
           go
+          unstable.gore
         ];
       };
 
