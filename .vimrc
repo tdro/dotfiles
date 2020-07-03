@@ -255,6 +255,25 @@ let g:nnn#set_default_mappings = 0      " Disable default mappings
 let g:nnn#layout = 'new'                " Opens the nnn window in a split
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 
+" Send command to terminal https://vi.stackexchange.com/questions/14300/vim-how-to-send-entire-line-to-a-buffer-of-type-terminal
+function s:repl(start, end)
+  let g:terminal_buffer = get(g:, 'terminal_buffer', -1)
+  if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer)
+    terminal
+    let g:terminal_buffer = bufnr('')
+    wincmd p
+  elseif bufwinnr(g:terminal_buffer) == -1
+    exec 'sbuffer ' . g:terminal_buffer
+    wincmd p
+  endif
+  call term_sendkeys(g:terminal_buffer, join(getline(a:start, a:end), "\<cr>") . "\<cr>")
+endfunction
+
+command! -range Repl call s:repl(<line1>, <line2>)
+
+nnoremap <leader>cc :Repl<cr>
+vnoremap <leader>cc :Repl<cr>
+
 
 "----------------Autorun----------------"
 
