@@ -286,20 +286,13 @@ augroup AutoCommands
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
 
   " REPL commands
-  autocmd FileType go nnoremap <buffer> <leader>cc :Repl gore<cr>
-  autocmd FileType go vnoremap <buffer> <leader>cc :Repl gore<cr>
-  autocmd FileType lua nnoremap <buffer> <leader>cc :Repl lua<cr>
-  autocmd FileType lua vnoremap <buffer> <leader>cc :Repl lua<cr>
-  autocmd FileType php nnoremap <buffer> <leader>cc :Repl psysh<cr>
-  autocmd FileType php vnoremap <buffer> <leader>cc :Repl psysh<cr>
-  autocmd FileType elixir nnoremap <buffer> <leader>cc :Repl iex<cr>
-  autocmd FileType elixir vnoremap <buffer> <leader>cc :Repl iex<cr>
-  autocmd FileType python nnoremap <buffer> <leader>cc :Repl python<cr>
-  autocmd FileType python vnoremap <buffer> <leader>cc :Repl python<cr>
-  autocmd FileType sh,bash nnoremap <buffer> <leader>cc :Repl sh -x<cr>
-  autocmd FileType sh,bash vnoremap <buffer> <leader>cc :Repl sh -x<cr>
-  autocmd FileType javascript nnoremap <buffer> <leader>cc :Repl node<cr>
-  autocmd FileType javascript vnoremap <buffer> <leader>cc :Repl node<cr>
+  autocmd FileType go noremap <buffer> <leader>cc :Repl gore<cr>
+  autocmd FileType lua noremap <buffer> <leader>cc :Repl lua<cr>
+  autocmd FileType php noremap <buffer> <leader>cc :Repl psysh<cr>
+  autocmd FileType elixir noremap <buffer> <leader>cc :Repl iex<cr>
+  autocmd FileType python noremap <buffer> <leader>cc :Repl python<cr>
+  autocmd FileType sh,bash noremap <buffer> <leader>cc :Repl sh -x<cr>
+  autocmd FileType javascript noremap <buffer> <leader>cc :Repl node<cr>
 
   " General auto commands.
   autocmd BufWritePost quotes silent !notify-send "$(strfile %)"
