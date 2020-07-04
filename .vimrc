@@ -195,7 +195,7 @@ nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $HOME/Documents/.fz
 
 " View function documentation
 nmap <Leader>vdp
-      \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "cat $HOME/.vim/tags/php", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
+  \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
 " Mappings for nnn
 nmap <Leader>nn :NnnPicker '%:p:h'<CR>
