@@ -32,7 +32,7 @@ export PROMPT_COMMAND='cd .; history -a'
 export HISTSIZE=
 export HISTFILESIZE=
 export HISTTIMEFORMAT="%d/%m/%y %T "
-export HISTCONTROL=ignoredups:erasedups
+export HISTCONTROL=ignoreboth:erasedups
 
 export SUDO_ASKPASS="$HOME/.local/bin/rofi-askpass"
 export XDG_CONFIG_HOME="$HOME/.config"
