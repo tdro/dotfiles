@@ -17,6 +17,7 @@ in
         paths = [
           unstable.fzf
           unstable.hugo
+          nix-linter
           sshfs
           ffmpeg
           ripgrep
