@@ -186,6 +186,8 @@ nmap <leader>cx :set cursorcolumn!<cr>
 vnoremap <leader>ct !column -t<cr>
 
 " File open mappings
+nmap <Leader>ov :Lines<cr>
+nmap <Leader>ob :BLines<cr>
 nmap <Leader>oh :History<cr>
 nmap <Leader>oc :History:<cr>
 nmap <Leader>ol :Locate<space>
@@ -220,11 +222,6 @@ nmap <C-k> :resize -5<cr>
 
 " Show open buffers
 nmap <Tab> :Buffers<cr>
-
-" Search lines in buffer and open files
-nmap <C-f> :BLines<cr>
-nmap <C-d> :Lines<cr>
-nmap <C-p> :Hist<cr>
 
 " Inverse Tabs
 inoremap <S-Tab> <C-d>
