@@ -18,6 +18,7 @@ in
           unstable.fzf
           unstable.hugo
           nix-linter
+          tcl
           sshfs
           ffmpeg
           ripgrep

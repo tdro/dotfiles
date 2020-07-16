@@ -1,4 +1,4 @@
-#!/usr/bin/tclsh
+#!/usr/bin/env tclsh
 
 #
 # sl - usefully organize directories and point out interesting files
@@ -10,7 +10,7 @@
 # Licensed under the GNU Public License version 3 (http://www.gnu.org/licenses/).
 # NO WARRANTY.
 #
-# 
+#
 # $Revision: 1.89 $ $Date: 2012/02/20 04:20:46 $
 #
 
@@ -207,7 +207,7 @@ proc sl2 {dir raw cooked level} {
 		if {$size==0} {
 		    set attrs [file attributes $f]	;# we don't use "file attributes $f -rsrclength" b/c error on non-Mac
 		    if {[set x [lsearch -exact $attrs -rsrclength]] >= 0} {set size [lindex $attrs $x+1]}
-		}		
+		}
 		incr totalsize $size
 		if {$size==0} {append warning [l10n warn-empty]}
 		if {$stat(nlink) > 1} {
@@ -528,7 +528,7 @@ proc relative {l} {
 	    }
 	} elseif {$SWITCH(relread) && ($atime > $cutoffa || ($atime==$cutoffa && $repa)) && $atime > $mtime + $TIME(MINUTE)} {
 	    set pre "->[string range $pre 2 end]"; append post " -" [ago $atime]; set repa 0
-	}	
+	}
 
 	lappend l2 [list $tail $sfx $type $group $sortkey  $style $pre $display $warning $post  $size $mtime $atime]
     }
@@ -820,7 +820,7 @@ proc column {l gtitcnt} {
     set maxlen 0
     foreach tuple $l {
 	lassign $tuple tail sfx type group sortkey  style pre display warning post  size mtime atime
-	set len [expr [displaylen $display]+[string length $pre]+[displaylen $post]+[string length $warning]]	
+	set len [expr [displaylen $display]+[string length $pre]+[displaylen $post]+[string length $warning]]
 	if {$len > $maxlen} {set maxlen $len}
 	if {$len > $namemax} {set lenx $namemax} {set lenx $len}
 	lappend ll [list $tail $sfx $type $group $sortkey  $style $pre $display $warning $post  $size $mtime $atime $len $lenx]
@@ -925,7 +925,7 @@ proc column {l gtitcnt} {
 
 proc tailor {l i llen  rows} {
     log "tailor"
-    global COLSEP 
+    global COLSEP
     # width of cols = width of widest cell
     set sumx 0; set wl {}; set wxl {}
     for {} {$i<$llen} {incr i $rows} {
