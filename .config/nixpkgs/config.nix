@@ -1,4 +1,5 @@
 let
+
   stable = import (builtins.fetchTarball {
     url= "https://github.com/NixOS/nixpkgs/archive/f8248ab6d9e69ea9c07950d73d48807ec595e923.tar.gz";
     sha256 = "009i9j6mbq6i481088jllblgdnci105b2q4mscprdawg3knlyahk"; }) {};
@@ -6,7 +7,9 @@ let
   unstable = import (builtins.fetchTarball {
     url= "https://github.com/NixOS/nixpkgs/archive/c308da1c4b14b0ffdfe9c2e2a948320124938220.tar.gz";
     sha256 = "0ab9jhnlscxl1fl9rc7l978n26al1n77w32sr8gdbb11pfnhsizp"; }) {};
+
 in
+
   {
     allowUnfree = true;
 
@@ -17,8 +20,9 @@ in
         paths = [
           unstable.fzf
           unstable.hugo
-          nix-linter
           tcl
+          sbcl
+          nix-linter
           sshfs
           ffmpeg
           ripgrep
@@ -32,7 +36,6 @@ in
           aerc
           vimHugeX
           emacs
-          sbcl
           alsaUtils
           diceware
           bfg-repo-cleaner
@@ -50,14 +53,12 @@ in
           moc
           libqalculate
           encfs
-          bats
           bleachbit
           docker-compose
           electrum
           fortune
           ansible_2_9
           gifsicle
-          shellcheck
           img2pdf
           powertop
           rclone
@@ -230,15 +231,6 @@ in
         ];
       };
 
-      LaTeX = pkgs.buildEnv {
-        name = "latex";
-        paths = [
-          gummi
-          texworks
-          texlive.combined.scheme-full
-        ];
-      };
-
       Audio = pkgs.buildEnv {
         name = "audio";
         paths = [
@@ -246,6 +238,15 @@ in
           cadence
           qjackctl
           jack2
+        ];
+      };
+
+      LaTeX = pkgs.buildEnv {
+        name = "latex";
+        paths = [
+          gummi
+          texworks
+          texlive.combined.scheme-full
         ];
       };
 
@@ -266,7 +267,11 @@ in
         name = "python";
         paths = [
           (python38.withPackages (ps: with ps; [
+            mypy
+            bandit
+            pylint
             pip2nix
+            pyflakes
           ]))
         ];
       };
@@ -283,9 +288,11 @@ in
         name = "php";
         paths = [
           php74
-          php74Packages.composer
-          php74Packages.phpcbf
           php74Packages.psysh
+          php74Packages.psalm
+          php74Packages.phpcbf
+          php74Packages.phpstan
+          php74Packages.composer
         ];
       };
 
@@ -294,6 +301,7 @@ in
         paths = [
           (callPackage ./packages/luaformatter/default.nix {})
           lua5_3
+          lua53Packages.luacheck
         ];
       };
 
@@ -301,6 +309,14 @@ in
         name = "elixir";
         paths = [
           elixir
+        ];
+      };
+
+      Bash = pkgs.buildEnv {
+        name = "bash";
+        paths = [
+          bats
+          shellcheck
         ];
       };
 
