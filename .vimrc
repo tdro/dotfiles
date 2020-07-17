@@ -132,7 +132,7 @@ function! ShellCheck()
 endfunction
 
 " Nix Check
-function! ShellCheck()
+function! NixCheck()
   :silent !notify-send -t 10000 "$(nix-linter % 2>&1 && echo 'Nix Lint OK: %' && nixfmt %)" >/dev/null 2>&1
 endfunction
 
