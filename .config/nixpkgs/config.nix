@@ -1,19 +1,19 @@
 let
 
   stable = import (builtins.fetchTarball {
-    url= "https://github.com/NixOS/nixpkgs/archive/f8248ab6d9e69ea9c07950d73d48807ec595e923.tar.gz";
+    url = "https://github.com/NixOS/nixpkgs/archive/f8248ab6d9e69ea9c07950d73d48807ec595e923.tar.gz";
     sha256 = "009i9j6mbq6i481088jllblgdnci105b2q4mscprdawg3knlyahk"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url= "https://github.com/NixOS/nixpkgs/archive/c308da1c4b14b0ffdfe9c2e2a948320124938220.tar.gz";
+    url = "https://github.com/NixOS/nixpkgs/archive/c308da1c4b14b0ffdfe9c2e2a948320124938220.tar.gz";
     sha256 = "0ab9jhnlscxl1fl9rc7l978n26al1n77w32sr8gdbb11pfnhsizp"; }) {};
 
 in
 
-  {
-    allowUnfree = true;
+{
+  allowUnfree = true;
 
-    packageOverrides = pkgs: with stable; {
+  packageOverrides = pkgs: with stable; {
 
       Terminal = pkgs.buildEnv {
         name = "terminal";
@@ -175,11 +175,7 @@ in
 
       Awesome = pkgs.buildEnv {
         name = "awesome";
-        paths = [
-          awesome
-          lxappearance
-          deepin.deepin-gtk-theme
-        ];
+        paths = [ awesome lxappearance deepin.deepin-gtk-theme ];
         pathsToLink = [ "/share" "/bin" ];
       };
 
@@ -232,21 +228,12 @@ in
 
       Audio = pkgs.buildEnv {
         name = "audio";
-        paths = [
-          ardour
-          cadence
-          qjackctl
-          jack2
-        ];
+        paths = [ ardour cadence qjackctl jack2 ];
       };
 
       LaTeX = pkgs.buildEnv {
         name = "latex";
-        paths = [
-          gummi
-          texworks
-          texlive.combined.scheme-full
-        ];
+        paths = [ gummi texworks texlive.combined.scheme-full ];
       };
 
       JavaScript = pkgs.buildEnv {
@@ -265,22 +252,14 @@ in
       Python = pkgs.buildEnv {
         name = "python";
         paths = [
-          (python38.withPackages (ps: with ps; [
-            mypy
-            bandit
-            pylint
-            pip2nix
-            pyflakes
-          ]))
+          (python38.withPackages
+            (ps: with ps; [ mypy bandit pylint pip2nix pyflakes ]))
         ];
       };
 
       Golang = pkgs.buildEnv {
         name = "golang";
-        paths = [
-          go
-          unstable.gore
-        ];
+        paths = [ go unstable.gore ];
       };
 
       PHP = pkgs.buildEnv {
@@ -306,35 +285,22 @@ in
 
       Elixir = pkgs.buildEnv {
         name = "elixir";
-        paths = [
-          elixir
-        ];
+        paths = [ elixir ];
       };
 
       Bash = pkgs.buildEnv {
         name = "bash";
-        paths = [
-          bats
-          shellcheck
-        ];
+        paths = [ bats shellcheck ];
       };
 
       Nix = pkgs.buildEnv {
         name = "nix";
-        paths = [
-          nixfmt
-          nix-linter
-        ];
+        paths = [ nixfmt nix-linter ];
       };
 
       C = pkgs.buildEnv {
         name = "c";
-        paths = [
-          gnumake
-          meson
-          ninja
-          gcc
-        ];
+        paths = [ gnumake meson ninja gcc ];
       };
     };
-  }
+}
