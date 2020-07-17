@@ -99,26 +99,22 @@ set foldcolumn=2
 
 " PHP Fixer
 function! PHPFix()
-  :silent !notify-send "$(phpcbf % 2>&1)" &
-  :redraw!
+  :silent !notify-send "$(phpcbf % 2>&1)"
 endfunction
 
 " HTML Beautify
 function! HTMLBeautify()
   :silent !notify-send "$(prettier --write --parser html %)"
-  :redraw!
 endfunction
 
 " CSS Beautify
 function! CSSBeautify()
   :silent !notify-send "$(prettier --write --parser css %)"
-  :redraw!
 endfunction
 
 " ESLint Fix
 function! ESLintFix()
   :silent !notify-send -t 10000 "$(eslint -c $HOME/.config/eslintrc.yml --fix %)" >/dev/null 2>&1
-  :redraw!
 endfunction
 
 " Ansible Check
