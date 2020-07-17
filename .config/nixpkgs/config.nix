@@ -22,7 +22,6 @@ in
           unstable.hugo
           tcl
           sbcl
-          nix-linter
           sshfs
           ffmpeg
           ripgrep
@@ -317,6 +316,14 @@ in
         paths = [
           bats
           shellcheck
+        ];
+      };
+
+      Nix = pkgs.buildEnv {
+        name = "nix";
+        paths = [
+          nixfmt
+          nix-linter
         ];
       };
 

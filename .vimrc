@@ -131,6 +131,11 @@ function! ShellCheck()
   :silent !notify-send -t 10000 "$(shellcheck -x --exclude=SC1090,SC1091 % && echo 'Shellcheck OK: %')" >/dev/null 2>&1 &
 endfunction
 
+" Nix Check
+function! ShellCheck()
+  :silent !notify-send -t 10000 "$(nix-linter % 2>&1 && echo 'Nix Lint OK: %' && nixfmt %)" >/dev/null 2>&1
+endfunction
+
 
 "---------------Shortcuts---------------"
 
@@ -281,7 +286,7 @@ augroup AutoCommands
   autocmd BufWritePost *.js :call ESLintFix()
   autocmd BufWritePost *.yml :call AnsibleCheck()
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
-  autocmd FileType nix autocmd! BufWritePost <buffer> :silent !notify-send -t 10000 "$(nix-linter % 2>&1 && echo 'Nix Lint OK: %')" >/dev/null 2>&1 &
+  autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
 
   " REPL commands
   autocmd FileType go noremap <buffer> <leader>cc :Repl gore<cr>
