@@ -193,7 +193,7 @@ vnoremap <leader>ct !column -t<cr>
 " File open mappings
 nmap <Leader>ov :Lines<cr>
 nmap <Leader>ob :BLines<cr>
-nmap <Leader>oh :History<cr>
+nmap <Leader>op :History<cr>
 nmap <Leader>oc :History:<cr>
 nmap <Leader>ol :Locate<space>
 nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $HOME/Documents/.fzf-marks", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
