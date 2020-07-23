@@ -25,6 +25,7 @@ let  s:t_darkpurple  =  '99'    |  let  s:g_darkpurple  =  '#67209b'
 let  s:t_grey        =  '237'   |  let  s:g_grey        =  '#333333'
 let  s:t_grey1       =  '238'   |  let  s:g_grey1       =  '#444444'
 let  s:t_grey2       =  '239'   |  let  s:g_grey2       =  '#555555'
+let  s:t_grey3       =  '236'   |  let  s:g_grey3       =  '#303030'
 let  s:t_silver      =  '250'   |  let  s:g_silver      =  '#c0c0c0'
 
 exe  'hi  ColorColumn   guifg='.s:none          .  '  guibg='.s:g_grey        .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:t_grey    .  '  cterm='.s:none
@@ -59,7 +60,7 @@ exe  'hi  Constant        guifg='.s:g_purple  .  '  guibg='.s:none      .  '  gu
 exe  'hi  Debug           guifg='.s:g_pink    .  '  guibg='.s:none      .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_pink    .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  Define          guifg='.s:g_pink    .  '  guibg='.s:none      .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_pink    .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  Delimiter       guifg='.s:g_pink    .  '  guibg='.s:none      .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_pink    .  '  ctermbg='.s:none      .  '  cterm='.s:none
-exe  'hi  Error           guifg='.s:g_black   .  '  guibg='.s:g_red     .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:none      .  '  cterm='.s:none
+exe  'hi  Error           guifg='.s:g_red     .  '  guibg='.s:g_grey3   .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_red     .  '  ctermbg='.s:t_grey3   .  '  cterm='.s:none
 exe  'hi  Exception       guifg='.s:g_blue    .  '  guibg='.s:none      .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_blue    .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  Float           guifg='.s:g_purple  .  '  guibg='.s:none      .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_purple  .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  Function        guifg='.s:g_green   .  '  guibg='.s:none      .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_green   .  '  ctermbg='.s:none      .  '  cterm='.s:none
