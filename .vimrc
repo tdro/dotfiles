@@ -160,6 +160,9 @@ nmap <Leader>di :execute ':help ' . expand('<cword>')<cr>
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
 nmap <Leader>ss :silent! exec "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
 
+" Sort lines by length
+vnoremap <leader>sn !perl -e 'print sort { length($a) <=> length($b) } <>'<cr>
+
 " Switch between tabs and spaces
 nmap <Leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab \| :%retab!<cr>
 nmap <Leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab \| :%retab!<cr>
@@ -181,7 +184,7 @@ nmap <Leader>ra :set all& \| :source ~/.vimrc \| :e<cr>
 " Toggle color column
 nmap <leader>cv :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 
-" Toggle color column
+" Toggle cursor column
 nmap <leader>cx :set cursorcolumn!<cr>
 
 " Justify columns
