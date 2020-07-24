@@ -1,2 +1,3 @@
 #!/bin/sh -eu
-apropos . | cut -d' ' -f1 | fzf | xargs man;
+[ "$#" = 0 ] && apropos . | cut -d' ' -f1 | fzf | xargs man;
+[ "$#" = 1 ] && man -k "$1" | cut -d' ' -f1 | fzf | xargs man;
