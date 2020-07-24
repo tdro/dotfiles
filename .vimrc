@@ -154,7 +154,7 @@ nmap <Leader>mm :Maps<cr>
 nmap <Leader>ma :Marks<cr>
 
 " Search documentation under cursor
-nmap <Leader>di :execute ':help ' . expand('<cword>')<cr>
+nmap <Leader>dm :execute ':term fman ' . expand('<cword>')<cr>
 
 " Load and save sessions
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
