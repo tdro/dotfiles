@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+apropos . | cut -d' ' -f1 | fzf | xargs man;
