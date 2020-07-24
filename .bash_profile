@@ -28,6 +28,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # general exports
 export EDITOR=vim
 export TERMINAL=urxvt
+export MANPAGER="vim -M +MANPAGER -"
 export PROMPT_COMMAND='cd .; history -a; history -n;'
 export HISTSIZE=
 export HISTFILESIZE=
