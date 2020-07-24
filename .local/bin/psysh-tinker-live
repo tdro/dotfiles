@@ -1,3 +1,0 @@
-#!/bin/sh
-
-echo "$1" | entr -s 'php artisan tinker < ~/.vim/scratchpad/php'
