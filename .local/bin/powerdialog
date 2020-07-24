@@ -1,22 +1,16 @@
-#!/bin/sh
-ACTION=`zenity --width=90 --height=210 --list --radiolist --text="Select Action" --title="Logout" --column "Choice" --column "Action" FALSE Shutdown FALSE Reboot TRUE Suspend FALSE Lock`
+#!/bin/sh -eu
+
+ACTION=$(zenity --width=90 \
+  --height=210 --list --radiolist --text="Select Action" \
+  --title="Logout" --column "Choice" --column "Action" \
+  FALSE Shutdown FALSE Reboot TRUE Suspend FALSE Lock FALSE Blank)
 
 if [ -n "${ACTION}" ]; then
   case $ACTION in
-  Shutdown)
-    zenity --question --text "Are you sure you want to halt?" &&  gksudo 'systemctl poweroff'
-    ;;
-  Reboot)
-    zenity --question --text "Are you sure you want to reboot?" && gksudo 'systemctl reboot'
-    ;;
-  Suspend)
-	killall -q dmenu
-	i3lock -d -u -p default -i ~/.config/awesome/themes/default/default_s1280x800.png > /dev/null 2>&1
-    systemctl suspend
-    ;;
-  Lock)
-	killall -q dmenu
-    i3lock -d -u -p default -i ~/.config/awesome/themes/default/default_s1280x800.png > /dev/null 2>&1
-    ;;
+    Shutdown) zenity --question --text "Are you sure you want to halt?" && sudo -A 'systemctl poweroff' ;;
+    Reboot) zenity --question --text "Are you sure you want to reboot?" && sudo -A 'systemctl reboot' ;;
+    Suspend) systemctl suspend ;;
+    Lock) i3lock-fancy ;;
+    Blank) sleep 1; xset dpms force off ;;
   esac
 fi
