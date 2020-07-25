@@ -25,6 +25,7 @@ in
           sshfs
           ffmpeg
           ripgrep
+          silver-searcher
           dtrx
           rxvt-unicode
           pulsemixer
