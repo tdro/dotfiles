@@ -293,6 +293,7 @@ augroup AutoCommands
   autocmd FileType lua noremap <buffer> <leader>cc :Repl lua<cr>
   autocmd FileType php noremap <buffer> <leader>cc :Repl psysh<cr>
   autocmd FileType elixir noremap <buffer> <leader>cc :Repl iex<cr>
+  autocmd FileType nix noremap <buffer> <leader>cc :Repl nix repl<cr>
   autocmd FileType python noremap <buffer> <leader>cc :Repl python<cr>
   autocmd FileType sh,bash noremap <buffer> <leader>cc :Repl sh -x<cr>
   autocmd FileType javascript noremap <buffer> <leader>cc :Repl node<cr>
