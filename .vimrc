@@ -297,6 +297,7 @@ augroup AutoCommands
   autocmd FileType nix noremap <buffer> <leader>cc :Repl nix repl<cr>
   autocmd FileType python noremap <buffer> <leader>cc :Repl python<cr>
   autocmd FileType sh,bash noremap <buffer> <leader>cc :Repl sh -x<cr>
+  autocmd FileType perl noremap <buffer> <leader>cc :Repl perl -de0<cr>
   autocmd FileType javascript noremap <buffer> <leader>cc :Repl node<cr>
 
   " General auto commands.
