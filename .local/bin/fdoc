@@ -1,0 +1,14 @@
+#!/bin/sh -eu
+
+grep -lRi \
+  --include=*.html  \
+  --include=*.md  \
+  "${1-.}" /etc/documentation | fzf | while read -r doc
+do
+  extension=${doc##*.}
+
+  case "$extension" in
+    md) vim "$doc" ;;
+    html) w3m -dump "$doc" | vim - ;;
+  esac
+done
