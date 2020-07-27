@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 : <<COMMENT
   Copyright (C) 2014 Tri Le <trile7 at gmail dot com>
 
