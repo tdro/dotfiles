@@ -294,6 +294,11 @@ in
         paths = [ bats shellcheck ];
       };
 
+      Perl = pkgs.buildEnv {
+        name = "perl";
+        paths = [ perl530Packages.PerlCritic perl530Packages.PerlTidy ];
+      };
+
       Nix = pkgs.buildEnv {
         name = "nix";
         paths = [ nixfmt nix-linter ];
