@@ -208,22 +208,23 @@ in
       Fonts = pkgs.buildEnv {
         name = "fonts";
         paths = [
+          (callPackage ./packages/nerdfonts-dejavu-sans-mono/default.nix {})
+          etBook
+          ibm-plex
           corefonts
+          cm_unicode
+          cooper-hewitt
           font-awesome_4
+          yanone-kaffeesatz
           noto-fonts
           noto-fonts-cjk
           noto-fonts-emoji
-          etBook
-          ibm-plex
-          cooper-hewitt
           fira
           fira-code
-          fira-code-symbols
           fira-mono
-          source-serif-pro
+          fira-code-symbols
           source-code-pro
-          yanone-kaffeesatz
-          cm_unicode
+          source-serif-pro
         ];
       };
 

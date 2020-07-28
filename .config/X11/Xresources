@@ -18,10 +18,10 @@ URxvt.cursorColor: #69AEFF
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-m: perl:url-select:select_next
 
-URxvt*font: xft:monospace:size=10
-URxvt.boldFont: xft:monospace:size=10
-URxvt.italicFont: xft:monospace:size=10
-URxvt.boldItalicFont: xft:monospace:size=10
+URxvt*font: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.boldFont: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.italicFont: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.boldItalicFont: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
 
 URxvt.keysym.C-Up: perl:font-size:increase
 URxvt.keysym.C-Down: perl:font-size:decrease
