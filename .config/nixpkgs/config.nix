@@ -295,6 +295,11 @@ in
         paths = [ bats shellcheck ];
       };
 
+      Haskell = pkgs.buildEnv {
+        name = "haskell";
+        paths = [ ghc ghcid hlint ];
+      };
+
       Perl = pkgs.buildEnv {
         name = "perl";
         paths = [ perl530Packages.PerlCritic perl530Packages.PerlTidy ];
