@@ -1,15 +1,12 @@
 [Unit]
 Description=Remote desktop service (VNC)
-After=syslog.target network.target
 StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-ExecStartPre=/bin/sh -c "vnc=$(pidof x11vnc) && { [ $(echo $vnc | wc -w) = 1 ]; } || { kill $${vnc% *} || true; }"
-ExecStart=/usr/bin/env x11vnc -usepw -nowf -norepeat -forever -noxrecord -auth $XAUTHORITY
+ExecStart=/usr/bin/env x11vnc -display :0 -rfbport 5900 -usepw -nowf -norepeat -forever -noxrecord -auth $XAUTHORITY
 Restart=always
 RestartSec=1s
-KillMode=none
 SyslogIdentifier=x11vnc
 
 [Install]
