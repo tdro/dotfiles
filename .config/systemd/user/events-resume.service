@@ -3,7 +3,7 @@ Description=Execute events on resume event
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env sh -c 'dbus-monitor --system | while read; do grep -m1 -q 'post-resume.target' && %h/.local/bin/scripts/events-resume; done'
+ExecStart=/usr/bin/env sh -c 'dbus-monitor --system | while read; do grep -q 'PrepareForSleep' && %h/.local/bin/scripts/events-resume; done'
 Restart=always
 RestartSec=5s
 SyslogIdentifier=events-resume

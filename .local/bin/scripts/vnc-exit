@@ -1,2 +1,2 @@
 #!/bin/sh
-killall -9 -q x11vnc;
+systemctl --user restart x11vnc;

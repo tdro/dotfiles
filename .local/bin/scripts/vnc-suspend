@@ -1,3 +1,2 @@
 #!/bin/sh
-killall -9 -q x11vnc;
-systemctl suspend;
+systemctl --user restart x11vnc && systemctl suspend;
