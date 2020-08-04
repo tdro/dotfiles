@@ -117,6 +117,7 @@ image/x-targa=feh.desktop;
 image/x-xbitmap=feh.desktop;
 image/x-xpixmap=feh.desktop;
 image/x-xwindowdump=feh.desktop;
+inode/directory=file-manager.desktop;
 text/cache-manifest=vim.desktop;
 text/calendar=vim.desktop;
 text/css=vim.desktop;

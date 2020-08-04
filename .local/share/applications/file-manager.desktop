@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=File Manager
+Type=Application
+Exec=spacefm %U
+Terminal=true
+NoDisplay=true
