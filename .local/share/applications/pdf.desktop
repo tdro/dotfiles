@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=PDF Viewer
+Type=Application
 Exec=mupdf %U
 Terminal=false
 NoDisplay=true

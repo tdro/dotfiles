@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=LibreOffice
+Type=Application
 Exec=libreoffice %U
 Terminal=false
 NoDisplay=true

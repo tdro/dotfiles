@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=Editor
+Type=Application
 Exec=vim %U
 Terminal=true
 NoDisplay=true
