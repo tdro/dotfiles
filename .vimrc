@@ -303,7 +303,7 @@ augroup AutoCommands
   " General auto commands.
   autocmd BufWritePost rc.lua silent !notify-send "$(awesome -k 2>&1)"
   autocmd BufWritePost quotes,*.fortune silent !notify-send "$(strfile %)"
-  autocmd BufWritePost *.desktop silent !notify-send "$(desktop-file-validate %)"
+  autocmd BufWritePost *.desktop silent !notify-send "$(desktop-file-validate % 2>&1 && echo 'OK: %')"
   autocmd BufWritePost Xresources silent !xrdb ~/.config/X11/Xresources && notify-send 'Reloading Xresources...'
 
   " Automatically remove trailing white space on save.
