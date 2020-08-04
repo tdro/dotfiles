@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=PDF Viewer
 Type=Application
-Exec=zathura %U
+Exec=mupdf %F
 Terminal=false
 NoDisplay=true
