@@ -20,6 +20,7 @@ in
         paths = [
           unstable.fzf
           unstable.hugo
+          desktop-file-utils
           tcl
           sbcl
           sshfs
