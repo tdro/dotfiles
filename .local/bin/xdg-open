@@ -1,2 +1,2 @@
 #!/bin/sh
-mimeo --deprecated "$@";
+mimeo --term "urxvt -e %s" --deprecated "$@";
