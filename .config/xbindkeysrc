@@ -18,7 +18,7 @@
 "$HOME/.local/bin/scripts/clipboard"
     Mod4 + z
 
-# Internet Search
+# File Search
 "$HOME/.local/bin/scripts/file-search"
     Mod4 + p
 
