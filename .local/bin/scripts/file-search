@@ -1,11 +1,18 @@
-#!/bin/sh
+#!/bin/sh -eu
 
-xdg-open "$(locate -ie \
-\
-$HOME/Documents \
-$HOME/Downloads \
-$HOME/.local/bin \
-$HOME/.config/awesome \
-$HOME/.vim \
-\
+xdg-open "$(locate -ie              \
+                                    \
+"$HOME"/.vim                        \
+"$HOME"/Music                       \
+"$HOME"/Books                       \
+"$HOME"/Videos                      \
+"$HOME"/Documents                   \
+"$HOME"/Downloads                   \
+"$HOME"/Pictures                    \
+"$HOME"/.local/bin                  \
+"$HOME"/.config/awesome             \
+"$HOME"/.config/systemd             \
+"$HOME"/.local/share/Trash          \
+"$HOME"/.local/share/applications   \
+                                    \
 | rofi -font "ubuntu 12" -padding 20 -dmenu -i -p 'Files')"
