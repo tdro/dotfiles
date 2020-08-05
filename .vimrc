@@ -161,6 +161,9 @@ nmap <Leader>di :execute ':term fdoc ' . expand('<cword>')<cr>
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
 nmap <Leader>ss :silent! exec "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
 
+" Toggle Spell Check
+nmap <Leader>sp :set spell!<cr>
+
 " Sort lines by length
 vnoremap <leader>sn !perl -e 'print sort { length($a) <=> length($b) } <>'<cr>
 
@@ -211,9 +214,6 @@ nmap <Leader>nm :NnnPicker<CR>
 
 " Exit incremental search
 nmap <Esc><Esc> :nohl<cr>
-
-" Toggle Spell Check
-nmap <C-s> :set spell!<cr>
 
 " Disable Ex Mode
 nnoremap Q <Nop>
