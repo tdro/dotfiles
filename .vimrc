@@ -156,6 +156,7 @@ nmap <Leader>ma :Marks<cr>
 " Search documentation under cursor
 nmap <Leader>dm :execute ':term fman ' . expand('<cword>')<cr>
 nmap <Leader>di :execute ':term fdoc ' . expand('<cword>')<cr>
+nmap <Leader>dt :execute ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>
 
 " Load and save sessions
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
