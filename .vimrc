@@ -169,8 +169,8 @@ nmap <Leader>sp :set spell!<cr>
 vnoremap <leader>sn !perl -e 'print sort { length($a) <=> length($b) } <>'<cr>
 
 " Switch between tabs and spaces
-nmap <Leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab \| :%retab!<cr>
 nmap <Leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab \| :%retab!<cr>
+nmap <Leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab \| :%retab!<cr>
 
 " Close buffer and window
 nmap <Leader>q :bd<cr>
@@ -211,8 +211,8 @@ nmap <Leader>vdp
   \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
 " Mappings for nnn
-nmap <Leader>nn :NnnPicker '%:p:h'<CR>
-nmap <Leader>nm :NnnPicker<CR>
+nmap <Leader>nm :NnnPicker<cr>
+nmap <Leader>nn :NnnPicker '%:p:h'<cr>
 
 " Exit incremental search
 nmap <Esc><Esc> :nohl<cr>
@@ -222,11 +222,11 @@ nnoremap Q <Nop>
 
 " Split window mappings
 nmap <Bslash> :vsplit<cr>
+nmap <C-j> :resize +5<cr>
+nmap <C-k> :resize -5<cr>
 nmap <C-Bslash> :split<cr>
 nmap <C-h> :vertical resize +5<cr>
 nmap <C-l> :vertical resize -5<cr>
-nmap <C-j> :resize +5<cr>
-nmap <C-k> :resize -5<cr>
 
 " Show open buffers
 nmap <Tab> :Buffers<cr>
