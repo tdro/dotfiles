@@ -100,6 +100,7 @@ set foldcolumn=2
 " PHP Fixer
 function! PHPFix()
   :silent !notify-send "$(phpcbf % 2>&1)"
+  :redraw!
 endfunction
 
 " HTML Beautify
