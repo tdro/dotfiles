@@ -255,10 +255,10 @@ let g:nnn#layout = 'new'                " Opens the nnn window in a split
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 
 " send commands to terminal https://vi.stackexchange.com/questions/14300/vim-how-to-send-entire-line-to-a-buffer-of-type-terminal
-function s:repl(start, end, language)
+function s:terminal(start, end, language)
   let g:terminal_buffer = get(g:, 'terminal_buffer', -1)
   if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer)
-    terminal++rows=10
+    terminal ++rows=10
     let g:terminal_buffer = bufnr('')
     call term_sendkeys(g:terminal_buffer, "exec " . a:language . "\<cr>")
     wincmd p
@@ -269,7 +269,7 @@ function s:repl(start, end, language)
   call term_sendkeys(g:terminal_buffer, join(getline(a:start, a:end), "\<cr>") . "\<cr>")
 endfunction
 
-command! -nargs=? -range Repl call s:repl(<line1>, <line2>, <f-args>)
+command! -nargs=? -range REPL call s:terminal(<line1>, <line2>, <f-args>)
 
 
 "----------------Autorun----------------"
@@ -294,15 +294,15 @@ augroup AutoCommands
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
 
   " REPL commands
-  autocmd FileType go noremap <buffer> <leader>cc :Repl gore<cr>
-  autocmd FileType lua noremap <buffer> <leader>cc :Repl lua<cr>
-  autocmd FileType php noremap <buffer> <leader>cc :Repl psysh<cr>
-  autocmd FileType elixir noremap <buffer> <leader>cc :Repl iex<cr>
-  autocmd FileType nix noremap <buffer> <leader>cc :Repl nix repl<cr>
-  autocmd FileType python noremap <buffer> <leader>cc :Repl python<cr>
-  autocmd FileType sh,bash noremap <buffer> <leader>cc :Repl sh -x<cr>
-  autocmd FileType perl noremap <buffer> <leader>cc :Repl perl -de0<cr>
-  autocmd FileType javascript noremap <buffer> <leader>cc :Repl node<cr>
+  autocmd FileType go noremap <buffer> <leader>cc :REPL gore<cr>
+  autocmd FileType lua noremap <buffer> <leader>cc :REPL lua<cr>
+  autocmd FileType php noremap <buffer> <leader>cc :REPL psysh<cr>
+  autocmd FileType elixir noremap <buffer> <leader>cc :REPL iex<cr>
+  autocmd FileType nix noremap <buffer> <leader>cc :REPL nix repl<cr>
+  autocmd FileType python noremap <buffer> <leader>cc :REPL python<cr>
+  autocmd FileType sh,bash noremap <buffer> <leader>cc :REPL sh -x<cr>
+  autocmd FileType perl noremap <buffer> <leader>cc :REPL perl -de0<cr>
+  autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
 
   " General auto commands.
   autocmd BufWritePost rc.lua silent !notify-send "$(awesome -k 2>&1)"
