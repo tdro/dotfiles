@@ -4,7 +4,10 @@ grep -lRi \
   --include=*.md \
   --include=*.txt \
   --include=*.html \
-  "${1-.}" /etc/documentation | fzf | while read -r doc
+  "${1-.}" /etc/documentation \
+  | fzf --preview "grep -hi -B 10 -A 10  ${1-.} {}" \
+  | while read -r doc
+
 do
   extension=${doc##*.}
 
