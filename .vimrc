@@ -289,6 +289,7 @@ augroup AutoCommands
   autocmd BufWritePost *.php :call PHPFix()
   autocmd BufWritePost *.js :call ESLintFix()
   autocmd BufWritePost *.yml :call AnsibleCheck()
+  autocmd BufWritePost *.tex :term ++close ++rows=10 latex-compile %
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
 

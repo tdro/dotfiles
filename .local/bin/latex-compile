@@ -1,0 +1,8 @@
+#!/bin/sh -eu
+
+if ! {
+      pdflatex -halt-on-error "$1" \
+      || xelatex -halt-on-error "$1";
+     }
+then cat
+fi
