@@ -1,3 +1,9 @@
 #!/bin/sh -eu
-[ "$#" = 0 ] && apropos . | cut -d' ' -f1 | fzf | xargs man;
-[ "$#" = 1 ] && man -k "$1" | cut -d' ' -f1 | fzf | xargs man;
+
+MANWIDTH=9999
+
+[ "$#" = 0 ] && apropos . \
+  | cut -d' ' -f1 | fzf --preview "MANWIDTH=$MANWIDTH man {}" | xargs man;
+
+[ "$#" = 1 ] && man -k "$1" \
+  | cut -d' ' -f1 | fzf --preview "MANWIDTH=$MANWIDTH man {}" | xargs man;
