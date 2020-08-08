@@ -289,7 +289,6 @@ augroup AutoCommands
   autocmd BufWritePost *.php :call PHPFix()
   autocmd BufWritePost *.js :call ESLintFix()
   autocmd BufWritePost *.yml :call AnsibleCheck()
-  autocmd BufWritePost *.tex :term ++close ++rows=10 latex-compile %
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
 
@@ -305,6 +304,7 @@ augroup AutoCommands
   autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
 
   " General auto commands.
+  autocmd BufWritePost *.tex :term ++close ++rows=10 latex-compile %
   autocmd BufWritePost rc.lua silent !notify-send "$(awesome -k 2>&1)"
   autocmd BufWritePost quotes,*.fortune silent !notify-send "$(strfile %)"
   autocmd BufWritePost *.desktop silent !notify-send "$(desktop-file-validate % 2>&1 && echo 'OK: %')"
