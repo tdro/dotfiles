@@ -1,0 +1,4 @@
+#!/bin/sh
+config=$XDG_CONFIG_HOME/moc
+mocp -M "$config" -S > /dev/null 2>&1;
+mocp -M "$config" -pca "$@"

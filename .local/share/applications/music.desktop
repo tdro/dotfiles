@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Music Player
 Type=Application
-Exec=mocp -M $XDG_CONFIG_HOME/moc %U
-Terminal=true
+Exec=mocplay %F
+Terminal=false
 NoDisplay=true
