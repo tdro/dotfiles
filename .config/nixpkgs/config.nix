@@ -260,11 +260,6 @@ in
         ];
       };
 
-      Golang = pkgs.buildEnv {
-        name = "golang";
-        paths = [ go unstable.gore ];
-      };
-
       PHP = pkgs.buildEnv {
         name = "php";
         paths = [
@@ -314,6 +309,16 @@ in
       C = pkgs.buildEnv {
         name = "c";
         paths = [ gnumake meson ninja gcc ];
+      };
+
+      Golang = pkgs.buildEnv {
+        name = "golang";
+        paths = [ go unstable.gore ];
+      };
+
+      Rust = pkgs.buildEnv {
+        name = "rust";
+        paths = [ rustup ];
       };
     };
 }
