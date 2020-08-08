@@ -18,6 +18,7 @@ in
       Terminal = pkgs.buildEnv {
         name = "terminal";
         paths = [
+          (callPackage ./packages/chromexup/default.nix {})
           unstable.fzf
           unstable.hugo
           desktop-file-utils

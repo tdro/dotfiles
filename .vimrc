@@ -307,6 +307,7 @@ augroup AutoCommands
   autocmd BufWritePost *.tex :term ++close ++rows=10 latex-compile %
   autocmd BufWritePost rc.lua silent !notify-send "$(awesome -k 2>&1)"
   autocmd BufWritePost quotes,*.fortune silent !notify-send "$(strfile %)"
+  autocmd BufWritePost $HOME/.config/chromexup/config.ini silent !notify-send "$(chromexup 2>&1)"
   autocmd BufWritePost *.desktop silent !notify-send "$(desktop-file-validate % 2>&1 && echo 'OK: %')"
   autocmd BufWritePost Xresources silent !xrdb ~/.config/X11/Xresources && notify-send 'Reloading Xresources...'
 
