@@ -84,6 +84,7 @@ in
       Graphical = pkgs.buildEnv {
         name = "graphical";
         paths = [
+          (callPackage ./packages/dmenu/default.nix {})
           (callPackage ./packages/ntrviewer/default.nix {})
           unstable.ungoogled-chromium
           firefox
@@ -139,7 +140,6 @@ in
           freerdp
           wmctrl
           rofi
-          dmenu
           escrotum
           libnotify
           screenkey
