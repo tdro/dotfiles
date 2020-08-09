@@ -22,6 +22,7 @@ in
           unstable.fzf
           unstable.hugo
           desktop-file-utils
+          glow
           tcl
           sbcl
           sshfs

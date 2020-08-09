@@ -1,18 +1,29 @@
 #!/bin/sh -eu
 
+fdoc_preview() {
+  file=$1
+  extension=${file##*.}
+  case "$extension" in
+    md) glow -w 60 "$file" ;;
+    html) w3m -dump "$file" ;;
+    *) grep -hi -B 10 -A 10 . "${file}" ;;
+  esac
+}
+
+[ "${1-}" = "--preview" ] && fdoc_preview "${2-}" && exit;
+
 grep -lRi \
   --include=*.md \
   --include=*.txt \
   --include=*.html \
   "${1-.}" /etc/documentation \
-  | fzf --preview "grep -hi -B 10 -A 10  ${1-.} {}" \
+  | fzf --preview "fdoc --preview {}" \
   | while read -r doc
 
 do
   extension=${doc##*.}
-
   case "$extension" in
-    md) vim "$doc" ;;
+    md) glow "$doc" | vim -;;
     html) w3m -dump "$doc" | vim - ;;
     *) vim "$doc" ;;
   esac
