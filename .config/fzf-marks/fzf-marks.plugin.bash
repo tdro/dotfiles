@@ -44,7 +44,7 @@ if [[ -z "${FZF_MARKS_COMMAND}" ]] ; then
     MINIMUM_VERSION=16001
 
     if [[ $FZF_VERSION -gt $MINIMUM_VERSION ]]; then
-        FZF_MARKS_COMMAND="fzf --height 40% --reverse"
+        FZF_MARKS_COMMAND="fzf --height 40% --reverse --header='ctrl-y:jump, ctrl-t:toggle, ctrl-d:delete'"
     elif [[ ${FZF_TMUX:-1} -eq 1 ]]; then
         FZF_MARKS_COMMAND="fzf-tmux -d${FZF_TMUX_HEIGHT:-40%}"
     else
@@ -122,7 +122,7 @@ function fzf-dir-jump {
         jumpline=$(_color_marks < "${FZF_MARKS_FILE}" | eval ${FZF_MARKS_COMMAND} --ansi --bind=ctrl-y:accept --query="$*" --select-1 --tac)
     fi
     if [[ -n ${jumpline} ]]; then
-        jumpdir=$(echo "${jumpline}" | sed 's/.*: \(.*\)$/\1/' | sed "s#~#${HOME}#")
+        jumpdir=$(echo "${jumpline}" | sed 's/.*: \(.*\)$/\1/' | sed "s#^~#${HOME}#")
         bookmarks=$(_handle_symlinks)
         if is_interactive_shell; then
         cd "${jumpdir}" || return
