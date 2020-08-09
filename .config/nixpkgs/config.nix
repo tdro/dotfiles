@@ -39,6 +39,7 @@ in
           exercism
           ffmpeg
           fortune
+          gettext
           gifsicle
           glow
           groff
