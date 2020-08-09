@@ -1,6 +1,6 @@
 #!/bin/sh -eu
 
-fdoc_preview() {
+fzf_doc_preview() {
   file=$1
   extension=${file##*.}
   case "$extension" in
@@ -10,14 +10,14 @@ fdoc_preview() {
   esac
 }
 
-[ "${1-}" = "--preview" ] && fdoc_preview "${2-}" && exit;
+[ "${1-}" = "--preview" ] && fzf_doc_preview "${2-}" && exit;
 
 grep -lRi \
   --include=*.md \
   --include=*.txt \
   --include=*.html \
   "${1-.}" /etc/documentation \
-  | fzf --preview "fdoc --preview {}" \
+  | fzf --preview "fzf-doc --preview {}" \
   | while read -r doc
 
 do

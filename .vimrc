@@ -155,8 +155,8 @@ nmap <Leader>mm :Maps<cr>
 nmap <Leader>ma :Marks<cr>
 
 " Search documentation under cursor
-nmap <Leader>dm :execute ':term ++close fman ' . expand('<cword>')<cr>
-nmap <Leader>di :execute ':term ++close fdoc ' . expand('<cword>')<cr>
+nmap <Leader>dm :execute ':term ++close fzf-man ' . expand('<cword>')<cr>
+nmap <Leader>di :execute ':term ++close fzf-doc ' . expand('<cword>')<cr>
 nmap <Leader>dt :execute ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>
 
 " Load and save sessions
@@ -203,9 +203,9 @@ nmap <Leader>op :History<cr>
 nmap <Leader>oc :History:<cr>
 nmap <Leader>ol :Locate<space>
 nmap <Leader>ot :execute '! urxvt -cd ' . expand('%:p:h') . ' &'<cr><cr>
-nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $HOME/Documents/.fzf-marks", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
 nmap <Leader>oo :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
-nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $HOME/Documents/.fzf-fmarks", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
+nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
 
 " View function documentation
 nmap <Leader>vdp

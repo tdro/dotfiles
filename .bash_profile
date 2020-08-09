@@ -27,23 +27,24 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # general exports
 export EDITOR=vim
-export TERMINAL=urxvt
-export MANPAGER="vim -M +MANPAGER -"
-export PROMPT_COMMAND='cd .; history -a; history -n;'
-export HISTSIZE=
-export HISTFILESIZE=
-export HISTTIMEFORMAT="%d/%m/%y %T "
+export FZF_DIRECTORY_MARKS=$HOME/Documents/.fzf-marks
+export FZF_FILE_MARKS=$HOME/Documents/.fzf-fmarks
 export HISTCONTROL=ignoreboth:erasedups
-
+export HISTFILESIZE=
+export HISTSIZE=
+export HISTTIMEFORMAT="%d/%m/%y %T "
+export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
+export INPUTRC="$XDG_CONFIG_HOME/inputrc"
+export LESSHISTFILE="$XDG_CACHE_HOME/less.history"
+export MANPAGER="vim -M +MANPAGER -"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npmrc"
+export PROMPT_COMMAND='cd .; history -a; history -n;'
 export SUDO_ASKPASS="$HOME/.local/bin/rofi-askpass"
+export TERMINAL=urxvt
+export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
+export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CACHE_HOME="$HOME/.cache"
-export LESSHISTFILE="$XDG_CACHE_HOME/less.history"
-export INPUTRC="$XDG_CONFIG_HOME/inputrc"
-export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
-export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npmrc"
 
 # themes
 export DESKTOP_SESSION=gnome
