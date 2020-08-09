@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 FZF_MARKS_COMMAND='fzf --height 40%'
-FZF_MARKS_FILE=$HOME/Documents/.fzf-marks
+FZF_MARKS_FILE=$FZF_DIRECTORY_MARKS
 
 command -v fzf >/dev/null 2>&1 || return
 
@@ -52,7 +52,7 @@ if [[ -z "${FZF_MARKS_COMMAND}" ]] ; then
     fi
 fi
 
-function mark {
+function fzf-dir-mark {
     local mark_to_add
     mark_to_add="$* : $(pwd)"
 
@@ -92,7 +92,7 @@ function _color_marks {
     fi
 }
 
-function fzm {
+function fzf-dir {
     lines=$(_color_marks < "${FZF_MARKS_FILE}" | eval ${FZF_MARKS_COMMAND} \
         --ansi \
         --expect="${FZF_MARKS_DELETE:-ctrl-d}" \
@@ -108,13 +108,13 @@ function fzm {
     key=$(head -1 <<< "$lines")
 
     if [[ $key == "${FZF_MARKS_DELETE:-ctrl-d}" ]]; then
-        dmark "-->-->-->" "$(sed 1d <<< "$lines")"
+        fzf-dir-delete "-->-->-->" "$(sed 1d <<< "$lines")"
     else
-        jump "-->-->-->" "$(tail -1 <<< "${lines}")"
+        fzf-dir-jump "-->-->-->" "$(tail -1 <<< "${lines}")"
     fi
 }
 
-function jump {
+function fzf-dir-jump {
     local jumpline jumpdir bookmarks
     if [[ $1 == "-->-->-->" ]]; then
         jumpline=$2
@@ -136,7 +136,7 @@ function jump {
     fi
 }
 
-function dmark {
+function fzf-dir-delete {
     local marks_to_delete line bookmarks
     if [[ $1 == "-->-->-->" ]]; then
         marks_to_delete=$2
@@ -158,8 +158,8 @@ function dmark {
 }
 
 if is_interactive_shell; then
-bind "\"${FZF_MARKS_JUMP:-\C-g}\":\"fzm\\n\""
+bind "\"${FZF_MARKS_JUMP:-\C-g}\":\"fzf-dir\\n\""
 fi
 if [ "${FZF_MARKS_DMARK}" ]; then
-    bind "\"${FZF_MARKS_DMARK}\":\"dmark\\n\""
+    bind "\"${FZF_MARKS_DMARK}\":\"fzf-dir-delete\\n\""
 fi
