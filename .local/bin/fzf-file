@@ -1,2 +1,2 @@
 #!/bin/sh -eu
-fzf < "$FZF_FILE_MARKS" | xargs -I{} sh -c "vim {}";
+fzf < "$FZF_FILE_MARKS" | xargs -o -I{} sh -c "vim {}";
