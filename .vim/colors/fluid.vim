@@ -42,6 +42,9 @@ exe  'hi  Question      guifg='.s:g_yellow      .  '  guibg='.s:none          . 
 exe  'hi  Search        guifg='.s:g_black       .  '  guibg='.s:g_yellow      .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:t_yellow  .  '  cterm='.s:bold
 exe  'hi  IncSearch     guifg='.s:g_black       .  '  guibg='.s:g_yellow      .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:t_yellow  .  '  cterm='.s:bold
 exe  'hi  SpellBad      guifg='.s:g_black       .  '  guibg='.s:g_red         .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:t_red     .  '  cterm='.s:none
+exe  'hi  SpellCap      guifg='.s:none          .  '  guibg='.s:none          .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:none      .  '  cterm='.s:none
+exe  'hi  SpellRare     guifg='.s:g_black       .  '  guibg='.s:g_red         .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:t_red     .  '  cterm='.s:none
+exe  'hi  SpellLocal    guifg='.s:g_black       .  '  guibg='.s:g_red         .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:t_red     .  '  cterm='.s:none
 exe  'hi  StatusLine    guifg='.s:none          .  '  guibg='.s:g_grey2       .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:t_grey2   .  '  cterm='.s:none
 exe  'hi  StatusLineNC  guifg='.s:g_background  .  '  guibg='.s:g_silver      .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:t_silver  .  '  cterm='.s:bold
 exe  'hi  VertSplit     guifg='.s:none          .  '  guibg='.s:g_grey2       .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:t_grey2   .  '  cterm='.s:none
