@@ -34,6 +34,7 @@ exe  'hi  CursorLine    guifg='.s:none          .  '  guibg='.s:g_grey        . 
 exe  'hi  EndOfBuffer   guifg='.s:g_background  .  '  guibg='.s:none          .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_clear   .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  ErrorMsg      guifg='.s:g_black       .  '  guibg='.s:g_red         .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:t_red     .  '  cterm='.s:bold
 exe  'hi  FoldColumn    guifg='.s:none          .  '  guibg='.s:none          .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:none      .  '  cterm='.s:none
+exe  'hi  Folded        guifg='.s:g_white       .  '  guibg='.s:g_grey        .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_white   .  '  ctermbg='.s:t_grey    .  '  cterm='.s:none
 exe  'hi  ModeMsg       guifg='.s:g_yellow      .  '  guibg='.s:none          .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_yellow  .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  MoreMsg       guifg='.s:g_yellow      .  '  guibg='.s:none          .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_yellow  .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  Normal        guifg='.s:g_white       .  '  guibg='.s:g_background  .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_white   .  '  ctermbg='.s:none      .  '  cterm='.s:none
@@ -47,10 +48,10 @@ exe  'hi  VertSplit     guifg='.s:none          .  '  guibg='.s:g_grey2       . 
 exe  'hi  Visual        guifg='.s:none          .  '  guibg='.s:g_grey1       .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:none      .  '  ctermbg='.s:t_grey1   .  '  cterm='.s:none
 exe  'hi  WarningMsg    guifg='.s:g_black       .  '  guibg='.s:g_yellow      .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:t_black   .  '  ctermbg='.s:t_yellow  .  '  cterm='.s:bold
 
-exe  'hi  DiffAdd     guifg='.s:none  .  '  guibg='.s:none  .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:none     .  '  ctermbg='.s:t_darkblue  .  '  cterm='.s:none
-exe  'hi  DiffChange  guifg='.s:none  .  '  guibg='.s:none  .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:none     .  '  ctermbg='.s:none        .  '  cterm='.s:none
-exe  'hi  DiffDelete  guifg='.s:none  .  '  guibg='.s:none  .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:t_black  .  '  ctermbg='.s:t_pink      .  '  cterm='.s:none
-exe  'hi  DiffText    guifg='.s:none  .  '  guibg='.s:none  .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:none     .  '  ctermbg='.s:none        .  '  cterm='.s:none
+exe  'hi  DiffAdd     guifg='.s:none     .  '  guibg='.s:g_darkgreen  .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:none     .  '  ctermbg='.s:t_darkgreen  .  '  cterm='.s:none
+exe  'hi  DiffChange  guifg='.s:none     .  '  guibg='.s:g_darkblue   .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:none     .  '  ctermbg='.s:t_darkblue   .  '  cterm='.s:none
+exe  'hi  DiffDelete  guifg='.s:g_black  .  '  guibg='.s:g_pink       .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:t_black  .  '  ctermbg='.s:t_pink       .  '  cterm='.s:none
+exe  'hi  DiffText    guifg='.s:g_red    .  '  guibg='.s:g_grey2      .  '  guisp='.s:none  .  '  gui='.s:bold  .  '  ctermfg='.s:t_red    .  '  ctermbg='.s:t_grey2      .  '  cterm='.s:none
 
 exe  'hi  Boolean         guifg='.s:g_purple  .  '  guibg='.s:none      .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_purple  .  '  ctermbg='.s:none      .  '  cterm='.s:none
 exe  'hi  Character       guifg='.s:g_yellow  .  '  guibg='.s:none      .  '  guisp='.s:none  .  '  gui='.s:none  .  '  ctermfg='.s:t_yellow  .  '  ctermbg='.s:none      .  '  cterm='.s:none
