@@ -21,64 +21,64 @@ in
           (callPackage ./packages/chromexup/default.nix {})
           unstable.fzf
           unstable.hugo
-          desktop-file-utils
-          glow
-          tcl
-          sbcl
-          sshfs
-          ffmpeg
-          ripgrep
-          silver-searcher
-          dtrx
-          rxvt-unicode
-          pulsemixer
-          entr
-          keychain
-          nnn
-          ranger
           aerc
-          vimHugeX
-          emacs
           alsaUtils
-          diceware
-          bfg-repo-cleaner
-          html-tidy
-          davmail
-          dive
-          exercism
-          mimeo
-          xdg-user-dirs
-          ideviceinstaller
-          kjv
-          pngquant
-          pngnq
-          imagemagick
-          moc
-          libqalculate
-          encfs
-          bleachbit
-          docker-compose
-          electrum
-          fortune
           ansible_2_9
+          bfg-repo-cleaner
+          bleachbit
+          davmail
+          desktop-file-utils
+          diceware
+          dive
+          docker-compose
+          dtrx
+          electrum
+          emacs
+          encfs
+          entr
+          exercism
+          ffmpeg
+          fortune
           gifsicle
-          img2pdf
-          powertop
-          rclone
-          wavemon
-          weechat
-          w3m
-          lynx
-          youtube-dl
+          glow
           groff
-          ocrmypdf
-          vault
-          neofetch
-          surfraw
-          libxml2
+          html-tidy
           html-xml-utils
           hunspell
           hunspellDicts.en-us-large
+          ideviceinstaller
+          imagemagick
+          img2pdf
+          keychain
+          kjv
+          libqalculate
+          libxml2
+          lynx
+          mimeo
+          moc
+          neofetch
+          nnn
+          ocrmypdf
+          pngnq
+          pngquant
+          powertop
+          pulsemixer
+          ranger
+          rclone
+          ripgrep
+          rxvt-unicode
+          sbcl
+          silver-searcher
+          sshfs
+          surfraw
+          tcl
+          vault
+          vimHugeX
+          w3m
+          wavemon
+          weechat
+          xdg-user-dirs
+          youtube-dl
         ];
         pathsToLink = [ "/etc" "/share" "/bin" ];
       };
@@ -89,62 +89,62 @@ in
           (callPackage ./packages/dmenu/default.nix {})
           (callPackage ./packages/ntrviewer/default.nix {})
           unstable.ungoogled-chromium
-          firefox
-          palemoon
-          google-chrome
-          thunderbird
-          spaceFM
-          skippy-xd
-          peek
-          scrcpy
-          treesheets
-          virt-manager
-          mplayer
-          gnome3.zenity
-          gnome3.simple-scan
-          mate.engrampa
-          treesheets
-          vscode
-          pavucontrol
-          mupdf
-          zathura
-          evince
-          gparted
-          tigervnc
-          flameshot
-          copyq
+          aegisub
           audacity
           blender
-          redshift
-          unclutter
-          syncthing
-          qownnotes
+          copyq
+          escrotum
+          evince
+          feh
+          firefox
+          flameshot
+          freerdp
+          gImageReader
+          gcolor2
+          gimp
+          gnome3.simple-scan
+          gnome3.zenity
+          google-chrome
+          gparted
+          i3lock-fancy
           keepassxc
           krop
-          libreoffice
-          gcolor2
-          feh
-          aegisub
-          scribus
-          meld
-          gimp
-          gImageReader
-          i3lock-fancy
-          recoll
-          sigil
-          sublime3-dev
-          tabula
-          xournalpp
-          zim
-          sqlitebrowser
-          qrencode
-          xsane
-          freerdp
-          wmctrl
-          rofi
-          escrotum
           libnotify
+          libreoffice
+          mate.engrampa
+          meld
+          mplayer
+          mupdf
+          palemoon
+          pavucontrol
+          peek
+          qownnotes
+          qrencode
+          recoll
+          redshift
+          rofi
+          scrcpy
           screenkey
+          scribus
+          sigil
+          skippy-xd
+          spaceFM
+          sqlitebrowser
+          sublime3-dev
+          syncthing
+          tabula
+          thunderbird
+          tigervnc
+          treesheets
+          treesheets
+          unclutter
+          virt-manager
+          vscode
+          wmctrl
+          xournalpp
+          xsane
+          zathura
+          zim
         ];
         pathsToLink = [ "/share" "/bin" ];
       };
