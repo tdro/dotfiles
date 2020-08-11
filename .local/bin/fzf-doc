@@ -4,7 +4,7 @@ fzf_doc_preview() {
   file=$1
   extension=${file##*.}
   case "$extension" in
-    md) glow -w 60 "$file" ;;
+    md) mdcat -l "$file" ;;
     html) w3m -dump "$file" ;;
     *) grep -hi -B 10 -A 10 . "${file}" ;;
   esac

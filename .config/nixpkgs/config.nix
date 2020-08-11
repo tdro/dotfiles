@@ -41,7 +41,6 @@ in
           fortune
           gettext
           gifsicle
-          glow
           groff
           html-tidy
           html-xml-utils
@@ -55,6 +54,7 @@ in
           libqalculate
           libxml2
           lynx
+          mdcat
           mimeo
           moc
           neofetch
