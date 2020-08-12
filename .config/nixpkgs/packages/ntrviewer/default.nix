@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, libjpeg, ffmpeg, SDL }:
+{ stdenv, fetchFromGitHub, fetchpatch, libjpeg, ffmpeg, SDL }:
 
 stdenv.mkDerivation rec {
   pname = "ntrviewer";
@@ -13,7 +13,13 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libjpeg ffmpeg SDL ];
 
-  patches = [ ./ntrviewer.patch ];
+  patches = [
+    (fetchpatch {
+      name = "ntrviewer.patch";
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/ntrviewer.patch?h=ntrviewer-git";
+      sha256 = "0lw1zmm4fdjb09iqsw593pdv4p36q77zq5lb2qh0xqcaf2ll84z5";
+    })
+  ];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -21,9 +27,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    inherit (src.meta) homepage;
-    description = "PC Viewer for 3DS NTR CFW's streaming feature.";
     license = licenses.gpl3;
+    inherit (src.meta) homepage;
     platforms = platforms.linux;
+    description = "PC Viewer for 3DS NTR CFW's streaming feature.";
   };
 }
