@@ -73,6 +73,7 @@ in
           sshfs
           surfraw
           tcl
+          trash-cli
           vault
           vimHugeX
           w3m
