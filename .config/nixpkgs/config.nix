@@ -89,6 +89,7 @@ in
         name = "graphical";
         paths = [
           (callPackage ./packages/dmenu/default.nix {})
+          (callPackage ./packages/gnaural/default.nix {})
           (callPackage ./packages/ntrviewer/default.nix {})
           unstable.ungoogled-chromium
           aegisub
