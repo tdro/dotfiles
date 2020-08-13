@@ -62,6 +62,7 @@ in
           ocrmypdf
           pngnq
           pngquant
+          poppler_utils
           powertop
           pulsemixer
           ranger

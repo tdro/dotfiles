@@ -6,6 +6,7 @@ fzf_doc_preview() {
   case "$extension" in
     md) mdcat -l "$file" ;;
     html) w3m -dump "$file" ;;
+    pdf) pdftotext "$file" - ;;
     *) grep -hi -B 10 -A 10 . "${file}" ;;
   esac
 }
@@ -15,16 +16,18 @@ fzf_doc_preview() {
 grep -lRi \
   --include=*.md \
   --include=*.txt \
+  --include=*.pdf \
   --include=*.html \
   "${1-.}" /etc/documentation \
   | fzf --preview "fzf-doc --preview {}" \
-  | while read -r doc
+  | while read -r file
 
 do
-  extension=${doc##*.}
+  extension=${file##*.}
   case "$extension" in
-    md) glow "$doc" | vim -;;
-    html) w3m -dump "$doc" | vim - ;;
-    *) vim "$doc" ;;
+    md) mdcat -cl "$file" | vim - ;;
+    html) w3m -dump "$file" | vim - ;;
+    pdf) pdftotext "$file" - | vim - ;;
+    *) vim "$file" ;;
   esac
 done
