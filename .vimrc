@@ -260,7 +260,7 @@ function s:terminal(start, end, language)
   if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer)
     terminal ++rows=10
     let g:terminal_buffer = bufnr('')
-    call term_sendkeys(g:terminal_buffer, "exec " . a:language . "\<cr>")
+    call term_sendkeys(g:terminal_buffer, a:language . "; exit" . "\<cr>")
     wincmd p
   elseif bufwinnr(g:terminal_buffer) == -1
     exec 'sbuffer ' . g:terminal_buffer
@@ -297,9 +297,10 @@ augroup AutoCommands
   autocmd FileType lua noremap <buffer> <leader>cc :REPL lua<cr>
   autocmd FileType php noremap <buffer> <leader>cc :REPL psysh<cr>
   autocmd FileType elixir noremap <buffer> <leader>cc :REPL iex<cr>
+  autocmd FileType sh noremap <buffer> <leader>cc :REPL dash -x<cr>
   autocmd FileType nix noremap <buffer> <leader>cc :REPL nix repl<cr>
+  autocmd FileType bash noremap <buffer> <leader>cc :REPL bash -x<cr>
   autocmd FileType python noremap <buffer> <leader>cc :REPL python<cr>
-  autocmd FileType sh,bash noremap <buffer> <leader>cc :REPL sh -x<cr>
   autocmd FileType perl noremap <buffer> <leader>cc :REPL perl -de0<cr>
   autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
 

@@ -292,9 +292,9 @@ in
         paths = [ elixir ];
       };
 
-      Bash = pkgs.buildEnv {
-        name = "bash";
-        paths = [ bats shellcheck ];
+      Shell = pkgs.buildEnv {
+        name = "shell";
+        paths = [ bats shellcheck dash ];
       };
 
       Haskell = pkgs.buildEnv {
