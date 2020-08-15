@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+rofi -dmenu -password -i -no-fixed-num-lines -padding 15 -p "Password";
