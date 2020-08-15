@@ -289,7 +289,7 @@ augroup AutoCommands
   autocmd BufWritePost *.php :call PHPFix()
   autocmd BufWritePost *.js :call ESLintFix()
   autocmd BufWritePost *.yml :call AnsibleCheck()
-  autocmd BufWritePost *.txt,*.md :term ++rows=10 vale-wrapper %
+  autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale-wrapper %
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
   autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK:' %)"
