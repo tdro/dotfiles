@@ -61,6 +61,7 @@ in
           neofetch
           nnn
           ocrmypdf
+          pandoc
           pngnq
           pngquant
           poppler_utils
