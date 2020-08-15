@@ -291,6 +291,7 @@ augroup AutoCommands
   autocmd BufWritePost *.yml :call AnsibleCheck()
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
+  autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK:' %)"
 
   " REPL commands
   autocmd FileType go noremap <buffer> <leader>cc :REPL gore<cr>
@@ -298,6 +299,7 @@ augroup AutoCommands
   autocmd FileType php noremap <buffer> <leader>cc :REPL psysh<cr>
   autocmd FileType elixir noremap <buffer> <leader>cc :REPL iex<cr>
   autocmd FileType sh noremap <buffer> <leader>cc :REPL dash -x<cr>
+  autocmd FileType rust noremap <buffer> <leader>cc :REPL evcxr<cr>
   autocmd FileType nix noremap <buffer> <leader>cc :REPL nix repl<cr>
   autocmd FileType bash noremap <buffer> <leader>cc :REPL bash -x<cr>
   autocmd FileType python noremap <buffer> <leader>cc :REPL python<cr>

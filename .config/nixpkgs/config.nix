@@ -324,7 +324,7 @@ in
 
       Rust = pkgs.buildEnv {
         name = "rust";
-        paths = [ rustup ];
+        paths = [ evcxr rustup ];
       };
     };
 }
