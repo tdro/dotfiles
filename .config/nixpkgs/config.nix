@@ -19,6 +19,7 @@ in
         name = "terminal";
         paths = [
           (callPackage ./packages/chromexup/default.nix {})
+          (callPackage ./packages/vale-styles/default.nix {})
           unstable.fzf
           unstable.hugo
           aerc
@@ -75,6 +76,7 @@ in
           surfraw
           tcl
           trash-cli
+          vale
           vault
           vimHugeX
           w3m

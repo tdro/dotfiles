@@ -100,6 +100,7 @@ alias sh='dash'
 alias tidy='tidy -config $HOME/.config/tidy.conf'
 alias wavemon='sudo wavemon'
 alias wget='wget --hsts-file $HOME/.cache/wget.history'
+alias vale='vale --config $XDG_CONFIG_HOME/vale/vale.ini'
 
 # nix helpers
 nix-which() { readlink "$(type -P "$1")"; }
