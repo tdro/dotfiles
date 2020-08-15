@@ -1,26 +1,26 @@
 from ranger.api.commands import Command
 
-class fzm_select(Command):
+class fzf_dir_select(Command):
     """
-    :fzm_select
+    :fzf_dir_select
     See: https://github.com/urbainvaes/fzf-marks
     """
     def execute(self):
         import subprocess
         import os.path
-        fzm = self.fm.execute_command(
-          "source $HOME/.config/fzf-marks/fzf-marks.plugin.bash && fzm",
+        dir = self.fm.execute_command(
+          "source $HOME/.config/fzf-marks/fzf-marks.plugin.bash && fzf-dir",
           universal_newlines=True,
           stdout=subprocess.PIPE)
-        stdout, stderr = fzm.communicate()
-        if fzm.returncode == 0:
-            fzm_folder = os.path.abspath(stdout.rstrip('\n'))
-            self.fm.cd(fzm_folder)
+        stdout, stderr = dir.communicate()
+        if dir.returncode == 0:
+            dir_folder = os.path.abspath(stdout.rstrip('\n'))
+            self.fm.cd(dir_folder)
 
 
-class fzf_select(Command):
+class fzf_file_select(Command):
     """
-    :fzf_select
+    :fzf_file_select
     See: https://github.com/junegunn/fzf
     """
     def execute(self):
