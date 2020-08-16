@@ -59,6 +59,7 @@ in
           mimeo
           moc
           neofetch
+          newsboat
           nnn
           ocrmypdf
           pandoc
