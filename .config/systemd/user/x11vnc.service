@@ -6,8 +6,6 @@ StartLimitIntervalSec=0
 Type=simple
 RestartSec=1s
 Restart=always
-KillSignal=SIGKILL
-RestartKillSignal=SIGKILL
 SyslogIdentifier=x11vnc
 ExecStart=/usr/bin/env x11vnc -display :0 -rfbport 5900 -usepw -nowf -norepeat -forever -noxrecord -auth $XAUTHORITY
 
