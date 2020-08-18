@@ -3,7 +3,7 @@ hi clear
 syntax reset
 set t_Co=256
 set background=dark
-let g:colors_name = "fluid"
+let g:syntax_cmd = "skip"
 
 let s:none='NONE'
 let s:bold='bold'
