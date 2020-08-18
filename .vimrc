@@ -194,7 +194,7 @@ nmap <leader>cv :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<c
 nmap <leader>cx :set cursorcolumn!<cr>
 
 " Justify columns
-vnoremap <leader>ct !column -t<cr>
+vnoremap <leader>ct !column -t -o' '<cr>
 
 " File open mappings
 nmap <Leader>ov :Lines<cr>
