@@ -105,7 +105,8 @@ endfunction
 
 " HTML Beautify
 function! HTMLBeautify()
-  :silent !notify-send "$(prettier --write --parser html %)"
+  :silent !notify-send "$(prettier --write --parser html % 2>&1)"
+  :redraw!
 endfunction
 
 " CSS Beautify
