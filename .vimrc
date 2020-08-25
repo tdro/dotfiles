@@ -198,10 +198,11 @@ nmap <leader>cx :set cursorcolumn!<cr>
 vnoremap <leader>ct !column -t -o' '<cr>
 
 " File open mappings
-nmap <Leader>ov :Lines<cr>
-nmap <Leader>ob :BLines<cr>
-nmap <Leader>op :History<cr>
-nmap <Leader>oc :History:<cr>
+nmap <Tab>      :set laststatus=2<cr> \| :redraw \| :Buffers<cr>  \| :set laststatus=0<cr>
+nmap <Leader>ov :set laststatus=2<cr> \| :redraw \| :Lines<cr>    \| :set laststatus=0<cr>
+nmap <Leader>ob :set laststatus=2<cr> \| :redraw \| :BLines<cr>   \| :set laststatus=0<cr>
+nmap <Leader>op :set laststatus=2<cr> \| :redraw \| :History<cr>  \| :set laststatus=0<cr>
+nmap <Leader>oc :set laststatus=2<cr> \| :redraw \| :History:<cr> \| :set laststatus=0<cr>
 nmap <Leader>ol :Locate<space>
 nmap <Leader>ot :execute '! urxvt -cd ' . expand('%:p:h') . ' &'<cr><cr>
 nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
@@ -229,9 +230,6 @@ nmap <C-k> :resize -5<cr>
 nmap <C-Bslash> :split<cr>
 nmap <C-h> :vertical resize +5<cr>
 nmap <C-l> :vertical resize -5<cr>
-
-" Show open buffers
-nmap <Tab> :Buffers<cr>
 
 " Inverse Tabs
 inoremap <S-Tab> <C-d>
