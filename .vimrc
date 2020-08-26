@@ -198,30 +198,19 @@ nmap <leader>cx :set cursorcolumn!<cr>
 vnoremap <leader>ct !column -t -o' '<cr>
 
 " File open mappings
-nmap <Tab>      :set laststatus=2<cr> \| :redraw \| :Buffers<cr>  \| :set laststatus=0<cr>
-nmap <Leader>ov :set laststatus=2<cr> \| :redraw \| :Lines<cr>    \| :set laststatus=0<cr>
-nmap <Leader>ob :set laststatus=2<cr> \| :redraw \| :BLines<cr>   \| :set laststatus=0<cr>
-nmap <Leader>op :set laststatus=2<cr> \| :redraw \| :History<cr>  \| :set laststatus=0<cr>
-nmap <Leader>oc :set laststatus=2<cr> \| :redraw \| :History:<cr> \| :set laststatus=0<cr>
+nmap <Tab> :Buffers<cr>
+nmap <Leader>ov :Lines<cr>
+nmap <Leader>ob :BLines<cr>
+nmap <Leader>op :History<cr>
+nmap <Leader>oc :History:<cr>
 nmap <Leader>ol :Locate<space>
 nmap <Leader>ot :execute '! urxvt -cd ' . expand('%:p:h') . ' &'<cr><cr>
-
-nmap <Leader>od :set laststatus=2<cr> \| :redraw
-  \\| :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
-  \\| :set laststatus=0<cr>
-
-nmap <Leader>oo :set laststatus=2<cr> \| :redraw
-  \\| :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
-  \\| :set laststatus=0<cr>
-
-nmap <Leader>of :set laststatus=2<cr> \| :redraw
-  \\| :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
-  \\| :set laststatus=0<cr>
+nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
+nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+nmap <Leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
 
 " View function documentation
-nmap <Leader>vdp :set laststatus=2<cr> \| :redraw
-  \\| :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
-  \\| :set laststatus=0<cr>
+nmap <Leader>vdp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
 " Mappings for nnn
 nmap <Leader>nm :NnnPicker<cr>
