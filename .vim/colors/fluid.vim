@@ -10,7 +10,7 @@ let s:bold='bold'
 let s:t_clear=0
 
 let s:t_background = s:none | let s:g_background = '#2c303c'
-let s:t_white      = '254'  | let s:g_white      = '#cdd3de'
+let s:t_white      = '255'  | let s:g_white      = '#cdd3de'
 let s:t_black      = '232'  | let s:g_black      = '#000000'
 let s:t_yellow     = '186'  | let s:g_yellow     = '#ffdf23'
 let s:t_red        = '197'  | let s:g_red        = '#ff005f'
