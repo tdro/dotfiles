@@ -160,6 +160,12 @@ nmap <Leader>dm :execute ':term ++close fzf-man ' . expand('<cword>')<cr>
 nmap <Leader>di :execute ':term ++close fzf-doc ' . expand('<cword>')<cr>
 nmap <Leader>dt :execute ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>
 
+" View function documentation
+nmap <Leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
+
+" Jump to line
+nmap <Leader>jl :norm yaW<cr> \| :Jump<cr>
+
 " Load and save sessions
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
 nmap <Leader>ss :silent! exec "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
@@ -209,9 +215,6 @@ nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", '
 nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
 nmap <Leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
 
-" View function documentation
-nmap <Leader>vdp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
-
 " Mappings for nnn
 nmap <Leader>nm :NnnPicker<cr>
 nmap <Leader>nn :NnnPicker '%:p:h'<cr>
@@ -252,7 +255,10 @@ let g:nnn#set_default_mappings = 0      " Disable default mappings
 let g:nnn#layout = 'new'                " Opens the nnn window in a split
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
 
-" send commands to terminal https://vi.stackexchange.com/questions/14300/vim-how-to-send-entire-line-to-a-buffer-of-type-terminal
+
+"-------------------Scripts-------------------"
+
+" https://vi.stackexchange.com/questions/14300/vim-how-to-send-entire-line-to-a-buffer-of-type-terminal
 function s:repl(start, end, language)
   let g:terminal_buffer = get(g:, 'terminal_buffer', -1)
   if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer)
@@ -266,6 +272,15 @@ function s:repl(start, end, language)
   endif
   call term_sendkeys(g:terminal_buffer, join(getline(a:start, a:end), "\<cr>") . "\<cr>")
 endfunction
+
+" jump to line and column in the format 123:13
+function s:cursor(selection)
+  wincmd p
+  let g:cursor_request = split(a:selection, ":")
+  call cursor(g:cursor_request[0], g:cursor_request[1])
+endfunction
+
+command! -nargs=? -range Jump call s:cursor(@*)
 
 command! -nargs=? -range REPL call s:repl(<line1>, <line2>, <f-args>)
 
