@@ -25,6 +25,7 @@ in
           aerc
           alsaUtils
           ansible_2_9
+          bat
           bfg-repo-cleaner
           bleachbit
           davmail
