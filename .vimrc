@@ -205,13 +205,23 @@ nmap <Leader>op :set laststatus=2<cr> \| :redraw \| :History<cr>  \| :set lastst
 nmap <Leader>oc :set laststatus=2<cr> \| :redraw \| :History:<cr> \| :set laststatus=0<cr>
 nmap <Leader>ol :Locate<space>
 nmap <Leader>ot :execute '! urxvt -cd ' . expand('%:p:h') . ' &'<cr><cr>
-nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
-nmap <Leader>oo :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
-nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
+
+nmap <Leader>od :set laststatus=2<cr> \| :redraw
+  \\| :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+  \\| :set laststatus=0<cr>
+
+nmap <Leader>oo :set laststatus=2<cr> \| :redraw
+  \\| :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
+  \\| :set laststatus=0<cr>
+
+nmap <Leader>of :set laststatus=2<cr> \| :redraw
+  \\| :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
+  \\| :set laststatus=0<cr>
 
 " View function documentation
-nmap <Leader>vdp
-  \ :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
+nmap <Leader>vdp :set laststatus=2<cr> \| :redraw
+  \\| :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
+  \\| :set laststatus=0<cr>
 
 " Mappings for nnn
 nmap <Leader>nm :NnnPicker<cr>
