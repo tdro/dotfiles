@@ -211,7 +211,7 @@ nmap <Leader>od :set laststatus=2<cr> \| :redraw
   \\| :set laststatus=0<cr>
 
 nmap <Leader>oo :set laststatus=2<cr> \| :redraw
-  \\| :call fzf#run({'options': ['--preview', 'head -20 {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
+  \\| :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
   \\| :set laststatus=0<cr>
 
 nmap <Leader>of :set laststatus=2<cr> \| :redraw

@@ -43,6 +43,7 @@ in
           gettext
           gifsicle
           groff
+          highlight
           html-tidy
           html-xml-utils
           hunspell
