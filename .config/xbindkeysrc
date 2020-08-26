@@ -14,6 +14,10 @@
 "$HOME/.local/bin/scripts/app-launcher-priv"
     Mod4 + d
 
+# Terminal App Launcher
+"$HOME/.local/bin/scripts/app-launcher-terminal"
+    Mod4 + w
+
 # Copyq Toggle
 "$HOME/.local/bin/scripts/clipboard"
     Mod4 + z
