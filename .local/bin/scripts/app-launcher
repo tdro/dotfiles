@@ -1,4 +1,5 @@
 #!/bin/sh
-xset r rate 200 25;
-rofi -cache-dir "$HOME/.local/share" -fullscreen -show run -display-run '$' -font 'ubuntu 12' -padding 250;
-xset r rate 200 60;
+
+# rofi -cache-dir "$HOME/.local/share" -fullscreen -show run -display-run '$' -font 'ubuntu 12' -padding 250;
+
+dmenu_run_history;
