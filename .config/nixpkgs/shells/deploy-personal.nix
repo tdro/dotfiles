@@ -1,9 +1,9 @@
 with import <nixpkgs> {};
 
-let version = "f8248ab6d9e69ea9c07950d73d48807ec595e923"; in
+let version= (import /home/thedro/Shares/Projects/ansible/infrastructure/nixos/versions.nix).version; in
 
 mkShell {
-  name = "ansible";
+  name = "ansible-nixos";
   buildInputs = with python38.pkgs; [ pip ];
   shellHook = ''
     export VAULT_ADDR='http://vault.test'
