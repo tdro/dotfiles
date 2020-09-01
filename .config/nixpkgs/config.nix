@@ -47,8 +47,6 @@ in
           highlight
           html-tidy
           html-xml-utils
-          hunspell
-          hunspellDicts.en-us-large
           ideviceinstaller
           imagemagick
           img2pdf
