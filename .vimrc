@@ -194,6 +194,9 @@ nmap <Leader>re gg=G<C-o><C-o>
 " Reset all settings and source configuration.
 nmap <Leader>ra :set all& \| :source ~/.vimrc \| :e<cr>
 
+" Remove duplicate lines
+vnoremap <leader>rd !awk '\!visited[$0]++'<cr>
+
 " Toggle color column
 nmap <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 
