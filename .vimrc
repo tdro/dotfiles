@@ -156,9 +156,9 @@ nmap <Leader>mm :Maps<cr>
 nmap <Leader>ma :Marks<cr>
 
 " Search documentation under cursor
-nmap <Leader>dm :execute ':term ++close fzf-man ' . expand('<cword>')<cr>
-nmap <Leader>di :execute ':term ++close fzf-doc ' . expand('<cword>')<cr>
-nmap <Leader>dt :execute ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>
+nmap <Leader>dm :exe ':term ++close fzf-man ' . expand('<cword>')<cr>
+nmap <Leader>di :exe ':term ++close fzf-doc ' . expand('<cword>')<cr>
+nmap <Leader>dt :exe ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>
 
 " View function documentation
 nmap <Leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
@@ -168,7 +168,7 @@ nmap <Leader>jl :norm yaW<cr> \| :Jump<cr>
 
 " Load and save sessions
 nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
-nmap <Leader>ss :silent! exec "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
+nmap <Leader>ss :silent! exe "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
 
 " Toggle Spell Check
 nmap <Leader>sp :set spell!<cr>
@@ -195,7 +195,7 @@ nmap <Leader>re gg=G<C-o><C-o>
 nmap <Leader>ra :set all& \| :source ~/.vimrc \| :e<cr>
 
 " Toggle color column
-nmap <leader>cv :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
+nmap <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 
 " Toggle cursor column
 nmap <leader>cx :set cursorcolumn!<cr>
@@ -210,7 +210,7 @@ nmap <Leader>ob :BLines<cr>
 nmap <Leader>op :History<cr>
 nmap <Leader>oc :History:<cr>
 nmap <Leader>ol :Locate<space>
-nmap <Leader>ot :execute '! urxvt -cd ' . expand('%:p:h') . ' &'<cr><cr>
+nmap <Leader>ot :exe '! urxvt -cd ' . expand('%:p:h') . ' &'<cr><cr>
 nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
 nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
 nmap <Leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
@@ -267,7 +267,7 @@ function s:repl(start, end, language)
     call term_sendkeys(g:terminal_buffer, a:language . "; exit" . "\<cr>")
     wincmd p
   elseif bufwinnr(g:terminal_buffer) == -1
-    exec 'sbuffer ' . g:terminal_buffer
+    exe 'sbuffer ' . g:terminal_buffer
     wincmd p
   endif
   call term_sendkeys(g:terminal_buffer, join(getline(a:start, a:end), "\<cr>") . "\<cr>")
@@ -333,7 +333,7 @@ augroup AutoCommands
 
   " Automatically save file on insert and idle.
   autocmd InsertLeave,CursorHold * silent! write
-    \| silent! exec "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
+    \| silent! exe "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
     \| :echo @% '[filetype=' . &filetype . ']'
 
 augroup END
