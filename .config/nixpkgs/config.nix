@@ -331,5 +331,13 @@ in
       name = "rust";
       paths = [ evcxr rustup ];
     };
+
+    CSS = pkgs.buildEnv {
+      name = "css";
+      paths = [
+        (callPackage ./packages/csstidy/default.nix {})
+        csslint
+      ];
+    };
   };
 }
