@@ -63,6 +63,7 @@ in
           nnn
           ocrmypdf
           pandoc
+          picotts
           pngnq
           pngquant
           poppler_utils

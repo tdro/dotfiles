@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+audio=$(mktemp --suffix -picospeaker.wav)
+pico2wave -w "$audio" "$1"; mplayer "$audio"; rm "$audio";
