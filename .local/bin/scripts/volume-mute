@@ -1,3 +1,2 @@
-#!/bin/sh
-
-$HOME/.config/awesome/scripts/amixer mute
+#!/bin/sh -eu
+"$HOME"/.local/bin/scripts/amixer mute

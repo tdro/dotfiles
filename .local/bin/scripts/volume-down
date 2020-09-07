@@ -1,3 +1,2 @@
-#!/bin/sh
-
-$HOME/.config/awesome/scripts/amixer down
+#!/bin/sh -eu
+"$HOME"/.local/bin/scripts/amixer down
