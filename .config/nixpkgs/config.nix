@@ -250,6 +250,15 @@ in
       paths = [ gummi texworks texlive.combined.scheme-full ];
     };
 
+    Android = pkgs.buildEnv {
+      name = "android";
+      paths = [
+        (callPackage ./packages/mkbootfs/default.nix {})
+        (callPackage ./packages/mkbootimg/default.nix {})
+        abootimg
+      ];
+    };
+
     JavaScript = pkgs.buildEnv {
       name = "javascript";
       paths = [
