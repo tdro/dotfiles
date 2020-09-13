@@ -253,6 +253,7 @@ in
     Android = pkgs.buildEnv {
       name = "android";
       paths = [
+        (callPackage ./packages/edl/default.nix {})
         (callPackage ./packages/mkbootfs/default.nix {})
         (callPackage ./packages/mkbootimg/default.nix {})
         abootimg
