@@ -6,8 +6,6 @@ After=network.target
 ExecStart=/usr/bin/env syncthing -no-browser -no-restart -logflags=0
 Restart=always
 RestartSec=5s
-SuccessExitStatus=3 4
-RestartForceExitStatus=3 4
 SyslogIdentifier=syncthing
 CPUQuota=60%
 IOWeight=60
