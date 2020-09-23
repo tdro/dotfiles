@@ -148,7 +148,7 @@ in
         treesheets
         unclutter
         virt-manager
-        vscode
+        vscodium
         wmctrl
         xournalpp
         xsane
