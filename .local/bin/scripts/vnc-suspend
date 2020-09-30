@@ -1,2 +1,2 @@
 #!/bin/sh
-systemctl --user restart x11vnc && systemctl suspend;
+systemctl --user restart x11vnc && systemctl suspend -i;
