@@ -1,11 +1,11 @@
 let
 
   stable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/360e2af4f876e2580de12d477a6167ed756ab65e.tar.gz";
+    url = "https://github.com/NixOS/nixpkgs/archive/360e2af4f87.tar.gz";
     sha256 = "1i3i9cpn6m3r07pgw4w3xinbqmxkm7pmnqjlz96x424ngbc21sg2"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/c308da1c4b14b0ffdfe9c2e2a948320124938220.tar.gz";
+    url = "https://github.com/NixOS/nixpkgs/archive/c308da1c4b1.tar.gz";
     sha256 = "0ab9jhnlscxl1fl9rc7l978n26al1n77w32sr8gdbb11pfnhsizp"; }) {};
 
 in
