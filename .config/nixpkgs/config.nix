@@ -46,15 +46,12 @@ in
         gifsicle
         groff
         highlight
-        html-tidy
-        html-xml-utils
         ideviceinstaller
         imagemagick
         img2pdf
         keychain
         kjv
         libqalculate
-        libxml2
         lynx
         mdcat
         mimeo
@@ -306,6 +303,16 @@ in
     Elixir = pkgs.buildEnv {
       name = "elixir";
       paths = [ elixir ];
+    };
+
+    Html = pkgs.buildEnv {
+      name = "html";
+      paths = [
+        html-tidy
+        html-xml-utils
+        libxml2
+        xmlstarlet
+      ];
     };
 
     Shell = pkgs.buildEnv {
