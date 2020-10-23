@@ -325,7 +325,7 @@ in
 
     Nix = pkgs.buildEnv {
       name = "nix";
-      paths = [ nixfmt nix-linter ];
+      paths = [ nixfmt nixpkgs-fmt nixpkgs-lint nix-linter ];
     };
 
     C = pkgs.buildEnv {
