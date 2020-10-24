@@ -1,10 +1,10 @@
 [user]
-	name = tdro
-	email = tdro@users.noreply.github.com
+  name = tdro
+  email = tdro@users.noreply.github.com
 [push]
-	default = simple
+  default = simple
 [color]
-	ui = auto
+  ui = auto
 [core]
-	editor = vim
-	excludesfile = ~/.config/git/gitignore
+  editor = vim
+  excludesfile = ~/.config/git/ignore
