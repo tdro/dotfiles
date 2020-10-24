@@ -7,4 +7,4 @@
 	ui = auto
 [core]
 	editor = vim
-	excludesfile = /home/thedro/.config/git/gitignore
+	excludesfile = ~/.config/git/gitignore
