@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Audio Player
+Type=Application
+Exec=mocplay %F
+Terminal=false
+NoDisplay=true

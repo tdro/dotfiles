@@ -1,6 +1,6 @@
 [Desktop Entry]
-Name=Music Player
+Name=Video Player
 Type=Application
-Exec=mocplay %F
+Exec=mplayer-wrapper %F
 Terminal=false
 NoDisplay=true
