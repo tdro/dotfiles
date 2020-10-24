@@ -145,6 +145,7 @@ in
         treesheets
         treesheets
         unclutter
+        vimb
         virt-manager
         vscodium
         wmctrl
