@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2016
 
 # set xauthority path
 export XAUTHORITY=$HOME/.config/X11/Xauthority;
