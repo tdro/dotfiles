@@ -1,7 +1,7 @@
 #!/bin/sh
 
 input="$1"
-host="${input#*@}"
+server="${input#*@}"
 folder="${input%@*}"
 mount_path="$HOME/Shares/SSHFS/$folder"
 
@@ -14,4 +14,5 @@ eval "$(keychain --dir "$HOME"/.cache/keychain --eval --agents ssh -Q --quiet "$
 # mount the directory
 mkdir -p "$mount_path";
 fusermount -u "$mount_path";
-sshfs -f -o follow_symlinks,idmap=user,identityfile="$HOME"/.ssh/mobile,identityfile="$HOME"/.ssh/ansible  root@"$host":/ "$mount_path";
+# TODO: Add setting remote server path with argument
+sshfs -f -o follow_symlinks,idmap=user,identityfile="$HOME"/.ssh/mobile,identityfile="$HOME"/.ssh/ansible root@"$server":/ "$mount_path";
