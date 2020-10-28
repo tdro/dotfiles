@@ -48,7 +48,9 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export CARGO_HOME="$XDG_CACHE_HOME/cargo"
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-GROFF_FONT_PATH="$HOME/.nix-profile/share/groff/$(groff -v | head -n1 | awk '{ print $4 }')/font" && export GROFF_FONT_PATH
+command -v groff > /dev/null 2>&1 && \
+  GROFF_FONT_PATH="$HOME/.nix-profile/share/groff/$(groff -v | head -n1 | awk '{ print $4 }')/font" && \
+  export GROFF_FONT_PATH
 
 # themes
 export DESKTOP_SESSION=gnome
