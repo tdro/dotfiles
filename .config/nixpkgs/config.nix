@@ -5,8 +5,8 @@ let
     sha256 = "1i3i9cpn6m3r07pgw4w3xinbqmxkm7pmnqjlz96x424ngbc21sg2"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/c308da1c4b1.tar.gz";
-    sha256 = "0ab9jhnlscxl1fl9rc7l978n26al1n77w32sr8gdbb11pfnhsizp"; }) {};
+    url = "https://github.com/NixOS/nixpkgs/archive/7dc2d9f819c.tar.gz";
+    sha256 = "19zgr6mrfx7z4w822n3wbw3r3javrjszs7jsiz4r2fbq2l3h68gx"; }) {};
 
 in
 
