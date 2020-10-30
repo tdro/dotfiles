@@ -304,7 +304,7 @@ in
 
     Elixir = pkgs.buildEnv {
       name = "elixir";
-      paths = [ elixir ];
+      paths = [ elixir_1_10 ];
     };
 
     Html = pkgs.buildEnv {
