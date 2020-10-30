@@ -125,6 +125,7 @@ in
         palemoon
         pavucontrol
         peek
+        planner
         qownnotes
         qrencode
         recoll
