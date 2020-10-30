@@ -137,6 +137,12 @@ function! NixCheck()
   :redraw!
 endfunction
 
+" Elixir Format
+function! ElixirFormat()
+  :silent !notify-send -t 10000 "$(mix format % 2>&1 && echo 'Elixir Format OK: %')" >/dev/null 2>&1
+  :redraw!
+endfunction
+
 
 "---------------Shortcuts---------------"
 
@@ -306,13 +312,14 @@ augroup AutoCommands
   " Linting auto commands.
   autocmd BufWritePost *.php :call PHPFix()
   autocmd BufWritePost *.js :call ESLintFix()
+  autocmd BufWritePost *.ex :call ElixirFormat()
   autocmd BufWritePost *.yml :call AnsibleCheck()
   autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale-wrapper %
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
   autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK:' %)"
 
-  " REPL commands
+  " REPL commands.
   autocmd FileType go noremap <buffer> <leader>cc :REPL gore<cr>
   autocmd FileType lua noremap <buffer> <leader>cc :REPL lua<cr>
   autocmd FileType php noremap <buffer> <leader>cc :REPL psysh<cr>
