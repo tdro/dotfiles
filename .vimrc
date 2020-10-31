@@ -147,60 +147,60 @@ endfunction
 "---------------Shortcuts---------------"
 
 " Edit shortcuts
-nmap <Leader>ev :tabedit ~/.vimrc<cr>
-nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
-nmap <Leader>eh :tabedit ~/.vim/post-save-hook<cr>
+nmap <leader>ev :tabedit ~/.vimrc<cr>
+nmap <leader>ep :tabedit ~/.vim/plugins.vim<cr>
+nmap <leader>eh :tabedit ~/.vim/post-save-hook<cr>
 
 " Git, tags, and help commands
-nmap <Leader>fgf :GFiles<cr>
-nmap <Leader>fgs :GFiles?<cr>
-nmap <Leader>fgc :Commits<cr>
-nmap <Leader>ftb :BTags<cr>
-nmap <Leader>flh :Helptags<cr>
-nmap <Leader>flc :Commands<cr>
+nmap <leader>fgf :GFiles<cr>
+nmap <leader>fgs :GFiles?<cr>
+nmap <leader>fgc :Commits<cr>
+nmap <leader>ftb :BTags<cr>
+nmap <leader>flh :Helptags<cr>
+nmap <leader>flc :Commands<cr>
 
 " Show key mappings
-nmap <Leader>mm :Maps<cr>
-nmap <Leader>ma :Marks<cr>
+nmap <leader>mm :Maps<cr>
+nmap <leader>ma :Marks<cr>
 
 " Search documentation under cursor
-nmap <Leader>dm :exe ':term ++close fzf-man ' . expand('<cword>')<cr>
-nmap <Leader>di :exe ':term ++close fzf-doc ' . expand('<cword>')<cr>
-nmap <Leader>dt :exe ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>
+nmap <leader>dm :exe ':term ++close fzf-man ' . expand('<cword>')<cr>
+nmap <leader>di :exe ':term ++close fzf-doc ' . expand('<cword>')<cr>
+nmap <leader>dt :exe ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>
 
 " View function documentation
-nmap <Leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
+nmap <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
 " Jump to line
-nmap <Leader>jl :norm yaW<cr> \| :Jump<cr>
+nmap <leader>jl :norm yaW<cr> \| :Jump<cr>
 
 " Load and save sessions
-nmap <Leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
-nmap <Leader>ss :silent! exe "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
+nmap <leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
+nmap <leader>ss :silent! exe "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
 
 " Toggle Spell Check
-nmap <Leader>sp :set spell!<cr>
+nmap <leader>sp :set spell!<cr>
 
 " Sort lines by length
 vnoremap <leader>sn !perl -e 'print sort { length($a) <=> length($b) } <>'<cr>
 
 " Switch between tabs and spaces
-nmap <Leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab \| :%retab!<cr>
-nmap <Leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab \| :%retab!<cr>
+nmap <leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab \| :%retab!<cr>
+nmap <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab \| :%retab!<cr>
 
 " Close buffer and window
-nmap <Leader>q :bd<cr>
-nmap <Leader>w <C-w>c<cr>
+nmap <leader>q :bd<cr>
+nmap <leader>w <C-w>c<cr>
 
 " Linting shortcuts
-nmap <Leader>lph :call HTMLBeautify()<cr>
-nmap <Leader>lpc :call CSSBeautify()<cr>
+nmap <leader>lph :call HTMLBeautify()<cr>
+nmap <leader>lpc :call CSSBeautify()<cr>
 
 " Re-indent entire file
-nmap <Leader>re gg=G<C-o><C-o>
+nmap <leader>re gg=G<C-o><C-o>
 
 " Reset all settings and source configuration.
-nmap <Leader>ra :set all& \| :source ~/.vimrc \| :e<cr>
+nmap <leader>ra :set all& \| :source ~/.vimrc \| :e<cr>
 
 " Remove duplicate lines
 vnoremap <leader>rd !awk '\!visited[$0]++'<cr>
@@ -216,19 +216,19 @@ vnoremap <leader>ct !column -t -o' '<cr>
 
 " File open mappings
 nmap <Tab> :Buffers<cr>
-nmap <Leader>ov :Lines<cr>
-nmap <Leader>ob :BLines<cr>
-nmap <Leader>op :History<cr>
-nmap <Leader>oc :History:<cr>
-nmap <Leader>ol :Locate<space>
-nmap <Leader>ot :exe '! urxvt -cd ' . expand('%:p:h') . ' &'<cr><cr>
-nmap <Leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
-nmap <Leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
-nmap <Leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
+nmap <leader>ov :Lines<cr>
+nmap <leader>ob :BLines<cr>
+nmap <leader>op :History<cr>
+nmap <leader>oc :History:<cr>
+nmap <leader>ol :Locate<space>
+nmap <leader>ot :exe '! urxvt -cd ' . expand('%:p:h') . ' &'<cr><cr>
+nmap <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
+nmap <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
+nmap <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
 
 " Mappings for nnn
-nmap <Leader>nm :NnnPicker<cr>
-nmap <Leader>nn :NnnPicker '%:p:h'<cr>
+nmap <leader>nm :NnnPicker<cr>
+nmap <leader>nn :NnnPicker '%:p:h'<cr>
 
 " Exit incremental search
 nmap <Esc><Esc> :nohl<cr>
