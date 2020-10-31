@@ -309,15 +309,20 @@ augroup AutoCommands
   " Reload plugins.vim on file save.
   autocmd BufWritePost plugins.vim source % | silent !notify-send 'Sourcing plugins...'
 
-  " Linting auto commands.
+  " Linting extension post write commands.
   autocmd BufWritePost *.php :call PHPFix()
   autocmd BufWritePost *.js :call ESLintFix()
   autocmd BufWritePost *.ex :call ElixirFormat()
   autocmd BufWritePost *.yml :call AnsibleCheck()
   autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale-wrapper %
+
+  " Linting file type post write commands.
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
   autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK:' %)"
+
+  " File type function lookups.
+  autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
 
   " REPL commands.
   autocmd FileType go noremap <buffer> <leader>cc :REPL gore<cr>
