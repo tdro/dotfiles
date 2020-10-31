@@ -321,8 +321,9 @@ augroup AutoCommands
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
   autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK:' %)"
 
-  " File type function lookups.
+  " File type function under cursor lookups.
   autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
+  autocmd FileType nix noremap <buffer> <leader>df :exe ':term ++rows=10 nixos-option ' . expand('<cexpr>')<cr>
 
   " REPL commands.
   autocmd FileType go noremap <buffer> <leader>cc :REPL gore<cr>
