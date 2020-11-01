@@ -208,3 +208,9 @@ video/x-ms-wmx=video.desktop;
 video/x-ms-wvx=video.desktop;
 video/x-msvideo=video.desktop;
 video/x-sgi-movie=video.desktop;
+x-scheme-handler/mailto=email.desktop;
+message/rfc822=email.desktop;
+
+[Default Applications]
+x-scheme-handler/mailto=email.desktop;
+message/rfc822=email.desktop;

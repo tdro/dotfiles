@@ -4,4 +4,3 @@ chromium %U
 xournalpp %U
   \.xoj$
   \.xopp$
-
