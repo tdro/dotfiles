@@ -97,6 +97,7 @@ in
         (callPackage ./packages/ntrviewer/default.nix {})
         unstable.ungoogled-chromium
         aegisub
+        anki
         audacity
         blender
         copyq
