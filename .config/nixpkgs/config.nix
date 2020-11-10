@@ -123,6 +123,7 @@ in
         meld
         mplayer
         mupdf
+        mypaint
         palemoon
         pavucontrol
         peek
