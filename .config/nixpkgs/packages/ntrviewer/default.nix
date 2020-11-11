@@ -22,8 +22,12 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
+    mkdir -p $out/share/man/man1
     cp dist/Debug/GNU-Linux/ntrviewer $out/bin
+    cp ntrviewer.1 $out/share/man/man1
+    runHook postInstall
   '';
 
   meta = with stdenv.lib; {
