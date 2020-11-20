@@ -23,13 +23,13 @@ defmodule TextPlumber do
   def firstLetterOfWordsIn(text) do
     String.replace(text, ~r/(\w)\w*/, "\\1", global: true)
     |> String.replace(~r/\s\s+/, " ", global: true)
-    |> IO.puts()
+    |> IO.binwrite()
   end
 
   def singleLineOf(text) do
     String.replace(text, "\n", " ")
     |> String.replace(~r/\s\s+/, " ", global: true)
-    |> IO.puts()
+    |> IO.binwrite()
   end
 end
 
