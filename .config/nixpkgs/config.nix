@@ -103,6 +103,7 @@ in
         audacity
         blender
         copyq
+        diffpdf
         escrotum
         evince
         feh
