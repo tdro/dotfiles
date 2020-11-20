@@ -27,7 +27,9 @@ defmodule TextPlumber do
   end
 
   def singleLineOf(text) do
-    String.replace(text, "\n", "") |> IO.puts()
+    String.replace(text, "\n", " ")
+    |> String.replace(~r/\s\s+/, " ", global: true)
+    |> IO.puts()
   end
 end
 
