@@ -7,5 +7,6 @@ printf "%s" "$options" \
   | while read -r option
     do
       text=$(plumber --option "$option" --text "$(xsel -o)")
-      notify-send "$text" && printf "%s" "$text" | xsel -ib
+      { notify-send "$text" && printf "%s" "$text" | xsel -ib; } \
+        || notify-send "Plumber: Clipboard selection is empty"
     done
