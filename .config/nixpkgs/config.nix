@@ -165,28 +165,29 @@ in
     Xorg = pkgs.buildEnv {
       name = "xorg";
       paths = [
+        xorg.xauth
         xorg.xev
-        xorg.xset
-        xorg.xrdb
+        xorg.xf86inputevdev
+        xorg.xf86inputlibinput
+        xorg.xf86inputsynaptics
+        xorg.xf86videoamdgpu
+        xorg.xf86videoati
+        xorg.xf86videointel
+        xorg.xf86videonouveau
         xorg.xinit
         xorg.xinput
-        xorg.xauth
-        xorg.xrandr
         xorg.xmodmap
-        xorg.xsetroot
         xorg.xorgserver
-        xorg.xf86videonouveau
-        xorg.xf86videointel
-        xorg.xf86videoati
-        xorg.xf86videoamdgpu
-        xorg.xf86inputlibinput
-        xorg.xf86inputevdev
-        xorg.xf86inputsynaptics
-        x11vnc
-        xdotool
-        xzoom
-        xbindkeys
+        xorg.xrandr
+        xorg.xrdb
+        xorg.xset
+        xorg.xsetroot
         glxinfo
+        x11vnc
+        xbindkeys
+        xdotool
+        xsel
+        xzoom
       ];
     };
 
