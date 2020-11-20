@@ -10,6 +10,10 @@
 "wmctrl -c :ACTIVE:"
     Mod4 + Shift + c
 
+# Toggle fullscreen active window
+"wmctrl -r :ACTIVE: -b toggle,fullscreen"
+    Mod4 + f
+
 # Priv App Launcher
 "$HOME/.local/bin/scripts/app-launcher-priv"
     Mod4 + d
