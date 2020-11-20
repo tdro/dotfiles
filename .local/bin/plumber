@@ -1,0 +1,34 @@
+#! /usr/bin/env elixir
+
+defmodule ArgParser do
+  def parse do
+    {opts, _} =
+      System.argv()
+      |> OptionParser.parse!(strict: [option: :string, text: :string])
+
+    cond do
+      opts[:option] == "First letter of each word in sentence" ->
+        TextPlumber.firstLetterOfWordsIn(opts[:text])
+
+      opts[:option] == "Single line of text" ->
+        TextPlumber.singleLineOf(opts[:text])
+
+      true ->
+        "No plumber specified #{opts[:option]}" |> IO.puts()
+    end
+  end
+end
+
+defmodule TextPlumber do
+  def firstLetterOfWordsIn(text) do
+    String.replace(text, ~r/(\w)\w*/, "\\1", global: true)
+    |> String.replace(~r/\s\s+/, " ", global: true)
+    |> IO.puts()
+  end
+
+  def singleLineOf(text) do
+    String.replace(text, "\n", "") |> IO.puts()
+  end
+end
+
+ArgParser.parse()

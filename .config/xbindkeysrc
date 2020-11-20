@@ -26,6 +26,10 @@
 "$HOME/.local/bin/scripts/clipboard"
     Mod4 + z
 
+# Text plumber
+"$HOME/.local/bin/plumber-dmenu"
+    Mod4 + i
+
 # File Search
 "$HOME/.local/bin/scripts/file-search"
     Mod4 + p

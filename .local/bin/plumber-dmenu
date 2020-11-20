@@ -1,0 +1,11 @@
+#!/bin/sh -eu
+options="First letter of each word in sentence
+Single line of text
+"
+printf "%s" "$options" \
+  | dmenu -i -b \
+  | while read -r option
+    do
+      text=$(plumber --option "$option" --text "$(xsel -o)")
+      notify-send "$text" && printf "%s" "$text" | xsel -ib
+    done
