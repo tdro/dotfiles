@@ -297,7 +297,6 @@ clientkeys = gears.table.join(
     awful.key({ modkey, "Control" }, "Return",  function (c) c:swap(awful.client.getmaster()) end),           -- Move to master
     awful.key({ modkey,           }, "o",       function (c) c:move_to_screen() end),                         -- Move to screen
     awful.key({ modkey,           }, "m",       function (c) c.maximized = not c.maximized c:raise() end),    -- Maximize window
-    awful.key({ modkey,           }, "t",       function (c) c.ontop = not c.ontop end),                      -- Keep window on top
     awful.key({ modkey,           }, "s",       awful.client.floating.toggle)                                 -- Toggle floating mode
 )
 
