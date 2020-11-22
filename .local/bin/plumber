@@ -8,10 +8,18 @@ defmodule ArgParser do
 
     cond do
       opts[:option] == "First letter of each word in sentence" ->
-        TextPlumber.firstLetterOfWordsIn(opts[:text])
+        TextPlumber.firstLetterOfWordsIn(opts[:text]) |> IO.binwrite()
 
       opts[:option] == "Single line of text" ->
-        TextPlumber.singleLineOf(opts[:text])
+        TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == "Thesaurus" ->
+        TextPlumber.synonymOfFirstWordIn(opts[:text])
+        TextPlumber.firstWordOf(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == "KJV Verse Lookup" ->
+        System.cmd("urxvt", ["-e", "sh", "-c", "kjv #{TextPlumber.singleLineOf(opts[:text])}"])
+        TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
 
       true ->
         "No plumber specified #{opts[:option]}" |> IO.puts()
@@ -23,13 +31,19 @@ defmodule TextPlumber do
   def firstLetterOfWordsIn(text) do
     String.replace(text, ~r/(\w)\w*/, "\\1", global: true)
     |> String.replace(~r/\s\s+/, " ", global: true)
-    |> IO.binwrite()
   end
 
   def singleLineOf(text) do
     String.replace(text, "\n", " ")
     |> String.replace(~r/\s\s+/, " ", global: true)
-    |> IO.binwrite()
+  end
+
+  def firstWordOf(text) do
+    String.split(text) |> List.first()
+  end
+
+  def synonymOfFirstWordIn(text) do
+    System.cmd("urxvt", ["-e", "sh", "-c", "dict #{TextPlumber.firstWordOf(text)} | vim -"])
   end
 end
 

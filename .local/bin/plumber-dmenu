@@ -1,6 +1,8 @@
 #!/bin/sh -eu
 options="First letter of each word in sentence
 Single line of text
+Thesaurus
+KJV Verse Lookup
 "
 printf "%s" "$options" \
   | dmenu -i -b \
