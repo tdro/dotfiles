@@ -94,6 +94,7 @@ in
     Graphical = pkgs.buildEnv {
       name = "graphical";
       paths = [
+        (callPackage ./packages/boomer/default.nix {})
         (callPackage ./packages/dmenu/default.nix {})
         (callPackage ./packages/gnaural/default.nix {})
         (callPackage ./packages/ntrviewer/default.nix {})

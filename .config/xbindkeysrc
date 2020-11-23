@@ -14,6 +14,10 @@
 "$HOME/.local/bin/scripts/app-launcher-terminal"
     Mod4 + w
 
+# Zoom Application
+"sh -c 'notify-send Zoom && boomer'"
+    Mod4 + x
+
 # Close active window
 "wmctrl -c :ACTIVE:"
     Mod4 + Shift + c
