@@ -320,6 +320,7 @@ augroup AutoCommands
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
   autocmd FileType elixir autocmd! BufWritePost <buffer> :call ElixirFormat()
+  autocmd FileType awk autocmd! BufWritePost <buffer> silent !notify-send "$(awk -g -f % 2>&1 && echo 'awk OK:' %)"
   autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK:' %)"
 
   " File type function under cursor lookups.
@@ -338,6 +339,7 @@ augroup AutoCommands
   autocmd FileType python noremap <buffer> <leader>cc :REPL python<cr>
   autocmd FileType perl noremap <buffer> <leader>cc :REPL perl -de0<cr>
   autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
+  autocmd FileType awk noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " General auto commands.
   autocmd BufWritePost *.tex :term ++close ++rows=10 latex-compile %
