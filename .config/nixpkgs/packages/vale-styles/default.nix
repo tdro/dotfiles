@@ -26,14 +26,15 @@ stdenv.mkDerivation rec {
   phases = [ "installPhase" ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/share/vale-styles
     cp -r ${google}/Google $out/share/vale-styles/google
     cp -r ${microsoft}/Microsoft $out/share/vale-styles/microsoft
     cp -r ${write-good}/write-good $out/share/vale-styles/write-good
+    runHook postInstall
   '';
 
   meta = with stdenv.lib; {
-    description =
-      "Styles for a syntax-aware linter for prose built with speed and extensibility in mind.";
+    description = "Styles for a syntax-aware linter for prose built with speed and extensibility in mind.";
   };
 }
