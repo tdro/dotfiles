@@ -1,10 +1,5 @@
 #!/bin/sh -eu
-options="First letter of each word in sentence
-Single line of text
-Thesaurus
-KJV Verse Lookup
-"
-printf "%s" "$options" \
+plumber --option list \
   | dmenu -i -b \
   | while read -r option
     do
