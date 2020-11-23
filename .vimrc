@@ -239,9 +239,9 @@ nnoremap Q <Nop>
 
 " Split window mappings
 nmap <Bslash> :vsplit<cr>
+nmap <C-Bslash> :split<cr>
 nmap <C-j> :resize +5<cr>
 nmap <C-k> :resize -5<cr>
-nmap <C-Bslash> :split<cr>
 nmap <C-h> :vertical resize +5<cr>
 nmap <C-l> :vertical resize -5<cr>
 
