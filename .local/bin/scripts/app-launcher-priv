@@ -1,5 +1,3 @@
-#!/bin/sh
-
+#!/bin/sh -eu
 # rofi -cache-dir "$HOME/.local/share" -fullscreen -show run -display-run '#' -run-command 'sudo -A {cmd}' -font 'ubuntu 12' -padding 250;
-
-dmenu_run_history sudo;
+dmenu_run_history privilege;

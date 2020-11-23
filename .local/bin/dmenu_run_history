@@ -1,7 +1,7 @@
 #!/bin/sh
 
-[ "$1" = "sudo" ] && export cmd_prefix='sudo -A ' && export dmenu_args='-sb red' && shift 1;
-[ "$1" = "terminal" ] && export cmd_prefix='urxvt -hold -e ' && export dmenu_args='-sb gray' && shift 1;
+[ "$1" = "privilege" ] && export cmd_prefix='sudo -A ' && export dmenu_args='-p Privilege -sb red' && shift 1;
+[ "$1" = "terminal" ] && export cmd_prefix='urxvt -hold -e ' && export dmenu_args='-p Terminal -sb gray' && shift 1;
 
 # https://tools.suckless.org/dmenu/scripts/
 
@@ -28,7 +28,7 @@ awk -v histfile=$historyfile '
 			x[$0]=1
 		}
 	} !x[$0]++ ' "$cache" \
-	| dmenu -b $dmenu_args "$@" \
+	| dmenu -b ${dmenu_args:--p Launch} "$@" \
 	| awk -v histfile=$historyfile '
 		BEGIN {
 			FS=OFS="\t"
