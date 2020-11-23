@@ -1,6 +1,11 @@
 #!/bin/sh -eu
-plumber --option list \
-  | dmenu -i -b \
+options="First letter of each word in sentence
+Single line of text
+Thesaurus
+KJV Verse Lookup
+"
+printf "%s" "$options" \
+  | dmenu -i -b -p Plumb \
   | while read -r option
     do
       text=$(plumber --option "$option" --text "$(xsel -o)")

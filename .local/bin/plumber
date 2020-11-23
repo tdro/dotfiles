@@ -6,30 +6,20 @@ defmodule ArgParser do
       System.argv()
       |> OptionParser.parse!(strict: [option: :string, text: :string])
 
-    options = [
-      "First letter of each word in sentence",  #0
-      "Single line of text",                    #1
-      "Thesaurus",                              #2
-      "KJV Verse Lookup"                        #3
-    ]
-
     cond do
-      opts[:option] == options |> Enum.at(0) ->
+      opts[:option] == "First letter of each word in sentence" ->
         TextPlumber.firstLetterOfWordsIn(opts[:text]) |> IO.binwrite()
 
-      opts[:option] == options |> Enum.at(1) ->
+      opts[:option] == "Single line of text" ->
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
 
-      opts[:option] == options |> Enum.at(2) ->
+      opts[:option] == "Thesaurus" ->
         TextPlumber.synonymOfFirstWordIn(opts[:text])
         TextPlumber.firstWordOf(opts[:text]) |> IO.binwrite()
 
-      opts[:option] == options |> Enum.at(3) ->
+      opts[:option] == "KJV Verse Lookup" ->
         System.cmd("urxvt", ["-e", "sh", "-c", "kjv #{TextPlumber.singleLineOf(opts[:text])}"])
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
-
-      opts[:option] == "list" ->
-        Enum.map(options, fn option -> IO.puts(option) end)
 
       true ->
         "No plumber #{opts[:option] || "specified"}." |> IO.puts()
