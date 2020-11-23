@@ -2,7 +2,8 @@
  '(package-selected-packages (quote (evil)))
  '(tool-bar-mode nil))
 
-(custom-set-faces)
+(custom-set-faces
+ '(region ((t (:background "color-238")))))
 
 ;; disable startup screen
 (setq inhibit-startup-screen t)
