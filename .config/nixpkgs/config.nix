@@ -145,6 +145,7 @@ in
         spaceFM
         sqlitebrowser
         sublime3-dev
+        sxiv
         syncthing
         tabula
         thunderbird

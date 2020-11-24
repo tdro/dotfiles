@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Image Viewer
 Type=Application
-Exec=feh -. -g 640x480 --start-at %U
+Exec=sxiv -b -g 640x480 -a %U
 Terminal=false
 NoDisplay=true
