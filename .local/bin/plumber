@@ -21,6 +21,9 @@ defmodule ArgParser do
         System.cmd("urxvt", ["-e", "sh", "-c", "kjv #{TextPlumber.singleLineOf(opts[:text])}"])
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
 
+      opts[:option] == "Title Case" ->
+        TextPlumber.titleCaseOf(opts[:text]) |> IO.binwrite()
+
       true ->
         "No plumber #{opts[:option] || "specified"}." |> IO.puts()
     end
@@ -40,6 +43,10 @@ defmodule TextPlumber do
 
   def firstWordOf(text) do
     String.split(text) |> List.first()
+  end
+
+  def titleCaseOf(text) do
+    text |> String.split() |> Enum.map(fn word -> :string.titlecase(word) end) |> Enum.join(" ")
   end
 
   def synonymOfFirstWordIn(text) do
