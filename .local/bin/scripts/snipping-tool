@@ -1,3 +1,2 @@
 #!/bin/sh
-escrotum -s "$HOME/Pictures/screenshots/$wx$h_%d-%m-%Y_%H_%M_%S.png";
-notify-send 'Screenshot . . .';
+notify-send "$(escrotum -s "$HOME/Pictures/screenshots/$wx$h_%d-%m-%Y_%H_%M_%S.png")"

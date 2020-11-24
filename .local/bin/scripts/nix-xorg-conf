@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -eu
 echo 'Section "Files"'
 echo "  ModulePath \"$(readlink "$(type -P X)" | cut -d'/' -f-4)/lib/xorg/modules\""
 echo 'EndSection';
