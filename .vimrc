@@ -30,8 +30,9 @@ set cursorline                           " Set cursor line highlight.
 set notimeout                            " Wait indefinitely for complete key combinations.
 set ttimeout                             " Prevent pressing <Esc> twice.
 set showcmd                              " Show key presses in status line.
-set path+=**                             " Search subfolders.
 set wildmenu                             " Show tab completions menu.
+set nojoinspaces                         " Insert one space after a '.', '?' and '!' with a join command.
+set path+=**                             " Search subfolders.
 set display=lastline                     " @@@ indicates remaining line is not displayed.
 
 set hidden                               " Set hidden buffers.
