@@ -201,6 +201,9 @@ nmap <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 " Toggle cursor column
 nmap <leader>cx :set cursorcolumn!<cr>
 
+" Transliterate special characters to ascii
+nmap <leader>ce my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y
+
 " Toggle line numbers
 nmap <leader>cn :set number! \| set relativenumber!<cr>
 
