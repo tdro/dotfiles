@@ -1,17 +1,12 @@
-" Clear all mappings.
-mapclear
+"------------Setup-------------"
 
-" Add match tag pairs package.
-packadd! matchit
-
-" Do not load defaults if ~/.vimrc is missing.
-let skip_defaults_vim=1
-
-" Source plugins.
-so ~/.vim/plugins.vim
+mapclear                                 " Clear all mappings.
+packadd! matchit                         " Add match tag pairs package.
+let skip_defaults_vim=1                  " Do not load defaults if ~/.vimrc is missing.
+so ~/.vim/plugins.vim                    " Source plugins.
 
 
-"------------General Settings------------"
+"------------General------------"
 
 let mapleader = "\<space>"               " Set default map leader.
 
@@ -33,7 +28,7 @@ set showcmd                              " Show key presses in status line.
 set wildmenu                             " Show tab completions menu.
 set nojoinspaces                         " Insert one space after a '.', '?' and '!' with a join command.
 set path+=**                             " Search subfolders.
-set display=lastline                     " @@@ indicates remaining line is not displayed.
+set display=lastline                     " @@@ which indicates remaining line is not displayed.
 
 set hidden                               " Set hidden buffers.
 set nobackup                             " No write backups.
@@ -71,32 +66,25 @@ set sidescrolloff=10                     " Set horizontal scroll headroom.
 " Convert tab to spaces.
 set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
 
-" Highlight HTML and SQL in PHP.
-let php_sql_query = 1
-let php_htmlInStrings = 1
+let php_sql_query = 1                    " Highlight SQL in PHP.
+let php_htmlInStrings = 1                " Highlight HTML in PHP.
 
-" Highlight JavaScript
-let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_jsdoc = 1        " Highlight JavaScript.
 
 
 "----------------Visuals----------------"
 
-" Set color scheme.
-colorscheme fluid
+colorscheme fluid                        " Set color scheme.
 
-" Remove scrollbars in gui.
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
+set guioptions-=l                        " Remove left scrollbar in GUI.
+set guioptions-=L                        " Remove left scrollbar in GUI vertical split.
+set guioptions-=r                        " Remove right scrollbar in GUI.
+set guioptions-=R                        " Remove right scrollbar in GUI vertical split.
+set guioptions-=m                        " Remove menu in GUI.
+set guioptions-=T                        " Remove toolbar in GUI.
+set guioptions-=e                        " Remove tab bar in GUI.
 
-" Remove menubar, toolbar, and tabs in gui.
-set guioptions-=m
-set guioptions-=T
-set guioptions-=e
-
-" Set fold column
-set foldcolumn=2
+set foldcolumn=2                         " Set fold column width to 2.
 
 
 "---------------Functions---------------"
@@ -259,14 +247,12 @@ vnoremap <expr>y "my\"" . v:register . "y`y"
 
 "---------------Plugin Settings---------------"
 
-" netrw settings
-let g:netrw_banner=0
+let g:netrw_banner=0                    " Disable netrw banner.
 
-" nnn settings
-let g:nnn#command = 'nnn -H'            " Override default command
-let g:nnn#set_default_mappings = 0      " Disable default mappings
-let g:nnn#layout = 'new'                " Opens the nnn window in a split
-let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window
+let g:nnn#command = 'nnn -H'            " Override default command.
+let g:nnn#set_default_mappings = 0      " Disable default mappings.
+let g:nnn#layout = 'new'                " Opens the nnn window in a split.
+let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window.
 
 
 "-------------------Scripts-------------------"
@@ -286,7 +272,7 @@ function s:repl(start, end, language)
   call term_sendkeys(g:terminal_buffer, join(getline(a:start, a:end), "\<cr>") . "\<cr>")
 endfunction
 
-" jump to line and column in the format 123:13
+" Jump to line and column in the format 123:13
 function s:cursor(selection)
   wincmd p
   let g:cursor_request = split(a:selection, ":")
