@@ -201,6 +201,9 @@ nmap <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 " Toggle cursor column
 nmap <leader>cx :set cursorcolumn!<cr>
 
+" Toggle line numbers
+nmap <leader>cn :set number! \| set relativenumber!<cr>
+
 " Justify columns
 vnoremap <leader>ct !column -t -o' '<cr>
 
