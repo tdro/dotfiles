@@ -133,6 +133,15 @@ function! ElixirFormat()
   :redraw!
 endfunction
 
+" Typography Format
+function! TypographyFormat()
+  :silent! %s/\(^\|\s\|\w\)\zs--\ze\($\|\s\|\w\)/–/g | silent! %s/\(^\|\s\|\w\)\zs---\ze\($\|\s\|\w\)/—/g
+  :silent! %s/ '/ ‘/g | silent! %s/' /’ /g | :silent! %s/^'/‘/g | silent! %s/'$/’/g
+  :silent! %s/ "/ “/g | silent! %s/" /” /g | :silent! %s/^"/“/g | silent! %s/"$/”/g
+  :silent! %s/\S\@='\S@!/’/g | :silent! %s/\S\@<='\S\@=/’/g
+  :silent! %s/\S\@="\S@!/”/g | :silent! %s/\S\@<="\S\@=/”/g
+endfunction
+
 
 "---------------Shortcuts---------------"
 
@@ -202,7 +211,10 @@ nmap <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
 nmap <leader>cx :set cursorcolumn!<cr>
 
 " Transliterate special characters to ascii
-nmap <leader>ce my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y
+nmap <leader>ce :silent! %s/–/--/g<cr> \| :silent! %s/—/---/g<cr> \| my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y
+
+" Use typographic characters
+nmap <leader>cl :call TypographyFormat()<cr>
 
 " Toggle line numbers
 nmap <leader>cn :set number! \| set relativenumber!<cr>
