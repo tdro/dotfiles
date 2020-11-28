@@ -1,3 +1,11 @@
 #!/bin/sh -eu
 audio=$(mktemp --suffix -picospeaker.wav)
-pico2wave -w "$audio" "$1"; mplayer "$audio"; rm "$audio";
+text=${1:-The text argument is absent.}
+
+rm -f /tmp/*-picospeaker.wav;
+
+[ "${1-}" = "echo" ] && picospeaker "${2-}" "${1-}" && exit;
+
+pico2wave -w "$audio" "$text";
+[ "${2-}" = "echo" ] && ffmpeg -y -i "$audio" -map 0 -c:v copy -af aecho=1:1:50:0.5 "$audio";
+mplayer "$audio";
