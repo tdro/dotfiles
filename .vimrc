@@ -325,12 +325,14 @@ augroup AutoCommands
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
   autocmd FileType elixir autocmd! BufWritePost <buffer> :call ElixirFormat()
-  autocmd FileType awk autocmd! BufWritePost <buffer> silent !notify-send "$(awk -g -f % 2>&1 && awk -o- -f % | sponge % && echo 'awk OK:' %)"
   autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK:' %)"
+  autocmd FileType go autocmd! BufWritePost <buffer> silent !notify-send "$(gofmt -w -s -e % 2>&1 && go vet % 2>&1 && echo 'gofmt OK:' %)"
+  autocmd FileType awk autocmd! BufWritePost <buffer> silent !notify-send "$(awk -g -f % 2>&1 && awk -o- -f % | sponge % && echo 'awk OK:' %)"
 
   " File type function under cursor lookups.
-  autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
+  autocmd FileType go noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
   autocmd FileType nix noremap <buffer> <leader>df :exe ':term ++rows=10 nixos-option ' . expand('<cexpr>')<cr>
+  autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
 
   " REPL commands.
   autocmd FileType go noremap <buffer> <leader>cc :REPL gore<cr>
