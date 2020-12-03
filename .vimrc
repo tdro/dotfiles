@@ -62,20 +62,19 @@ set encoding=utf-8                       " Set UTF-8 encoding.
 set scrolloff=3                          " Set vertical scroll headroom.
 set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
+set foldcolumn=2                         " Set fold column width to 2.
 
 " Convert tab to spaces.
 set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
 
 let php_sql_query = 1                    " Highlight SQL in PHP.
 let php_htmlInStrings = 1                " Highlight HTML in PHP.
-
 let g:javascript_plugin_jsdoc = 1        " Highlight JavaScript.
 
 
 "----------------Visuals----------------"
 
 colorscheme fluid                        " Set color scheme.
-
 set guioptions-=l                        " Remove left scrollbar in GUI.
 set guioptions-=L                        " Remove left scrollbar in GUI vertical split.
 set guioptions-=r                        " Remove right scrollbar in GUI.
@@ -83,8 +82,6 @@ set guioptions-=R                        " Remove right scrollbar in GUI vertica
 set guioptions-=m                        " Remove menu in GUI.
 set guioptions-=T                        " Remove toolbar in GUI.
 set guioptions-=e                        " Remove tab bar in GUI.
-
-set foldcolumn=2                         " Set fold column width to 2.
 
 
 "---------------Functions---------------"
@@ -326,6 +323,7 @@ augroup AutoCommands
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
   autocmd FileType elixir autocmd! BufWritePost <buffer> :call ElixirFormat()
   autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK:' %)"
+  autocmd FileType c autocmd! BufWritePost <buffer> silent !notify-send "$(clang-format -i % 2>&1 && echo 'clang-format OK:' %)"
   autocmd FileType go autocmd! BufWritePost <buffer> silent !notify-send "$(gofmt -w -s -e % 2>&1 && go vet % 2>&1 && echo 'gofmt OK:' %)"
   autocmd FileType awk autocmd! BufWritePost <buffer> silent !notify-send "$(awk -g -f % 2>&1 && awk -o- -f % | sponge % && echo 'awk OK:' %)"
 

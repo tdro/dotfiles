@@ -347,7 +347,7 @@ in
 
     C = pkgs.buildEnv {
       name = "c";
-      paths = [ gnumake meson ninja gcc ];
+      paths = [ gnumake meson ninja gcc clang-tools ];
     };
 
     Golang = pkgs.buildEnv {
