@@ -27,6 +27,7 @@ PS1_SSHD='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;32
 export PATH="$HOME/.local/bin:$PATH"
 
 # general exports
+export CARGO_HOME="$XDG_CACHE_HOME/cargo"
 export EDITOR=vim
 export FZF_DIRECTORY_MARKS=$HOME/Documents/.fzf-marks
 export FZF_FILE_MARKS=$HOME/Documents/.fzf-fmarks
@@ -38,17 +39,17 @@ export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 export LESSHISTFILE="$XDG_CACHE_HOME/less.history"
 export MANPAGER="vim -M +MANPAGER -"
+export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npmrc"
 export PROMPT_COMMAND='cd .; history -a; history -n;'
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export SUDO_ASKPASS="$HOME/.local/bin/rofi-askpass"
 export TERMINAL=urxvt
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
-export CARGO_HOME="$XDG_CACHE_HOME/cargo"
-export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 command -v groff > /dev/null 2>&1 && \
   GROFF_FONT_PATH="$HOME/.nix-profile/share/groff/$(groff -v | head -n1 | awk '{ print $4 }')/font" && \
   export GROFF_FONT_PATH
