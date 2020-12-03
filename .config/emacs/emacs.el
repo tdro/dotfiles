@@ -1,6 +1,8 @@
 (custom-set-variables
  '(package-selected-packages (quote (evil)))
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ ;; set slime history file location
+ '(slime-repl-history-file "~/.cache/slime-history.eld"))
 
 (custom-set-faces
  '(region ((t (:background "color-238")))))
