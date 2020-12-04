@@ -1,18 +1,28 @@
 #!/bin/sh -eu
 
-xdg-open "$(locate -ie              \
-                                    \
-"$HOME"/.vim                        \
-"$HOME"/Music                       \
-"$HOME"/Books                       \
-"$HOME"/Videos                      \
-"$HOME"/Documents                   \
-"$HOME"/Downloads                   \
-"$HOME"/Pictures                    \
-"$HOME"/.local/bin                  \
-"$HOME"/.config/awesome             \
-"$HOME"/.config/systemd             \
-"$HOME"/.local/share/Trash          \
-"$HOME"/.local/share/applications   \
-                                    \
-| rofi -font "ubuntu 12" -padding 20 -dmenu -i -p 'Files')"
+cache=/tmp/file_search_results.cache
+append() { find "$1" -maxdepth 1 -printf "%p\n"; }
+appendRecursive() { find "$1" -printf "%p\n"; }
+removeDuplicates() { awk '!visited[$0]++' "$1" | sponge "$1"; }
+
+{ [ ! -f "$cache" ]                 \
+  || [ "${1:-}" = "update" ]; }     \
+  && locate -ie                     \
+  "$HOME"/.vim                      \
+  "$HOME"/Music                     \
+  "$HOME"/Books                     \
+  "$HOME"/Videos                    \
+  "$HOME"/Documents                 \
+  "$HOME"/Downloads                 \
+  "$HOME"/Pictures                  \
+  "$HOME"/.local/bin                \
+  "$HOME"/.config/awesome           \
+  "$HOME"/.config/systemd           \
+  "$HOME"/.local/share/Trash        \
+  "$HOME"/.local/share/applications \
+  > "$cache"                        \
+  && { append "$HOME"; } >> "$cache"
+
+[ "${1:-}" = "update" ] && removeDuplicates "$cache" && exit;
+
+xdg-open "$(rofi -font "ubuntu 12" -matching regex -padding 20 -dmenu -i -p 'Files' < "$cache")"
