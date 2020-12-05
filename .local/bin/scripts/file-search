@@ -21,7 +21,7 @@ removeDuplicates() { awk '!visited[$0]++' "$1" | sponge "$1"; }
   appendRecursive "$HOME"/Documents;
   appendRecursive "$HOME"/Downloads;
   appendRecursive "$HOME"/Pictures;
-  } > "$cache"
+  } | grep -vE '(undodir)' > "$cache"
 
 [ "${1:-}" = "update" ] && removeDuplicates "$cache" && exit;
 
