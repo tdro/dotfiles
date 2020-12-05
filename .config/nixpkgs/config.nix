@@ -21,6 +21,7 @@ in
         (callPackage ./packages/chromexup/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/vale-styles/default.nix {})
+        (callPackage ./packages/youtube-dl/default.nix {})
         (pass.withExtensions (ext: with ext; [ pass-audit pass-import pass-otp ]))
         unstable.fzf
         unstable.hugo
@@ -85,7 +86,6 @@ in
         wavemon
         weechat
         xdg-user-dirs
-        youtube-dl
         zbar
       ];
       pathsToLink = [ "/etc" "/share" "/bin" ];
