@@ -1,0 +1,4 @@
+#!/bin/sh -eux
+
+# update file search cache
+"$HOME"/.local/bin/scripts/file-search update;

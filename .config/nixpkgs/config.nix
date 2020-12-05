@@ -168,6 +168,7 @@ in
     Xorg = pkgs.buildEnv {
       name = "xorg";
       paths = [
+        (callPackage ./packages/xprintidle/default.nix {})
         xorg.xauth
         xorg.xev
         xorg.xf86inputevdev
