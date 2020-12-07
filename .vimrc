@@ -88,28 +88,28 @@ set guioptions-=e                        " Remove tab bar in GUI.
 
 " PHP Fixer
 function! PHPFix()
-  :silent !notify-send "$(phpcbf % 2>&1)"
+  :silent !notify-send -t 10000 "$(phpcbf % 2>&1)" > /dev/null 2>&1
   :redraw!
 endfunction
 
 " ESLint Fix
 function! ESLintFix()
-  :silent !notify-send -t 10000 "$(eslint -c $HOME/.config/eslintrc.yml --fix %)" > /dev/null 2>&1
+  :silent !notify-send -t 10000 "$(eslint -c $HOME/.config/eslintrc.yml --fix % 2>&1)" > /dev/null 2>&1
 endfunction
 
 " Ansible Check
 function! AnsibleCheck()
-  :silent !notify-send -t 10000 "$(ansible-playbook --syntax-check % 2>&1)" &
+  :silent !notify-send -t 10000 "$(ansible-playbook --syntax-check % 2>&1)" > /dev/null 2>&1 &
 endfunction
 
 " Shell Check
 function! ShellCheck()
-  :silent !notify-send -t 10000 "$(shellcheck -x --exclude=SC1090,SC1091 % && echo 'Shellcheck OK: %')" > /dev/null 2>&1 &
+  :silent !notify-send -t 10000 "$(shellcheck -x --exclude=SC1090,SC1091 % 2>&1 && echo 'Shellcheck OK: %')" > /dev/null 2>&1 &
 endfunction
 
 " Nix Check
 function! NixCheck()
-  :silent !notify-send -t 10000 "$(nix-linter % 2>&1 && echo 'Nix Lint OK: %' && nixfmt %)" > /dev/null 2>&1
+  :silent !notify-send -t 10000 "$(nix-linter % 2>&1 && echo 'Nix Lint OK: %' && nixfmt % 2>&1)" > /dev/null 2>&1
   :redraw!
 endfunction
 
