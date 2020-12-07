@@ -92,20 +92,9 @@ function! PHPFix()
   :redraw!
 endfunction
 
-" HTML Beautify
-function! HTMLBeautify()
-  :silent !notify-send "$(prettier --write --parser html % 2>&1)"
-  :redraw!
-endfunction
-
-" CSS Beautify
-function! CSSBeautify()
-  :silent !notify-send "$(prettier --write --parser css %)"
-endfunction
-
 " ESLint Fix
 function! ESLintFix()
-  :silent !notify-send -t 10000 "$(eslint -c $HOME/.config/eslintrc.yml --fix %)" >/dev/null 2>&1
+  :silent !notify-send -t 10000 "$(eslint -c $HOME/.config/eslintrc.yml --fix %)" > /dev/null 2>&1
 endfunction
 
 " Ansible Check
@@ -115,18 +104,18 @@ endfunction
 
 " Shell Check
 function! ShellCheck()
-  :silent !notify-send -t 10000 "$(shellcheck -x --exclude=SC1090,SC1091 % && echo 'Shellcheck OK: %')" >/dev/null 2>&1 &
+  :silent !notify-send -t 10000 "$(shellcheck -x --exclude=SC1090,SC1091 % && echo 'Shellcheck OK: %')" > /dev/null 2>&1 &
 endfunction
 
 " Nix Check
 function! NixCheck()
-  :silent !notify-send -t 10000 "$(nix-linter % 2>&1 && echo 'Nix Lint OK: %' && nixfmt %)" >/dev/null 2>&1
+  :silent !notify-send -t 10000 "$(nix-linter % 2>&1 && echo 'Nix Lint OK: %' && nixfmt %)" > /dev/null 2>&1
   :redraw!
 endfunction
 
 " Elixir Format
 function! ElixirFormat()
-  :silent !notify-send -t 10000 "$(mix format % 2>&1 && echo 'Elixir Format OK: %')" >/dev/null 2>&1
+  :silent !notify-send -t 10000 "$(mix format % 2>&1 && echo 'Elixir Format OK: %')" > /dev/null 2>&1
   :redraw!
 endfunction
 
@@ -187,10 +176,6 @@ nmap <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab 
 " Close buffer and window
 nmap <leader>q :bd<cr>
 nmap <leader>w <C-w>c<cr>
-
-" Linting shortcuts
-nmap <leader>lph :call HTMLBeautify()<cr>
-nmap <leader>lpc :call CSSBeautify()<cr>
 
 " Re-indent entire file
 nmap <leader>re gg=G<C-o><C-o>
@@ -295,7 +280,6 @@ function s:cursor(selection)
 endfunction
 
 command! -nargs=? -range Jump call s:cursor(@*)
-
 command! -nargs=? -range REPL call s:repl(<line1>, <line2>, <f-args>)
 
 
@@ -322,6 +306,7 @@ augroup AutoCommands
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
   autocmd FileType elixir autocmd! BufWritePost <buffer> :call ElixirFormat()
+  autocmd FileType css autocmd! BufWritePost <buffer> silent !notify-send "$(prettier --write --parser css % 2>&1)"
   autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK:' %)"
   autocmd FileType c autocmd! BufWritePost <buffer> silent !notify-send "$(clang-format -i % 2>&1 && echo 'clang-format OK:' %)"
   autocmd FileType go autocmd! BufWritePost <buffer> silent !notify-send "$(gofmt -w -s -e % 2>&1 && go vet % 2>&1 && echo 'gofmt OK:' %)"
