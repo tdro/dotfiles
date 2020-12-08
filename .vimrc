@@ -204,6 +204,9 @@ nmap <leader>cn :set number! \| set relativenumber!<cr>
 " Justify columns
 vnoremap <leader>ct !column -t -o' '<cr>
 
+" Fold text
+vnoremap <leader>cf !fold -s -w<space>
+
 " File open mappings
 nmap <Tab> :Buffers<cr>
 nmap <leader>ov :Lines<cr>
