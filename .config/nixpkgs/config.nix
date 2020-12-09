@@ -43,6 +43,7 @@ in
         entr
         exercism
         ffmpeg
+        flashrom
         fortune
         gettext
         gifsicle
