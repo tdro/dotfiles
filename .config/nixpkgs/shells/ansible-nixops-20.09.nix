@@ -1,8 +1,8 @@
 with import <nixpkgs> {};
 
 let
-  version = (import /home/thedro/Shares/Projects/ansible/infrastructure/nixos/versions.nix)."20.09".version;
-  channel = (import /home/thedro/Shares/Projects/ansible/infrastructure/nixos/versions.nix)."20.09".channel;
+  version = (import "${builtins.getEnv "HOME"}/Shares/Projects/ansible/infrastructure/nixos/versions.nix")."20.09".version;
+  channel = (import "${builtins.getEnv "HOME"}/Shares/Projects/ansible/infrastructure/nixos/versions.nix")."20.09".channel;
 in
 
 mkShell {
