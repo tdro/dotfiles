@@ -1,8 +1,9 @@
 with import <nixpkgs> {};
 
 let
-  version = (import "${builtins.getEnv "HOME"}/Shares/Projects/ansible/infrastructure/nixos/versions.nix")."20.03".version;
-  channel = (import "${builtins.getEnv "HOME"}/Shares/Projects/ansible/infrastructure/nixos/versions.nix")."20.03".channel;
+  project = "${builtins.getEnv "HOME"}/Shares/Projects/ansible/infrastructure";
+  version = (import "${project}/nixos/versions.nix")."20.03".version;
+  channel = (import "${project}/nixos/versions.nix")."20.03".channel;
 in
 
 mkShell {
@@ -20,5 +21,6 @@ mkShell {
     export ANSIBLE_STRATEGY_PLUGINS=$virtualenvs/ansible-mitogen/lib/python3.8/site-packages/ansible_mitogen/plugins
     export ANSIBLE_STRATEGY=mitogen_linear
     export PS1='\h (nixos ${version} ''${_NIX_CHANNEL##*.}) \W \$ '
+    cd "${project}"
   '';
 }
