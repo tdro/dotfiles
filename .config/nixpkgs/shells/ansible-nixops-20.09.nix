@@ -7,7 +7,7 @@ in
 
 mkShell {
   name = "ansible-nixops-${version}";
-  buildInputs = with python38.pkgs; [ pip ];
+  buildInputs = [ python38.pkgs.pip ];
   shellHook = ''
     export VAULT_ADDR='http://vault.test'
     export NIX_PATH=${channel}/nixexprs.tar.xz
