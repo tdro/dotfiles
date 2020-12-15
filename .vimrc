@@ -352,7 +352,7 @@ augroup AutoCommands
   " Automatically save file on insert and idle.
   autocmd InsertLeave,CursorHold * silent! write
     \| silent! exe "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
-    \| :echo @% '[filetype=' . &filetype . ']'
+    \| :echo expand('%:t') '[filetype=' . &filetype . ']'
 
 augroup END
 
