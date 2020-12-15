@@ -286,8 +286,7 @@ in
     Python = pkgs.buildEnv {
       name = "python";
       paths = [
-        (python38.withPackages
-          (ps: with ps; [ mypy bandit pylint pip2nix pyflakes ]))
+        (python38.withPackages (ps: with ps; [ mypy bandit pylint pip2nix pyflakes ]))
       ];
     };
 
@@ -367,6 +366,14 @@ in
       paths = [
         (callPackage ./packages/csstidy/default.nix {})
         csslint
+      ];
+    };
+
+    YAML = pkgs.buildEnv {
+      name = "yaml";
+      paths = [
+        (callPackage ./packages/ruamel.yaml.cmd/default.nix {})
+        python38Packages.yamllint
       ];
     };
   };

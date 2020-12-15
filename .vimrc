@@ -100,6 +100,7 @@ endfunction
 " Ansible Check
 function! AnsibleCheck()
   :silent !notify-send -t 10000 "$(ansible-playbook --syntax-check % 2>&1)" > /dev/null 2>&1 &
+  :redraw!
 endfunction
 
 " Shell Check
@@ -302,7 +303,6 @@ augroup AutoCommands
   " Linting extension post write commands.
   autocmd BufWritePost *.php :call PHPFix()
   autocmd BufWritePost *.js :call ESLintFix()
-  autocmd BufWritePost *.yml :call AnsibleCheck()
   autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale-wrapper %
 
   " Linting file type post write commands.
@@ -314,6 +314,7 @@ augroup AutoCommands
   autocmd FileType c autocmd! BufWritePost <buffer> silent !notify-send "$(clang-format -i % 2>&1 && echo 'clang-format OK:' %)"
   autocmd FileType go autocmd! BufWritePost <buffer> silent !notify-send "$(gofmt -w -s -e % 2>&1 && go vet % 2>&1 && echo 'gofmt OK:' %)"
   autocmd FileType awk autocmd! BufWritePost <buffer> silent !notify-send "$(awk -g -f % 2>&1 && awk -o- -f % | sponge % && echo 'awk OK:' %)"
+  autocmd FileType yaml autocmd! BufWritePost <buffer> silent !notify-send "$(yaml round-trip --indent 2 --save % 2>&1 && yamllint -s % 2>&1 && echo 'yaml OK: %')"
 
   " File type function under cursor lookups.
   autocmd FileType go noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
