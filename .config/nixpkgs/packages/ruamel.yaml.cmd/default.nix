@@ -41,6 +41,7 @@ let
       sha256 = "0zc2h6b721r8c05dm7y8zgrgbvifbgcm8jmqvns7ar4ajll3cvwv";
     };
     propagatedBuildInputs = [ configobj ruamel.std.argparse ruamel.std.convert ];
+    patches = [ ./disable-backup-files.patch ];
     doCheck = false;
     dontWrapPythonPrograms = true;
     inherit meta;
