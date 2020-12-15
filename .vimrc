@@ -208,6 +208,9 @@ vnoremap <leader>ct !column -t -o' '<cr>
 " Fold text
 vnoremap <leader>cf <S-J><S-v> \| !fold -s -w<space>
 
+" Go to scratchpad of specified filetype
+vnoremap <leader>cs :w! $HOME/.cache/vim-scratchpad \| :e +setf\ <space>$HOME/.cache/vim-scratchpad<C-left><left>
+
 " File open mappings
 nmap <Tab> :Buffers<cr>
 nmap <leader>ov :Lines<cr>
