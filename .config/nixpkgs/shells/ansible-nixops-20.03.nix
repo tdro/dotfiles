@@ -1,7 +1,7 @@
 with import <nixpkgs> {};
 
 let
-  project = "${builtins.getEnv "HOME"}/Shares/Projects/ansible/infrastructure";
+  project = "${builtins.getEnv "HOME"}/Shares/Projects/infrastructure";
   version = (import "${project}/nixos/versions.nix")."20.03".version;
   channel = (import "${project}/nixos/versions.nix")."20.03".channel;
 in
