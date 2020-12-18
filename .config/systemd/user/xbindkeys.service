@@ -7,9 +7,7 @@ RestartSec=5s
 Restart=always
 KillMode=process
 SyslogIdentifier=xbindkeys
-EnvironmentFile=-%h/.cache/environment
-ExecStart=/usr/bin/env xbindkeys -f %h/.config/xbindkeysrc -p -n
-ExecStartPre=/usr/bin/env bash -l -c 'env > %h/.cache/environment'
+ExecStart=/usr/bin/env bash -l -c 'xbindkeys -f %h/.config/xbindkeysrc -p -n'
 
 [Install]
 WantedBy=default.target
