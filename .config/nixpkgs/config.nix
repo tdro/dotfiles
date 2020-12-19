@@ -108,6 +108,7 @@ in
         diffpdf
         escrotum
         evince
+        fbreader
         feh
         firefox
         flameshot
