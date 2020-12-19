@@ -23,6 +23,7 @@ in
         (callPackage ./packages/vale-styles/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (pass.withExtensions (ext: with ext; [ pass-audit pass-import pass-otp ]))
+        unstable.emacs
         unstable.fzf
         unstable.hugo
         aerc
@@ -38,7 +39,6 @@ in
         docker-compose
         dtrx
         electrum
-        emacs
         encfs
         entr
         exercism
