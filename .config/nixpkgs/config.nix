@@ -18,6 +18,7 @@ in
     Terminal = pkgs.buildEnv {
       name = "terminal";
       paths = [
+        (callPackage ./packages/amfora/default.nix {})
         (callPackage ./packages/chromexup/default.nix {})
         (callPackage ./packages/gmni/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
