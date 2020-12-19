@@ -1,4 +1,6 @@
 [Added Associations]
+application/epub+zip=pdf.desktop;
+application/octet-stream=editor.desktop;
 application/pdf=pdf.desktop;
 application/vnd.openxmlformats-officedocument.presentationml.presentation=libreoffice.desktop;
 application/vnd.openxmlformats-officedocument.presentationml.slide=libreoffice.desktop;
@@ -8,10 +10,9 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice.de
 application/vnd.openxmlformats-officedocument.spreadsheetml.template=libreoffice.desktop;
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice.desktop;
 application/vnd.openxmlformats-officedocument.wordprocessingml.template=libreoffice.desktop;
+application/x-awk=editor.desktop;
 application/x-desktop=editor.desktop;
 application/x-shellscript=editor.desktop;
-application/x-awk=editor.desktop;
-application/octet-stream=editor.desktop;
 audio/32kadpcm=audio.desktop;
 audio/AMR=audio.desktop;
 audio/AMR-WB=audio.desktop;
@@ -121,9 +122,8 @@ image/x-xbitmap=image.desktop;
 image/x-xpixmap=image.desktop;
 image/x-xwindowdump=image.desktop;
 inode/directory=file-manager.desktop;
+message/rfc822=email.desktop;
 text/cache-manifest=editor.desktop;
-text/rust=editor.desktop;
-text/x-ruby=editor.desktop;
 text/calendar=editor.desktop;
 text/css=editor.desktop;
 text/csv=editor.desktop;
@@ -140,6 +140,7 @@ text/provenance-notation=editor.desktop;
 text/prs.fallenstein.rst=editor.desktop;
 text/prs.lines.tag=editor.desktop;
 text/richtext=editor.desktop;
+text/rust=editor.desktop;
 text/sgml=editor.desktop;
 text/tab-separated-values=editor.desktop;
 text/troff=editor.desktop;
@@ -169,6 +170,7 @@ text/vnd.wap.wml=editor.desktop;
 text/vnd.wap.wmlscript=editor.desktop;
 text/x-lua=editor.desktop;
 text/x-pod=editor.desktop;
+text/x-ruby=editor.desktop;
 text/x-setext=editor.desktop;
 text/x-systemd-unit=editor.desktop;
 text/xml=editor.desktop;
@@ -213,8 +215,7 @@ video/x-ms-wvx=video.desktop;
 video/x-msvideo=video.desktop;
 video/x-sgi-movie=video.desktop;
 x-scheme-handler/mailto=email.desktop;
-message/rfc822=email.desktop;
-
 [Default Applications]
-x-scheme-handler/mailto=email.desktop;
 message/rfc822=email.desktop;
+x-scheme-handler/mailto=email.desktop;
+
