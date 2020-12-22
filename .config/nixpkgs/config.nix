@@ -153,6 +153,7 @@ in
         tabula
         thunderbird
         tigervnc
+        transmission-gtk
         treesheets
         treesheets
         unclutter
