@@ -14,11 +14,12 @@ else
 	historyfile=$HOME/.dmenu_history
 fi
 
-IFS=:
-if stest -dqr -n "$cache" $PATH; then
-	stest -flx $PATH | sort -u > "$cache"
+if [ "$1" = "update" ]; then
+  IFS=:
+  stest -dqr -n "$cache" $PATH && stest -flx $PATH | sort -u > "$cache";
+  unset IFS;
+  exit;
 fi
-unset IFS
 
 awk -v histfile=$historyfile '
 	BEGIN {

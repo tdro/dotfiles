@@ -3,6 +3,7 @@ Description=Execute events on X11 idle
 
 [Service]
 Type=simple
+ExecStartPre=/usr/bin/env sh -c '%h/.local/bin/scripts/events-idle'
 ExecStart=/usr/bin/env sh -c 'while true; do sleep 300 && [ "$(xprintidle)" -gt 120000 ] && %h/.local/bin/scripts/events-idle; done'
 Restart=always
 RestartSec=5s
