@@ -1,6 +1,14 @@
 #!/bin/bash
 # shellcheck disable=SC2016
 
+prefixPath() {
+  case ":$PATH:" in
+    *":$1:"*) true ;;
+    *) PATH="$1:$PATH" ;;
+  esac
+  export PATH;
+}
+
 # set xauthority path
 export XAUTHORITY=$HOME/.config/X11/Xauthority;
 
@@ -24,7 +32,7 @@ PS1_SSHD='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;32
 [ -n "$SSH_CLIENT" ] && [ "$EUID" != 0 ] && export PS1="$PS1_SSHD";
 
 # path exports
-[ -z "$BASH_PROFILE" ] && export PATH="$HOME/.local/bin:$PATH"
+prefixPath "$HOME/.local/bin";
 
 # general exports
 export CARGO_HOME="$XDG_CACHE_HOME/cargo"

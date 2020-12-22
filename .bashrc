@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # source exports
-export BASH_PROFILE=loaded && . "$HOME/.bash_profile";
+export BASH_PROFILE=1 && . "$HOME/.bash_profile";
 
 # bail if not interactive
 echo $- | grep -q "i" || return;
