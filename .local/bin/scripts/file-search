@@ -5,23 +5,23 @@ append() { find "$1" -maxdepth 1 -printf "%p\n" 2> /dev/null || true; }
 appendRecursive() { find "$1" -printf "%p\n" 2>/dev/null || true; }
 removeDuplicates() { awk '!visited[$0]++' "$1" | sponge "$1"; }
 
-{ [ ! -f "$cache" ]                 \
-  || [ "${1:-}" = "update" ]; }     \
-  && {
-  append "$HOME";
-  append "$HOME"/.local;
-  append "$HOME"/Desktop;
-  append "$HOME"/Shares/Projects;
-  appendRecursive "$HOME"/.vim;
-  appendRecursive "$HOME"/.local/bin;
-  appendRecursive "$HOME"/.config;
-  appendRecursive "$HOME"/Music;
-  appendRecursive "$HOME"/Books;
-  appendRecursive "$HOME"/Videos;
-  appendRecursive "$HOME"/Documents;
-  appendRecursive "$HOME"/Downloads;
-  appendRecursive "$HOME"/Pictures;
-  } | grep -vE '(undodir)' > "$cache"
+{ [ ! -f "$cache" ] || [ "${1:-}" = "update" ]; } && \
+  {
+    append "$HOME";
+    append "$HOME"/.local;
+    append "$HOME"/Desktop;
+    append "$HOME"/Shares/Projects;
+    appendRecursive "$HOME"/.vim;
+    appendRecursive "$HOME"/.local/bin;
+    appendRecursive "$HOME"/.config;
+    appendRecursive "$HOME"/Music;
+    appendRecursive "$HOME"/Books;
+    appendRecursive "$HOME"/Videos;
+    appendRecursive "$HOME"/Documents;
+    appendRecursive "$HOME"/Downloads;
+    appendRecursive "$HOME"/Pictures;
+  } \
+    | grep -vE '(undodir)' > "$cache"
 
 [ "${1:-}" = "update" ] && removeDuplicates "$cache" && exit;
 
