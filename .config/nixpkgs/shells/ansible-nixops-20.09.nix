@@ -22,5 +22,6 @@ mkShell {
     export ANSIBLE_STRATEGY=mitogen_linear
     export PS1='\h (nixos ${version} ''${_NIX_CHANNEL##*.}) \W \$ '
     cd "${project}"
+    ssh -T git@github.com
   '';
 }
