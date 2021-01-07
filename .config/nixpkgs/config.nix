@@ -82,6 +82,7 @@ in
         surfraw
         tcl
         trash-cli
+        units
         vale
         vault
         vimHugeX
