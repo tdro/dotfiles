@@ -54,6 +54,7 @@ in
         ideviceinstaller
         imagemagick
         img2pdf
+        jpegoptim
         keychain
         kjv
         libqalculate
