@@ -37,6 +37,7 @@ prefixPath "$HOME/.local/bin";
 # general exports
 export CARGO_HOME="$XDG_CACHE_HOME/cargo"
 export EDITOR=vim
+export BROWSER=chromium;
 export FZF_DIRECTORY_MARKS=$HOME/Documents/.fzf-marks
 export FZF_FILE_MARKS=$HOME/Documents/.fzf-fmarks
 export HISTCONTROL=ignoreboth:erasedups
