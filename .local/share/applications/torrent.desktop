@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Torrent Application
+Type=Application
+NoDisplay=true
+Exec=transmission-gtk %u

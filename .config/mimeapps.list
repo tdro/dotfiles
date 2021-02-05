@@ -11,6 +11,7 @@ application/vnd.openxmlformats-officedocument.spreadsheetml.template=libreoffice
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice.desktop;
 application/vnd.openxmlformats-officedocument.wordprocessingml.template=libreoffice.desktop;
 application/x-awk=editor.desktop;
+application/x-bittorrent=torrent.desktop;
 application/x-desktop=editor.desktop;
 application/x-shellscript=editor.desktop;
 audio/32kadpcm=audio.desktop;
@@ -214,8 +215,10 @@ video/x-ms-wmx=video.desktop;
 video/x-ms-wvx=video.desktop;
 video/x-msvideo=video.desktop;
 video/x-sgi-movie=video.desktop;
+x-scheme-handler/magnet=torrent.desktop;
 x-scheme-handler/mailto=email.desktop;
 [Default Applications]
 message/rfc822=email.desktop;
+x-scheme-handler/magnet=torrent.desktop;
 x-scheme-handler/mailto=email.desktop;
 
