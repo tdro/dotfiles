@@ -212,7 +212,7 @@ vnoremap <leader>cf <S-J><S-v> \| !fold -s -w<space>
 noremap <leader>cs :w! $HOME/.cache/vim-scratchpad \| :e +setf\ <space>$HOME/.cache/vim-scratchpad<C-left><left>
 
 " File open mappings
-let g:fzf_layout = { 'down': '40%' }
+let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } }
 nmap <Tab> :Buffers<cr>
 nmap <leader>ov :Lines<cr>
 nmap <leader>ob :BLines<cr>
@@ -220,9 +220,9 @@ nmap <leader>op :History<cr>
 nmap <leader>oc :History:<cr>
 nmap <leader>ol :Locate<space>
 nmap <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' &'<cr><cr>
-nmap <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'down': '20%'})<cr>:pwd<cr>
-nmap <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'down': '20%'})<cr>:pwd<cr>
-nmap <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'down': '20%'})<cr>
+nmap <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr>:pwd<cr>
+nmap <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr>:pwd<cr>
+nmap <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr>
 
 " Mappings for nnn
 nmap <leader>nm :NnnPicker<cr>
