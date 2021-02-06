@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "1f5r12hmdgj26p4ss5pcpfcvqlcn19fr9xvvvk2izckcr48p4fy7";
   };
 
-  modSha256 = "1xqw7m1qfzmssxrkipjcfgy4jz0cmjbbpy7vf4v1w5jjci9nwxdm";
+  vendorSha256 = "0mkk7xxfxxp1w9890mkmag11mzxhy2zmh8v1macpyp1zmzgs21f8";
 
   meta = with stdenv.lib; {
     homepage = url;

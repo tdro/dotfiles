@@ -1,12 +1,12 @@
 let
 
   stable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/360e2af4f87.tar.gz";
-    sha256 = "1i3i9cpn6m3r07pgw4w3xinbqmxkm7pmnqjlz96x424ngbc21sg2"; }) {};
+    url = "https://github.com/NixOS/nixpkgs/archive/c6b23ba64ae.tar.gz";
+    sha256 = "13hg91g46qg2bbpdzpnmzcrsayfbkcp0gx36n8lsb2v980vahvi3"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/7dc2d9f819c.tar.gz";
-    sha256 = "19zgr6mrfx7z4w822n3wbw3r3javrjszs7jsiz4r2fbq2l3h68gx"; }) {};
+    url = "https://github.com/NixOS/nixpkgs/archive/a36bf6faf96.tar.gz";
+    sha256 = "12n0mzkvs81ygspdjia03fv3v88cbbwznrpn375farcrsjzl86mc"; }) {};
 
 in
 
@@ -103,6 +103,7 @@ in
         (callPackage ./packages/dmenu/default.nix {})
         (callPackage ./packages/gnaural/default.nix {})
         (callPackage ./packages/ntrviewer/default.nix {})
+        unstable.tilp2
         unstable.ungoogled-chromium
         aegisub
         anki
@@ -203,7 +204,11 @@ in
 
     Awesome = pkgs.buildEnv {
       name = "awesome";
-      paths = [ awesome lxappearance deepin.deepin-gtk-theme ];
+      paths = [
+        (callPackage ./packages/deepin-gtk-theme/default.nix {})
+        awesome
+        lxappearance
+      ];
       pathsToLink = [ "/share" "/bin" ];
     };
 
@@ -278,7 +283,7 @@ in
     JavaScript = pkgs.buildEnv {
       name = "javascript";
       paths = [
-        nodejs-13_x
+        nodejs-14_x
         unstable.deno
         nodePackages.prettier
         nodePackages.eslint
@@ -291,7 +296,7 @@ in
     Python = pkgs.buildEnv {
       name = "python";
       paths = [
-        (python38.withPackages (ps: with ps; [ mypy bandit pylint pip2nix pyflakes ]))
+        (python38.withPackages (ps: with ps; [ mypy bandit pylint pyflakes ]))
       ];
     };
 
