@@ -5,5 +5,5 @@ x11vnc -R stop;
 
 # reset input devices
 for device in $(xinput --list --id-only)
-  do xinput --disable "$device"; xinput --enable "$device";
+  do xinput --disable "$device" && xinput --enable "$device";
 done;
