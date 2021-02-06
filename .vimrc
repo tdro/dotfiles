@@ -212,6 +212,7 @@ vnoremap <leader>cf <S-J><S-v> \| !fold -s -w<space>
 noremap <leader>cs :w! $HOME/.cache/vim-scratchpad \| :e +setf\ <space>$HOME/.cache/vim-scratchpad<C-left><left>
 
 " File open mappings
+let g:fzf_layout = { 'down': '40%' }
 nmap <Tab> :Buffers<cr>
 nmap <leader>ov :Lines<cr>
 nmap <leader>ob :BLines<cr>
