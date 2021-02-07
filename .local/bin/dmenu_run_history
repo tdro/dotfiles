@@ -14,7 +14,7 @@ else
 	historyfile=$HOME/.dmenu_history
 fi
 
-if [ "$1" = "update" ]; then
+if [ "$1" = "update" ] || [ ! -f "$cache" ]; then
   IFS=:
   stest -dqr -n "$cache" $PATH && stest -flx $PATH | sort -u > "$cache";
   unset IFS;
