@@ -23,7 +23,6 @@ set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
 set cursorline                           " Set cursor line highlight.
 set notimeout                            " Wait indefinitely for complete key combinations.
-set ttimeout                             " Prevent pressing <Esc> twice.
 set showcmd                              " Show key presses in status line.
 set wildmenu                             " Show tab completions menu.
 set nojoinspaces                         " Insert one space after a '.', '?' and '!' with a join command.
