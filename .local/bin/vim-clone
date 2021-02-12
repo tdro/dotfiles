@@ -1,0 +1,8 @@
+#!/bin/sh -eu
+repo=$1
+temp="$(mktemp -d)"
+
+git clone --depth=1 "${repo}" "${temp}";
+cd "$temp" || exit 1;
+vim;
+rm -rf "${temp}";
