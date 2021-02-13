@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+wget --spider --recursive --level 3 --no-verbose \
+  --no-directories --delete-after "$1" 2>&1 | grep -v -E 'URL:|unlink:'
