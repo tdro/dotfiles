@@ -4,8 +4,9 @@ so ~/.vim/bundle/vim-plug/plug.vim
 " Specify a directory for plugins
 call plug#begin('~/.vim/bundle')
 
-Plug 'junegunn/vim-plug'
+Plug 'junegunn/vim-plug',         { 'tag': 'e718868e85e2a32410144dfcdc3ba1303719450d' }
 Plug 'junegunn/fzf.vim',          { 'tag': 'f86ef1bce602713fe0b5b68f4bdca8c6943ecb59' }
+Plug 'sjl/gundo.vim',             { 'tag': 'c5efef192b975b8e7d5fa3c6db932648d3b76323' }
 Plug 'mcchrish/nnn.vim',          { 'tag': 'bfc91b503769920a366b12851b871795c0eb6825' }
 Plug 'tpope/vim-fugitive',        { 'tag': '85e2c73830b6bb01ce7fc3a926d2b25836a253eb' }
 Plug 'tpope/vim-surround',        { 'tag': 'f51a26d3710629d031806305b6c8727189cd1935' }
