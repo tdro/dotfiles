@@ -209,7 +209,7 @@ vnoremap <leader>ct !column -t -o' '<cr>
 vnoremap <leader>cf <S-J><S-v> \| !fold -s -w<space>
 
 " Go to scratchpad of specified filetype
-noremap <leader>cs :w! $HOME/.cache/vim-scratchpad \| :e +setf\ <space>$HOME/.cache/vim-scratchpad<C-left><left>
+noremap <leader>cs :w !cat > $HOME/.cache/vim-scratchpad<cr>:e +setf\ <space>$HOME/.cache/vim-scratchpad<C-left><left>
 
 " File open mappings
 let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } }
