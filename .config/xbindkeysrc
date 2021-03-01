@@ -87,8 +87,8 @@
     Control + Print
 
 # Shortcut Key Check
-"urxvt -e xbindkeys --multikey"
-    Shift+Mod4 + b
+"urxvt -hold -e xbindkeys --multikey -f $HOME/.config/xbindkeysrc"
+    Shift + Mod4 + b
 
 # Terminal
 "urxvt"
