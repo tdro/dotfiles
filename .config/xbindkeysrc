@@ -96,4 +96,8 @@
 
 # Terminal Tabbed
 "urxvt -pe tabbed"
-    Alt+Mod4 + Return
+    Alt + Mod4 + Return
+
+# Terminal Multiplexer
+"urxvt -e tmux attach"
+    Control + Mod4 + Return

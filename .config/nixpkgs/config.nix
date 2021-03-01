@@ -82,6 +82,7 @@ in
         sshfs
         surfraw
         tcl
+        tmux
         trash-cli
         units
         vale
