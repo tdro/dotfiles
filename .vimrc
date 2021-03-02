@@ -9,6 +9,7 @@ so ~/.vim/plugins.vim                    " Source plugins.
 "------------General------------"
 
 let mapleader = "\<space>"               " Set default map leader.
+let g:notify = "notify-send -t 10000"    " Set default notify daemon.
 
 syntax enable                            " Enable syntax highlighting.
 
@@ -88,35 +89,35 @@ set guioptions-=e                        " Remove tab bar in GUI.
 
 " PHP Fixer
 function! PHPFix()
-  :silent !notify-send -t 10000 "$(phpcbf % 2>&1)" > /dev/null 2>&1
+  :silent exe '!' . expand(g:notify) . ' ' . '"$(phpcbf % 2>&1)" > /dev/null 2>&1'
   :redraw!
 endfunction
 
 " ESLint Fix
 function! ESLintFix()
-  :silent !notify-send -t 10000 "$(eslint -c $HOME/.config/eslintrc.yml --fix % 2>&1)" > /dev/null 2>&1
+  :silent exe '!' . expand(g:notify) . ' ' . '"$(eslint -c $HOME/.config/eslintrc.yml --fix % 2>&1)" > /dev/null 2>&1'
 endfunction
 
 " Ansible Check
 function! AnsibleCheck()
-  :silent !notify-send -t 10000 "$(ansible-playbook --syntax-check % 2>&1)" > /dev/null 2>&1 &
+  :silent exe '!' . expand(g:notify) . ' ' . '"$(ansible-playbook --syntax-check % 2>&1)" > /dev/null 2>&1 &'
   :redraw!
 endfunction
 
 " Shell Check
 function! ShellCheck()
-  :silent !notify-send -t 10000 "$(shellcheck -x --exclude=SC1090,SC1091 % 2>&1 && echo 'Shellcheck OK: %')" > /dev/null 2>&1 &
+  :silent exe '!' . expand(g:notify) . ' ' . '"$(shellcheck -x --exclude=SC1090,SC1091 % 2>&1 && echo ''Shellcheck OK: %'')" > /dev/null 2>&1 &'
 endfunction
 
 " Nix Check
 function! NixCheck()
-  :silent !notify-send -t 10000 "$(nix-linter % 2>&1 && echo 'Nix Lint OK: %' && nixfmt % 2>&1)" > /dev/null 2>&1
+  :silent exe '!' . expand(g:notify) . ' ' . '"$(nix-linter % 2>&1 && echo ''Nix Lint OK: %'' && nixfmt % 2>&1)" > /dev/null 2>&1'
   :redraw!
 endfunction
 
 " Elixir Format
 function! ElixirFormat()
-  :silent !notify-send -t 10000 "$(mix format % 2>&1 && echo 'Elixir Format OK: %')" > /dev/null 2>&1
+  :silent exe '!' . expand(g:notify) . ' ' . '"$(mix format % 2>&1 && echo ''Elixir Format OK: %'')" > /dev/null 2>&1'
   :redraw!
 endfunction
 
@@ -298,11 +299,9 @@ augroup AutoCommands
   " Clear auto commands.
   autocmd!
 
-  " Reload vimrc on vimrc file save.
-  autocmd BufWritePost .vimrc source % | silent !notify-send 'Sourcing vimrc...'
-
-  " Reload plugins.vim on file save.
-  autocmd BufWritePost plugins.vim source % | silent !notify-send 'Sourcing plugins...'
+  " Source reloads.
+  autocmd BufWritePost .vimrc source %      | silent exe '!' . expand(g:notify) . ' ' . '''Sourcing vimrc...'''
+  autocmd BufWritePost plugins.vim source % | silent exe '!' . expand(g:notify) . ' ' . '''Sourcing plugins...'''
 
   " Linting extension post write commands.
   autocmd BufWritePost *.php :call PHPFix()
@@ -311,15 +310,15 @@ augroup AutoCommands
 
   " Linting file type post write commands.
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
-  autocmd FileType nix autocmd! BufWritePost <buffer> silent call NixCheck()
-  autocmd FileType elixir autocmd! BufWritePost <buffer> :call ElixirFormat()
-  autocmd FileType json autocmd! BufWritePost <buffer> silent !notify-send "$(jsonlint -i % 2>&1 && echo 'json OK: %')"
-  autocmd FileType css autocmd! BufWritePost <buffer> silent !notify-send "$(prettier --write --parser css % 2>&1)"
-  autocmd FileType rust autocmd! BufWritePost <buffer> silent !notify-send "$(rustfmt % 2>&1 && echo 'rustfmt OK: %')"
-  autocmd FileType c autocmd! BufWritePost <buffer> silent !notify-send "$(clang-format -i % 2>&1 && echo 'clang-format OK: %')"
-  autocmd FileType go autocmd! BufWritePost <buffer> silent !notify-send "$(gofmt -w -s -e % 2>&1 && go vet % 2>&1 && echo 'gofmt OK: %')"
-  autocmd FileType awk autocmd! BufWritePost <buffer> silent !notify-send "$(awk -g -f % 2>&1 && awk -o- -f % | sponge % && echo 'awk OK: %')"
-  autocmd FileType yaml autocmd! BufWritePost <buffer> silent !notify-send "$(yaml round-trip --indent 2 --save % 2>&1 && yamllint -s % 2>&1 && echo 'yaml OK: %')"
+  autocmd FileType nix     autocmd! BufWritePost <buffer> silent call NixCheck()
+  autocmd FileType elixir  autocmd! BufWritePost <buffer> :call ElixirFormat()
+  autocmd FileType json    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(jsonlint -i % 2>&1 && echo ''json OK: %'')"'
+  autocmd FileType css     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(prettier --write --parser css % 2>&1)"'
+  autocmd FileType rust    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(rustfmt % 2>&1 && echo ''rustfmt OK: %'')"'
+  autocmd FileType c       autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(clang-format -i % 2>&1 && echo ''clang-format OK: %'')"'
+  autocmd FileType go      autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(gofmt -w -s -e % 2>&1 && go vet % 2>&1 && echo ''gofmt OK: %'')"'
+  autocmd FileType awk     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(awk -g -f % 2>&1 && awk -o- -f % | sponge % && echo ''awk OK: %'')"'
+  autocmd FileType yaml    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(yaml round-trip --indent 2 --save % 2>&1 && yamllint -s % 2>&1 && echo ''yaml OK: %'')"'
 
   " File type function under cursor lookups.
   autocmd FileType go noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
@@ -342,11 +341,11 @@ augroup AutoCommands
 
   " General auto commands.
   autocmd BufWritePost *.tex :term ++close ++rows=10 latex-compile %
-  autocmd BufWritePost rc.lua silent !notify-send "$(awesome -k 2>&1)"
-  autocmd BufWritePost quotes,*.fortune silent !notify-send "$(strfile %)"
-  autocmd BufWritePost $HOME/.config/chromexup/config.ini silent !notify-send "$(chromexup 2>&1)"
-  autocmd BufWritePost *.desktop silent !notify-send "$(desktop-file-validate % 2>&1 && echo 'OK: %')"
-  autocmd BufWritePost Xresources silent !xrdb ~/.config/X11/Xresources && notify-send 'Reloading Xresources...'
+  autocmd BufWritePost rc.lua silent exe '!' . expand(g:notify) . ' ' . '"$(awesome -k 2>&1)"'
+  autocmd BufWritePost quotes,*.fortune silent exe '!' . expand(g:notify) . ' ' . '"$(strfile %)"'
+  autocmd BufWritePost $HOME/.config/chromexup/config.ini silent exe '!' . expand(g:notify) . ' ' . '"$(chromexup 2>&1)"'
+  autocmd BufWritePost *.desktop silent exe '!' . expand(g:notify) . ' ' . '"$(desktop-file-validate % 2>&1 && echo ''OK: %'')"'
+  autocmd BufWritePost Xresources silent exe '!' . 'xrdb ~/.config/X11/Xresources &&' . ' ' .  expand(g:notify) . ' ' . '''Reloading Xresources...'''
 
   " Automatically remove trailing white space on save.
   autocmd InsertLeave,BufWritePre * %s/\s\+$//e
