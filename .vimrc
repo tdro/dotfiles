@@ -326,18 +326,18 @@ augroup AutoCommands
   autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
 
   " REPL commands.
-  autocmd FileType go noremap <buffer> <leader>cc :REPL gore<cr>
-  autocmd FileType lua noremap <buffer> <leader>cc :REPL lua<cr>
-  autocmd FileType php noremap <buffer> <leader>cc :REPL psysh<cr>
-  autocmd FileType elixir noremap <buffer> <leader>cc :REPL iex<cr>
-  autocmd FileType sh noremap <buffer> <leader>cc :REPL dash -x<cr>
-  autocmd FileType rust noremap <buffer> <leader>cc :REPL evcxr<cr>
-  autocmd FileType nix noremap <buffer> <leader>cc :REPL nix repl<cr>
-  autocmd FileType bash noremap <buffer> <leader>cc :REPL bash -x<cr>
-  autocmd FileType python noremap <buffer> <leader>cc :REPL python<cr>
-  autocmd FileType perl noremap <buffer> <leader>cc :REPL perl -de0<cr>
+  autocmd FileType go         noremap <buffer> <leader>cc :REPL gore<cr>
+  autocmd FileType lua        noremap <buffer> <leader>cc :REPL lua<cr>
+  autocmd FileType php        noremap <buffer> <leader>cc :REPL psysh<cr>
+  autocmd FileType elixir     noremap <buffer> <leader>cc :REPL iex<cr>
+  autocmd FileType sh         noremap <buffer> <leader>cc :REPL dash -x<cr>
+  autocmd FileType rust       noremap <buffer> <leader>cc :REPL evcxr<cr>
+  autocmd FileType nix        noremap <buffer> <leader>cc :REPL nix repl<cr>
+  autocmd FileType bash       noremap <buffer> <leader>cc :REPL bash -x<cr>
+  autocmd FileType python     noremap <buffer> <leader>cc :REPL python<cr>
+  autocmd FileType perl       noremap <buffer> <leader>cc :REPL perl -de0<cr>
   autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
-  autocmd FileType awk noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
+  autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " General auto commands.
   autocmd BufWritePost *.tex :term ++close ++rows=10 latex-compile %
