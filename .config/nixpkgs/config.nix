@@ -286,10 +286,11 @@ in
       paths = [
         nodejs-14_x
         unstable.deno
-        nodePackages.prettier
-        nodePackages.eslint
-        nodePackages.node2nix
         nodePackages.bower2nix
+        nodePackages.eslint
+        nodePackages.jsonlint
+        nodePackages.node2nix
+        nodePackages.prettier
       ];
       pathsToLink = [ "/bin" ];
     };
