@@ -15,6 +15,39 @@ in
 
   packageOverrides = pkgs: with stable; {
 
+    # Machines
+
+    Heron = pkgs.buildEnv {
+      name = "heron";
+      paths = [
+        Terminal Graphical Xorg Awesome Fonts Audio LaTeX
+        Android JavaScript Python PHP Lua Elixir Html Shell Haskell
+        Perl Nix C Golang Rust CSS SQL YAML
+      ];
+    };
+
+    Talon = pkgs.buildEnv {
+      name = "talon";
+      paths = [ Heron ];
+    };
+
+    Ferret = pkgs.buildEnv {
+      name = "ferret";
+      paths = [ Terminal Graphical Fonts Xorg Awesome Audio ];
+    };
+
+    Tiger = pkgs.buildEnv {
+      name = "tiger";
+      paths = [ Terminal Graphical Fonts Xorg Awesome JavaScript Python ];
+    };
+
+    Hound = pkgs.buildEnv {
+      name = "hound";
+      paths = [ Terminal Graphical Fonts Xorg Xfce JavaScript Python ];
+    };
+
+    # Package Sets
+
     Terminal = pkgs.buildEnv {
       name = "terminal";
       paths = [
@@ -378,6 +411,13 @@ in
       paths = [
         (callPackage ./packages/csstidy/default.nix {})
         csslint
+      ];
+    };
+
+    SQL = pkgs.buildEnv {
+      name = "sql";
+      paths = [
+        sqlint
       ];
     };
 
