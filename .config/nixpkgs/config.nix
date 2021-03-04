@@ -378,7 +378,7 @@ in
 
     Haskell = pkgs.buildEnv {
       name = "haskell";
-      paths = [ ghc ghcid hlint ];
+      paths = [ ghc ghcid haskellPackages.hlint haskellPackages.brittany ];
     };
 
     Perl = pkgs.buildEnv {

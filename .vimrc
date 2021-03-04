@@ -292,10 +292,10 @@ augroup AutoCommands
   autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale-wrapper %
 
   " Linting file type post write commands.
-  autocmd FileType haskell autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(hlint % 2>&1)"'
   autocmd FileType css     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(prettier --write --parser css % 2>&1)"'
   autocmd FileType rust    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(rustfmt % 2>&1 && echo ''rustfmt OK: %'')"'
   autocmd FileType json    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(jsonlint -i % 2>&1 && echo ''json OK: %'')"'
+  autocmd FileType haskell autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(hlint % 2>&1 && brittany --write-mode inplace % 2>&1)"'
   autocmd FileType c       autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(clang-format -i % 2>&1 && echo ''clang-format OK: %'')"'
   autocmd FileType go      autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(gofmt -w -s -e % 2>&1 && go vet % 2>&1 && echo ''gofmt OK: %'')"'
   autocmd FileType awk     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(awk -g -f % 2>&1 && awk -o- -f % | sponge % && echo ''awk OK: %'')"'
