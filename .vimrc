@@ -312,6 +312,7 @@ augroup AutoCommands
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
   autocmd FileType nix     autocmd! BufWritePost <buffer> silent call NixCheck()
   autocmd FileType elixir  autocmd! BufWritePost <buffer> :call ElixirFormat()
+  autocmd FileType haskell autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(hlint % 2>&1)"'
   autocmd FileType json    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(jsonlint -i % 2>&1 && echo ''json OK: %'')"'
   autocmd FileType css     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(prettier --write --parser css % 2>&1)"'
   autocmd FileType rust    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(rustfmt % 2>&1 && echo ''rustfmt OK: %'')"'
