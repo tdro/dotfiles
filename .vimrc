@@ -104,23 +104,6 @@ function! AnsibleCheck()
   :redraw!
 endfunction
 
-" Shell Check
-function! ShellCheck()
-  :silent exe '!' . expand(g:notify) . ' ' . '"$(shellcheck -x --exclude=SC1090,SC1091 % 2>&1 && echo ''Shellcheck OK: %'')" > /dev/null 2>&1 &'
-endfunction
-
-" Nix Check
-function! NixCheck()
-  :silent exe '!' . expand(g:notify) . ' ' . '"$(nix-linter % 2>&1 && echo ''Nix Lint OK: %'' && nixfmt % 2>&1)" > /dev/null 2>&1'
-  :redraw!
-endfunction
-
-" Elixir Format
-function! ElixirFormat()
-  :silent exe '!' . expand(g:notify) . ' ' . '"$(mix format % 2>&1 && echo ''Elixir Format OK: %'')" > /dev/null 2>&1'
-  :redraw!
-endfunction
-
 " Typography Format
 function! TypographyFormat()
   :silent! %s/\(^\|\s\|\w\)\zs--\ze\($\|\s\|\w\)/–/g | silent! %s/\(^\|\s\|\w\)\zs---\ze\($\|\s\|\w\)/—/g
@@ -309,21 +292,21 @@ augroup AutoCommands
   autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale-wrapper %
 
   " Linting file type post write commands.
-  autocmd FileType bash,sh autocmd! BufWritePost <buffer> :call ShellCheck()
-  autocmd FileType nix     autocmd! BufWritePost <buffer> silent call NixCheck()
-  autocmd FileType elixir  autocmd! BufWritePost <buffer> :call ElixirFormat()
   autocmd FileType haskell autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(hlint % 2>&1)"'
-  autocmd FileType json    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(jsonlint -i % 2>&1 && echo ''json OK: %'')"'
   autocmd FileType css     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(prettier --write --parser css % 2>&1)"'
   autocmd FileType rust    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(rustfmt % 2>&1 && echo ''rustfmt OK: %'')"'
+  autocmd FileType json    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(jsonlint -i % 2>&1 && echo ''json OK: %'')"'
   autocmd FileType c       autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(clang-format -i % 2>&1 && echo ''clang-format OK: %'')"'
   autocmd FileType go      autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(gofmt -w -s -e % 2>&1 && go vet % 2>&1 && echo ''gofmt OK: %'')"'
   autocmd FileType awk     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(awk -g -f % 2>&1 && awk -o- -f % | sponge % && echo ''awk OK: %'')"'
+  autocmd FileType elixir  autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(mix format % 2>&1 && echo ''Elixir Format OK: %'')" > /dev/null 2>&1'
+  autocmd FileType nix     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(nix-linter % 2>&1 && echo ''Nix Lint OK: %'' && nixfmt % 2>&1)" > /dev/null 2>&1'
   autocmd FileType yaml    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(yaml round-trip --indent 2 --save % 2>&1 && yamllint -s % 2>&1 && echo ''yaml OK: %'')"'
+  autocmd FileType bash,sh autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(shellcheck -x --exclude=SC1090,SC1091 % 2>&1 && echo ''Shellcheck OK: %'')" > /dev/null 2>&1 &'
 
   " File type function under cursor lookups.
-  autocmd FileType go noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
-  autocmd FileType nix noremap <buffer> <leader>df :exe ':term ++rows=10 nixos-option ' . expand('<cexpr>')<cr>
+  autocmd FileType go     noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
+  autocmd FileType nix    noremap <buffer> <leader>df :exe ':term ++rows=10 nixos-option ' . expand('<cexpr>')<cr>
   autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
 
   " REPL commands.
