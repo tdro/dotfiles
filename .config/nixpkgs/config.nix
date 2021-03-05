@@ -183,7 +183,6 @@ in
         sigil
         skippy-xd
         spaceFM
-        sqlitebrowser
         sublime3-dev
         sxiv
         syncthing
@@ -417,7 +416,13 @@ in
     SQL = pkgs.buildEnv {
       name = "sql";
       paths = [
+        (callPackage ./packages/skeema/default.nix {})
+        (callPackage ./packages/sqldef/default.nix {})
+        (callPackage ./packages/sqlfluff/default.nix {})
+        dbeaver
+        pgformatter
         sqlint
+        sqlite
       ];
     };
 

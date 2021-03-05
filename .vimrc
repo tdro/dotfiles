@@ -303,6 +303,7 @@ augroup AutoCommands
   autocmd FileType nix     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(nix-linter % 2>&1 && echo ''Nix Lint OK: %'' && nixfmt % 2>&1)" > /dev/null 2>&1'
   autocmd FileType yaml    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(yaml round-trip --indent 2 --save % 2>&1 && yamllint -s % 2>&1 && echo ''yaml OK: %'')"'
   autocmd FileType bash,sh autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(shellcheck -x --exclude=SC1090,SC1091 % 2>&1 && echo ''Shellcheck OK: %'')" > /dev/null 2>&1 &'
+  autocmd FileType sql     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(sqlint % 2>&1 && pg_format -i % 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres % 2>&1 && echo ''SQL OK: %'')"'
 
   " File type function under cursor lookups.
   autocmd FileType go     noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
