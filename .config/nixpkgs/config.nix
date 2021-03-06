@@ -1,8 +1,8 @@
 let
 
   stable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/c6b23ba64ae.tar.gz";
-    sha256 = "13hg91g46qg2bbpdzpnmzcrsayfbkcp0gx36n8lsb2v980vahvi3"; }) {};
+    url = "https://github.com/NixOS/nixpkgs/archive/4d0ee90c6e2.tar.gz";
+    sha256 = "0i4w6zfj1pz52lnpdz4qn9m8d96zlmwfgizi5dsdy3vcqxdwkqi3"; }) {};
 
   unstable = import (builtins.fetchTarball {
     url = "https://github.com/NixOS/nixpkgs/archive/a36bf6faf96.tar.gz";
