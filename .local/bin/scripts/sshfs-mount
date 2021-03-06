@@ -1,18 +1,19 @@
-#!/bin/sh
+#!/bin/sh -eu
 
 input="$1"
 server="${input#*@}"
 folder="${input%@*}"
 mount_path="$HOME/Shares/SSHFS/$folder"
 
-[ "$2" = 'stop' ] && fusermount -u "$mount_path";
-[ "$2" = 'stop' ] && exit;
+[ "${2:-}" = 'stop' ] && { fusermount -u "$mount_path" || true; };
+[ "${2:-}" = 'stop' ] && exit;
 
 # evaulate the keychain
+pidof ssh-agent || { printf "No ssh-agent available.\n"; exit 1; };
 eval "$(keychain --dir "$HOME"/.cache/keychain --eval --agents ssh -Q --quiet "$HOME"/.ssh/mobile)";
 
 # mount the directory
 mkdir -p "$mount_path";
-fusermount -u "$mount_path";
+fusermount -u "$mount_path" || true;
 # TODO: Add setting remote server path with argument
 sshfs -f -o follow_symlinks,idmap=user,identityfile="$HOME"/.ssh/mobile,identityfile="$HOME"/.ssh/ansible root@"$server":/ "$mount_path";
