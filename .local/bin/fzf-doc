@@ -1,5 +1,8 @@
 #!/bin/sh -eu
 
+cache=$HOME/.cache/fzf-doc
+documentation=/etc/documentation
+
 fzf_doc_preview() {
   file=$1
   extension=${file##*.}
@@ -11,14 +14,20 @@ fzf_doc_preview() {
   esac
 }
 
-[ "${1-}" = "--preview" ] && fzf_doc_preview "${2-}" && exit;
-
-grep -lRi \
+if [ ! -f "$cache" ] || test "$cache" -ot "$documentation"; then
+  grep -lRi \
   --include=*.md \
   --include=*.txt \
   --include=*.pdf \
   --include=*.html \
-  "${1-.}" /etc/documentation \
+  --include=*.yml \
+  --include=*.yaml \
+  . /etc/documentation > "$cache";
+fi
+
+[ "${1-}" = "--preview" ] && fzf_doc_preview "${2-}" && exit;
+
+grep -i "${1-.}" "$cache" \
   | fzf --preview "fzf-doc --preview {}" \
   | while read -r file
 
@@ -28,6 +37,8 @@ do
     md) mdcat -cl "$file" | vim - ;;
     html) w3m -dump "$file" | vim - ;;
     pdf) pdftotext "$file" - | vim - ;;
+    yml) vim "$file" ;;
+    yaml) vim "$file" ;;
     *) vim "$file" ;;
   esac
 done
