@@ -40,11 +40,12 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 
 # general exports
+export BROWSER=chromium;
 export CARGO_HOME="$XDG_CACHE_HOME/cargo"
 export EDITOR=vim
-export BROWSER=chromium;
 export FZF_DIRECTORY_MARKS=$HOME/Documents/.fzf-marks
 export FZF_FILE_MARKS=$HOME/Documents/.fzf-fmarks
+export GOPATH="$XDG_DATA_HOME/go"
 export HISTCONTROL=ignoreboth:erasedups
 export HISTFILESIZE=
 export HISTSIZE=
