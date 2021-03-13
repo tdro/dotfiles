@@ -16,7 +16,7 @@ in mkShell {
     mkdir -p $virtualenvs
     python -m venv $virtualenvs/ansible-mitogen
     . $virtualenvs/ansible-mitogen/bin/activate
-    pip install mitogen==0.2.9
+    python -m pip install mitogen==0.2.9
     export ANSIBLE_STRATEGY_PLUGINS=$virtualenvs/ansible-mitogen/lib/python3.8/site-packages/ansible_mitogen/plugins
     export ANSIBLE_STRATEGY=mitogen_linear
     export PS1='\h (nixos ${version} ''${_NIX_CHANNEL##*.}) \W \$ '
