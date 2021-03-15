@@ -63,7 +63,7 @@ in
         unstable.hugo
         aerc
         alsaUtils
-        ansible_2_9
+        ansible
         bat
         bfg-repo-cleaner
         bleachbit
