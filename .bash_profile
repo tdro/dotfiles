@@ -33,6 +33,7 @@ PS1_SSHD='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;32
 
 # path exports
 prefixPath "$HOME/.local/bin";
+prefixPath "$HOME/.local/bin/scripts";
 
 # xdg exports
 export XDG_CACHE_HOME="$HOME/.cache"
