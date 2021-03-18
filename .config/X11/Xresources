@@ -2,10 +2,11 @@
 ! URxvt Settings
 ! -----------------
 
-URxvt.perl-ext-common: default,matcher,font-size,vtwheel,url-select,keyboard-select
+URxvt.perl-ext-common: default,matcher,font-size,vtwheel,keyboard-select
 
 URxvt.url-launcher: /usr/bin/env firefox
 URxvt.url-select.launcher: /usr/bin/env firefox
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
 
 URxvt.matcher.button: 1
 URxvt.internalBorder: 10
@@ -14,9 +15,6 @@ URxvt.geometry: 74x18
 URxvt.cursorUnderline: 0
 URxvt.cursorBlink: 1
 URxvt.cursorColor: #69AEFF
-
-URxvt.keysym.M-Escape: perl:keyboard-select:activate
-URxvt.keysym.M-m: perl:url-select:select_next
 
 URxvt*font: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
 URxvt.boldFont: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
