@@ -1,12 +1,12 @@
 let
 
   stable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/4d0ee90c6e2.tar.gz";
-    sha256 = "0i4w6zfj1pz52lnpdz4qn9m8d96zlmwfgizi5dsdy3vcqxdwkqi3"; }) {};
+    url = "https://releases.nixos.org/nixos/20.09/nixos-20.09.3346.4d0ee90c6e2/nixexprs.tar.xz";
+    sha256 = "1hl3ibkqpk0fihppj85fgiin5r6l9jsqmfjbmcqfyjvykh9fy6ag"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/a36bf6faf96.tar.gz";
-    sha256 = "12n0mzkvs81ygspdjia03fv3v88cbbwznrpn375farcrsjzl86mc"; }) {};
+    url = "https://releases.nixos.org/nixos/unstable/nixos-21.03pre265961.891f607d530/nixexprs.tar.xz";
+    sha256 = "1hwwb4n15bbqxnbqffq4kfb369vz65sq74p537fqdp6i4ywpqsyh"; }) {};
 
 in
 
