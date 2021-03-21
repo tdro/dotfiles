@@ -31,11 +31,11 @@ let s:t_silver     = '250'  | let s:g_silver     = '#c0c0c0'
 
 exe 'hi Boolean        guifg='.s:g_purple     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_purple . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Character      guifg='.s:g_yellow     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_yellow . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi ColorColumn    guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:none
+exe 'hi ColorColumn    guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
 exe 'hi Comment        guifg='.s:g_silver     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_silver . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Conditional    guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Constant       guifg='.s:g_purple     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_purple . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi CursorColumn   guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:none
+exe 'hi CursorColumn   guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
 exe 'hi CursorLine     guifg='.s:none         . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:none     . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi CursorLineNR   guifg='.s:g_white      . ' guibg='.s:g_background . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:bold
 exe 'hi Debug          guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
