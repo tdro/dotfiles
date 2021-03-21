@@ -65,12 +65,10 @@ set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
 set foldcolumn=2                         " Set fold column width to 2.
 
+let php_htmlInStrings = 1                " Highlight HTML in PHP.
+
 " Convert tab to spaces.
 set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
-
-let php_sql_query = 1                    " Highlight SQL in PHP.
-let php_htmlInStrings = 1                " Highlight HTML in PHP.
-let g:javascript_plugin_jsdoc = 1        " Highlight JavaScript.
 
 
 "----------------Visuals----------------"
