@@ -339,6 +339,3 @@ augroup AutoCommands
     \| :echo expand('%:t') '[filetype=' . &filetype . ']'
 
 augroup END
-
-set cmdheight=999     " Set command height temporarily to avoid prompt.
-set cmdheight=1       " Set command height back to the default.
