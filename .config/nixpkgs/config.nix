@@ -137,12 +137,14 @@ in
         (callPackage ./packages/dmenu/default.nix {})
         (callPackage ./packages/gnaural/default.nix {})
         (callPackage ./packages/ntrviewer/default.nix {})
+        unstable.nyxt
         unstable.tilp2
         unstable.ungoogled-chromium
         aegisub
         anki
         audacity
         blender
+        code-server
         copyq
         diffpdf
         escrotum
@@ -183,7 +185,7 @@ in
         sigil
         skippy-xd
         spaceFM
-        sublime3-dev
+        sublime3
         sxiv
         syncthing
         tabula
@@ -392,7 +394,7 @@ in
 
     C = pkgs.buildEnv {
       name = "c";
-      paths = [ gnumake meson ninja gcc clang-tools astyle ];
+      paths = [ astyle clang-tools gcc gdb gnumake meson ninja ];
     };
 
     Golang = pkgs.buildEnv {
