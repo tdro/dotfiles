@@ -323,12 +323,12 @@ augroup AutoCommands
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " General auto commands.
-  autocmd BufWritePost *.tex :term ++close ++rows=10 latex-compile %
-  autocmd BufWritePost rc.lua silent exe '!' . expand(g:notify) . ' ' . '"$(awesome -k 2>&1)"'
-  autocmd BufWritePost quotes,*.fortune silent exe '!' . expand(g:notify) . ' ' . '"$(strfile %)"'
+  autocmd BufWritePost *.tex                              :term ++close ++rows=10 latex-compile %
+  autocmd BufWritePost quotes,*.fortune                   silent exe '!' . expand(g:notify) . ' ' . '"$(strfile %)"'
   autocmd BufWritePost $HOME/.config/chromexup/config.ini silent exe '!' . expand(g:notify) . ' ' . '"$(chromexup 2>&1)"'
-  autocmd BufWritePost *.desktop silent exe '!' . expand(g:notify) . ' ' . '"$(desktop-file-validate % 2>&1 && echo ''OK: %'')"'
-  autocmd BufWritePost Xresources silent exe '!' . 'xrdb ~/.config/X11/Xresources &&' . ' ' .  expand(g:notify) . ' ' . '''Reloading Xresources...'''
+  autocmd BufWritePost rc.lua                             silent exe '!' . expand(g:notify) . ' ' . '"$(awesome -k 2>&1)"'
+  autocmd BufWritePost *.desktop                          silent exe '!' . expand(g:notify) . ' ' . '"$(desktop-file-validate % 2>&1 && echo ''OK: %'')"'
+  autocmd BufWritePost Xresources                         silent exe '!' . 'xrdb ~/.config/X11/Xresources &&' . ' ' .  expand(g:notify) . ' ' . '''Reloading Xresources...'''
 
   " Automatically remove trailing white space on save.
   autocmd InsertLeave,BufWritePre * %s/\s\+$//e
