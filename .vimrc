@@ -285,9 +285,10 @@ augroup AutoCommands
   autocmd BufWritePost plugins.vim source % | silent exe '!' . expand(g:notify) . ' ' . '''Sourcing plugins...'''
 
   " Linting extension post write commands.
-  autocmd BufWritePost *.php :call PHPFix()
-  autocmd BufWritePost *.js :call ESLintFix()
+  autocmd BufWritePost *.php      :call PHPFix()
+  autocmd BufWritePost *.js       :call ESLintFix()
   autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale-wrapper %
+  autocmd BufWritePost *.lit      silent exe '!' . expand(g:notify) . ' ' . '"$(lit % 2>&1 && printf ''Literate OK: %'')"'
 
   " Linting file type post write commands.
   autocmd FileType css     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(prettier --write --parser css % 2>&1)"'
@@ -321,6 +322,10 @@ augroup AutoCommands
   autocmd FileType perl       noremap <buffer> <leader>cc :REPL perl -de0<cr>
   autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
+
+  " Formatting programs.
+  autocmd FileType nix set formatprg=nixfmt
+  autocmd FileType sh  set formatprg=shfmt\ -
 
   " General auto commands.
   autocmd BufWritePost *.tex                              :term ++close ++rows=10 latex-compile %

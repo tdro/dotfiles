@@ -54,6 +54,7 @@ in
         (callPackage ./packages/amfora/default.nix {})
         (callPackage ./packages/chromexup/default.nix {})
         (callPackage ./packages/gmni/default.nix {})
+        (callPackage ./packages/literate/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/vale-styles/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
@@ -374,7 +375,7 @@ in
 
     Shell = pkgs.buildEnv {
       name = "shell";
-      paths = [ bats shellcheck dash ];
+      paths = [ bats dash shellcheck shfmt ];
     };
 
     Haskell = pkgs.buildEnv {
