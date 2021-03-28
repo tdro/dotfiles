@@ -155,7 +155,6 @@ in
         flameshot
         freerdp
         gImageReader
-        gcolor2
         gimp
         gnome3.simple-scan
         gnome3.zenity
