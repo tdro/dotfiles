@@ -58,7 +58,7 @@ in
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/vale-styles/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
-        (pass.withExtensions (ext: with ext; [ pass-audit pass-import pass-otp ]))
+        (pass.withExtensions (ext: with ext; [ (callPackage ./packages/pass-import/default.nix {}) pass-audit pass-otp ]))
         unstable.emacs
         unstable.fzf
         unstable.hugo
