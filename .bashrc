@@ -95,12 +95,10 @@ alias mocp='mocp -M $XDG_CONFIG_HOME/moc'
 alias newsboat='newsboat -c $XDG_CONFIG_HOME/newsboat/cache.db -u $XDG_CONFIG_HOME/newsboat/urls -C $XDG_CONFIG_HOME/newsboat/config'
 alias nix-index='nix-index --db $XDG_DATA_HOME/nix-index'
 alias nix-locate='nix-locate --db $XDG_DATA_HOME/nix-index'
-alias pacman='sudo pacman'
 alias rangerinf='while true; do ranger; done'
 alias rofi='rofi -cache-dir $XDG_DATA_HOME'
 alias sh='dash'
 alias tidy='tidy -config $HOME/.config/tidy.conf'
-alias wavemon='sudo wavemon'
 alias wget='wget --hsts-file $HOME/.cache/wget.history'
 
 # nix helpers
