@@ -57,6 +57,7 @@ export LESSHISTFILE="$XDG_CACHE_HOME/less.history"
 export MANPAGER="vim -M +MANPAGER -"
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npmrc"
+export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/pass"
 export PROMPT_COMMAND='cd .; history -a; history -n;'
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
