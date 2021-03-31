@@ -287,7 +287,7 @@ augroup AutoCommands
   " Linting extension post write commands.
   autocmd BufWritePost *.php      :call PHPFix()
   autocmd BufWritePost *.js       :call ESLintFix()
-  autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale-wrapper %
+  autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale %
   autocmd BufWritePost *.lit      silent exe '!' . expand(g:notify) . ' ' . '"$(lit % 2>&1 && printf ''Literate OK: %'')"'
 
   " Linting file type post write commands.

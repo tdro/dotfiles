@@ -56,7 +56,6 @@ in
         (callPackage ./packages/gmni/default.nix {})
         (callPackage ./packages/literate/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
-        (callPackage ./packages/vale-styles/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (pass.withExtensions (ext: with ext; [ (callPackage ./packages/pass-import/default.nix {}) pass-audit pass-otp ]))
         unstable.emacs
@@ -83,6 +82,7 @@ in
         fortune
         gettext
         gifsicle
+        git
         groff
         highlight
         ideviceinstaller
@@ -114,6 +114,7 @@ in
         sbcl
         silver-searcher
         sshfs
+        subversion
         surfraw
         tcl
         tmux
