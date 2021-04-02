@@ -91,6 +91,7 @@ alias ls='ls -hN --color=always --group-directories-first'
 alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
 alias lxc-attach='lxc-attach --clear-env -n'
 alias lxc-ls='lxc-ls -f'
+alias lynx='lynx -cfg ~/.config/lynx/lynx.cfg'
 alias mocp='mocp -M $XDG_CONFIG_HOME/moc'
 alias newsboat='newsboat -c $XDG_CONFIG_HOME/newsboat/cache.db -u $XDG_CONFIG_HOME/newsboat/urls -C $XDG_CONFIG_HOME/newsboat/config'
 alias nix-index='nix-index --db $XDG_DATA_HOME/nix-index'
@@ -99,8 +100,8 @@ alias rangerinf='while true; do ranger; done'
 alias rofi='rofi -cache-dir $XDG_DATA_HOME'
 alias sh='dash'
 alias tidy='tidy -config $HOME/.config/tidy.conf'
-alias wget='wget --hsts-file $HOME/.cache/wget.history'
 alias units='units --history "$XDG_CACHE_HOME"/units_history'
+alias wget='wget --hsts-file $HOME/.cache/wget.history'
 
 # nix helpers
 nix-which() { readlink "$(type -P "$1")"; }
