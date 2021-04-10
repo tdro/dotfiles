@@ -65,7 +65,6 @@ in
         alsaUtils
         ansible
         bat
-        bfg-repo-cleaner
         bleachbit
         davmail
         desktop-file-utils
