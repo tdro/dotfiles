@@ -38,7 +38,7 @@ in
 
     Tiger = pkgs.buildEnv {
       name = "tiger";
-      paths = [ Terminal Graphical Fonts Xorg Awesome JavaScript Python ];
+      paths = [ Nix Terminal Graphical Fonts Xorg Awesome JavaScript Python ];
     };
 
     Hound = pkgs.buildEnv {
@@ -389,7 +389,7 @@ in
 
     Nix = pkgs.buildEnv {
       name = "nix";
-      paths = [ nixfmt nixpkgs-fmt nixpkgs-lint nix-linter ];
+      paths = [ nixos-generators nix-index nix-linter nixfmt nixpkgs-fmt nixpkgs-lint ];
     };
 
     C = pkgs.buildEnv {
