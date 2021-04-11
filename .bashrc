@@ -123,6 +123,7 @@ history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" | spong
 docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export "$id" -o "$2.tar" && docker container rm "$id"; }
 
 # https://til.simonwillison.net/bash/escaping-a-string
+# press ctrl+d after writing string to standard input
 shellquote() { printf '%q\n' "$(cat)"; }
 
 # swallow
