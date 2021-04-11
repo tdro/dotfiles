@@ -1,0 +1,33 @@
+#!/bin/sh -eu
+# Idea condensed from https://github.com/Shopify/comma
+
+program=$(basename "$0")
+requires="$(command -V nix-index nix-locate nix-shell fzf | awk '{ print $1, $3 }' | column -t)"
+
+[ "${1:-}" = "--check" ] && printf '%s\n' "$requires" && exit;
+
+{ [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && printf \
+"
+Usage: %s [FLAGS]... [ARGUMENT]...
+
+The wrapper $program shall search all nix
+packages for a file and set up a nix shell for the
+program that contains that file. The shell prints
+all binaries in the package upon invocation.
+
+  Command List:
+
+   $program [ARGUMENT]...        Search for packages using file name argument.
+   $program --help               Show this help menu.
+   $program --check              Check dependencies.
+" "$program" && exit;
+
+databasePath=${XDG_DATA_HOME:-~/.local/share}/nix-index
+nixLocate='nix-locate --db '"$databasePath"' --top-level --minimal --whole-name '"${1:-}"
+attributes=$($nixLocate | while read -r attribute; do
+  attributeName=${attribute%.*};
+  printf '%s\n' "$attributeName";
+done)
+
+attribute=$(printf '%s' "$attributes" | fzf)
+nix-shell --packages "$attribute" --command 'printf "$buildInputs\n"; ls $buildInputs/bin; return';
