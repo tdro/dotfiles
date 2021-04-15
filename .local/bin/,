@@ -30,4 +30,11 @@ attributes=$($nixLocate | while read -r attribute; do
 done)
 
 attribute=$(printf '%s' "$attributes" | fzf)
-nix-shell --packages "$attribute" --command 'printf "$buildInputs\n"; ls $buildInputs/bin; return';
+nix-shell --packages "$attribute" --command \
+'
+  printf "\n";
+  ls $buildInputs/bin;
+  printf "\n";
+  tree -L 1 $buildInputs;
+  return
+';
