@@ -134,6 +134,7 @@ in
     Graphical = pkgs.buildEnv {
       name = "graphical";
       paths = [
+        (callPackage ./packages/beaker-browser/default.nix {})
         (callPackage ./packages/boomer/default.nix {})
         (callPackage ./packages/dmenu/default.nix {})
         (callPackage ./packages/gnaural/default.nix {})
