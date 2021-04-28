@@ -101,7 +101,6 @@ alias rofi='rofi -cache-dir $XDG_DATA_HOME'
 alias sh='dash'
 alias tidy='tidy -config $HOME/.config/tidy.conf'
 alias units='units --history "$XDG_CACHE_HOME"/units_history'
-alias wget='wget --hsts-file $HOME/.cache/wget.history'
 
 # nix helpers
 nix-which() { readlink "$(type -P "$1")"; }

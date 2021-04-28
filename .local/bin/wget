@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+$(which wget --all | grep -v "local/bin" | head -n 1) --hsts-file "$HOME/.cache/wget.history" "$@";
