@@ -148,6 +148,7 @@ in
         blender
         code-server
         copyq
+        dconf
         diffpdf
         escrotum
         evince
