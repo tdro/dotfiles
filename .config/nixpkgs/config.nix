@@ -122,6 +122,7 @@ in
         vale
         vault
         vimHugeX
+        vnstat
         w3m
         wavemon
         weechat
