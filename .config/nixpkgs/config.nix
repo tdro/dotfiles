@@ -17,8 +17,8 @@ in
 
     # Machines
 
-    Heron = pkgs.buildEnv {
-      name = "heron";
+    Woodpecker = pkgs.buildEnv {
+      name = "woodpecker";
       paths = [
         Terminal Graphical Xorg Awesome Fonts Audio LaTeX
         Android JavaScript Python PHP Lua Elixir Html Shell Haskell
@@ -27,8 +27,11 @@ in
     };
 
     Talon = pkgs.buildEnv {
-      name = "talon";
-      paths = [ Heron ];
+      name = "talon"; paths = [ Woodpecker ];
+    };
+
+    Heron = pkgs.buildEnv {
+      name = "heron"; paths = [ Woodpecker ];
     };
 
     Ferret = pkgs.buildEnv {
