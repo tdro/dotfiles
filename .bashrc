@@ -112,8 +112,8 @@ lxc-start() { for container in "$@"; do $(type -P lxc-start) -n "$container"; do
 lxc-stop() { for container in "$@"; do $(type -P lxc-stop) -kn "$container"; done }
 lxc-destroy() { for container in "$@"; do $(type -P lxc-destroy) -n "$container"; done }
 
-# source fzm
-[ -f "$HOME/.config/fzf-marks/fzf-marks.plugin.bash" ] && . "$HOME/.config/fzf-marks/fzf-marks.plugin.bash"
+# source fzf markers
+[ -f "$HOME/.config/fzf/marks.plugin.bash" ] && . "$HOME/.config/fzf/marks.plugin.bash"
 
 # remove bash history duplicates
 history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" | sponge "$HOME/.bash_history"; }

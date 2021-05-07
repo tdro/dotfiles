@@ -1,2 +1,3 @@
 #!/bin/sh -eu
+[ ! -f "$FZF_FILE_MARKS" ] && mkdir -p "$(dirname "$FZF_FILE_MARKS")" && touch "$FZF_FILE_MARKS"
 fzf < "$FZF_FILE_MARKS" | xargs -o -I{} sh -c "vim {}";

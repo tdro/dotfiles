@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # MIT License
 
 # Copyright (c) 2018 Urbain Vaes
@@ -25,18 +27,11 @@ FZF_MARKS_FILE=$FZF_DIRECTORY_MARKS
 
 command -v fzf >/dev/null 2>&1 || return
 
-function is_interactive_shell() {
-	# https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
+is_interactive_shell() { # https://www.gnu.org/software/bash/manual/html_node/Is-this-Shell-Interactive_003f.html
 	[[ "$-" =~ "i" ]]
 }
 
-if [[ -z "${FZF_MARKS_FILE}" ]] ; then
-    FZF_MARKS_FILE="${HOME}/.fzf-marks"
-fi
-
-if [[ ! -f "${FZF_MARKS_FILE}" ]]; then
-    touch "${FZF_MARKS_FILE}"
-fi
+[ ! -f "${FZF_MARKS_FILE}" ] && mkdir -p "$(dirname "${FZF_MARKS_FILE}")" && touch "${FZF_MARKS_FILE}"
 
 if [[ -z "${FZF_MARKS_COMMAND}" ]] ; then
 
