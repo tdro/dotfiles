@@ -35,7 +35,7 @@ URxvt.shading: 20
 
 URxvt.foreground: #FFFFFF
 URxvt.background: #2C303C
-URxvt.colorUL: #66A9B9
+URxvt.colorUL: #8FC1FF
 
 ! -----------------
 ! Terminal Colors
