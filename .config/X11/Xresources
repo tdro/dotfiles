@@ -2,98 +2,90 @@
 ! URxvt Settings
 ! -----------------
 
-URxvt.perl-ext-common: default,matcher,font-size,vtwheel,url-select,keyboard-select
-
-URxvt.url-launcher: /usr/bin/env browser
+URxvt.perl-ext-common:     default,matcher,font-size,vtwheel,url-select,keyboard-select
+URxvt.url-launcher:        /usr/bin/env browser
 URxvt.url-select.launcher: /usr/bin/env browser
-URxvt.keysym.M-Escape: perl:keyboard-select:activate
-
-URxvt.matcher.button: 1
-URxvt.internalBorder: 10
-URxvt.geometry: 74x18
-
-URxvt.cursorUnderline: 0
-URxvt.cursorBlink: 1
-URxvt.cursorColor: #69AEFF
-
-URxvt*font: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.boldFont: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.italicFont: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.boldItalicFont: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-
-URxvt.keysym.C-0: perl:font-size:reset
-URxvt.keysym.C-Up: perl:font-size:increase
-URxvt.keysym.C-Down: perl:font-size:decrease
-
-URxvt.scrollBar: false
-URxvt.scrollTtyOutput: false
-URxvt.scrollWithBuffer: true
-URxvt.scrollTtyKeypress: true
-
-URxvt.transparent: false
-URxvt.shading: 20
-
-URxvt.foreground: #FFFFFF
-URxvt.background: #2C303C
-URxvt.colorUL: #8FC1FF
+URxvt.keysym.M-Escape:     perl:keyboard-select:activate
+URxvt.matcher.button:      1
+URxvt.internalBorder:      10
+URxvt.geometry:            74x18
+URxvt.cursorUnderline:     0
+URxvt.cursorBlink:         1
+URxvt.cursorColor:         #69AEFF
+URxvt*font:                xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.keysym.C-0:          perl:font-size:reset
+URxvt.keysym.C-Up:         perl:font-size:increase
+URxvt.keysym.C-Down:       perl:font-size:decrease
+URxvt.scrollBar:           false
+URxvt.scrollTtyOutput:     false
+URxvt.scrollWithBuffer:    true
+URxvt.scrollTtyKeypress:   true
+URxvt.transparent:         false
+URxvt.shading:             20
+URxvt.foreground:          #ffffff
+URxvt.background:          #2c303c
+URxvt.colorUL:             #8fc1ff
 
 ! -----------------
 ! Terminal Colors
 ! -----------------
 
 !black
-*color0:  #2C303C
+*color0:  #2c303c
 *color8:  #666666
 
 !red
-*color1:  #E84F4F
-*color9:  #FF3838
+*color1:  #e84f4f
+*color9:  #ff3838
 
 !green
-*color2:  #BEFF3E
-*color10: #CFFF72
+*color2:  #beff3e
+*color10: #cfff72
 
 !yellow
-*color3:  #FEA63C
-*color11: #FFDF23
+*color3:  #fea63c
+*color11: #ffdf23
 
 !blue
-*color4:  #69AEFF
-*color12: #5AA5FF
+*color4:  #69aeff
+*color12: #5aa5ff
 
 !magenta
-*color5:  #B7416E
-*color13: #E16A98
+*color5:  #b7416e
+*color13: #e16a98
 
 !cyan
-*color6:  #69AEFF
-*color14: #8B8B8B
+*color6:  #69aeff
+*color14: #8b8b8b
 
 !white
-*color7:  #FFFFFF
-*color15: #FFFFFF
+*color7:  #ffffff
+*color15: #ffffff
 
 ! -----------------
 ! Font Settings
 ! -----------------
 
-Xft.autohint: 0
+Xft.autohint:  0
 Xft.antialias: 1
-Xft.hinting: 1
+Xft.hinting:   1
 Xft.hintstyle: hintslight
-Xft.dpi: 96
-Xft.rgba: rgb
+Xft.dpi:       96
+Xft.rgba:      rgb
 Xft.lcdfilter: lcddefault
 
 ! -----------------
 ! ROFI Settings
 ! -----------------
 
-rofi.bw: 0
-rofi.color-enabled: true
-rofi.hide-scrollbar: true
-rofi.separator-style: none
-rofi.disable-history: false
+rofi.bw:                0
+rofi.color-enabled:     true
+rofi.hide-scrollbar:    true
+rofi.separator-style:   none
+rofi.disable-history:   false
 rofi.fake-transparency: false
 
 rofi.color-window: argb:cc222222, #FAC863, #FAC863
@@ -105,11 +97,11 @@ rofi.color-urgent: argb:00000000, #F99157, argb:00000000, #F99157, #1B2B34
 ! DMENU Settings
 ! -----------------
 
-dmenu.background: #000000
-dmenu.foreground: #ffffff
+dmenu.font:          xft:Sans:size=9:style=bold
+dmenu.background:    #000000
+dmenu.foreground:    #ffffff
 dmenu.selforeground: #000000
 dmenu.selbackground: #1b99ec
-dmenu.font: xft:Sans:size=9:style=bold
 
 ! -----------------
 ! X Settings
