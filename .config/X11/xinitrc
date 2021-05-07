@@ -1,11 +1,12 @@
-#!/bin/sh
+#!/bin/sh -eu
 
-userresources=$HOME/.config/X11/Xresources
-usermodmap=$HOME/.config/X11/Xmodmap
+Xmodmap=$HOME/.config/X11/Xmodmap
+Xresources=$HOME/.config/X11/Xresources
+Xauthority=$HOME/.config/X11/Xauthority
 
 # merge in defaults and keymaps
-[ -f "$userresources" ] && xrdb -merge "$userresources";
-[ -f "$usermodmap" ] && xmodmap "$usermodmap";
+[ -f "$Xresources" ] && xrdb -merge "$Xresources";
+[ -f "$Xmodmap" ] && xmodmap "$Xmodmap";
 
 # screen timeouts
 xset s 0 0 &
@@ -18,6 +19,7 @@ xsetroot -cursor_name left_ptr;
 xset r rate 200 60;
 
 # generate xauth
+grep "$(hostname)" "$Xauthority" || rm -f "$Xauthority";
 xauth generate :0 . trusted;
 
 # import systemctl environment
