@@ -54,13 +54,13 @@ in
     Terminal = pkgs.buildEnv {
       name = "terminal";
       paths = [
-        (callPackage ./packages/amfora/default.nix {})
         (callPackage ./packages/chromexup/default.nix {})
         (callPackage ./packages/gmni/default.nix {})
         (callPackage ./packages/literate/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (pass.withExtensions (ext: with ext; [ (callPackage ./packages/pass-import/default.nix {}) pass-audit pass-otp ]))
+        unstable.amfora
         unstable.emacs
         unstable.fzf
         unstable.hugo
