@@ -7,7 +7,7 @@ RestartSec=5s
 Restart=always
 KillMode=process
 SyslogIdentifier=xbindkeys
-ExecStart=/usr/bin/env bash -l -c 'xbindkeys -f %h/.config/xbindkeysrc -p -n'
+ExecStart=/usr/bin/env bash -l -c 'xbindkeys -f %h/.config/X11/xbindkeysrc -p -n'
 
 [Install]
 WantedBy=default.target
