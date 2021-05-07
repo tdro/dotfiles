@@ -216,6 +216,7 @@ in
     Xorg = pkgs.buildEnv {
       name = "xorg";
       paths = [
+        (callPackage ./packages/x11vnc/default.nix {})
         (callPackage ./packages/xprintidle/default.nix {})
         xorg.xauth
         xorg.xev
@@ -235,7 +236,6 @@ in
         xorg.xset
         xorg.xsetroot
         glxinfo
-        x11vnc
         xbindkeys
         xdotool
         xsel
