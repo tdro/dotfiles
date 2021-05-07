@@ -2,10 +2,10 @@
 ! URxvt Settings
 ! -----------------
 
-URxvt.perl-ext-common: default,matcher,font-size,vtwheel,keyboard-select
+URxvt.perl-ext-common: default,matcher,font-size,vtwheel,url-select,keyboard-select
 
-URxvt.url-launcher: /usr/bin/env firefox
-URxvt.url-select.launcher: /usr/bin/env firefox
+URxvt.url-launcher: /usr/bin/env browser
+URxvt.url-select.launcher: /usr/bin/env browser
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
 
 URxvt.matcher.button: 1

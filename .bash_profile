@@ -44,7 +44,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 
 # general exports
-export BROWSER=chromium;
+export BROWSER=browser;
 export CARGO_HOME="$XDG_CACHE_HOME/cargo"
 export EDITOR=vim
 export FZF_DIRECTORY_MARKS=$HOME/Documents/.fzf-marks
