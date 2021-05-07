@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
+$(which mplayer --all | grep -v "local/bin" | head -n 1) "$@"
