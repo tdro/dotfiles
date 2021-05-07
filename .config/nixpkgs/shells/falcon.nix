@@ -34,6 +34,6 @@ mkShell {
     export CROSS_COMPILE=${toolchain}/bin/arm-linux-gnueabihf-
     export ARCH=arm
     export PS1='\h (falcon kernel) \W \$ '
-    cd '${project}'
+    cd '${project}' || exit 1
   '';
 }

@@ -14,7 +14,7 @@ in mkShell rec {
     export ANSIBLE_STRATEGY_PLUGINS=$virtualenvs/ansible-mitogen/lib/python3.8/site-packages/ansible_mitogen/plugins
     export ANSIBLE_STRATEGY=mitogen_linear
     export PS1='\h (${name}) \W \$ '
-    cd "${project}"
+    cd '${project}' || exit 1
     ssh -T git@github.com
   '';
 }

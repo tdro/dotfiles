@@ -13,7 +13,7 @@ in mkShell {
     export NIX_PATH=${channel}/nixexprs.tar.xz
     export _NIX_CHANNEL=${channel}
     export PS1='\h (nixos ${version} ''${_NIX_CHANNEL##*.}) \W \$ '
-    cd "${project}"
+    cd '${project}' || exit 1
     ssh -T git@github.com
   '';
 }
