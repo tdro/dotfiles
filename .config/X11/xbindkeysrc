@@ -2,6 +2,10 @@
 # xbindkeys configuration #
 ###########################
 
+# Quake Terminal
+"tdrop -tam -y 65% -x 15% -w 70% -h 35% urxvt -pe tabbed"
+    Mod4 + q
+
 # App Launcher
 "$HOME/.local/bin/scripts/app-launcher"
     Mod4 + r

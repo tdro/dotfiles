@@ -204,7 +204,6 @@ in
         vimb
         virt-manager
         vscodium
-        wmctrl
         xournalpp
         xsane
         zathura
@@ -218,6 +217,11 @@ in
       paths = [
         (callPackage ./packages/x11vnc/default.nix {})
         (callPackage ./packages/xprintidle/default.nix {})
+        glxinfo
+        tdrop
+        wmctrl
+        xbindkeys
+        xdotool
         xorg.xauth
         xorg.xev
         xorg.xf86inputevdev
@@ -235,9 +239,6 @@ in
         xorg.xrdb
         xorg.xset
         xorg.xsetroot
-        glxinfo
-        xbindkeys
-        xdotool
         xsel
         xzoom
       ];

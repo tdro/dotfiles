@@ -4,7 +4,6 @@ local wibox     = require("wibox")       -- Wibox module.
 local beautiful = require("beautiful")   -- Theme module.
 local naughty   = require("naughty")     -- Notification module.
 local menubar   = require("menubar")     -- Menu bar module.
-local lain      = require("lain")        -- Lain module.
 
 require("awful.autofocus")               -- Enable autofocus.
 awful.mouse.snap.edge_enabled = false    -- Disable window edge snapping.
@@ -151,7 +150,6 @@ awful.screen.connect_for_each_screen(function(s)
     mylayoutbox[s] = awful.widget.layoutbox(s)                                                                                            -- Create layout box.
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)                                            -- Create a taglist widget.
     mywibox[s] = awful.wibar({ position = "top", ontop = true, height = "18", screen = s })                                               -- Create the wibox.
-    s.quake = lain.util.quake({ app = "urxvt -pe tabbed", width = 0.75, height = 0.33, horiz = "center", vert = "bottom", border=2 })     -- Quake style drop down terminal.
 
     -- Left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -190,7 +188,6 @@ end)
 globalkeys = gears.table.join(
   awful.key({ modkey,           }, "Escape", awful.tag.history.restore),                                                                 -- Show last visited tag
   awful.key({ modkey,           }, "u",      awful.client.urgent.jumpto),                                                                -- Jump to urgent client
-  awful.key({ modkey,           }, "q",      function () awful.screen.focused().quake:toggle() end),                                     -- Toggle quake terminal
 
   awful.key({ modkey,           }, "j",      function () awful.client.focus.byidx( 1) end),                                              -- Show next window
   awful.key({ modkey,           }, "k",      function () awful.client.focus.byidx(-1) end),                                              -- Show previous window
@@ -218,43 +215,22 @@ clientkeys = gears.table.join(
   awful.key({ modkey, "Control" }, "k",       function(c) c.y = c.y - 1 end),                               -- Move focused window up one pixel.
   awful.key({ modkey, "Control" }, "j",       function(c) c.y = c.y + 1 end),                               -- Move focused window down one pixel.
   awful.key({ modkey, "Control" }, "h",       function(c) c.x = c.x - 1 end),                               -- Move focused window left one pixel.
-  awful.key({ modkey, "Control" }, "l",       function(c) c.x = c.x + 1 end)                                -- Move focused window right one pixel.
+  awful.key({ modkey, "Control" }, "l",       function(c) c.x = c.x + 1 end),                               -- Move focused window right one pixel.
+
+  awful.key({ modkey, "#49"     }, "k",       function(c) c.y = c.y - 10 end),                              -- Move focused window up fast.
+  awful.key({ modkey, "#49"     }, "j",       function(c) c.y = c.y + 10 end),                              -- Move focused window down fast.
+  awful.key({ modkey, "#49"     }, "h",       function(c) c.x = c.x - 10 end),                              -- Move focused window left fast.
+  awful.key({ modkey, "#49"     }, "l",       function(c) c.x = c.x + 10 end)                               -- Move focused window right fast.
 )
 
 -- Bind all key numbers to tags
 for i = 1, 9 do
-    globalkeys = gears.table.join(globalkeys,
-      awful.key({ modkey }, "#" .. i + 9,                     -- View tag only.
-        function ()
-          local screen = awful.screen.focused()
-          local tag = screen.tags[i]
-          if tag then tag:view_only() end
-        end
-      ),
-      awful.key({ modkey, "Control" }, "#" .. i + 9,          -- Toggle tag display.
-        function ()
-          local screen = awful.screen.focused()
-          local tag = screen.tags[i]
-          if tag then awful.tag.viewtoggle(tag) end
-        end
-      ),
-      awful.key({ modkey, "Shift" }, "#" .. i + 9,            -- Move client to tag.
-        function ()
-          if client.focus then
-            local tag = client.focus.screen.tags[i]
-            if tag then client.focus:move_to_tag(tag) end
-          end
-        end
-      ),
-      awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, -- Toggle tag on focused client.
-        function ()
-          if client.focus then
-            local tag = client.focus.screen.tags[i]
-            if tag then client.focus:toggle_tag(tag) end
-          end
-        end
-      )
-    )
+  globalkeys = gears.table.join(globalkeys,
+    awful.key({ modkey                     }, "#" .. i + 9, function () local screen = awful.screen.focused() local tag = screen.tags[i] if tag then tag:view_only() end end),               -- View tag only.
+    awful.key({ modkey, "Control"          }, "#" .. i + 9, function () local screen = awful.screen.focused() local tag = screen.tags[i] if tag then awful.tag.viewtoggle(tag) end end),     -- Toggle tag display.
+    awful.key({ modkey, "Shift"            }, "#" .. i + 9, function () if client.focus then local tag = client.focus.screen.tags[i] if tag then client.focus:move_to_tag(tag) end end end), -- Move client to tag.
+    awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function () if client.focus then local tag = client.focus.screen.tags[i] if tag then client.focus:toggle_tag(tag) end end end)   -- Toggle tag on focused client.
+  )
 end
 
 -- Mouse movement
