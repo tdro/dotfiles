@@ -235,6 +235,12 @@ vnoremap > >gv
 vnoremap <expr>y "my\"" . v:register . "y`y"
 
 
+"------------------Snippets-------------------"
+
+nnoremap ,html :-1read $HOME/.vim/snippets/skeleton.html<cr>3jwf>a
+nnoremap ,nix  :-1read $HOME/.vim/snippets/module.nix<cr>4jf"a
+
+
 "---------------Plugin Settings---------------"
 
 let g:netrw_banner=0                    " Disable netrw banner.
