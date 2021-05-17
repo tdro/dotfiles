@@ -1,22 +1,18 @@
 #!/bin/sh
 
+# https://tools.suckless.org/dmenu/scripts/
+
 [ "$1" = "privilege" ] && export cmd_prefix='sudo -A ' && export dmenu_args='-p Privilege -sb red' && shift 1;
 [ "$1" = "terminal" ] && export cmd_prefix='urxvt -hold -e ' && export dmenu_args='-p Terminal -sb gray' && shift 1;
 
-# https://tools.suckless.org/dmenu/scripts/
-
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}
-if [ -d "$cachedir" ]; then
-	cache=$cachedir/dmenu_run
-	historyfile=$XDG_DATA_HOME/dmenu_history
-else
-	cache=$HOME/.dmenu_cache
-	historyfile=$HOME/.dmenu_history
-fi
+cache=$cachedir/dmenu_run
+historyfile=$XDG_DATA_HOME/dmenu_history
+mkdir -p "$cachedir";
 
 if [ "$1" = "update" ] || [ ! -f "$cache" ]; then
-  IFS=:
-  stest -dqr -n "$cache" $PATH && stest -flx $PATH | sort -u > "$cache";
+  IFS=:;
+  stest -flx $PATH | sort -u > "$cache";
   unset IFS;
   exit;
 fi
