@@ -9,9 +9,6 @@ so ~/.vim/plugins.vim                    " Source plugins.
 "------------General------------"
 
 let mapleader = "\<space>"               " Set default map leader.
-let g:notify = "notify-send -t 10000"    " Set default notify daemon.
-
-syntax enable                            " Enable syntax highlighting.
 
 set ruler                                " Show the cursor position all the time.
 set nowrap                               " Do not wrap lines.
@@ -73,6 +70,7 @@ set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
 
 "----------------Visuals----------------"
 
+syntax enable                            " Enable syntax highlighting.
 colorscheme fluid                        " Set color scheme.
 set guioptions-=l                        " Remove left scrollbar in GUI.
 set guioptions-=L                        " Remove left scrollbar in GUI vertical split.
@@ -87,19 +85,17 @@ set guioptions-=e                        " Remove tab bar in GUI.
 
 " PHP Fixer
 function! PHPFix()
-  :silent exe '!' . expand(g:notify) . ' ' . '"$(phpcbf % 2>&1)" > /dev/null 2>&1'
-  :redraw!
+  :exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1'')' | :e
 endfunction
 
 " ESLint Fix
 function! ESLintFix()
-  :silent exe '!' . expand(g:notify) . ' ' . '"$(eslint -c $HOME/.config/eslintrc.yml --fix % 2>&1)" > /dev/null 2>&1'
+  :exe 'Notify(''eslint -c $HOME/.config/eslintrc.yml --fix ' . expand('%') . ' 2>&1'')' | :e
 endfunction
 
 " Ansible Check
 function! AnsibleCheck()
-  :silent exe '!' . expand(g:notify) . ' ' . '"$(ansible-playbook --syntax-check % 2>&1)" > /dev/null 2>&1 &'
-  :redraw!
+  :exe 'Notify(''ansible-playbook --syntax-check ' . expand('%') . ' 2>&1'')' | :e
 endfunction
 
 " Typography Format
@@ -143,8 +139,8 @@ nmap <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \|
 nmap <leader>jl :norm yaW<cr> \| :Jump<cr>
 
 " Load and save sessions
-nmap <leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>
-nmap <leader>ss :silent! exe "!~/.vim/hooks/pre-session-save && notify-send 'Vim session saved.'" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>
+nmap <leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>
+nmap <leader>ss :silent! exe "!~/.vim/hooks/pre-session-save" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>
 
 " Toggle Spell Check
 nmap <leader>sp :set spell!<cr>
@@ -164,7 +160,7 @@ nmap <leader>w <C-w>c<cr>
 nmap <leader>re gg=G<C-o><C-o>
 
 " Reset all settings and source configuration.
-nmap <leader>ra :set all& \| :source ~/.vimrc \| :e<cr>
+nmap <leader>ra :set all& \| :source ~/.vimrc \| :e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>
 
 " Remove duplicate lines
 vnoremap <leader>rd !awk '\!visited[$0]++'<cr>
@@ -215,6 +211,10 @@ nmap <Esc><Esc> :nohl<cr>
 
 " Disable Ex Mode
 nnoremap Q <Nop>
+
+" Clear notification popups
+nnoremap j :call popup_clear()<cr><Down>
+nnoremap k :call popup_clear()<cr><Up>
 
 " Split window mappings
 nmap <Bslash> :vsplit<cr>
@@ -275,8 +275,14 @@ function s:cursor(selection)
   call cursor(g:cursor_request[0], g:cursor_request[1])
 endfunction
 
-command! -nargs=? -range Jump call s:cursor(@*)
-command! -nargs=? -range REPL call s:repl(<line1>, <line2>, <f-args>)
+" Notify
+function s:notify(command)
+  call popup_notification(systemlist(a:command), { 'pos': 'topright', 'col': 9999, 'time' : 600000, 'highlight': 'Normal' })
+endfunction
+
+command! -nargs=? -range Jump   call s:cursor(@*)
+command! -nargs=? -range REPL   call s:repl(<line1>, <line2>, <f-args>)
+command! -nargs=1 -range Notify call s:notify(<args>)
 
 
 "----------------Autorun----------------"
@@ -287,28 +293,28 @@ augroup AutoCommands
   autocmd!
 
   " Source reloads.
-  autocmd BufWritePost .vimrc source %      | silent exe '!' . expand(g:notify) . ' ' . '''Sourcing vimrc...'''
-  autocmd BufWritePost plugins.vim source % | silent exe '!' . expand(g:notify) . ' ' . '''Sourcing plugins...'''
+  autocmd BufWritePost .vimrc      source % | Notify('printf "Configuration sourced."')
+  autocmd BufWritePost plugins.vim source % | Notify('printf "Plugins configuration sourced."')
 
   " Linting extension post write commands.
   autocmd BufWritePost *.php      :call PHPFix()
   autocmd BufWritePost *.js       :call ESLintFix()
   autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale %
-  autocmd BufWritePost *.lit      silent exe '!' . expand(g:notify) . ' ' . '"$(lit % 2>&1 && printf ''Literate OK: %'')"'
+  autocmd BufWritePost *.lit      exe 'Notify(''lit ' . expand('%') . ' 2>&1 && printf "Literate OK: ' . expand('%') . '"'')'
 
   " Linting file type post write commands.
-  autocmd FileType css     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(prettier --write --parser css % 2>&1)"'
-  autocmd FileType rust    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(rustfmt % 2>&1 && echo ''rustfmt OK: %'')"'
-  autocmd FileType json    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(jsonlint -i % 2>&1 && echo ''json OK: %'')"'
-  autocmd FileType haskell autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(hlint % 2>&1 && brittany --write-mode inplace % 2>&1)"'
-  autocmd FileType c       autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(clang-format -i % 2>&1 && echo ''clang-format OK: %'')"'
-  autocmd FileType go      autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(gofmt -w -s -e % 2>&1 && go vet % 2>&1 && echo ''gofmt OK: %'')"'
-  autocmd FileType awk     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(awk -g -f % 2>&1 && awk -o- -f % | sponge % && echo ''awk OK: %'')"'
-  autocmd FileType elixir  autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(mix format % 2>&1 && echo ''Elixir Format OK: %'')" > /dev/null 2>&1'
-  autocmd FileType nix     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(nix-linter % 2>&1 && echo ''Nix Lint OK: %'' && nixfmt % 2>&1)" > /dev/null 2>&1'
-  autocmd FileType yaml    autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(yaml round-trip --indent 2 --save % 2>&1 && yamllint -s % 2>&1 && echo ''yaml OK: %'')"'
-  autocmd FileType bash,sh autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(shellcheck -x --exclude=SC1090,SC1091 % 2>&1 && echo ''Shellcheck OK: %'')" > /dev/null 2>&1 &'
-  autocmd FileType sql     autocmd! BufWritePost <buffer> silent exe '!' . expand(g:notify) . ' ' . '"$(sqlint % 2>&1 && pg_format -i % 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres % 2>&1 && echo ''SQL OK: %'')"'
+  autocmd FileType css     autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType rust    autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType json    autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType haskell autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType c       autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType go      autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType awk     autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType elixir  autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType nix     autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e
+  autocmd FileType yaml    autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType bash,sh autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')'
+  autocmd FileType sql     autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format -i ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
 
   " File type function under cursor lookups.
   autocmd FileType go     noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
@@ -335,11 +341,10 @@ augroup AutoCommands
 
   " General auto commands.
   autocmd BufWritePost *.tex                              :term ++close ++rows=10 latex-compile %
-  autocmd BufWritePost quotes,*.fortune                   silent exe '!' . expand(g:notify) . ' ' . '"$(strfile %)"'
-  autocmd BufWritePost $HOME/.config/chromexup/config.ini silent exe '!' . expand(g:notify) . ' ' . '"$(chromexup 2>&1)"'
-  autocmd BufWritePost rc.lua                             silent exe '!' . expand(g:notify) . ' ' . '"$(awesome -k 2>&1)"'
-  autocmd BufWritePost *.desktop                          silent exe '!' . expand(g:notify) . ' ' . '"$(desktop-file-validate % 2>&1 && echo ''OK: %'')"'
-  autocmd BufWritePost Xresources                         silent exe '!' . 'xrdb ~/.config/X11/Xresources &&' . ' ' .  expand(g:notify) . ' ' . '''Reloading Xresources...'''
+  autocmd BufWritePost $HOME/.config/chromexup/config.ini exe 'Notify(''chromexup 2>&1'')'
+  autocmd BufWritePost rc.lua                             exe 'Notify(''awesome -k 2>&1'')'
+  autocmd BufWritePost quotes,*.fortune                   exe 'Notify(''strfile ' . expand('%') . ''')'
+  autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Deskop File OK: ' . expand('%') . '"'')'
 
   " Automatically remove trailing white space on save.
   autocmd InsertLeave,BufWritePre * %s/\s\+$//e
