@@ -418,6 +418,7 @@ in
       name = "css";
       paths = [
         (callPackage ./packages/csstidy/default.nix {})
+        (callPackage ./packages/stylelint/default.nix {})
         csslint
       ];
     };
