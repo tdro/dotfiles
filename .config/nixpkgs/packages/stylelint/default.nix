@@ -13,8 +13,8 @@ mkYarnPackage rec {
   defaultYarnFlags = [ "--offline" "--frozen-lockfile" "--ignore-engines" "--ignore-scripts" ];
 
   yarn-lock = stdenv.mkDerivation {
+    inherit src;
     name = "${pname}-yarn.lock";
-    src = fetchgit { inherit url rev sha256; };
     buildInputs = [ yarn ];
     installPhase = ''
       runHook preInstall
@@ -24,6 +24,7 @@ mkYarnPackage rec {
       cp yarn.lock $out
       runHook postInstall
     '';
+    dontBuild = true;
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = "0cz16mnhagm300sfgmc031mzhbbwagbz3agji4hwrinw7bg3195f";
