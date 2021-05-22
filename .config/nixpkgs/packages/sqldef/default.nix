@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, buildGoModule }:
+{ lib, fetchgit, buildGoModule }:
 
 buildGoModule rec {
   pname = "sqldef";
@@ -15,7 +15,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = url;
     license = licenses.mit;
     description = "Idempotent MySQL/PostgreSQL schema management by SQL";

@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, python38 }:
+{ lib, fetchgit, python38 }:
 
 with python38.pkgs;
 
@@ -20,7 +20,7 @@ buildPythonApplication rec {
     cp -rT scripts/systemd $out
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = licenses.mit;
     inherit (src.meta) homepage;
     platforms = platforms.linux;

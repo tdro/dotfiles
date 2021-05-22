@@ -1,10 +1,10 @@
-{ stdenv, python38 }:
+{ lib, python38 }:
 
 with python38.pkgs;
 
 let
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = licenses.mit;
     description = "Command line utility to manipulate YAML files";
     homepage = "https://sourceforge.net/p/ruamel-yaml-cmd/code/ci/default/tree";

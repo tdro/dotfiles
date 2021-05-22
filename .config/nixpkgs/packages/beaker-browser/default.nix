@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, appimageTools }:
+{ lib, fetchurl, appimageTools }:
 
 let version = "1.1.0"; in
 
@@ -10,7 +10,7 @@ appimageTools.wrapType2  {
     sha256 = "07hcyr6vyim8vrvw120v5jjfvy5jkcaqc3wgqgyf6prbqdx71dkp";
   };
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://beakerbrowser.com";
     license = licenses.mit;
     description = "An experimental peer-to-peer Web browser";

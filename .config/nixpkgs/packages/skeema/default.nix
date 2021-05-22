@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, buildGoModule }:
+{ lib, fetchgit, buildGoModule }:
 
 buildGoModule rec {
   pname = "skeema";
@@ -15,7 +15,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = url;
     license = licenses.asl20;
     description = "Schema management CLI for MySQL";

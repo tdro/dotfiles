@@ -1,4 +1,4 @@
-{ stdenv, pass, fetchFromGitHub, python38, makeWrapper, fetchpatch }:
+{ lib, stdenv, pass, fetchFromGitHub, python38, makeWrapper, fetchpatch }:
 
 with python38.pkgs;
 
@@ -51,7 +51,7 @@ in stdenv.mkDerivation rec {
       --run "export PREFIX"
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Pass extension for importing data from existing password managers";
     homepage = "https://github.com/roddhjav/pass-import";
     license = licenses.gpl3Plus;

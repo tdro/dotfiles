@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, unzip }:
+{ lib, stdenv, fetchurl, unzip }:
 
 stdenv.mkDerivation rec {
 
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     cp -r * $out/share/fonts/nerdfonts-dejavu-sans-mono
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = ''
       Nerd Fonts is a project that attempts to patch as many developer targeted
       and/or used fonts as possible. The patch is to specifically add a high

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, makeWrapper, nim, libX11, libXrandr, libGL }:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, nim, libX11, libXrandr, libGL }:
 
 let
 
@@ -45,13 +45,13 @@ in stdenv.mkDerivation rec {
   fixupPhase = ''
     runHook preFixup
     patchelf --set-rpath ${
-      stdenv.lib.makeLibraryPath [ stdenv.cc.cc libX11 libXrandr libGL ]
+      lib.makeLibraryPath [ stdenv.cc.cc libX11 libXrandr libGL ]
     } $out/bin/boomer
     wrapProgram "$out/bin/boomer" --set LIBGL_ALWAYS_SOFTWARE 1
     runHook postFixup
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = licenses.mit;
     platforms = platforms.linux;
     homepage = "https://github.com/tsoding/boomer";

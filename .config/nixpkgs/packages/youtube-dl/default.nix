@@ -6,11 +6,11 @@
 python38Packages.buildPythonPackage rec {
 
   pname = "youtube-dl";
-  version = "2020.12.05";
+  version = "2021.05.16";
 
   src = fetchurl {
     url = "https://yt-dl.org/downloads/${version}/${pname}-${version}.tar.gz";
-    sha256 = "065s45l8qz7wlkaxw9bj20gq9647zpwdj9vc6chhqjscl63z1aqm";
+    sha256 = "1z8sdzvkxhscnzy7cnjag308glif0k8jylr11biqwzypm1f2l0fl";
   };
 
   nativeBuildInputs = [ installShellFiles makeWrapper ];

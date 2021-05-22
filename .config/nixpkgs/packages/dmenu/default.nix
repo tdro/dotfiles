@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, libX11, libXinerama, libXft, zlib, fetchpatch }:
+{ lib, stdenv, fetchurl, libX11, libXinerama, libXft, zlib, fetchpatch }:
 
 stdenv.mkDerivation rec {
   name = "dmenu-4.9";
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "CC:=$(CC)" ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = licenses.mit;
     platforms = platforms.all;
     homepage = "https://tools.suckless.org/dmenu";

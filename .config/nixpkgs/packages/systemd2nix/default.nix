@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, python38 }:
+{ lib, fetchgit, python38 }:
 
 python38.pkgs.buildPythonApplication rec {
 
@@ -21,7 +21,7 @@ python38.pkgs.buildPythonApplication rec {
     makeWrapper ${python38}/bin/python $out/bin/${pname} --add-flags $out/share/${pname}/${pname}.py
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = url;
     license = licenses.mit;
     platforms = platforms.linux;

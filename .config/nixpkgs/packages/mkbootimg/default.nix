@@ -1,4 +1,4 @@
-{ stdenv, fetchgit }:
+{ lib, stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     cp unpackbootimg $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = url;
     platforms = platforms.linux;
     license = licenses.unlicense;

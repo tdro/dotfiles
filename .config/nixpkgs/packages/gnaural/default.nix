@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, portaudio, libsndfile, pkg-config, gtk2, gcc48 }:
+{ lib, stdenv, fetchurl, portaudio, libsndfile, pkg-config, gtk2, gcc48 }:
 
 stdenv.mkDerivation rec {
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ gcc48 portaudio pkg-config gtk2 libsndfile ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = licenses.gpl2;
     platforms = platforms.linux;
     homepage = "http://gnaural.sourceforge.net/";

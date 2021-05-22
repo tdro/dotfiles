@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, libX11, libXScrnSaver, libXext, meson, pkg-config
-, ninja }:
+{ lib, stdenv, fetchFromGitHub, libX11, libXScrnSaver, libXext, meson
+, pkg-config, ninja }:
 
 stdenv.mkDerivation rec {
   pname = "xprintidle";
@@ -13,15 +13,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ meson pkg-config ninja ];
-
   buildInputs = [ libX11 libXScrnSaver libXext ];
 
-  meta = {
+  meta = with lib; {
     inherit version;
     description = "A command-line tool to print idle time from libXss";
     homepage = "https://github.com/g0hl1n/xprintidle";
-    license = stdenv.lib.licenses.gpl2;
-    maintainers = [ stdenv.lib.maintainers.raskin ];
-    platforms = stdenv.lib.platforms.linux;
+    license = licenses.gpl2;
+    maintainers = [ maintainers.raskin ];
+    platforms = platforms.linux;
   };
 }

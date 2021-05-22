@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, python38 }:
+{ lib, fetchgit, python38 }:
 
 python38.pkgs.buildPythonApplication rec {
 
@@ -34,7 +34,7 @@ python38.pkgs.buildPythonApplication rec {
     makeWrapper ${pythonEnv}/bin/python $out/bin/edl-fhloaderparse --add-flags $out/share/edl/fhloaderparse.py
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = url;
     license = licenses.mit;
     platforms = platforms.linux;

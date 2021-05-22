@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, python36 }:
+{ lib, fetchgit, python36 }:
 
 with python36.pkgs;
 
@@ -49,7 +49,7 @@ in buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = url;
     license = licenses.mit;
     platforms = platforms.linux;

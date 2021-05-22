@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, cmake }:
+{ lib, stdenv, fetchFromGitHub, cmake }:
 
 stdenv.mkDerivation rec {
   pname = "LuaFormatter";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ cmake ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit (src.meta) homepage;
     description = "Code formatter for Lua";
     license = licenses.asl20;

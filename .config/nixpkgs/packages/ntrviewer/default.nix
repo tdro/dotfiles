@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch, libjpeg, ffmpeg, SDL }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch, libjpeg, ffmpeg, SDL }:
 
 stdenv.mkDerivation rec {
   pname = "ntrviewer";
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = licenses.gpl3;
     inherit (src.meta) homepage;
     platforms = platforms.linux;

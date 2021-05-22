@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, sconsPackages, gcc }:
+{ lib, stdenv, fetchgit, sconsPackages, gcc }:
 
 stdenv.mkDerivation rec {
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     cp release/csstidy/csstidy $out/bin
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     license = licenses.lgpl21;
     inherit (src.meta) homepage;
     platforms = platforms.linux;
