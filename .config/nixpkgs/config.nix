@@ -98,6 +98,7 @@ in
         mdcat
         mimeo
         moc
+        monolith
         neofetch
         newsboat
         nnn
@@ -167,6 +168,7 @@ in
         google-chrome
         gparted
         i3lock-fancy
+        kcharselect
         keepassxc
         krop
         libnotify
