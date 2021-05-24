@@ -1,31 +1,51 @@
 #! /usr/bin/env elixir
 
+defmodule Settings do
+  def terminal do
+    "urxvt"
+  end
+end
+
 defmodule ArgParser do
   def parse do
     {opts, _} =
       System.argv()
       |> OptionParser.parse!(strict: [option: :string, text: :string])
 
+    options = [
+      thesaurus: "Thesaurus",
+      title_case: "Title Case",
+      kjv_lookup: "KJV Verse Lookup",
+      single_line: "Single line of text",
+      first_letter: "First letter of each word in sentence"
+    ]
+
     cond do
-      opts[:option] == "First letter of each word in sentence" ->
+      opts[:option] == options[:first_letter] ->
         TextPlumber.firstLetterOfWordsIn(opts[:text]) |> IO.binwrite()
 
-      opts[:option] == "Single line of text" ->
+      opts[:option] == options[:single_line] ->
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
 
-      opts[:option] == "Thesaurus" ->
+      opts[:option] == options[:thesaurus] ->
         TextPlumber.synonymOfFirstWordIn(opts[:text])
         TextPlumber.firstWordOf(opts[:text]) |> IO.binwrite()
 
-      opts[:option] == "KJV Verse Lookup" ->
-        System.cmd("urxvt", ["-e", "sh", "-c", "kjv #{TextPlumber.singleLineOf(opts[:text])}"])
+      opts[:option] == options[:kjv_lookup] ->
+        System.cmd(Settings.terminal(), [
+          "-e",
+          "sh",
+          "-c",
+          "kjv #{TextPlumber.singleLineOf(opts[:text])}"
+        ])
+
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
 
-      opts[:option] == "Title Case" ->
+      opts[:option] == options[:title_case] ->
         TextPlumber.titleCaseOf(opts[:text]) |> IO.binwrite()
 
       true ->
-        "No plumber #{opts[:option] || "specified"}." |> IO.puts()
+        Enum.each(options, fn {_, value} -> IO.puts(value) end)
     end
   end
 end
@@ -50,7 +70,12 @@ defmodule TextPlumber do
   end
 
   def synonymOfFirstWordIn(text) do
-    System.cmd("urxvt", ["-e", "sh", "-c", "dict #{TextPlumber.firstWordOf(text)} | vim -"])
+    System.cmd(Settings.terminal(), [
+      "-e",
+      "sh",
+      "-c",
+      "dict -h localhost #{TextPlumber.firstWordOf(text)} 2>&1 | vim -"
+    ])
   end
 end
 
