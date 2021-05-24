@@ -21,8 +21,8 @@ in
       name = "woodpecker";
       paths = [
         Terminal Graphical Xorg Awesome Fonts Audio LaTeX
-        Android JavaScript Python PHP Lua Elixir Html Shell Haskell
-        Perl Nix C Golang Rust CSS SQL YAML
+        Android JavaScript Python PHP Lua Elixir HTML Shell Haskell
+        Perl Nix C Golang Rust CSS SQL YAML Ruby
       ];
     };
 
@@ -371,7 +371,7 @@ in
       paths = [ elixir_1_10 ];
     };
 
-    Html = pkgs.buildEnv {
+    HTML = pkgs.buildEnv {
       name = "html";
       paths = [
         html-tidy
@@ -399,6 +399,15 @@ in
     Nix = pkgs.buildEnv {
       name = "nix";
       paths = [ nixos-generators nix-index nix-linter nixfmt nixpkgs-fmt nixpkgs-lint ];
+    };
+
+    Ruby = pkgs.buildEnv {
+      name = "ruby";
+      paths = [
+        (callPackage ./packages/rufo/default.nix {})
+        rubocop
+        ruby
+      ];
     };
 
     C = pkgs.buildEnv {
