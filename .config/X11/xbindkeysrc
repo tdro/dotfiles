@@ -34,6 +34,10 @@
 "wmctrl -r :ACTIVE: -b toggle,above"
     Mod4 + t
 
+# Show bookmarks
+"bookmarks show $HOME/Documents/text/bookmarks/bookmarks.html"
+    Mod4 + g
+
 # Copyq Toggle
 "$HOME/.local/bin/scripts/clipboard"
     Mod4 + z

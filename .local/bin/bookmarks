@@ -1,0 +1,70 @@
+#!/bin/sh -eu
+
+date=$(date +%s)
+program=$(basename "$0")
+hxnormalize="hxnormalize -l 99999999 -x"
+items=$(mktemp --suffix -bookmarks_items)
+titles=$(mktemp --suffix -bookmarks_titles)
+anchors=$(mktemp --suffix -bookmarks_anchors)
+dependencies="$(command -V xmlstarlet hxnormalize paste \
+                hxselect hxincl xdg-open rofi basename \
+                | awk '{ print $1, $3 }' | column -t)"
+base=\
+"<!DOCTYPE NETSCAPE-Bookmark-file-1>
+<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">
+<title>Bookmarks</title>
+<h1>Bookmarks</h1>
+<dl>
+<!-- include $items --></dl>
+"
+
+bookmarks_help() {
+  [ "$#" = 0 ] && printf \
+  "
+  Usage: %s [FLAGS]... [ARGUMENTS]...
+
+  The program $program shall execute basic operations
+  on Netscape Bookmark HTML files.
+
+    Command List:
+
+      $program compile [FILES]...  Combine two or more bookmark files.
+      $program show [FILE]         Show list of bookmarks.
+      $program check               Check dependencies.
+  " "$program" && exit;
+}
+
+bookmarks_combine () {
+  bookmarks_help "$@";
+  for file in "$@"
+  do $hxnormalize "$file" | sed 's/&/&amp;/g' \
+    | xmlstarlet edit -S \
+      --delete '//a/@add_date' \
+      --delete '//a/@icon' \
+      --delete '//a/@icon_uri' \
+      --delete '//a/@last_charset' \
+      --delete '//a/@last_modified' \
+      --delete '//a/@last_modified' \
+      --delete '//a/@tags' \
+    | $hxnormalize | hxselect -i -s '\n' dt;
+  done | sort | awk '!removeDuplicates[$0]++' >> "$items";
+  printf "%s" "$base" | hxincl -f -x > "bookmarks-$date.html";
+  realpath "bookmarks-$date.html";
+}
+
+bookmarks_show () {
+  bookmarks_help "$@";
+  $hxnormalize "$1" | hxselect -c -i -s '\n' 'a::attr(href)' > "$anchors"
+  $hxnormalize "$1" | hxselect -c -i -s '\n' 'a' > "$titles"
+  xdg-open "$(paste -d' ' "$anchors" "$titles" \
+  | rofi -font "ubuntu 12" -matching regex -padding 20 -dmenu -i -p 'Bookmarks' \
+  | awk '{ print $1 }')";
+}
+
+rm -f /tmp/*-bookmarks_*;
+
+[ "${1:-}" = "show"    ] && shift 1 && bookmarks_show    "$@" && exit;
+[ "${1:-}" = "combine" ] && shift 1 && bookmarks_combine "$@" && exit;
+[ "${1:-}" = "check"   ] && shift 1 && printf '%s\n' "$dependencies" && exit;
+
+bookmarks_help;
