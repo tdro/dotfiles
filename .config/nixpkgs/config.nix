@@ -1,12 +1,12 @@
 let
 
   stable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/20.09/nixos-20.09.3346.4d0ee90c6e2/nixexprs.tar.xz";
-    sha256 = "1hl3ibkqpk0fihppj85fgiin5r6l9jsqmfjbmcqfyjvykh9fy6ag"; }) {};
+    url = "https://releases.nixos.org/nixos/21.05/nixos-21.05.650.eaba7870ffc/nixexprs.tar.xz";
+    sha256 = "08fpds1bkv9106c6s5w3p5r4v3dc24bhk9asm9vqbxxypjglqg9l"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-21.03pre265961.891f607d530/nixexprs.tar.xz";
-    sha256 = "1hwwb4n15bbqxnbqffq4kfb369vz65sq74p537fqdp6i4ywpqsyh"; }) {};
+    url = "https://releases.nixos.org/nixos/unstable/nixos-21.11pre292748.6933d068c5d/nixexprs.tar.xz";
+    sha256 = "1bwwrij68m0jb7vq5vzjnas3c5ylq5lj6fvwklyzawhkarq4hv1k"; }) {};
 
 in
 
@@ -144,6 +144,7 @@ in
         (callPackage ./packages/dmenu/default.nix {})
         (callPackage ./packages/gnaural/default.nix {})
         (callPackage ./packages/ntrviewer/default.nix {})
+        (callPackage ./packages/planner/default.nix {})
         unstable.nyxt
         unstable.tilp2
         unstable.ungoogled-chromium
@@ -181,7 +182,6 @@ in
         palemoon
         pavucontrol
         peek
-        planner
         qownnotes
         qrencode
         recoll
@@ -189,7 +189,7 @@ in
         rofi
         scrcpy
         screenkey
-        scribus
+        scribusUnstable
         sigil
         skippy-xd
         spaceFM
