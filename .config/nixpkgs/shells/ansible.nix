@@ -1,10 +1,17 @@
-with import <nixpkgs> { };
+let
 
-let project = "${builtins.getEnv "HOME"}/Shares/Projects/infrastructure/ansible";
+  # nix-shell -E 'import (builtins.fetchurl "$url")'
 
-in mkShell rec {
-  name = "ansible-mitogen";
-  buildInputs = [ python38.pkgs.pip ansible_2_9 ];
+  name = "nix-shell.ansible";
+  pkgs = import <nixpkgs> { };
+  project = "${builtins.getEnv "HOME"}/Shares/Projects/infrastructure/ansible";
+
+in pkgs.mkShell {
+
+  inherit name;
+
+  buildInputs = with pkgs; [ python38.pkgs.pip ansible_2_9 ];
+
   shellHook = ''
     export virtualenvs=$HOME/.local/share/virtualenvs
     mkdir -p $virtualenvs
@@ -18,3 +25,4 @@ in mkShell rec {
     ssh -T git@github.com
   '';
 }
+

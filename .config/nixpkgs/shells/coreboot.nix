@@ -1,14 +1,17 @@
-# Shell derivation condensed from https://git.petabyte.dev/petabyteboy/corenix
-
-with import (builtins.fetchTarball {
-  url = "https://releases.nixos.org/nixos/20.09/nixos-20.09.3824.dec334fa196/nixexprs.tar.xz";
-  sha256 = "1i38d1z672gzn73k6gsas2zjbbradg06w7dw3zs9f64l0hr3qd94"; }) { };
-
 let
 
+  # Shell derivation condensed from https://git.petabyte.dev/petabyteboy/corenix
+
+  # nix-shell -E 'import (builtins.fetchurl "$url")'
+
+  name = "nix-shell.coreboot";
   architecture = "i386";
   url = "https://review.coreboot.org/coreboot";
   project = "${builtins.getEnv "HOME"}/Shares/Projects/coreboot";
+
+  pkgs = import (builtins.fetchTarball {
+    url = "https://releases.nixos.org/nixos/20.09/nixos-20.09.3824.dec334fa196/nixexprs.tar.xz";
+    sha256 = "1i38d1z672gzn73k6gsas2zjbbradg06w7dw3zs9f64l0hr3qd94"; }) {};
 
   dependencies = { fetchurl }: [
     rec { name = "Python-3.8.5.tar.xz";                 archive = fetchurl { sha256 = "1c43dbv9lvlp3ynqmgdi4rh8q94swanhqarqrdx62zmigpakw073"; url = "https://www.python.org/ftp/python/3.8.5/${name}";                               }; }
@@ -18,7 +21,7 @@ let
     rec { name = "clang-tools-extra-10.0.1.src.tar.xz"; archive = fetchurl { sha256 = "06n1yp638rh24xdxv9v2df0qajxbjz4w59b7dd4ky36drwmpi4yh"; url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-10.0.1/${name}"; }; }
     rec { name = "cmake-3.18.1.tar.gz";                 archive = fetchurl { sha256 = "0215srmc9l7ygwdpfms8yx0wbd96qgz2d58ykmdiarvysf5k7qy0"; url = "https://cmake.org/files/v3.18/${name}";                                         }; }
     rec { name = "compiler-rt-10.0.1.src.tar.xz";       archive = fetchurl { sha256 = "1yjqjri753w0fzmxcyz687nvd97sbc9rsqrxzpq720na47hwh3fr"; url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-10.0.1/${name}"; }; }
-    rec { name = "expat-2.2.9.tar.bz2";                 archive = fetchurl { sha256 = "0dx2m58gkj7cadk51lmp54ma7cqjhff4kjmwv8ks80j3vj2301pi"; url = "https://downloads.sourceforge.net/sourceforge/expat/${name}";                   }; }
+    rec { name = "expat-2.2.9.tar.bz2";                 archive = fetchurl { sha256 = "0dx2m58gkj7cadk51lmp54ma7cqjhff4kjmwv8ks80j3vj2301pi"; url = "https://github.com/libexpat/libexpat/releases/download/R_2_2_9/${name}";        }; }
     rec { name = "gcc-8.3.0.tar.xz";                    archive = fetchurl { sha256 = "0b3xv411xhlnjmin2979nxcbnidgvzqdf4nbhix99x60dkzavfk4"; url = "https://ftpmirror.gnu.org/gcc/gcc-8.3.0/${name}";                               }; }
     rec { name = "gdb-9.2.tar.xz";                      archive = fetchurl { sha256 = "0mf5fn8v937qwnal4ykn3ji1y2sxk0fa1yfqi679hxmpg6pdf31n"; url = "https://ftpmirror.gnu.org/gdb/${name}";                                         }; }
     rec { name = "gmp-6.2.0.tar.xz";                    archive = fetchurl { sha256 = "09hmg8k63mbfrx1x3yy6y1yzbbq85kw5avbibhcgrg9z3ganr3i5"; url = "https://ftpmirror.gnu.org/gmp/${name}";                                         }; }
@@ -28,23 +31,23 @@ let
     rec { name = "nasm-2.15.03.tar.bz2";                archive = fetchurl { sha256 = "0y6p3d5lhmwzvgi85f00sz6c485ir33zd1nskzxby4pikcyk9rq4"; url = "https://www.nasm.us/pub/nasm/releasebuilds/2.15.03/${name}";                    }; }
   ];
 
-  toolchain = stdenv.mkDerivation rec {
+  toolchain = pkgs.stdenv.mkDerivation rec {
     pname = "crossgcc-${architecture}";
     version = "4.13";
-    src = fetchgit {
+    src = pkgs.fetchgit {
       inherit url;
       rev = version;
       sha256 = "0xwzwplyf2zc267ddprh7963p582q3jrdvxc7r4cwzj0lhgrv6rv";
       fetchSubmodules = true;
     };
 
-    nativeBuildInputs = [ curl m4 flex bison zlib gnat ];
+    nativeBuildInputs = builtins.attrValues { inherit (pkgs) curl m4 flex bison zlib gnat; };
 
     buildPhase = ''
       mkdir -p util/crossgcc/tarballs
-      ${lib.concatMapStringsSep "\n"
+      ${pkgs.lib.concatMapStringsSep "\n"
       (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}")
-      (callPackage dependencies { })}
+      (pkgs.callPackage dependencies { })}
       NIX_HARDENING_ENABLE="$\{NIX_HARDENING_ENABLE/ format/\}" make crossgcc-i386 CPUS=$(nproc)
     '';
 
@@ -55,14 +58,14 @@ let
     '';
   };
 
-in mkShell {
+in pkgs.mkShell {
 
-  name = "coreboot";
+  inherit name;
 
-  buildInputs = [ git coreboot-utils flashrom me_cleaner ncurses qemu m4 flex bison zlib gnat ];
+  buildInputs = builtins.attrValues { inherit (pkgs) git coreboot-utils flashrom me_cleaner ncurses qemu m4 flex bison zlib gnat; };
 
   shellHook = ''
-    export PS1='\h (coreboot) \W \$ '
+    export PS1='\h (${name}) \W \$ '
 
     mkdir -p '${project}'
     git clone '${url}' '${project}' || true
