@@ -66,57 +66,39 @@ in pkgs.mkShell {
 
   shellHook = ''
     export PS1='\h (${name}) \W \$ '
-
     mkdir -p '${project}'
     git clone '${url}' '${project}' || true
     cd '${project}' || exit 1
-
-    [ ! -L util/crossgcc ] && rm -rf util/crossgcc
+    rm -rf util/crossgcc
     ln -sf ${toolchain} util/crossgcc
+    sed -i 's|$(OBJCOPY) --strip-$(STRIP) $< $@|$(OBJCOPY) --strip-debug $< $@|g' payloads/libpayload/Makefile.payload
 
-    printf "
-    **** COMMANDS ****
+    printf '
+    flashrom --programmer internal                                      # read BIOS chipset internally if possible
+    flashrom --programmer internal   --read backup.rom  --chip $chipset # read BIOS internally if possible with selected chipset
+    flashrom --programmer internal   --read backup1.rom --chip $chipset
+    flashrom --programmer internal   --read backup2.rom --chip $chipset
+    flashrom --programmer internal   --read backup3.rom --chip $chipset
+    flashrom --programmer ch341a_spi --read backup.rom  --chip $chipset # use an external programmer if internal does not work
+    sha256sum *.rom                                                     # check BIOS hashes for exactness
+    me_cleaner.py --soft-disable backup.rom                             # clean management engine and overwrite bios inplace
+    ifdtool --extract backup.rom                                        # split regions of cleaned bios
 
-    # view toolchain help
-    make help_toolchain
+    # Rename and move descriptor.bin, gbe.bin, me.bin into 3rdparty/blobs/mainboard/$vendor/$model where
+    # $vendor and $model are variable (for example lenovo/t420). Create folders if they do not exist.
+    # To test in qemu select model/vendor Emulation/QEMU x86 i440fx/piix4 in nconfig.
+    # In real world situations, one might only read and write internally to the bios region.
 
-    # clear old configuration
-    make distclean
+    flashrom --programmer internal --read  bios.rom --chip $chipset --ifd --image bios
+    flashrom --programmer internal --write bios.rom --chip $chipset --ifd --image bios
 
-    # build i386, Aarch64, and RISC-V toolchain
-    make crossgcc-i386 CPUS=$(nproc)
-    make crossgcc-aarch64 CPUS=$(nproc)
-    make crossgcc-riscv CPUS=$(nproc)
+    make distclean                                                      # clear old configuration
+    make clean                                                          # clear old compilation and keep configuration
+    make nconfig                                                        # setup configurtion
+    cat .config                                                         # check configuration
+    make                                                                # build coreboot
+    qemu-system-x86_64 -bios build/coreboot.rom -serial stdio           # test image in qemu
 
-    # build coreinfo payload
-    make -C payloads/coreinfo olddefconfig
-    make -C payloads/coreinfo
-
-    # setup configurtion
-    make nconfig
-      select 'Mainboard' menu
-      Beside 'Mainboard vendor' should be '(Emulation)'
-      Beside 'Mainboard model' should be 'QEMU x86 i440fx/piix4'
-      select < Exit >
-
-      select 'Payload' menu
-      select 'Add a Payload'
-      choose 'An Elf executable payload'
-      select 'Payload path and filename'
-      enter 'payloads/coreinfo/build/coreinfo.elf'
-      select < Exit >
-      select < Exit >
-      select < Yes >
-
-    # check configuration
-    make savedefconfig
-    cat defconfig
-
-    # build coreboot
-    make
-
-    # test image in qemu
-    qemu-system-x86_64 -bios build/coreboot.rom -serial stdio
-    "
+    '
   '';
 }
