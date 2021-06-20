@@ -14,10 +14,9 @@ if [ "$1" = "update" ] || [ ! -f "$cache" ]; then
   IFS=:;
   stest -flx $PATH | sort -u > "$cache";
   unset IFS;
-  exit;
 fi
 
-awk -v histfile=$historyfile '
+awk -v histfile="$historyfile" '
 	BEGIN {
 		while( (getline < histfile) > 0 ) {
 			sub("^[0-9]+\t","")
@@ -26,7 +25,7 @@ awk -v histfile=$historyfile '
 		}
 	} !x[$0]++ ' "$cache" \
 	| dmenu -b ${dmenu_args:--p Launch} "$@" \
-	| awk -v histfile=$historyfile '
+	| awk -v histfile="$historyfile" '
 		BEGIN {
 			FS=OFS="\t"
 			while ( (getline < histfile) > 0 ) {
@@ -48,5 +47,4 @@ awk -v histfile=$historyfile '
 			for (f in history)
 				print history[f],f | "sort -t '\t' -k1rn >" histfile
 		}
-	' \
-	| while read -r cmd; do ${SHELL:-"/bin/sh"} -c "$cmd_prefix $cmd" & done
+	' | while read -r cmd; do ${SHELL:-"/bin/sh"} -c "$cmd_prefix $cmd || sed -i '/$cmd/d' $historyfile" & done
