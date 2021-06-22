@@ -346,6 +346,7 @@ augroup AutoCommands
   autocmd BufWritePost rc.lua                             exe 'Notify(''awesome -k 2>&1'')'
   autocmd BufWritePost quotes,*.fortune                   exe 'Notify(''strfile ' . expand('%') . ''')'
   autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Deskop File OK: ' . expand('%') . '"'')'
+  autocmd BufWritePost Xresources                         exe 'Notify(''xrdb ~/.config/X11/Xresources ' . '2>&1 && printf "Reloading Xresources: ' . expand('%') . '"'')'
 
   " Automatically remove trailing white space on save.
   autocmd InsertLeave,BufWritePre * %s/\s\+$//e
