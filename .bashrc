@@ -15,6 +15,9 @@ shopt -s histappend;
 # bash history one command per line
 shopt -s cmdhist;
 
+# disable program completion
+shopt -u progcomp;
+
 # enable vi mode
 set -o vi;
 
