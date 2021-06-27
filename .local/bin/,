@@ -30,12 +30,13 @@ attributes=$($nixLocate | while read -r attribute; do
 done)
 
 attribute=$(printf '%s' "$attributes" | fzf)
-nix-shell --pure --keep TERMINFO_DIRS --packages "$attribute" --command \
+nix-shell --pure --keep TERMINFO_DIRS --packages "$attribute" tree --command \
 '
   export HOME=$(mktemp --directory --suffix -nix-shell-tmp-home)
+  program=$(printf "%s" "$buildInputs" | cut --delimiter=" " --fields=1)
   printf "\n";
-  ls $buildInputs/bin;
+  { [ -d "$program/bin" ] && ls "$program/bin"; } || printf "%s\n" "$program";
   printf "\n";
-  tree -L 1 $buildInputs;
+  tree -L 1 "$program";
   return
 ';
