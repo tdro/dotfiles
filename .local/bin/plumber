@@ -17,7 +17,9 @@ defmodule ArgParser do
       title_case: "Title Case",
       kjv_lookup: "KJV Verse Lookup",
       single_line: "Single line of text",
-      first_letter: "First letter of each word in sentence"
+      first_letter: "First letter of each word in sentence",
+      slug_text: "Slug",
+      lower_case: "Lower Case"
     ]
 
     cond do
@@ -43,6 +45,15 @@ defmodule ArgParser do
 
       opts[:option] == options[:title_case] ->
         TextPlumber.titleCaseOf(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == options[:title_case] ->
+        TextPlumber.titleCaseOf(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == options[:slug_text] ->
+        TextPlumber.lowerCaseOf(opts[:text]) |> TextPlumber.slugOf() |> IO.binwrite()
+
+      opts[:option] == options[:lower_case] ->
+        TextPlumber.lowerCaseOf(opts[:text]) |> IO.binwrite()
 
       true ->
         Enum.each(options, fn {_, value} -> IO.puts(value) end)
@@ -76,6 +87,14 @@ defmodule TextPlumber do
       "-c",
       "dict -h localhost #{TextPlumber.firstWordOf(text)} 2>&1 | vim -"
     ])
+  end
+
+  def slugOf(text) do
+    String.replace(text, " ", "-")
+  end
+
+  def lowerCaseOf(text) do
+    String.downcase(text)
   end
 end
 

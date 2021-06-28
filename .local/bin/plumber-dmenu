@@ -4,6 +4,8 @@ Single line of text
 Thesaurus
 KJV Verse Lookup
 Title Case
+Slug
+Lower Case
 "
 printf "%s" "$options" \
   | dmenu -i -b -p Plumb \
