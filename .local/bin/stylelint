@@ -1,2 +1,2 @@
 #!/bin/sh -eu
-$(which stylelint --all | grep -v "local/bin" | head -n 1) --config "$HOME/.config/stylelint/config.js" "$@";
+$(which stylelint --all | grep --invert-match "local/bin" | head -n 1) --config "$HOME/.config/stylelint/config.js" "$@";

@@ -13,4 +13,4 @@ if [ "${1:-}" = "--update" ]; then
   exit;
 fi
 
-$(which vale --all | grep -v "local/bin" | head -n 1) --config "$directory/vale.ini" "$@";
+$(which vale --all | grep --invert-match "local/bin" | head -n 1) --config "$directory/vale.ini" "$@";
