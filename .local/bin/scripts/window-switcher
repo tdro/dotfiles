@@ -1,7 +1,3 @@
 #!/bin/sh -eu
-
-# Copyright 2013 Tom Vincent <http://tlvince.com/contact/>
-wmctrl -l | cut -d' ' -f 1,5- | dmenu -f -i -b -p Switch | cut -d' ' -f 1 | xargs wmctrl -ia
-
-# Rofi
+wmctrl -l | dmenu -f -i -b -p 'Switch' | awk '{ print $1 }' | xargs wmctrl -ia
 #rofi -no-disable-history -show window -theme-str '#prompt { enabled: false; }' -window-format {t} -font "ubuntu 12" -padding 15 -lines 1
