@@ -254,8 +254,9 @@ vnoremap <expr>y "my\"" . v:register . "y`y"
 
 "------------------Snippets-------------------"
 
-nnoremap ,html :-1read $HOME/.vim/snippets/skeleton.html<cr>3jwf>a
-nnoremap ,nix  :-1read $HOME/.vim/snippets/module.nix<cr>4jf"a
+nnoremap ,html        :-1read $HOME/.vim/snippets/skeleton.html<cr>3jwf>a
+nnoremap ,nix-module  :-1read $HOME/.vim/snippets/module.nix<cr>4jf"a
+nnoremap ,nix-shell   :-1read $HOME/.vim/snippets/shell.nix<cr>2jf"a
 
 
 "---------------Plugin Settings---------------"
