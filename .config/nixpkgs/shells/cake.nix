@@ -16,7 +16,7 @@ let
     finalImageTag = "3.12";
   };
 
-  cook = { name, src, contents ? [ ], script ? "", prepare ? "", cleanup ? "", sha256 ? pkgs.lib.fakeSha256 }: pkgs.stdenvNoCC.mkDerivation {
+  cook = { name, src, contents ? [ ], path ? [ ], script ? "", prepare ? "", cleanup ? "", sha256 ? pkgs.lib.fakeSha256 }: pkgs.stdenvNoCC.mkDerivation {
     inherit name src contents;
     phases = [ "unpackPhase" "installPhase" ];
     buildInputs = [ pkgs.proot pkgs.rsync pkgs.tree pkgs.kmod ];
@@ -33,6 +33,7 @@ let
 
       cp $bootstrap rootfs/bootstrap
       proot --cwd=/ --root-id --rootfs=rootfs /usr/bin/env - /bin/sh -euc '. /etc/profile && /bootstrap'
+      printf 'PATH=${pkgs.lib.strings.makeBinPath path}:$PATH' >> rootfs/etc/profile
 
       [ -n "$contents" ] && {
         printf "\n"
@@ -53,10 +54,10 @@ let
     outputHash = sha256;
   };
 
-  bake = { image, debug ? false, kernel ? pkgs.linux, options ? [ ], modules ? [ ], uuid ? "99999999-9999-9999-9999-999999999999", sha256 ? pkgs.lib.fakeSha256 }: let
+  bake = { name, image, size ? "1G", debug ? false, kernel ? pkgs.linux, options ? [ ], modules ? [ ], uuid ? "99999999-9999-9999-9999-999999999999", sha256 ? pkgs.lib.fakeSha256 }: let
     initrd = cook {
       inherit sha256;
-      name = "initrd-${image.name}";
+      name = "initrd-${name}";
       src = alpine-3-12-amd64;
       script = ''
         rm -rf home opt media root run srv tmp var
@@ -65,7 +66,7 @@ let
         mount -t proc none /proc
         mount -t sysfs none /sys
         sh /lib/modules/initrd/init
-        ${pkgs.lib.optionalString (debug) "sh +m; poweroff -f"}
+        ${pkgs.lib.optionalString (debug) "sh +m"}
         mount -r "$(findfs UUID=${uuid})" /mnt
         mount -o move /dev /mnt/dev
         umount /proc /sys
@@ -90,7 +91,7 @@ let
       done
       } || printf '\n%s\n' 'No modules to cook.'
       '';
-    }; in pkgs.writeScript "bake-${image.name}" ''
+    }; in pkgs.writeScript name ''
     set -euo pipefail
     PATH=${pkgs.lib.strings.makeBinPath [
         pkgs.coreutils
@@ -101,11 +102,11 @@ let
         pkgs.tree
         pkgs.utillinux
       ]}
-    IMAGE=${image.name}.img
+    IMAGE=${name}.img
     LOOP=/dev/loop0
     ROOTFS=rootfs
     rm "$IMAGE" || true
-    fallocate --length 200M $IMAGE && chmod o+rw "$IMAGE"
+    fallocate --length ${size} $IMAGE && chmod o+rw "$IMAGE"
     printf 'o\nn\np\n1\n2048\n\na\nw\n' | fdisk "$IMAGE"
     dd bs=440 count=1 conv=notrunc if=${pkgs.syslinux}/share/syslinux/mbr.bin of="$IMAGE"
     mkdir --parents "$ROOTFS"
@@ -135,18 +136,22 @@ let
   alpine = cook {
     name = "alpine";
     src = alpine-3-12-amd64;
+    sha256 = "1ss4rh1fgs99h0v6czqq5rnfk1cag1ldazarm9jr5a0ahc4bnk0v";
     contents = [ pkgs.glibc pkgs.gawk ];
-    sha256 = "14yv0ivir66hbkb7n041svm5pbf6xqw0i65bymxycl53iqxs6ml3";
+    path = [ pkgs.gawk ];
     script = ''
       cat /etc/alpine-release
+      sed -i 's/#ttyS0/ttyS0/' /etc/inittab
     '';
   };
 
   alpine-machine = bake {
+    name = "alpine-machine";
     image = alpine;
+    sha256 = "0k5migqcrf5hz99ka5p6pr9qv86bd69y7fbs9m5qpby9qh3xmskf";
     kernel = pkgs.linuxPackages_5_10.kernel;
-    options = [ "console=ttyS0" "console=tty1" ];
-    sha256 = "10r37nskh1f21h8zfzfs83xmdr02h95jadg6rhiygp45cb2prfl2";
+    options = [ "console=tty1" "console=ttyS0" ];
+    size = "128M";
     modules = [
       "virtio"
       "virtio_ring"
@@ -160,9 +165,11 @@ let
     ];
   };
 
- # doas ${alpine-machine}
- # sudo ${alpine-machine}
- # qemu-system-x86_64 -nographic -serial mon:stdio -drive if=virtio,file=./${alpine.name}.img,format=raw
+  # proot --cwd=/ --rootfs=${alpine}/rootfs --bind=/proc --bind=/dev /usr/bin/env - /bin/sh -c '. /etc/profile && sh'
+  # doas ${alpine-machine}
+  # sudo ${alpine-machine}
+  # qemu-system-x86_64 -nographic -drive if=virtio,file=./${alpine-machine.name}.img,format=raw
+  # qemu-system-x86_64 -curses -drive if=virtio,file=./${alpine-machine.name}.img,format=raw
 
 in pkgs.mkShell {
 
@@ -173,5 +180,6 @@ in pkgs.mkShell {
   shellHook = ''
     export PS1='\h (${name}) \W \$ '
     proot --cwd=/ --rootfs=${alpine}/rootfs --bind=/proc --bind=/dev /usr/bin/env - /bin/sh -c '. /etc/profile && sh'
+    exit
   '';
 }
