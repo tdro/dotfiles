@@ -46,9 +46,11 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # general exports
 export BROWSER=browser;
 export CARGO_HOME="$XDG_CACHE_HOME/cargo"
+export DOWNLOAD_KEYSERVER="hkp://keyserver.ubuntu.com"
 export EDITOR=vim
 export FZF_DIRECTORY_MARKS=$XDG_CONFIG_HOME/fzf/marks/directories
 export FZF_FILE_MARKS=$XDG_CONFIG_HOME/fzf/marks/files
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export GOPATH="$XDG_DATA_HOME/go"
 export HISTCONTROL=ignoreboth:erasedups
 export HISTFILESIZE=
