@@ -309,6 +309,11 @@ in
       paths = [ ardour cadence qjackctl jack2 ];
     };
 
+    Design = pkgs.buildEnv {
+      name = "design";
+      paths = [ freecadStable kicad ];
+    };
+
     LaTeX = pkgs.buildEnv {
       name = "latex";
       paths = [ gummi texworks texlive.combined.scheme-full ];
