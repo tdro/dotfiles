@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eu
 # shellcheck disable=SC2016
 
 prefixPath() {

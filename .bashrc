@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/bash -eu
 
 # source exports
 export BASH_PROFILE=1 && . "$HOME/.bash_profile";
 
 # bail if not interactive
-echo $- | grep -q "i" || return;
+printf '%s' "$-" | grep -q "i" || return;
 
 # cd using directory name
 shopt -s autocd;
@@ -35,23 +35,23 @@ fzfkeybindings=$(readlink "$(type -P fzf)" | cut -d '/' -f -4)/share/fzf/key-bin
 
 # set virtual console colors
 if [ "$TERM" = "linux" ]; then
-  echo -en "\e]P0111111" #black [background]
-  echo -en "\e]P1D84F4F" #darkred
-  echo -en "\e]P2DEFF3E" #darkgreen
-  echo -en "\e]P3FFDF23" #brown
-  echo -en "\e]P479AEFF" #darkblue
-  echo -en "\e]P58894CF" #darkmagenta
-  echo -en "\e]P679AEFF" #darkcyan
-  echo -en "\e]P7dddddd" #lightgray
-  echo -en "\e]P8DDDDDD" #darkgray
-  echo -en "\e]P9E84F4F" #red
-  echo -en "\e]PABEFF3E" #green
-  echo -en "\e]PBFEA63C" #yellow
-  echo -en "\e]PC69AEFF" #blue
-  echo -en "\e]PD9894CF" #magenta
-  echo -en "\e]PE69AEFF" #cyan
-  echo -en "\e]PFffffff" #white [foreground]
-  clear #for background artifacting
+  echo -en "\e]P0111111" # black [background]
+  echo -en "\e]P1D84F4F" # darkred
+  echo -en "\e]P2DEFF3E" # darkgreen
+  echo -en "\e]P3FFDF23" # brown
+  echo -en "\e]P479AEFF" # darkblue
+  echo -en "\e]P58894CF" # darkmagenta
+  echo -en "\e]P679AEFF" # darkcyan
+  echo -en "\e]P7dddddd" # lightgray
+  echo -en "\e]P8DDDDDD" # darkgray
+  echo -en "\e]P9E84F4F" # red
+  echo -en "\e]PABEFF3E" # green
+  echo -en "\e]PBFEA63C" # yellow
+  echo -en "\e]PC69AEFF" # blue
+  echo -en "\e]PD9894CF" # magenta
+  echo -en "\e]PE69AEFF" # cyan
+  echo -en "\e]PFffffff" # white [foreground]
+  clear                  # for background artifacting
 fi
 
 # color man
