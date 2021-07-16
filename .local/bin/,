@@ -32,7 +32,9 @@ done)
 attribute=$(printf '%s' "$attributes" | fzf)
 nix-shell --pure --keep TERMINFO_DIRS --packages "$attribute" tree --command \
 '
-  export HOME=$(mktemp --directory --suffix -nix-shell-tmp-home)
+  export HOME=$TMPDIR/nix-shell-tmp-home.r2np9PHrby
+  mkdir --parents "$HOME"
+  cd || exit 1
   program=$(printf "%s" "$buildInputs" | cut --delimiter=" " --fields=1)
   printf "\n";
   { [ -d "$program/bin" ] && ls "$program/bin"; } || printf "%s\n" "$program";
