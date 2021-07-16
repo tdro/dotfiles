@@ -4,7 +4,7 @@ let
 
   name = "nix-shell.nixops.${version}.";
   pkgs = import <nixpkgs> { };
-  version = "20.09";
+  version = "21.05";
   project = "${builtins.getEnv "HOME"}/Shares/Projects/infrastructure";
   channel = (import "${project}/nixos/versions.nix")."${version}".channel;
 
