@@ -214,7 +214,6 @@ in
         zathura
         zim
       ];
-      pathsToLink = [ "/share" "/bin" ];
     };
 
     Xorg = pkgs.buildEnv {
@@ -256,7 +255,6 @@ in
         awesome
         lxappearance
       ];
-      pathsToLink = [ "/share" "/bin" ];
     };
 
     Xfce = pkgs.buildEnv {
@@ -267,25 +265,20 @@ in
         polkit_gnome
         xfce.exo
         xfce.garcon
-        xfce.gvfs
         xfce.libxfce4ui
         xfce.libxfce4util
         xfce.thunar
         xfce.thunar-archive-plugin
         xfce.thunar-volman
         xfce.tumbler
-        xfce.xfce4-panel
-        xfce.xfce4-pulseaudio-plugin
         xfce.xfce4-session
         xfce.xfce4-settings
-        xfce.xfce4-whiskermenu-plugin
         xfce.xfconf
         xfce.xfdesktop
         xfce.xfwm4
         xfce.xfwm4-themes
         zuki-themes
       ];
-      pathsToLink = [ "/share/xfce4" "/lib/xfce4" ];
     };
 
     Fonts = pkgs.buildEnv {
