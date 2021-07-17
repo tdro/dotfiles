@@ -22,9 +22,9 @@ in
     Woodpecker = pkgs.buildEnv {
       name = "woodpecker";
       paths = [
-        Terminal Graphical Xorg Awesome Fonts Audio LaTeX
+        Terminal Graphical Xorg Awesome Fonts Audio LaTeX Dictionary
         Android JavaScript Python PHP Lua Elixir HTML Shell Haskell
-        Perl Nix C Golang Rust CSS SQL YAML Ruby
+        Perl Nix C Golang Rust CSS SQL YAML Ruby Themes
       ];
     };
 
@@ -38,17 +38,17 @@ in
 
     Ferret = pkgs.buildEnv {
       name = "ferret";
-      paths = [ Terminal Graphical Fonts Xorg Awesome Audio ];
+      paths = [ Terminal Graphical Fonts Xorg Awesome Audio Themes ];
     };
 
     Tiger = pkgs.buildEnv {
       name = "tiger";
-      paths = [ Nix Terminal Graphical Fonts Xorg Awesome JavaScript Python ];
+      paths = [ Nix Terminal Graphical Fonts Xorg Awesome JavaScript Python Themes ];
     };
 
     Hound = pkgs.buildEnv {
       name = "hound";
-      paths = [ Terminal Graphical Fonts Xorg Xfce JavaScript Python ];
+      paths = [ Terminal Graphical Fonts Xorg Xfce JavaScript Python Themes ];
     };
 
     # Package Sets
@@ -261,48 +261,77 @@ in
     Xfce = pkgs.buildEnv {
       name = "xfce";
       paths = [
-        plank
         deadbeef
-        zuki-themes
+        plank
         polkit_gnome
         xfce.exo
-        xfce.gvfs
         xfce.garcon
-        xfce.tumbler
-        xfce.xfwm4
-        xfce.xfwm4-themes
+        xfce.gvfs
+        xfce.libxfce4ui
+        xfce.libxfce4util
         xfce.thunar
         xfce.thunar-archive-plugin
         xfce.thunar-volman
-        xfce.xfconf
-        xfce.xfdesktop
-        xfce.libxfce4ui
-        xfce.libxfce4util
+        xfce.tumbler
+        xfce.xfce4-panel
+        xfce.xfce4-pulseaudio-plugin
         xfce.xfce4-session
         xfce.xfce4-settings
+        xfce.xfce4-whiskermenu-plugin
+        xfce.xfconf
+        xfce.xfdesktop
+        xfce.xfwm4
+        xfce.xfwm4-themes
+        zuki-themes
       ];
+      pathsToLink = [ "/share/xfce4" "/lib/xfce4" ];
     };
 
     Fonts = pkgs.buildEnv {
       name = "fonts";
       paths = [
         (callPackage ./packages/nerdfonts-dejavu-sans-mono/default.nix {})
-        etBook
-        ibm-plex
-        corefonts
         cm_unicode
         cooper-hewitt
+        corefonts
+        etBook
+        fira
+        fira-code
+        fira-code-symbols
+        fira-mono
         font-awesome_4
-        yanone-kaffeesatz
+        ibm-plex
         noto-fonts
         noto-fonts-cjk
         noto-fonts-emoji
-        fira
-        fira-code
-        fira-mono
-        fira-code-symbols
         source-code-pro
         source-serif-pro
+        yanone-kaffeesatz
+      ];
+    };
+
+    Themes = pkgs.buildEnv {
+      name = "themes";
+      paths = [
+        adwaita-qt
+        gnome-themes-extra
+        gtk-engine-murrine
+        papirus-icon-theme
+        vanilla-dmz
+      ];
+    };
+
+    Dictionary = pkgs.buildEnv {
+      name = "dictionary";
+      paths = [
+        aspell
+        aspellDicts.en
+        aspellDicts.en-computers
+        aspellDicts.en-science
+        hunspell
+        hunspellDicts.en_US-large
+        hyphen
+        mythes
       ];
     };
 
