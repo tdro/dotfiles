@@ -7,8 +7,8 @@ let
     sha256 = "124s05b0xk97arw0vvq8b4wcvsw6024dfdzwcx9qjxf3a2zszmam"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-21.11pre292748.6933d068c5d/nixexprs.tar.xz";
-    sha256 = "1bwwrij68m0jb7vq5vzjnas3c5ylq5lj6fvwklyzawhkarq4hv1k"; }) {};
+    url = "https://releases.nixos.org/nixos/unstable/nixos-21.11pre301985.23cd13167a1/nixexprs.tar.xz";
+    sha256 = "0djd5zr9l2r6ahwhyasl1asrdjhbavdamkz8qzlkkb6j4z015zqd"; }) {};
 
 in
 
@@ -147,6 +147,7 @@ in
         (callPackage ./packages/gnaural/default.nix {})
         (callPackage ./packages/ntrviewer/default.nix {})
         (callPackage ./packages/planner/default.nix {})
+        unstable.fsearch
         unstable.nyxt
         unstable.tilp2
         unstable.ungoogled-chromium
