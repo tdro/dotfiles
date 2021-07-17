@@ -1,8 +1,10 @@
 let
 
+  pkgs = import <nixpkgs> {};
+
   stable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/21.05/nixos-21.05.650.eaba7870ffc/nixexprs.tar.xz";
-    sha256 = "08fpds1bkv9106c6s5w3p5r4v3dc24bhk9asm9vqbxxypjglqg9l"; }) {};
+    url = "https://releases.nixos.org/nixos/21.05/nixos-21.05.1510.a165aeceda9/nixexprs.tar.xz";
+    sha256 = "124s05b0xk97arw0vvq8b4wcvsw6024dfdzwcx9qjxf3a2zszmam"; }) {};
 
   unstable = import (builtins.fetchTarball {
     url = "https://releases.nixos.org/nixos/unstable/nixos-21.11pre292748.6933d068c5d/nixexprs.tar.xz";
