@@ -78,22 +78,6 @@ Xft.rgba:      rgb
 Xft.lcdfilter: lcddefault
 
 ! -----------------
-! ROFI Settings
-! -----------------
-
-rofi.bw:                0
-rofi.color-enabled:     true
-rofi.hide-scrollbar:    true
-rofi.separator-style:   none
-rofi.disable-history:   false
-rofi.fake-transparency: false
-
-rofi.color-window: argb:cc222222, #FAC863, #FAC863
-rofi.color-normal: argb:00000000, #FFFFFF, argb:00000000, #FAC863, #1B2B34
-rofi.color-active: argb:00000000, #FFFFFF, argb:00000000, #6699CC, #1B2B34
-rofi.color-urgent: argb:00000000, #F99157, argb:00000000, #F99157, #1B2B34
-
-! -----------------
 ! DMENU Settings
 ! -----------------
 
