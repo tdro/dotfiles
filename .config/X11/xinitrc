@@ -5,8 +5,8 @@ Xresources=$HOME/.config/X11/Xresources
 Xauthority=$HOME/.config/X11/Xauthority
 
 # merge in defaults and keymaps
-[ -f "$Xresources" ] && xrdb -merge "$Xresources";
 [ -f "$Xmodmap" ] && xmodmap "$Xmodmap";
+[ -f "$Xresources" ] && xrdb -merge "$Xresources";
 
 # screen timeouts
 xset s 0 0 &
@@ -25,5 +25,5 @@ xauth generate :0 . trusted;
 # import systemctl environment
 systemctl --user import-environment;
 
-# Run awesome
-exec awesome --no-argb;
+# run desktop
+dbus-launch xfce4-session || exec awesome --no-argb;
