@@ -1,11 +1,11 @@
-{ lib, stdenv, fetchurl, libX11, libXinerama, libXft, zlib, fetchpatch }:
+{ lib, stdenv, fetchurl, fetchpatch, libX11, libXinerama, libXft, zlib }:
 
 stdenv.mkDerivation rec {
-  name = "dmenu-4.9";
+  name = "dmenu-5.0";
 
   src = fetchurl {
     url = "https://dl.suckless.org/tools/${name}.tar.gz";
-    sha256 = "0ia9nqr83bv6x247q30bal0v42chcj9qcjgv59xs6xj46m7iz5xk";
+    sha256 = "1lvfxzg3chsgcqbc2vr0zic7vimijgmbvnspayx73kyvqi1f267y";
   };
 
   buildInputs = [ libX11 libXinerama zlib libXft ];
@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
       sha256 = "0clczp17zwkxy1qhy0inqjplxpq4mgaf4vvfvn063hk733r4i7rn";
     })
     (fetchpatch {
-      name = "xim.patch";
-      url = "https://raw.githubusercontent.com/NixOS/nixpkgs/1f16d0496ce86d4c903e2e4ed6cbe4e952a7196f/pkgs/applications/misc/dmenu/xim.patch";
-      sha256 = "006np7hlhr11wmj9652fcvacrw1fnv4w8hdlm80pyn0vn1wjdkw6";
+      name = "dmenu-fuzzymatch-4.9.patch";
+      url = "https://tools.suckless.org/dmenu/patches/fuzzymatch/dmenu-fuzzymatch-4.9.diff";
+      sha256 = "000fkg4dcr2vrpd442f2v6ycmmxdml781ziblzx5rxvvyclsryfd";
     })
   ];
 
@@ -35,10 +35,10 @@ stdenv.mkDerivation rec {
   makeFlags = [ "CC:=$(CC)" ];
 
   meta = with lib; {
-    license = licenses.mit;
-    platforms = platforms.all;
-    homepage = "https://tools.suckless.org/dmenu";
-    maintainers = with maintainers; [ pSub globin ];
     description = "A generic, highly customizable, and efficient menu for the X Window System";
+    homepage = "https://tools.suckless.org/dmenu";
+    license = licenses.mit;
+    maintainers = with maintainers; [ pSub globin ];
+    platforms = platforms.all;
   };
 }
