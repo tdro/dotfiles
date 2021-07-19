@@ -61,7 +61,7 @@ in
         (callPackage ./packages/literate/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
-        (pass.withExtensions (ext: with ext; [ (callPackage ./packages/pass-import/default.nix {}) pass-audit pass-otp ]))
+        (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         unstable.amfora
         unstable.emacs
         unstable.fzf
