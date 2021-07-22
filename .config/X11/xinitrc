@@ -18,10 +18,6 @@ xsetroot -cursor_name left_ptr;
 # set keypress repeat
 xset r rate 200 60;
 
-# generate xauth
-grep "$(hostname)" "$Xauthority" || rm -f "$Xauthority";
-xauth generate :0 . trusted;
-
 # import systemctl environment
 systemctl --user import-environment;
 

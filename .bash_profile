@@ -9,15 +9,14 @@ prefixPath() {
   export PATH;
 }
 
-# set xauthority path
-export XAUTHORITY=$HOME/.config/X11/Xauthority;
+# path exports
+prefixPath "$HOME/.local/bin";
+prefixPath "$HOME/.local/bin/scripts";
 
 # auto login
 [ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] \
   && command -v nix && "$HOME"/.local/bin/scripts/nix-xorg-conf > "$HOME"/.config/X11/xorg.conf.d/00-modules.conf \
-  && exec xinit "$HOME/.config/X11/xinitrc" -- :0 \
-  -configdir "$HOME/.config/X11/xorg.conf.d" \
-  -logfile "$HOME/.cache/xorg.log" vt1 -keeptty -auth "$XAUTHORITY";
+  && exec sx;
 
 # set umask
 umask 0022;
@@ -33,10 +32,6 @@ PS1_SSHD='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;32
 
 # ssh set prompt
 [ -n "$SSH_CLIENT" ] && [ "$EUID" != 0 ] && export PS1="$PS1_SSHD";
-
-# path exports
-prefixPath "$HOME/.local/bin";
-prefixPath "$HOME/.local/bin/scripts";
 
 # xdg exports
 export XDG_CACHE_HOME="$HOME/.cache"
