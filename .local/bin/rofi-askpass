@@ -1,2 +1,12 @@
 #!/bin/sh -eu
-rofi -dmenu -password -i -no-fixed-num-lines -padding 15 -p "Password";
+
+program=doas
+password=$(rofi -dmenu -password -i -no-fixed-num-lines -padding 15 -p "Password";)
+
+expect <<EOF
+  set timeout -1
+  spawn "$program" "$@"
+  expect "assword:"
+  send -- "$password\r"
+  expect eof
+EOF

@@ -10,8 +10,8 @@
 "$HOME/.local/bin/scripts/app-launcher"
     Mod4 + r
 
-# Priv App Launcher
-"$HOME/.local/bin/scripts/app-launcher-priv"
+# privilege launcher
+"$HOME/.local/bin/scripts/app-launcher-privilege"
     Mod4 + e
 
 # Terminal App Launcher

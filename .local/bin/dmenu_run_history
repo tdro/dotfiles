@@ -2,8 +2,8 @@
 
 # https://tools.suckless.org/dmenu/scripts/
 
-[ "$1" = "privilege" ] && export cmd_prefix='sudo -A ' && export dmenu_args='-p Privilege -sb red' && shift 1;
-[ "$1" = "terminal" ] && export cmd_prefix='urxvt -hold -e ' && export dmenu_args='-p Terminal -sb gray' && shift 1;
+[ "$1" = "privilege" ] && export cmd_prefix='rofi-askpass '   && export dmenu_args='-p Privilege -sb red' && shift 1;
+[ "$1" = "terminal" ]  && export cmd_prefix='urxvt -hold -e ' && export dmenu_args='-p Terminal -sb gray' && shift 1;
 
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}
 cache=$cachedir/dmenu_run
