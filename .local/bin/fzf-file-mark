@@ -1,11 +1,9 @@
-#!/bin/sh
+#!/bin/sh -eu
+
 file=$FZF_FILE_MARKS
-temp=/tmp/.fzf-fmarks.tmp
+temp=/tmp/fzf-fmarks-Ei0Ohcah.tmp
 
 realpath "$1" && realpath "$1" >> "$file";
 sed -i "s|$HOME|~|g" "$file";
 
-awk '!visited[$0]++' "$file" > "$temp" \
-  && sort "$temp" > "$file";
-
-rm -f "$temp";
+awk '!visited[$0]++' "$file" > "$temp" && sort "$temp" > "$file";
