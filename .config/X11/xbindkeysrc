@@ -1,12 +1,8 @@
-###########################
-# xbindkeys configuration #
-###########################
-
-# Quake Terminal
+# quake terminal
 "tdrop -tam -y 65% -x 15% -w 70% -h 35% urxvt -pe tabbed"
     Mod4 + q
 
-# App Launcher
+# program launcher
 "$HOME/.local/bin/scripts/app-launcher"
     Mod4 + r
 
@@ -14,98 +10,102 @@
 "$HOME/.local/bin/scripts/app-launcher-privilege"
     Mod4 + e
 
-# Terminal App Launcher
+# terminal launcher
 "$HOME/.local/bin/scripts/app-launcher-terminal"
     Mod4 + w
 
-# Zoom Application
+# zoom application
 "sh -c 'notify-send Zoom && boomer'"
     Mod4 + x
 
-# Close active window
+# close active window
 "wmctrl -c :ACTIVE:"
     Mod4 + Shift + c
 
-# Toggle fullscreen active window
+# toggle fullscreen active window
 "wmctrl -r :ACTIVE: -b toggle,fullscreen"
     Mod4 + f
 
-# Toggle ontop active window
+# toggle ontop active window
 "wmctrl -r :ACTIVE: -b toggle,above"
     Mod4 + t
 
-# Show bookmarks
+# show bookmarks
 "bookmarks show $HOME/Documents/text/bookmarks/bookmarks.html"
     Mod4 + g
 
-# Copyq Toggle
+# copyq toggle
 "$HOME/.local/bin/scripts/clipboard"
     Mod4 + z
 
-# Text plumber
+# text plumber
 "$HOME/.local/bin/plumber-dmenu"
     Mod4 + i
 
-# File Search
+# pass menu
+"$HOME/.local/bin/pass-menu"
+    Mod4 + d
+
+# file search
 "$HOME/.local/bin/scripts/file-search"
     Mod4 + p
 
-# Window Switcher
+# window switcher
 "$HOME/.local/bin/scripts/window-switcher"
     Alt + Tab
 
-# Window Overview
+# window overview
 "$HOME/.local/bin/scripts/window-overview"
     Mod4 + Tab
 
-# File Search
+# file search
 "$HOME/.local/bin/scripts/internet-search"
     Mod4 + a
 
-# Volume Up
+# volume up
 "$HOME/.local/bin/scripts/volume-up"
     XF86AudioRaiseVolume
 
-# Volume Down
+# volume down
 "$HOME/.local/bin/scripts/volume-down"
     XF86AudioLowerVolume
 
-# Volume Mute
+# volume mute
 "$HOME/.local/bin/scripts/volume-mute"
     XF86AudioMute
 
-# Lock Screen
+# lock screen
 "$HOME/.local/bin/scripts/lockscreen"
     XF86ScreenSaver
 
-# Snipping Tool
+# snipping tool
 "$HOME/.local/bin/scripts/snipping-tool"
     Print
 
-# Switch Monitor
+# switch monitor
 "$HOME/.local/bin/scripts/switch-monitor"
     XF86Display
 
-# Screen Record
+# screen record
 "peek"
     Alt + Print
 
-# Flameshot Screenshots
+# flameshot screenshots
 "flameshot gui"
     Control + Print
 
-# Shortcut Key Check
+# shortcut key check
 "urxvt -hold -e xbindkeys --multikey -f $HOME/.config/xbindkeysrc"
     Shift + Mod4 + b
 
-# Terminal
+# terminal
 "urxvt"
     Mod4 + Return
 
-# Terminal Tabbed
+# terminal tabbed
 "urxvt -pe tabbed"
     Alt + Mod4 + Return
 
-# Terminal Multiplexer
+# terminal multiplexer
 "urxvt -e tmux attach"
     Control + Mod4 + Return
