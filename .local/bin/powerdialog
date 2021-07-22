@@ -1,16 +1,16 @@
 #!/bin/sh -eu
 
-ACTION=$(zenity --width=90 \
+ACTION=$(yad --width=90 \
   --height=210 --list --radiolist --text="Select Action" \
   --title="Logout" --column "Choice" --column "Action" \
   FALSE Shutdown FALSE Reboot TRUE Suspend FALSE Lock FALSE Blank)
 
 if [ -n "${ACTION}" ]; then
   case $ACTION in
-    Shutdown) zenity --question --text "Are you sure you want to halt?" && sudo -A 'systemctl poweroff' ;;
-    Reboot) zenity --question --text "Are you sure you want to reboot?" && sudo -A 'systemctl reboot' ;;
-    Suspend) systemctl suspend ;;
-    Lock) i3lock-fancy ;;
-    Blank) sleep 1; xset dpms force off ;;
+    'TRUE|Shutdown|') yad --question --text "Are you sure you want to halt?"   && sudo -A 'systemctl poweroff' ;;
+    'TRUE|Reboot|')   yad --question --text "Are you sure you want to reboot?" && sudo -A 'systemctl reboot'   ;;
+    'TRUE|Suspend|')  systemctl suspend ;;
+    'TRUE|Lock|')     i3lock-fancy ;;
+    'TRUE|Blank|')    sleep 1; xset dpms force off ;;
   esac
 fi

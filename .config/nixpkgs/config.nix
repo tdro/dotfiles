@@ -168,7 +168,6 @@ in
         gImageReader
         gimp
         gnome3.simple-scan
-        gnome3.zenity
         google-chrome
         gparted
         i3lock-fancy
@@ -211,6 +210,7 @@ in
         vscodium
         xournalpp
         xsane
+        yad
         zathura
         zim
       ];
