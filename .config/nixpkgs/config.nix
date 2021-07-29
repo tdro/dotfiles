@@ -81,6 +81,7 @@ in
         encfs
         entr
         exercism
+        expect
         ffmpeg
         flashrom
         fortune
