@@ -8,7 +8,7 @@ shopt -s nullglob globstar
 printf "\n" | $copy
 
 copy='xsel --input --primary'
-menu='dmenu -f -i -b -p Switch'
+menu='dmenu -f -i -b -p Password'
 _paste () { xdotool type "$(xsel --output --primary)"; }
 
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
