@@ -27,6 +27,7 @@ call plug#end()                                     " Initialize plugin system
 "------------General------------"
 
 let mapleader = "\<space>"               " Set default map leader.
+let php_htmlInStrings = 1                " Highlight HTML in PHP.
 
 set ruler                                " Show the cursor position all the time.
 set nowrap                               " Do not wrap lines.
@@ -80,8 +81,6 @@ set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
 set foldcolumn=2                         " Set fold column width to 2.
 
-let php_htmlInStrings = 1                " Highlight HTML in PHP.
-
 " Convert tab to spaces.
 set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
 
@@ -100,11 +99,6 @@ set guioptions-=e                        " Remove tab bar in GUI.
 
 
 "---------------Functions---------------"
-
-" PHP Fixer
-function! PHPFix()
-  :exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1'')' | :e
-endfunction
 
 " Ansible Check
 function! AnsibleCheck()
@@ -310,13 +304,14 @@ augroup AutoCommands
   autocmd BufWritePost plugins.vim source % | Notify('printf "Plugins configuration sourced."')
 
   " Linting extension post write commands.
-  autocmd BufWritePost *.php      :call PHPFix()
   autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale %
   autocmd BufWritePost *.lit      exe 'Notify(''lit ' . expand('%') . ' 2>&1 && printf "Literate OK: ' . expand('%') . '"'')'
 
   " Linting file type post write commands.
+  autocmd FileType php        autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType typescript autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType css        autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType html       autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType ruby       autocmd! BufWritePost <buffer> exe 'Notify(''rufo ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType javascript autocmd! BufWritePost <buffer> exe 'Notify(''eslint -c $HOME/.config/eslintrc.yml --fix ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType rust       autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
