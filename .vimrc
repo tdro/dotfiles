@@ -106,11 +106,6 @@ function! PHPFix()
   :exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1'')' | :e
 endfunction
 
-" ESLint Fix
-function! ESLintFix()
-  :exe 'Notify(''eslint -c $HOME/.config/eslintrc.yml --fix ' . expand('%') . ' 2>&1'')' | :e
-endfunction
-
 " Ansible Check
 function! AnsibleCheck()
   :exe 'Notify(''ansible-playbook --syntax-check ' . expand('%') . ' 2>&1'')' | :e
@@ -316,7 +311,6 @@ augroup AutoCommands
 
   " Linting extension post write commands.
   autocmd BufWritePost *.php      :call PHPFix()
-  autocmd BufWritePost *.js       :call ESLintFix()
   autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale %
   autocmd BufWritePost *.lit      exe 'Notify(''lit ' . expand('%') . ' 2>&1 && printf "Literate OK: ' . expand('%') . '"'')'
 
@@ -324,6 +318,7 @@ augroup AutoCommands
   autocmd FileType typescript autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType css        autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType ruby       autocmd! BufWritePost <buffer> exe 'Notify(''rufo ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType javascript autocmd! BufWritePost <buffer> exe 'Notify(''eslint -c $HOME/.config/eslintrc.yml --fix ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType rust       autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
   autocmd FileType json       autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
   autocmd FileType elixir     autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
