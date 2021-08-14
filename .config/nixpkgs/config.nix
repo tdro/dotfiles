@@ -103,6 +103,7 @@ in
         moc
         monolith
         neofetch
+        netcat-openbsd
         newsboat
         nnn
         ocrmypdf
