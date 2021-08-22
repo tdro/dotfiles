@@ -149,6 +149,7 @@ in
         (callPackage ./packages/gnaural/default.nix {})
         (callPackage ./packages/ntrviewer/default.nix {})
         (callPackage ./packages/planner/default.nix {})
+        (mplayer.override { v4lSupport = true; })
         unstable.fsearch
         unstable.nyxt
         unstable.tilp2
@@ -180,7 +181,6 @@ in
         libreoffice
         mate.engrampa
         meld
-        mplayer
         mupdf
         mypaint
         palemoon
