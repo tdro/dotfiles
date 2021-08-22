@@ -1,0 +1,8 @@
+#!/bin/sh -eu
+window=urxvt-dropdown-terminal
+visible=/tmp/urxvt-dropdown-terminal_lQ5GnvRpQ6
+
+touch $visible;
+[ "$(cat "$visible")" = 0 ] && wmctrl -u -R $window && wmctrl -u -r $window -b add,above && printf '1' > $visible && exit;
+[ "$(cat "$visible")" = 1 ] && xdotool mousemove_relative 0 1 && wmctrl -u -r $window -b add,skip_taskbar,hidden && printf '0' > $visible && exit;
+urxvt -pe tabbed -geometry 150x20 -title $window && printf '1' > $visible &

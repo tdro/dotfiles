@@ -224,7 +224,6 @@ in
         (callPackage ./packages/x11vnc/default.nix {})
         (callPackage ./packages/xprintidle/default.nix {})
         glxinfo
-        tdrop
         wmctrl
         xbindkeys
         xdotool

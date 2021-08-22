@@ -1,5 +1,5 @@
 # quake terminal
-"tdrop -tam -y 65% -x 15% -w 70% -h 35% urxvt -pe tabbed"
+"$HOME/.local/bin/scripts/dropdown-terminal"
     Mod4 + q
 
 # program launcher
