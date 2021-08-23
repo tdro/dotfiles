@@ -114,7 +114,6 @@ in
         pngquant
         poppler_utils
         powertop
-        pulsemixer
         ranger
         rclone
         ripgrep
@@ -158,7 +157,6 @@ in
         unstable.ungoogled-chromium
         aegisub
         anki
-        audacity
         blender
         code-server
         copyq
@@ -334,7 +332,7 @@ in
 
     Audio = pkgs.buildEnv {
       name = "audio";
-      paths = [ ardour cadence qjackctl jack2 ];
+      paths = [ pulseeffects-pw pulsemixer audacity ardour cadence qjackctl jack2 ];
     };
 
     Design = pkgs.buildEnv {
