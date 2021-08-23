@@ -109,6 +109,7 @@ in
         ocrmypdf
         pandoc
         picotts
+        pipes
         pngnq
         pngquant
         poppler_utils
