@@ -332,7 +332,7 @@ in
 
     Audio = pkgs.buildEnv {
       name = "audio";
-      paths = [ pulseeffects-pw pulsemixer audacity ardour cadence qjackctl jack2 ];
+      paths = [ pulseeffects-pw pulsemixer audacity ardour qjackctl ];
     };
 
     Design = pkgs.buildEnv {
