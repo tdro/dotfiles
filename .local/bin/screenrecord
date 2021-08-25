@@ -1,14 +1,17 @@
 #!/bin/sh -eu
 
+process=x11grab
 directory=$HOME/Desktop/screen-recordings
-resolution=$(xrandr | awk '/*/ { print $1 }' | head -n1)
+default=$(xrandr | awk '/*/ { print $1 }' | head -n1)
 file="$(date +%I:%M:%S-%p-%A-%d-%B-%Y).mp4"
+resolution=${1:-$default}
 
-[ "${1:-}" = "stop" ] && kill "$(ps -aux | awk  '/ffmpeg -f x11grab/ { print $2 }' | head -n 1)" && exit
+[ "${1:-}" = "stop" ] && kill -15 "$(ps -aux | awk  "/$process/"' { print $2 }' | head -n 1)"
+[ "${1:-}" = "stop" ] && exit
 
-[ "$(ps -aux | awk  '/ffmpeg -f x11grab/ { print $2 }' | wc -l)" != 1 ] && printf 'Screen Already Recording!\n' && exit
+[ "$(ps -aux | awk  "/$process/"' { print $2 }' | wc -l)" != 1 ] && printf 'Screen Already Recording!\n' && exit
 
 mkdir --parents "$directory"
-notify-send --expire-time=1000 "Screen Recording Started" "$directory/$file" && sleep 1
+notify-send --expire-time=2000 "Screen Recording Started ($resolution)" "$directory/$file" && sleep 2
 ffmpeg -f alsa -i default -f alsa -i default -f x11grab -s "$resolution" -i "$DISPLAY" -r 24 -c:v libx264rgb -crf 0 -preset ultrafast "$directory/$file" || true
-notify-send "Screen Recording Ended" "$directory/$file"
+notify-send "Screen Recording Ended ($resolution)" "$directory/$file"
