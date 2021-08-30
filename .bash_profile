@@ -61,7 +61,6 @@ export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/pass"
 export PROMPT_COMMAND='cd .; history -a; history -n;'
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-export SUDO_ASKPASS="$HOME/.local/bin/rofi-askpass"
 export TERMINAL=urxvt
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
