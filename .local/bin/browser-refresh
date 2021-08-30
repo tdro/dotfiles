@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# set keyboard
-keyboard=10
-
 # set target browser and title
 browser=$1
 title=$2
@@ -36,9 +33,6 @@ xdotool windowactivate $target_window;
 
 # declare the variable i as an interger
 declare -i i=0;
-
-# disable keyboard at the start of search
-xinput --disable $keyboard;
 
 while true; do
 
@@ -95,8 +89,5 @@ while true; do
   fi
 
 done
-
-# enable keyboard at the end of the search
-xinput --enable $keyboard;
 
 exit 0;
