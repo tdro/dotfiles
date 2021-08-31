@@ -69,8 +69,10 @@ in pkgs.mkShell {
     git clone '${url}' '${project}' || true
     cd '${project}' || exit 1
     rm -rf util/crossgcc
-    git pull
+    git fetch --all
+    git reset --hard origin/master
     git checkout ${toolchain.version}
+    rm -rf util/crossgcc
     ln -sf ${toolchain} util/crossgcc
     sed -i 's|$(OBJCOPY) --strip-$(STRIP) $< $@|$(OBJCOPY) --strip-debug $< $@|g' payloads/libpayload/Makefile.payload
 
