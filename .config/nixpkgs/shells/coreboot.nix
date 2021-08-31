@@ -45,10 +45,9 @@ let
 
     buildPhase = ''
       mkdir -p util/crossgcc/tarballs
-      ${pkgs.lib.concatMapStringsSep "\n"
-      (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}")
-      (pkgs.callPackage dependencies { })}
-      NIX_HARDENING_ENABLE="$\{NIX_HARDENING_ENABLE/ format/\}" make crossgcc-i386 CPUS=$(nproc)
+      ${pkgs.lib.concatMapStringsSep "\n" (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}") (pkgs.callPackage dependencies { })}
+      sed "s/SOURCE_DATE_EPOCH := .*/SOURCE_DATE_EPOCH := $SOURCE_DATE_EPOCH/" --in-place Makefile
+      NIX_HARDENING_ENABLE="$\{NIX_HARDENING_ENABLE/ format/\}" make crossgcc-${architecture} CPUS=$(nproc)
     '';
 
     installPhase = ''
