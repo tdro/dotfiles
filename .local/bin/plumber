@@ -44,10 +44,7 @@ defmodule ArgParser do
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
 
       opts[:option] == options[:title_case] ->
-        TextPlumber.titleCaseOf(opts[:text]) |> IO.binwrite()
-
-      opts[:option] == options[:title_case] ->
-        TextPlumber.titleCaseOf(opts[:text]) |> IO.binwrite()
+        TextPlumber.lowerCaseOf(opts[:text]) |> TextPlumber.titleCaseOf() |> IO.binwrite()
 
       opts[:option] == options[:slug_text] ->
         TextPlumber.lowerCaseOf(opts[:text]) |> TextPlumber.slugOf() |> IO.binwrite()
