@@ -71,6 +71,7 @@ in
         ansible
         bat
         bleachbit
+        csvkit
         davmail
         desktop-file-utils
         diceware
