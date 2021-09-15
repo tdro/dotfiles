@@ -104,8 +104,8 @@
 
 # terminal tabbed
 "urxvt -pe tabbed"
-    Alt + Mod4 + Return
+    Control + Mod4 + Return
 
 # terminal multiplexer
 "urxvt -e tmux attach"
-    Control + Mod4 + Return
+    Alt + Mod4 + Return
