@@ -64,6 +64,7 @@ set undodir=~/.vim/undodir               " Set undofile directory.
 
 set mouse=a                              " Enable mouse.
 set shortmess+=I                         " Disable startup message.
+set shortmess-=S                         " Count number of search result matches.
 set showtabline=0                        " Disable tab bar.
 set updatetime=1500                      " Set duration for cursor hold event.
 set fillchars=                           " Set split window margin fill to none.
