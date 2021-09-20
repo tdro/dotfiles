@@ -160,7 +160,6 @@ in
         anki
         blender
         code-server
-        copyq
         dconf
         diffpdf
         escrotum
@@ -224,6 +223,7 @@ in
       paths = [
         (callPackage ./packages/x11vnc/default.nix {})
         (callPackage ./packages/xprintidle/default.nix {})
+        autocutsel
         glxinfo
         wmctrl
         xbindkeys
@@ -341,11 +341,6 @@ in
       paths = [ freecadStable kicad ];
     };
 
-    LaTeX = pkgs.buildEnv {
-      name = "latex";
-      paths = [ gummi texworks texlive.combined.scheme-full ];
-    };
-
     Android = pkgs.buildEnv {
       name = "android";
       paths = [
@@ -354,6 +349,11 @@ in
         (callPackage ./packages/mkbootimg/default.nix {})
         abootimg
       ];
+    };
+
+    LaTeX = pkgs.buildEnv {
+      name = "latex";
+      paths = [ gummi texworks texlive.combined.scheme-full ];
     };
 
     JavaScript = pkgs.buildEnv {

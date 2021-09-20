@@ -34,7 +34,7 @@
 "bookmarks show $HOME/Documents/text/bookmarks/bookmarks.html"
     Mod4 + g
 
-# copyq toggle
+# clipboard toggle
 "$HOME/.local/bin/scripts/clipboard"
     Mod4 + z
 
