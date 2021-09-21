@@ -185,7 +185,7 @@ nmap <leader>ce :silent! %s/–/--/g<cr> \| :silent! %s/—/---/g<cr> \| my \| :
 nmap <leader>cl :call TypographyFormat()<cr>
 
 " Toggle line numbers
-nmap <leader>cn :set number!<cr>
+nmap <leader>cn :set relativenumber!<cr>
 
 " Justify columns
 vnoremap <leader>ct !column -t -o' '<cr>
