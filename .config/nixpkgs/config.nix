@@ -483,6 +483,7 @@ in
       name = "yaml";
       paths = [
         (callPackage ./packages/ruamel.yaml.cmd/default.nix {})
+        (callPackage ./packages/yaml2nix/default.nix {})
         python38Packages.yamllint
       ];
     };
