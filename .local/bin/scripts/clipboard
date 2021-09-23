@@ -1,1 +1,2 @@
 #!/bin/sh -eu
+$TERMINAL -e vim ~/Documents/text/scratchpad
