@@ -130,6 +130,7 @@ in
         units
         vale
         vault
+        vcal
         vimHugeX
         vnstat
         w3m
