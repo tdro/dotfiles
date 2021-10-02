@@ -1,0 +1,13 @@
+#!/bin/sh -eu
+
+$(which chromium --all | grep --invert-match "local/bin" | head -n 1) \
+  --disable-smooth-scrolling \
+  --disable-sync-preferences \
+  --process-per-site \
+  "$@";
+
+# --incognito
+# --disable-gpu-compositing
+# --disk-cache-dir=/dev/null
+# --enable-native-gpu-memory-buffers
+# --proxy-server="socks5://localhost:2871"
