@@ -60,6 +60,7 @@ in
         (callPackage ./packages/gmni/default.nix {})
         (callPackage ./packages/literate/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
+        (callPackage ./packages/tiemu/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         unstable.amfora
