@@ -30,7 +30,7 @@ attributes=$($nixLocate | while read -r attribute; do
 done)
 
 attribute=$(printf '%s' "$attributes" | fzf)
-nix-shell --pure --keep TERMINFO_DIRS --packages "$attribute" tree --command \
+nix-shell --pure --keep TERMINFO_DIRS --keep XAUTHORITY --packages "$attribute" tree --command \
 '
   export HOME=$TMPDIR/nix-shell-tmp-home.r2np9PHrby
   mkdir --parents "$HOME"
