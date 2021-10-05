@@ -41,13 +41,14 @@ let
       sha256 = "00xr74yc0kj9rrqa1a8b7bih865qlp9i4zs67ysavkfrjrwwssxm";
     };
 
+    hardeningDisable = [ "format" ];
     nativeBuildInputs = builtins.attrValues { inherit (pkgs) curl m4 flex bison zlib gnat; };
 
     buildPhase = ''
-      mkdir -p util/crossgcc/tarballs
+      mkdir --parents util/crossgcc/tarballs
       ${pkgs.lib.concatMapStringsSep "\n" (file: "ln -s ${file.archive} util/crossgcc/tarballs/${file.name}") (pkgs.callPackage dependencies { })}
       sed "s/SOURCE_DATE_EPOCH := .*/SOURCE_DATE_EPOCH := $SOURCE_DATE_EPOCH/" --in-place Makefile
-      NIX_HARDENING_ENABLE="$\{NIX_HARDENING_ENABLE/ format/\}" make crossgcc-${architecture} CPUS=$(nproc)
+      make crossgcc-${architecture} CPUS=$(nproc)
     '';
 
     installPhase = ''
