@@ -15,6 +15,12 @@ packages for a file and set up a nix shell for the
 program that contains that file. The shell prints
 all binaries in the package upon invocation.
 
+Create and update the file database by running
+the nix-index command. Warning: This command uses
+up a large amount of memory.
+
+nix-index --nixpkgs https://github.com/NixOS/nixpkgs/archive/master.tar.gz
+
   Command List:
 
    $program [ARGUMENT]...        Search for packages using file name argument.
@@ -22,7 +28,7 @@ all binaries in the package upon invocation.
    $program --check              Check dependencies.
 " "$program" && exit;
 
-databasePath=${XDG_DATA_HOME:-~/.local/share}/nix-index
+databasePath=${XDG_DATA_HOME:-~/.cache}/nix-index
 nixLocate='nix-locate --db '"$databasePath"' --top-level --minimal --whole-name '"${1:-}"
 attributes=$($nixLocate | while read -r attribute; do
   attributeName=${attribute%.*};
@@ -30,15 +36,29 @@ attributes=$($nixLocate | while read -r attribute; do
 done)
 
 attribute=$(printf '%s' "$attributes" | fzf)
-nix-shell --pure --keep TERMINFO_DIRS --keep XAUTHORITY --packages "$attribute" tree --command \
+nix-shell --packages "$attribute" fish toybox --command \
 '
-  export HOME=$TMPDIR/nix-shell-tmp-home.r2np9PHrby
-  mkdir --parents "$HOME"
-  cd || exit 1
+  home=$TMPDIR/nix-shell-tmp-home.r2np9PHrby
   program=$(printf "%s" "$buildInputs" | cut --delimiter=" " --fields=1)
+  path=$(IFS=" " && for buildInput in $buildInputs; do printf "%s/bin " "$buildInput"; done | sed "s/ /:/g")
   printf "\n";
   { [ -d "$program/bin" ] && ls "$program/bin"; } || printf "%s\n" "$program";
   printf "\n";
   tree -L 1 "$program";
-  return
+  printf "\n";
+
+  /usr/bin/env --ignore-environment /bin/sh -c \
+  "
+    export PATH=$path
+    export DISPLAY=$DISPLAY
+    export XAUTHORITY=$XAUTHORITY
+    export TERM=$TERM
+    export TERMINFO=$TERMINFO
+    export TERMINFO_DIRS=$TERMINFO_DIRS
+    export HOME=$home
+    export fish_greeting=
+    mkdir --parents $home
+    cd || exit 1
+    fish --init-command=\"function fish_prompt; printf '"'nix-shell@$attribute $ '"'; end\"
+  "
 ';
