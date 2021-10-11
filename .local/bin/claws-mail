@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+$(which claws-mail --all | grep --invert-match "local/bin" | head -n 1) \
+  --alternate-config-dir "${XDG_CONFIG_HOME:-~/.config}"/claws-mail "$@";

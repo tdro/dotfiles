@@ -154,6 +154,7 @@ in
         (callPackage ./packages/planner/default.nix {})
         (callPackage ./packages/sowon/default.nix {})
         (mplayer.override { v4lSupport = true; })
+        unstable.claws-mail
         unstable.fsearch
         unstable.nyxt
         unstable.tilp2
@@ -203,7 +204,6 @@ in
         sxiv
         syncthing
         tabula
-        thunderbird
         tigervnc
         transmission-gtk
         treesheets
