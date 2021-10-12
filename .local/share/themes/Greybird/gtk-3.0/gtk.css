@@ -44,7 +44,7 @@ flowbox flowboxchild:selected, flowbox .selection-mode.titlebar:not(headerbar) f
 
 .content-view .tile:disabled, .content-view label:disabled selection.tile, label:disabled .content-view selection.tile { background-color: transparent; }
 
-label { caret-color: currentColor; }
+label { color: #444444; caret-color: currentColor; }
 
 label.separator { color: #000000; }
 
