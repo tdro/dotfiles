@@ -85,7 +85,7 @@ dmenu.font:          xft:Sans:size=9:style=bold
 dmenu.background:    #000000
 dmenu.foreground:    #ffffff
 dmenu.selforeground: #000000
-dmenu.selbackground: #1b99ec
+dmenu.selbackground: #42aaf0
 
 ! -----------------
 ! X Settings

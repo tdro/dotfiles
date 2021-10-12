@@ -255,7 +255,6 @@ in
     Awesome = pkgs.buildEnv {
       name = "awesome";
       paths = [
-        (callPackage ./packages/deepin-gtk-theme/default.nix {})
         awesome
         lxappearance
       ];
@@ -312,7 +311,6 @@ in
       name = "themes";
       paths = [
         adwaita-qt
-        gnome-themes-extra
         gtk-engine-murrine
         papirus-icon-theme
         vanilla-dmz
