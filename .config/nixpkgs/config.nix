@@ -167,6 +167,7 @@ in
         diffpdf
         escrotum
         evince
+        exiftool
         feh
         firefox
         flameshot
@@ -191,6 +192,7 @@ in
         peek
         qownnotes
         qrencode
+        quodlibet
         recoll
         redshift
         rofi
