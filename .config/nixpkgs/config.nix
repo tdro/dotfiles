@@ -115,7 +115,6 @@ in
         pngnq
         pngquant
         poppler_utils
-        powertop
         ranger
         rclone
         ripgrep
