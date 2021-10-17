@@ -1136,13 +1136,3 @@ widget_class "*<GtkListItem>*"		style "fg-is-text-color-workaround"
 # Only match GtkCList and not the parent widgets, because that would also change the headers.
 widget_class "*<GtkCList>"		style "fg-is-text-color-workaround"
 widget_class "*<EelEditableLabel>"	style "fg-is-text-color-workaround"
-
-# panel theming
-include "apps/xfce-panel.rc"
-
-# application specific theming
-include "apps/chromium.rc"
-include "apps/claws-mail.rc"
-include "apps/gmusicbrowser.rc"
-include "apps/terminal.rc"
-include "apps/thunar.rc"
