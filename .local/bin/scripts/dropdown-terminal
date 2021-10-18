@@ -1,15 +1,16 @@
 #!/bin/sh -eu
-name=urxvt-dropdown-terminal
+name=dropdown-terminal
 state=/tmp/"$name"_lQ5GnvRpQ6
 options=$(grep --count . $state || true)
+terminal="urxvt -pe tabbed -geometry 150x20 -title $name"
 
 [ ! -f $state ] && {
-  urxvt -pe tabbed -geometry 150x20 -title $name && sed --in-place '1s/.*/1/' "$state" &
+  $terminal && sed --in-place '1s/.*/1/' "$state" &
   touch $state && exit;
 }
 
 [ "$options" != "2" ] && {
-  pid=$(wmctrl -lpGx | awk "/$name/"'{ print $3 }')
+  pid=$(wmctrl -lpGx | awk "/$name/"'{ print $3 }' | head --lines 1)
   printf '1\n%s' "$pid" > $state;
 }
 
@@ -17,5 +18,5 @@ visible=$(awk 'NR==1 { print; exit }' $state)
 process=$(awk 'NR==2 { print; exit }' $state)
 window=$(wmctrl -lpGx  | awk "/$process/"'{ print $1 }')
 
-[ "$visible" = 0 ] && wmctrl -i -u -R "$window" && wmctrl -i -u -r "$window" -b add,above && sed --in-place '1s/.*/1/' "$state" && exit;
+[ "$visible" = 0 ] && wmctrl -i -u -R "$window"      && wmctrl -i -u -r "$window" -b add,above               && sed --in-place '1s/.*/1/' "$state" && exit;
 [ "$visible" = 1 ] && xdotool mousemove_relative 0 1 && wmctrl -i -u -r "$window" -b add,skip_taskbar,hidden && sed --in-place '1s/.*/0/' "$state" && exit;
