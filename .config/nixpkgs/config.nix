@@ -72,6 +72,7 @@ in
         ansible
         bat
         bleachbit
+        calcurse
         csvkit
         davmail
         desktop-file-utils
@@ -182,6 +183,7 @@ in
         krop
         libnotify
         libreoffice
+        liferea
         mate.engrampa
         meld
         mupdf
