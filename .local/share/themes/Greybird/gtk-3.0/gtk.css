@@ -86,7 +86,7 @@ spinner:checked { opacity: 1; animation: spin 1s linear infinite; }
 spinner:checked:disabled, label:disabled selection:checked { opacity: 0.5; }
 
 /**************** Text Entries * */
-spinbutton:not(.vertical), entry { min-height: 28px; padding-left: 4px; padding-right: 4px; border: 1px solid; border-radius: 3px; transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); color: #000000; border-color: #999; background-color: #ffffff; }
+spinbutton:not(.vertical), entry { min-height: 28px; padding-left: 4px; margin-right: 4px; padding-right: 4px; border: 1px solid; border-radius: 3px; transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); color: #000000; border-color: #999; background-color: #ffffff; }
 
 spinbutton:not(.vertical) image.left, entry image.left { margin-right: 6px; }
 
@@ -174,7 +174,7 @@ treeview entry.flat:focus, treeview entry:focus { border-color: #bbd8f7; }
 @keyframes needs_attention { from { background-image: -gtk-gradient(radial, center center, 0, center center, 0.01, to(#bbd8f7), to(transparent)); }
   to { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(#bbd8f7), to(transparent)); } }
 
-button.titlebutton, button.sidebar-button, notebook > header > tabs > arrow, combobox:drop(active) button.combo, .selection-mode button.titlebutton, button { min-height: 24px; min-width: 22px; padding: 1px 2px; border: 1px solid; border-radius: 3px; transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); color: #000000; outline-color: rgba(60, 60, 60, 0.3); border-top-color: shade(#fafafa, 0.8); border-right-color: shade(#fafafa, 0.72); border-left-color: shade(#fafafa, 0.72); border-bottom-color: shade(#fafafa, 0.7); background-image: linear-gradient(to bottom, shade(shade(#fafafa, 1.02), 1.05), shade(shade(#fafafa, 1.02), 0.97)); box-shadow: inset 0 1px rgba(255, 255, 255, 0.6); }
+button.titlebutton, button.sidebar-button, notebook > header > tabs > arrow, combobox:drop(active) button.combo, .selection-mode button.titlebutton, button { min-height: 24px; min-width: 22px; padding: 2px 8px; border: 1px solid; border-radius: 3px; transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); color: #000000; outline-color: rgba(60, 60, 60, 0.3); border-top-color: shade(#fafafa, 0.8); border-right-color: shade(#fafafa, 0.72); border-left-color: shade(#fafafa, 0.72); border-bottom-color: shade(#fafafa, 0.7); background-image: linear-gradient(to bottom, shade(shade(#fafafa, 1.02), 1.05), shade(shade(#fafafa, 1.02), 0.97)); box-shadow: inset 0 1px rgba(255, 255, 255, 0.6); }
 
 notebook > header > tabs > arrow.flat, notebook > header > tabs > arrow, combobox:drop(active) button.flat.combo, combobox:drop(active) button.combo.titlebutton, combobox:drop(active) button.combo.sidebar-button, .selection-mode button.titlebutton, button.flat, button.titlebutton, button.sidebar-button { border-color: transparent; background-color: transparent; background-image: none; box-shadow: inset 0 1px rgba(255, 255, 255, 0); text-shadow: none; -gtk-icon-shadow: none; transition: none; }
 
@@ -204,7 +204,7 @@ popover.background checkbutton:backdrop:disabled:active label, popover.backgroun
 
 notebook > header > tabs > arrow:backdrop, combobox:drop(active) button.flat.combo:backdrop, combobox:drop(active) button.combo.titlebutton:backdrop, combobox:drop(active) button.combo.sidebar-button:backdrop, notebook > header > tabs > arrow:disabled, combobox:drop(active) button.flat.combo:disabled, combobox:drop(active) button.combo.titlebutton:disabled, combobox:drop(active) button.combo.sidebar-button:disabled, label:disabled selection.flat, label:disabled selection:backdrop, button.flat:backdrop, button.titlebutton:backdrop, button.sidebar-button:backdrop, button.flat:disabled, button.titlebutton:disabled, button.sidebar-button:disabled, button.flat:backdrop:disabled { border-color: transparent; background-color: transparent; background-image: none; box-shadow: inset 0 1px rgba(255, 255, 255, 0); text-shadow: none; -gtk-icon-shadow: none; }
 
-notebook > header > tabs > arrow:disabled, combobox:drop(active) button.combo:disabled, .selection-mode button.titlebutton:disabled, button:disabled { border-color: #828282; background-color: #e0e0e0; text-shadow: none; -gtk-icon-shadow: none; box-shadow: inset 0 1px rgba(255, 255, 255, 0); }
+notebook > header > tabs > arrow:disabled, combobox:drop(active) button.combo:disabled, .selection-mode button.titlebutton:disabled, button:disabled { border-color: #ddd; background-color: #e0e0e0; text-shadow: none; -gtk-icon-shadow: none; box-shadow: inset 0 1px rgba(255, 255, 255, 0); }
 
 notebook > header > tabs > arrow:disabled label, combobox:drop(active) button.combo:disabled label, notebook > header > tabs > arrow:disabled, combobox:drop(active) button.combo:disabled, .selection-mode button.titlebutton:disabled label, .selection-mode button.titlebutton:disabled, button:disabled label, button:disabled { color: #444444; }
 
@@ -869,6 +869,8 @@ notebook > header.top > stack { border-top-style: none; }
 
 notebook > header.top > tabs > tab { border-radius: 3px 3px 0 0; border: 1px solid shade(#fafafa, 0.9); }
 
+notebook > header.top > tabs > tab:hover { background-color: #eee; }
+
 notebook > header.top > tabs > tab:backdrop { box-shadow: none; }
 
 notebook > header.top > tabs > tab:checked { border-width: 1px 1px 0 1px; }
@@ -1142,7 +1144,7 @@ checkbutton.text-button label:not(:only-child):first-child, radiobutton.text-but
 
 checkbutton.text-button label:not(:only-child):last-child, radiobutton.text-button label:not(:only-child):last-child { margin-right: 4px; }
 
-check, radio { margin: 0 4px; min-height: 14px; min-width: 14px; border: 1px solid; -gtk-icon-source: none; color: #000000; outline-color: rgba(60, 60, 60, 0.3); border-color: #9b9b9b; background-image: linear-gradient(to bottom, #e8e8e8 20%, #dbdbdb 90%); box-shadow: inset 0 1px rgba(255, 255, 255, 0.8), inset 0 -2px #e0e0e0, inset 0 -1px #bcbcbc, 0 1px rgba(0, 0, 0, 0.1); }
+check, radio { margin: 0 4px; min-height: 14px; min-width: 14px; border: 1px solid; -gtk-icon-source: none; color: #000000; outline-color: rgba(60, 60, 60, 0.3); border-color: #9b9b9b; background-color: #fff; box-shadow: inset 0 1px rgba(255, 255, 255, 0.8), inset 0 -2px #e0e0e0, inset 0 -1px #bcbcbc, 0 1px rgba(0, 0, 0, 0.1); }
 
 check:only-child, radio:only-child { margin: 0; }
 
@@ -1216,7 +1218,7 @@ treeview.view check:selected:disabled:backdrop, treeview.view radio:selected:dis
 treeview.view check:backdrop:selected, treeview.view headerbar.selection-mode .subtitle:backdrop:link, headerbar.selection-mode treeview.view .subtitle:backdrop:link, treeview.view .selection-mode.titlebar:not(headerbar) .subtitle:backdrop:link, .selection-mode.titlebar:not(headerbar) treeview.view .subtitle:backdrop:link, treeview.view check:backdrop, treeview.view radio:backdrop:selected, treeview.view radio:backdrop { color: #444444; }
 
 /************ GtkScale * */
-progressbar trough, scale fill, scale trough { border: 1px solid #828282; border-radius: 3px; background-color: #b3b3b3; box-shadow: inset 1px 1px rgba(0, 0, 0, 0.1); }
+progressbar trough, scale fill, scale trough { background-color: #b3b3b3; }
 
 progressbar trough:disabled, scale fill:disabled, scale trough:disabled { background-color: #e0e0e0; box-shadow: none; }
 
@@ -1300,7 +1302,7 @@ row:selected scale slider, headerbar.selection-mode row.subtitle:link scale slid
 
 .osd scale slider:backdrop { color: #eeeeee; border-color: rgba(0, 0, 0, 0.7); background-color: rgba(34, 34, 34, 0.8); background-clip: padding-box; box-shadow: none; text-shadow: none; -gtk-icon-shadow: none; }
 
-scale value { color: alpha(currentColor,0.6); }
+scale value { color: #000; }
 
 scale marks { color: alpha(currentColor,0.4); }
 
@@ -1369,7 +1371,7 @@ scale.color.fine-tune.vertical:dir(rtl) trough { padding-right: 7px; background-
 scale.color.fine-tune.vertical:dir(rtl) slider { margin-right: -15px; margin-left: 6px; }
 
 /***************** Progress bars * */
-progressbar { font-size: smaller; color: rgba(60, 60, 60, 0.4); font-feature-settings: "tnum"; }
+progressbar { font-size: smaller; color: #000; font-feature-settings: "tnum"; }
 
 progressbar.horizontal trough { min-height: 6px; padding: 1px 0; }
 
@@ -1448,7 +1450,7 @@ printdialog .dialog-vbox:backdrop { background-color: #fafafa; }
 printdialog .dialog-action-box { margin: 12px; }
 
 /********** Frames * */
-frame > border, .frame { box-shadow: none; margin: 0; padding: 0; border-radius: 0; border: 1px solid #ccc; }
+frame > border, .frame { box-shadow: none; margin: 0; padding-right: 4px; border-radius: 0; border: 1px solid #ccc; }
 
 frame > border.flat, .frame.flat, button.frame.titlebutton, button.frame.sidebar-button, popover.background checkbutton.frame, popover.background radiobutton.frame, notebook > header > tabs > arrow.frame { border-style: none; }
 
@@ -1728,7 +1730,7 @@ infobar { border-style: none; }
 .info label:selected:focus, .info label:selected:hover, .info label:selected, .info headerbar.selection-mode label.subtitle:link, headerbar.selection-mode .info label.subtitle:link, .info .selection-mode.titlebar:not(headerbar) label.subtitle:link, .selection-mode.titlebar:not(headerbar) .info label.subtitle:link, .question label:selected:focus, .question label:selected:hover, .question label:selected, .question headerbar.selection-mode label.subtitle:link, headerbar.selection-mode .question label.subtitle:link, .question .selection-mode.titlebar:not(headerbar) label.subtitle:link, .selection-mode.titlebar:not(headerbar) .question label.subtitle:link, .warning label:selected:focus, .warning label:selected:hover, .warning label:selected, .warning headerbar.selection-mode label.subtitle:link, headerbar.selection-mode .warning label.subtitle:link, .warning .selection-mode.titlebar:not(headerbar) label.subtitle:link, .selection-mode.titlebar:not(headerbar) .warning label.subtitle:link, .error label:selected:focus, .error label:selected:hover, .error label:selected, .error headerbar.selection-mode label.subtitle:link, headerbar.selection-mode .error label.subtitle:link, .error .selection-mode.titlebar:not(headerbar) label.subtitle:link, .selection-mode.titlebar:not(headerbar) .error label.subtitle:link { background-color: #1a74d3; }
 
 /************* Buttonbox * */
-buttonbox { padding: 6px; }
+buttonbox { padding: 6px 0; }
 
 /************ Tooltips * */
 tooltip { padding: 1px; /* not working */ border-radius: 5px; box-shadow: none; text-shadow: 0 1px black; }
