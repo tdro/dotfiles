@@ -111,11 +111,11 @@ local function tooltip(widget, execute)
  end)
 end
 
-tooltip(widget_loadaverage, 'uptime')
-tooltip(widget_temperature, 'sensors | grep -v \'+0.0°C\'')
-tooltip(widget_battery,     'acpi -abi 2>&1')
-tooltip(widget_date,        'cal --color=never')
-tooltip(widget_memory,      'free --giga -h -t')
+-- tooltip(widget_loadaverage, 'uptime')
+-- tooltip(widget_temperature, 'sensors | grep -v \'+0.0°C\'')
+-- tooltip(widget_battery,     'acpi -abi 2>&1')
+-- tooltip(widget_date,        'cal --color=never')
+-- tooltip(widget_memory,      'free --giga -h -t')
 
 -- Create wibox
 mywibox     = {}
