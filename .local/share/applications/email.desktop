@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Mail Client
 Type=Application
-Exec=thunderbird %U
+Exec=claws-mail --compose %U
 Terminal=false
 NoDisplay=true
