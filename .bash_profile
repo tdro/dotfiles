@@ -64,10 +64,6 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export TERMINAL=urxvt
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
-command -v groff > /dev/null 2>&1 && \
-  GROFF_FONT_PATH="$HOME/.nix-profile/share/groff/$(groff -v | head -n1 | awk '{ print $4 }')/font" && \
-  export GROFF_FONT_PATH
-
 # themes
 export DESKTOP_SESSION=gnome
 export XDG_CURRENT_DESKTOP=gnome
