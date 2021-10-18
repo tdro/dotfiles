@@ -50,7 +50,7 @@ end
 -- Variable definitions
 modkey = "Mod4"
 terminal = os.getenv("TERMINAL") or "urxvt"
-editor = os.getenv("EDITOR") or "nano"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 beautiful.init(awful.util.getdir("config") .. "/themes/default/theme.lua")
 
