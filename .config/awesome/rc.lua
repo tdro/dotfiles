@@ -262,7 +262,7 @@ awful.rules.rules = {
   {
     rule_any =
     {
-      instance = { "copyq", },
+      name = { "dropdown-terminal", },
     },
     properties = { floating = true }   -- Floating clients.
   }
