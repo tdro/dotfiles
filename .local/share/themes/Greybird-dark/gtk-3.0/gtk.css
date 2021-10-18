@@ -86,7 +86,7 @@ spinner:checked { opacity: 1; animation: spin 1s linear infinite; }
 spinner:checked:disabled, label:disabled selection:checked { opacity: 0.5; }
 
 /**************** Text Entries * */
-spinbutton:not(.vertical), entry { min-height: 28px; padding-left: 4px; padding-right: 4px; border: 1px solid; border-radius: 3px; transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); color: white; border-color: #1d1f1f; background-color: #2d2e30; box-shadow: inset 0 0 0 1px rgba(20, 91, 166, 0); }
+spinbutton:not(.vertical), entry { min-height: 28px; padding-left: 4px; padding-right: 4px; margin-right: 4px; border: 1px solid; border-radius: 3px; transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); color: white; border-color: #1d1f1f; background-color: #2d2e30; box-shadow: inset 0 0 0 1px rgba(20, 91, 166, 0); }
 
 spinbutton:not(.vertical) image.left, entry image.left { margin-right: 6px; }
 
@@ -174,7 +174,7 @@ treeview entry.flat:focus, treeview entry:focus { border-color: #145ba6; }
 @keyframes needs_attention { from { background-image: -gtk-gradient(radial, center center, 0, center center, 0.01, to(#2281e4), to(transparent)); }
   to { background-image: -gtk-gradient(radial, center center, 0, center center, 0.5, to(#145ba6), to(transparent)); } }
 
-button.titlebutton, button.sidebar-button, notebook > header > tabs > arrow, combobox:drop(active) button.combo, .selection-mode button.titlebutton, button { min-height: 24px; min-width: 22px; padding: 1px 2px; border: 1px solid; border-radius: 3px; transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); color: #ffffff; outline-color: rgba(238, 238, 236, 0.3); border-top-color: shade(#333333, 0.8); border-right-color: shade(#333333, 0.72); border-left-color: shade(#333333, 0.72); border-bottom-color: shade(#333333, 0.7); background-image: linear-gradient(to bottom, #36393a, #313434 60%, #2c2e2f); box-shadow: inset 0 1px rgba(255, 255, 255, 0.05); }
+button.titlebutton, button.sidebar-button, notebook > header > tabs > arrow, combobox:drop(active) button.combo, .selection-mode button.titlebutton, button { min-height: 24px; min-width: 22px; padding: 2px 8px; border: 1px solid; border-radius: 3px; transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94); color: #ffffff; outline-color: rgba(238, 238, 236, 0.3); border-top-color: shade(#333333, 0.8); border-right-color: shade(#333333, 0.72); border-left-color: shade(#333333, 0.72); border-bottom-color: shade(#333333, 0.7); background-image: linear-gradient(to bottom, #36393a, #313434 60%, #2c2e2f); box-shadow: inset 0 1px rgba(255, 255, 255, 0.05); }
 
 notebook > header > tabs > arrow.flat, notebook > header > tabs > arrow, combobox:drop(active) button.flat.combo, combobox:drop(active) button.combo.titlebutton, combobox:drop(active) button.combo.sidebar-button, .selection-mode button.titlebutton, button.flat, button.titlebutton, button.sidebar-button { border-color: transparent; background-color: transparent; background-image: none; box-shadow: inset 0 1px rgba(255, 255, 255, 0); text-shadow: none; -gtk-icon-shadow: none; transition: none; }
 
@@ -919,7 +919,7 @@ notebook > header > tabs > arrow:disabled { border-color: transparent; backgroun
 
 notebook > header tab { min-height: 20px; min-width: 24px; padding: 3px 12px; outline-offset: -5px; color: #dddddd; background-color: #333333; border-width: 1px; border-radius: 3px; border-color: shade(#333333, 0.9); border-style: solid; }
 
-notebook > header tab:hover { color: #eeeeee; }
+notebook > header tab:hover { color: #eeeeee; background-color: #444; }
 
 notebook > header tab:hover.reorderable-page { border-color: rgba(29, 31, 31, 0.3); background-color: rgba(59, 62, 63, 0.2); }
 
@@ -1282,9 +1282,9 @@ row:selected scale slider, headerbar.selection-mode row.subtitle:link scale slid
 
 .osd scale slider:backdrop { color: #eeeeee; border-color: rgba(0, 0, 0, 0.7); background-color: rgba(34, 34, 34, 0.8); background-clip: padding-box; box-shadow: none; text-shadow: none; -gtk-icon-shadow: none; }
 
-scale value { color: alpha(currentColor,0.6); }
+scale value { color: #fff; }
 
-scale marks { color: alpha(currentColor,0.4); }
+scale marks { color: #fff; }
 
 scale marks.top { margin-bottom: 6px; margin-top: -12px; }
 
@@ -1351,7 +1351,7 @@ scale.color.fine-tune.vertical:dir(rtl) trough { padding-right: 7px; background-
 scale.color.fine-tune.vertical:dir(rtl) slider { margin-right: -15px; margin-left: 6px; }
 
 /***************** Progress bars * */
-progressbar { font-size: smaller; color: rgba(238, 238, 236, 0.4); font-feature-settings: "tnum"; }
+progressbar { font-size: smaller; color: #fff; font-feature-settings: "tnum"; }
 
 progressbar.horizontal trough { min-height: 6px; padding: 1px 0; }
 
@@ -1430,7 +1430,7 @@ printdialog .dialog-vbox:backdrop { background-color: #333333; }
 printdialog .dialog-action-box { margin: 12px; }
 
 /********** Frames * */
-frame > border, .frame { box-shadow: none; margin: 0; padding: 0; border-radius: 0; border: 1px solid #1d1f1f; }
+frame > border, .frame { box-shadow: none; margin: 0; padding-right: 4px; border-radius: 0; border: 1px solid #1d1f1f; }
 
 frame > border.flat, .frame.flat, button.frame.titlebutton, button.frame.sidebar-button, popover.background checkbutton.frame, popover.background radiobutton.frame, notebook > header > tabs > arrow.frame { border-style: none; }
 
