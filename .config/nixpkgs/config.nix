@@ -313,10 +313,11 @@ in
     Themes = pkgs.buildEnv {
       name = "themes";
       paths = [
-        adwaita-qt
         gtk-engine-murrine
         papirus-icon-theme
         vanilla-dmz
+        qt4
+        librsvg
       ];
     };
 

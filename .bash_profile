@@ -68,11 +68,10 @@ export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 export DESKTOP_SESSION=gnome
 export XDG_CURRENT_DESKTOP=gnome
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-export QT_STYLE_OVERRIDE=adwaita
 
-# specific themes
-[ "$(cat /etc/hostname)" = "tiger" ] && export QT_STYLE_OVERRIDE=adwaita-dark
-[ "$(cat /etc/hostname)" = "talon" ] && export QT_STYLE_OVERRIDE=adwaita-dark
+command -v rsvg-convert > /dev/null 2>&1 && \
+  GDK_PIXBUF_MODULE_FILE=$(printf "%s" "$HOME"/.nix-profile/lib/gdk-pixbuf*/*/loaders.cache) && \
+  export GDK_PIXBUF_MODULE_FILE
 
 # fzf settings
 export FZF_DEFAULT_OPTS="--color=fg:255,hl:203 \
