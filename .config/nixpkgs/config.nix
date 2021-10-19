@@ -420,7 +420,7 @@ in
 
     Shell = pkgs.buildEnv {
       name = "shell";
-      paths = [ bats dash shellcheck shfmt ];
+      paths = [ dash fish bats shellcheck shfmt ];
     };
 
     Haskell = pkgs.buildEnv {
