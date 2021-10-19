@@ -266,6 +266,7 @@ in
     Xfce = pkgs.buildEnv {
       name = "xfce";
       paths = [
+        bamf
         deadbeef
         plank
         polkit_gnome
