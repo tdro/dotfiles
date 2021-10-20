@@ -1,14 +1,21 @@
-nohl
-hi clear
-syntax reset
-set t_Co=256
-set background=dark
-let g:syntax_cmd = "skip"
+nohls                      " Do not highlight previous search patterns.
+highlight clear            " Reset all highlighting to the defaults. Run :hi to see current theme colors.
+syntax reset               " Reset syntax to defaults.
 
-let s:none='NONE'
-let s:bold='bold'
-let s:t_clear=0
+set t_Co=256               " Set number of terminal colors to 256.
+set guioptions-=l          " Remove left scrollbar in GUI.
+set guioptions-=L          " Remove left scrollbar in GUI vertical split.
+set guioptions-=r          " Remove right scrollbar in GUI.
+set guioptions-=R          " Remove right scrollbar in GUI vertical split.
+set guioptions-=m          " Remove menu in GUI.
+set guioptions-=T          " Remove toolbar in GUI.
+set guioptions-=e          " Remove tab bar in GUI.
+set background=dark        " Try to use dark colors.
 
+let g:syntax_cmd = "skip"  " Don't define colors. We define the colors.
+let s:t_clear=0            " Set terminal empty color value.
+
+let s:none         = 'NONE' | let s:bold         = 'bold'
 let s:t_background = s:none | let s:g_background = '#2c303c'
 let s:t_white      = '255'  | let s:g_white      = '#cdd3de'
 let s:t_black      = '232'  | let s:g_black      = '#000000'

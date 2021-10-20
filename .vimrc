@@ -90,13 +90,6 @@ set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
 
 syntax enable                            " Enable syntax highlighting.
 colorscheme fluid                        " Set color scheme.
-set guioptions-=l                        " Remove left scrollbar in GUI.
-set guioptions-=L                        " Remove left scrollbar in GUI vertical split.
-set guioptions-=r                        " Remove right scrollbar in GUI.
-set guioptions-=R                        " Remove right scrollbar in GUI vertical split.
-set guioptions-=m                        " Remove menu in GUI.
-set guioptions-=T                        " Remove toolbar in GUI.
-set guioptions-=e                        " Remove tab bar in GUI.
 
 
 "---------------Functions---------------"
