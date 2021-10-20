@@ -379,7 +379,7 @@ in
     Python = pkgs.buildEnv {
       name = "python";
       paths = [
-        (python38.withPackages (ps: with ps; [ bandit black mypy pyflakes pylint ]))
+        (python39.withPackages (ps: with ps; [ bandit black mypy pylint pyflakes flake8 ]))
       ];
     };
 
@@ -490,7 +490,7 @@ in
       paths = [
         (callPackage ./packages/ruamel.yaml.cmd/default.nix {})
         (callPackage ./packages/yaml2nix/default.nix {})
-        python38Packages.yamllint
+        python39Packages.yamllint
       ];
     };
   };
