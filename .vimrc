@@ -347,7 +347,7 @@ augroup AutoCommands
   autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
-  " Formatting programs.
+  " Selective formatting using visual select + gq.
   autocmd FileType nix set formatprg=nixfmt
   autocmd FileType sh  set formatprg=shfmt\ -
 
