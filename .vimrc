@@ -308,6 +308,7 @@ augroup AutoCommands
   autocmd FileType html       autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType python     autocmd! BufWritePost <buffer> exe 'Notify(''black ' . expand('%') . ' 2>&1 && pylint ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType ruby       autocmd! BufWritePost <buffer> exe 'Notify(''rufo ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType nim        autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
   autocmd FileType rust       autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
   autocmd FileType json       autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
   autocmd FileType elixir     autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
@@ -344,6 +345,9 @@ augroup AutoCommands
   " Selective formatting using visual select + gq.
   autocmd FileType nix set formatprg=nixfmt
   autocmd FileType sh  set formatprg=shfmt\ -
+
+  " Set file types.
+  autocmd BufRead,BufNewFile *.nims set filetype=nim
 
   " General auto commands.
   autocmd BufWritePost *.tex                              :term ++close ++rows=10 latex-compile %

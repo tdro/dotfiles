@@ -24,7 +24,7 @@ in
       paths = [
         Terminal Graphical Xorg Awesome Fonts Audio LaTeX Dictionary
         Android JavaScript Python PHP Lua Elixir HTML Shell Haskell
-        Perl Nix C Golang Rust CSS SQL YAML Ruby Themes
+        Perl Nix C Golang Rust CSS SQL YAML Ruby Nim Themes
       ];
     };
 
@@ -397,11 +397,7 @@ in
 
     Lua = pkgs.buildEnv {
       name = "lua";
-      paths = [
-        (callPackage ./packages/luaformatter/default.nix {})
-        lua5_3
-        lua53Packages.luacheck
-      ];
+      paths = [ (callPackage ./packages/luaformatter/default.nix {}) lua5_3 lua53Packages.luacheck ];
     };
 
     Elixir = pkgs.buildEnv {
@@ -441,11 +437,7 @@ in
 
     Ruby = pkgs.buildEnv {
       name = "ruby";
-      paths = [
-        (callPackage ./packages/rufo/default.nix {})
-        rubocop
-        ruby
-      ];
+      paths = [ (callPackage ./packages/rufo/default.nix {}) rubocop ruby ];
     };
 
     C = pkgs.buildEnv {
@@ -461,6 +453,11 @@ in
     Rust = pkgs.buildEnv {
       name = "rust";
       paths = [ evcxr rustup ];
+    };
+
+    Nim = pkgs.buildEnv {
+      name = "nim";
+      paths = [ nim ];
     };
 
     CSS = pkgs.buildEnv {
