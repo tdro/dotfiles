@@ -28,9 +28,10 @@ cleanup() {
 }
 
 
-mkdir -p -- "$cfgdir" "$datadir"
+mkdir --parents -- "$cfgdir" "$datadir"
 export XAUTHORITY="${XAUTHORITY:-$datadir/Xauthority}"
 touch -- "$XAUTHORITY"
+export XDG_SESSION_TYPE=X11
 
 xauth add :"$tty" MIT-MAGIC-COOKIE-1 "$(od -An -N16 -tx /dev/urandom | tr -d ' ')"
 
@@ -49,7 +50,7 @@ trap 'DISPLAY=:$tty exec "${@:-$cfgdir/xinitrc}" & wait "$!"' USR1
   -keeptty vt"$tty"                           \
   -noreset                                    \
   -auth "$XAUTHORITY"                         \
-  -configdir "$HOME/.config/X11/xorg.conf.d"  \
+  -configdir "$cfgdir/xorg.conf.d"            \
   -logfile "$HOME/.cache/xorg.log"            \
 ) & pid=$!
 
