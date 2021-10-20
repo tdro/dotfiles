@@ -268,6 +268,7 @@ in
       paths = [
         bamf
         deadbeef
+        dunst
         plank
         polkit_gnome
         xfce.exo
