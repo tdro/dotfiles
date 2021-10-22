@@ -174,7 +174,6 @@ in
         freerdp
         gImageReader
         gimp
-        gnome3.simple-scan
         google-chrome
         gparted
         i3lock-fancy
@@ -193,7 +192,6 @@ in
         peek
         qownnotes
         qrencode
-        quodlibet
         recoll
         redshift
         rofi
@@ -214,6 +212,7 @@ in
         unclutter
         vimb
         virt-manager
+        vlc
         vscodium
         xournalpp
         xsane
