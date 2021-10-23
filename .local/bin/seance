@@ -1,0 +1,58 @@
+#!/bin/sh -eu
+
+program=$(basename "$0")
+directory=$HOME/.config/seance
+session=$directory/session
+spirits=$directory/spirits
+
+help() {
+printf \
+"
+Usage: %s [FLAGS]... [ARGUMENT]...
+
+The program $program shall save and restore
+running programs in a desktop session according
+to a specified configuration file.
+
+Add a program string, one per line,
+to $spirits to
+save programs in current session.
+
+Session:       $session
+Configuration: $spirits
+
+  Command List:
+
+   $program commit      Saves current running programs to session.
+   $program start       Restore previous session.
+   $program list        List running programs.
+   $program search      Search for a running program.
+   $program -h --help   Show this help menu.
+
+" "$program";
+}
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && help && exit;
+
+mkdir --parents "$directory"
+
+touch "$spirits"
+
+commit() {
+  ps aux |
+  awk '$1 == "'"$(whoami)"'" { $1=$2=$3=$4=$5=$6=$7=$8=$9=$10=""; print $0 }' |
+  awk '!deduplicate[$0]++ { $1=$1; printf "%s &\n", $0 }'
+}
+
+[ "${1:-}" = "commit" ] &&
+  { commit | grep --file="$spirits" > "$session" || printf "Warning empty or failed session file!\n"; } &&
+  printf 'Session %s canonized.\n' "$session" &&
+  exit
+
+[ "${1:-}" = "list" ] && commit && exit;
+
+[ "${1:-}" = "search" ] && commit |  grep "$2" | head --lines=1 && exit;
+
+[ "${1:-}" = "start" ] && /bin/sh "$session" && exit;
+
+help && printf "Error: Unknown argument '%s'.\n\n" "$@" && exit 1;
