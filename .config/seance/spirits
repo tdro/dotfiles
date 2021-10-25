@@ -1,8 +1,9 @@
+anki
 bin/chromium
+claws-mail
+keepassxc
 mupdf
 spacefm
 urxvt -e vim
 urxvt -hold
 zim
-keepassxc
-anki

@@ -24,9 +24,10 @@ Configuration: $spirits
   Command List:
 
    $program commit      Saves current running programs to session.
-   $program start       Restore previous session.
-   $program list        List running programs.
+   $program list        List saved programs.
+   $program config      View current configuration.
    $program search      Search for a running program.
+   $program start       Restore previous session.
    $program -h --help   Show this help menu.
 
 " "$program";
@@ -49,7 +50,9 @@ commit() {
   printf 'Session %s canonized.\n' "$session" &&
   exit
 
-[ "${1:-}" = "list" ] && commit && exit;
+[ "${1:-}" = "list" ] && cat "$session" && exit;
+
+[ "${1:-}" = "config" ] && cat "$spirits" && exit;
 
 [ "${1:-}" = "search" ] && commit |  grep "$2" | head --lines=1 && exit;
 
