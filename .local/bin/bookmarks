@@ -55,11 +55,10 @@ bookmarks_combine () {
 }
 
 bookmarks_show () {
-  bookmarks_help "$@";
-  $hxnormalize "$1" | hxselect -c -i -s '\n' 'a::attr(href)' > "$anchors"
-  $hxnormalize "$1" | hxselect -c -i -s '\n' 'a' > "$titles"
+  $hxnormalize "${1:-}" | hxselect -c -i -s '\n' 'a::attr(href)' > "$anchors"
+  $hxnormalize "${1:-}" | hxselect -c -i -s '\n' 'a' > "$titles"
   xdg-open "$(paste -d' ' "$anchors" "$titles" \
-  | rofi -font "ubuntu 12" -matching regex -padding 20 -dmenu -i -p 'Bookmarks' \
+  | rofi -font "sans 12" -matching regex -padding 20 -dmenu -i -p 'Bookmarks' \
   | awk '{ print $1 }')";
 }
 
