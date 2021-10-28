@@ -2,10 +2,11 @@
 
 date=$(date +%s)
 program=$(basename "$0")
+key="QdUEdQBncNzJgIJqTA30"
 hxnormalize="hxnormalize -l 99999999 -x"
-items='/tmp/bookmarks_items_QdUEdQBncNzJgIJqTA30'
-titles='/tmp/bookmarks_titles_QdUEdQBncNzJgIJqTA30'
-anchors='/tmp/bookmarks_anchors_QdUEdQBncNzJgIJqTA30'
+items=/tmp/bookmarks_items_$key
+titles=/tmp/bookmarks_titles_$key
+anchors=/tmp/bookmarks_anchors_$key
 dependencies="$(command -V xmlstarlet hxnormalize paste \
                 hxselect hxincl xdg-open rofi basename \
                 | awk '{ print $1, $3 }' | column -t)"
