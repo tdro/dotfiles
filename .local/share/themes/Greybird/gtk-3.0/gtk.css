@@ -1450,7 +1450,7 @@ printdialog .dialog-vbox:backdrop { background-color: #fafafa; }
 printdialog .dialog-action-box { margin: 12px; }
 
 /********** Frames * */
-frame > border, .frame { box-shadow: none; margin: 0; padding-right: 4px; border-radius: 0; border: 1px solid #ccc; }
+frame > border, .frame { box-shadow: none; margin: 0; border-radius: 0; }
 
 frame > border.flat, .frame.flat, button.frame.titlebutton, button.frame.sidebar-button, popover.background checkbutton.frame, popover.background radiobutton.frame, notebook > header > tabs > arrow.frame { border-style: none; }
 
