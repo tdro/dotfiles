@@ -20,23 +20,24 @@ base=\
 "
 
 bookmarks_help() {
-  [ "$#" = 0 ] && printf \
-  "
-  Usage: %s [FLAGS]... [ARGUMENTS]...
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && printf \
+"
+Usage: %s [FLAGS]... [ARGUMENTS]...
 
-  The program $program shall execute basic operations
-  on Netscape Bookmark HTML files.
+The program $program shall execute basic operations
+on Netscape Bookmark HTML files.
 
-    Command List:
+  Command List:
 
-      $program compile [FILES]...  Combine two or more bookmark files.
-      $program show [FILE]         Show list of bookmarks.
-      $program check               Check dependencies.
-  " "$program" && exit;
+    $program compile [FILES]...  Combine two or more bookmark.html files.
+    $program show [FILE]         Show list of bookmarks.
+    $program check               Check dependencies.
+    $program -h --help           Show this help menu.
+" "$program" && exit;
+printf "Error: Unknown argument '%s'.\n" "$@" && exit 1;
 }
 
 bookmarks_combine () {
-  bookmarks_help "$@";
   for file in "$@"
   do $hxnormalize "$file" | sed 's/&/&amp;/g' \
     | xmlstarlet edit -S \
@@ -66,4 +67,4 @@ bookmarks_show () {
 [ "${1:-}" = "combine" ] && shift 1 && bookmarks_combine "$@" && exit;
 [ "${1:-}" = "check"   ] && shift 1 && printf '%s\n' "$dependencies" && exit;
 
-bookmarks_help;
+bookmarks_help "$@";
