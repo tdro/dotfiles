@@ -34,7 +34,7 @@ nix-index --nixpkgs https://github.com/NixOS/nixpkgs/archive/master.tar.gz
 { [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && help && exit;
 
 databasePath=${XDG_DATA_HOME:-~/.cache}/nix-index
-nixLocate='nix-locate --db '"$databasePath"' --top-level --minimal --whole-name '"${1:-}"
+nixLocate='nix-locate --db '"$databasePath"' --top-level --minimal --whole-name -- '"${1:-}"
 attributes=$($nixLocate | while read -r attribute; do
   attributeName=${attribute%.*};
   printf '%s\n' "$attributeName";
