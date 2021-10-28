@@ -4,9 +4,8 @@
 program=$(basename "$0")
 requires="$(command -V nix-index nix-locate nix-shell fzf | awk '{ print $1, $3 }' | column -t)"
 
-[ "${1:-}" = "--check" ] && printf '%s\n' "$requires" && exit;
-
-{ [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && printf \
+help() {
+printf \
 "
 Usage: %s [FLAGS]... [ARGUMENT]...
 
@@ -26,7 +25,13 @@ nix-index --nixpkgs https://github.com/NixOS/nixpkgs/archive/master.tar.gz
    $program [ARGUMENT]...        Search for packages using file name argument.
    $program --help               Show this help menu.
    $program --check              Check dependencies.
-" "$program" && exit;
+" "$program";
+}
+
+
+[ "${1:-}" = "--check" ] && printf '%s\n' "$requires" && exit;
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && help && exit;
 
 databasePath=${XDG_DATA_HOME:-~/.cache}/nix-index
 nixLocate='nix-locate --db '"$databasePath"' --top-level --minimal --whole-name '"${1:-}"
