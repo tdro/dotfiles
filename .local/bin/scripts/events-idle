@@ -2,6 +2,3 @@
 
 # update file search cache
 "$HOME"/.local/bin/scripts/file-search update;
-
-# update dmenu_run_history
-"$HOME"/.local/bin/dmenu_run_history update;
