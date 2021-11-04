@@ -184,7 +184,7 @@ nmap <leader>cn :set relativenumber!<cr>
 vnoremap <leader>ct !column -t -o' '<cr>
 
 " Fold text
-vnoremap <leader>cf <S-J><S-v> \| !fold -s -w<space>
+vnoremap <leader>cf <S-J><S-v> \| !fold -s -w<space>80
 
 " Go to scratchpad of specified filetype
 noremap <leader>cs :w !cat > $HOME/.cache/vim-scratchpad<cr>:e +setf\ <space>$HOME/.cache/vim-scratchpad<C-left><left>
