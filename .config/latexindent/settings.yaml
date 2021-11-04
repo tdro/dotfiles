@@ -1,0 +1,11 @@
+---
+# Default: https://raw.githubusercontent.com/cmhughes/latexindent.pl/main/defaultSettings.yaml
+onlyOneBackUp: 1
+backupExtension: .backup.tex
+logFilePreferences:
+  endLogFileWith: '--------------'
+  showAmalgamatedSettings: 0
+  showDecorationFinishCodeBlockTrace: 0
+  showDecorationStartCodeBlockTrace: 0
+  showEveryYamlRead: 0
+  showGitHubInfoFooter: 0
