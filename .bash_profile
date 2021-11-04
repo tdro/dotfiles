@@ -60,6 +60,7 @@ export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npmrc"
 export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/pass"
 export PROMPT_COMMAND='cd .; history -a; history -n;'
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
+export RECOLL_CONFDIR="$XDG_CONFIG_HOME/recoll"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export TERMINAL=urxvt
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
