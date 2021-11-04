@@ -298,10 +298,6 @@ augroup AutoCommands
   autocmd BufWritePost .vimrc      source % | Notify('printf "Configuration sourced."')
   autocmd BufWritePost plugins.vim source % | Notify('printf "Plugins configuration sourced."')
 
-  " Linting extension post write commands.
-  autocmd BufWritePost *.txt,*.md :only | :term ++rows=10 vale %
-  autocmd BufWritePost *.lit      exe 'Notify(''lit ' . expand('%') . ' 2>&1 && printf "Literate OK: ' . expand('%') . '"'')'
-
   " Linting file type post write commands.
   autocmd FileType php        autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType css        autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
@@ -323,6 +319,15 @@ augroup AutoCommands
   autocmd FileType yaml       autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType typescript autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --config tsconfig.json --allow-all --location https://example.com/  %
   autocmd FileType sql        autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format -i ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
+
+  " Linting extension post write commands.
+  autocmd BufWritePost $HOME/.config/chromexup/config.ini exe 'Notify(''chromexup 2>&1'')'
+  autocmd BufWritePost rc.lua                             exe 'Notify(''awesome -k 2>&1'')'
+  autocmd BufWritePost quotes,*.fortune                   exe 'Notify(''strfile ' . expand('%') . ''')'
+  autocmd BufWritePost *.lit                              exe 'Notify(''lit ' . expand('%') . ' 2>&1 && printf "Literate OK: ' . expand('%') . '"'')'
+  autocmd BufWritePost Xresources                         exe 'Notify(''xrdb ~/.config/X11/Xresources ' . '2>&1 && printf "Reloading Xresources: ' . expand('%') . '"'')'
+  autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Deskop File OK: ' . expand('%') . '"'')'
+  autocmd BufWritePost *.txt,*.md                         :only | :term ++rows=10 vale %
 
   " File type function under cursor lookups.
   autocmd FileType go     noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
@@ -349,13 +354,6 @@ augroup AutoCommands
 
   " Set file types.
   autocmd BufRead,BufNewFile *.nims set filetype=nim
-
-  " General auto commands.
-  autocmd BufWritePost $HOME/.config/chromexup/config.ini exe 'Notify(''chromexup 2>&1'')'
-  autocmd BufWritePost rc.lua                             exe 'Notify(''awesome -k 2>&1'')'
-  autocmd BufWritePost quotes,*.fortune                   exe 'Notify(''strfile ' . expand('%') . ''')'
-  autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Deskop File OK: ' . expand('%') . '"'')'
-  autocmd BufWritePost Xresources                         exe 'Notify(''xrdb ~/.config/X11/Xresources ' . '2>&1 && printf "Reloading Xresources: ' . expand('%') . '"'')'
 
   " Automatically remove trailing white space on save.
   autocmd InsertLeave,BufWritePre * %s/\s\+$//e
