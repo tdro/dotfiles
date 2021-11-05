@@ -63,6 +63,7 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export RECOLL_CONFDIR="$XDG_CONFIG_HOME/recoll"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export TERMINAL=urxvt
+export TEXINPUTS=$XDG_DATA_HOME/tex:
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 
 # themes
