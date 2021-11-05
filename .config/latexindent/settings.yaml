@@ -2,6 +2,13 @@
 # Default: https://raw.githubusercontent.com/cmhughes/latexindent.pl/main/defaultSettings.yaml
 onlyOneBackUp: 1
 backupExtension: .backup.tex
+
+modifyLineBreaks:
+  preserveBlankLines: 1
+  condenseMultipleBlankLinesInto: 1
+  textWrapOptions:
+    columns: 80
+
 logFilePreferences:
   endLogFileWith: '--------------'
   showAmalgamatedSettings: 0
