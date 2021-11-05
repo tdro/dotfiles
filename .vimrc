@@ -311,10 +311,10 @@ augroup AutoCommands
   autocmd FileType haskell    autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType c          autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType bash,sh    autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')'
-  autocmd FileType tex        autocmd! BufWritePost <buffer> exe 'Notify(''latexindent --silent --cruft=/tmp --overwrite ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
   autocmd FileType javascript autocmd! BufWritePost <buffer> exe 'Notify(''eslint -c $HOME/.config/eslintrc.yml --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
   autocmd FileType go         autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType nix        autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e
+  autocmd FileType tex        autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
   autocmd FileType awk        autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
   autocmd FileType yaml       autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType typescript autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --config tsconfig.json --allow-all --location https://example.com/  %
