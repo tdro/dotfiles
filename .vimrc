@@ -212,10 +212,6 @@ nmap <Esc><Esc> :nohl<cr>
 " Disable Ex Mode
 nnoremap Q <Nop>
 
-" Clear notification popups
-nnoremap j :call popup_clear()<cr><Down>
-nnoremap k :call popup_clear()<cr><Up>
-
 " Split window mappings
 nmap <Bslash> :vsplit<cr>
 nmap <C-Bslash> :split<cr>
@@ -354,6 +350,9 @@ augroup AutoCommands
 
   " Set file types.
   autocmd BufRead,BufNewFile *.nims set filetype=nim
+
+  " Clear notification on cursor movement.
+  autocmd CursorMoved * silent! call popup_clear()
 
   " Automatically remove trailing white space on save.
   autocmd InsertLeave,BufWritePre * %s/\s\+$//e
