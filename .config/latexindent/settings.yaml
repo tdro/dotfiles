@@ -6,6 +6,9 @@ backupExtension: .backup.tex
 modifyLineBreaks:
   preserveBlankLines: 1
   condenseMultipleBlankLinesInto: 1
+  oneSentencePerLine:
+    manipulateSentences: 0
+    textWrapSentences: 1
   textWrapOptions:
     columns: 80
 
