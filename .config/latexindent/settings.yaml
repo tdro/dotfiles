@@ -12,6 +12,13 @@ modifyLineBreaks:
   textWrapOptions:
     columns: 80
 
+verbatimEnvironments:
+  pre: 1
+  filecontents*: 1
+
+noAdditionalIndentGlobal:
+  filecontents: 1
+
 logFilePreferences:
   endLogFileWith: '--------------'
   showAmalgamatedSettings: 0
