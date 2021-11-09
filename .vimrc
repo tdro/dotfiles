@@ -153,8 +153,9 @@ nmap <leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab \|
 nmap <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab \| :%retab!<cr>
 
 " Close buffer and window
-nmap <leader>q :bd<cr>
-nmap <leader>w <C-w>c<cr>
+nmap <leader>qq :bd<cr>
+nmap <leader>qa :silent! %bd!\|e#<cr>
+nmap <leader>qw <C-w>c<cr>
 
 " Re-indent entire file
 nmap <leader>re gg=G<C-o><C-o>
