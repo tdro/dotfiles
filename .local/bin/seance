@@ -54,7 +54,7 @@ commit() {
 
 [ "${1:-}" = "config" ] && cat "$spirits" && exit;
 
-[ "${1:-}" = "search" ] && commit |  grep "$2" | head --lines=1 && exit;
+[ "${1:-}" = "search" ] && commit |  grep --ignore-case -- "$2" | head --lines=1 && exit;
 
 [ "${1:-}" = "start" ] && /bin/sh "$session" && exit;
 
