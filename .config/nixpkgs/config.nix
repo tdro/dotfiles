@@ -378,7 +378,7 @@ in
     Python = pkgs.buildEnv {
       name = "python";
       paths = [
-        (python39.withPackages (ps: with ps; [ bandit black mypy pylint pyflakes flake8 ]))
+        (python39.withPackages (ps: with ps; [ bandit black mypy pylint pyflakes flake8 pygments ]))
       ];
     };
 
