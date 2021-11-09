@@ -13,13 +13,15 @@ defmodule ArgParser do
       |> OptionParser.parse!(strict: [option: :string, text: :string])
 
     options = [
-      thesaurus: "Thesaurus",
-      title_case: "Title Case",
-      kjv_lookup: "KJV Verse Lookup",
-      single_line: "Single line of text",
-      first_letter: "First letter of each word in sentence",
+      first_letter: "First Letter Word",
+      single_line: "Single Line",
       slug_text: "Slug",
-      lower_case: "Lower Case"
+      title_case: "Title Case",
+      lower_case: "Lower Case",
+      lorem_title: "Lorem Title",
+      lorem_paragraph: "Lorem Paragraph",
+      thesaurus: "Thesaurus",
+      kjv_lookup: "KJV Verse Lookup"
     ]
 
     cond do
@@ -52,6 +54,12 @@ defmodule ArgParser do
       opts[:option] == options[:lower_case] ->
         TextPlumber.lowerCaseOf(opts[:text]) |> IO.binwrite()
 
+      opts[:option] == options[:lorem_title] ->
+        TextPlumber.loremTitle()
+
+      opts[:option] == options[:lorem_paragraph] ->
+        TextPlumber.loremParagraph()
+
       true ->
         Enum.each(options, fn {_, value} -> IO.puts(value) end)
     end
@@ -77,6 +85,34 @@ defmodule TextPlumber do
     text |> String.split() |> Enum.map(fn word -> :string.titlecase(word) end) |> Enum.join(" ")
   end
 
+  def slugOf(text) do
+    String.replace(text, " ", "-")
+  end
+
+  def lowerCaseOf(text) do
+    String.downcase(text)
+  end
+
+  def loremParagraph() do
+    {string, _return} =
+      System.cmd("sh", [
+        "-c",
+        "perl -e 'use Text::Lorem; print Text::Lorem->new()->sentences(5)';"
+      ])
+
+    IO.puts(string)
+  end
+
+  def loremTitle() do
+    {string, _return} =
+      System.cmd("sh", [
+        "-c",
+        "perl -e 'use Text::Lorem; print Text::Lorem->new()->words(4)';"
+      ])
+
+    IO.puts(string)
+  end
+
   def synonymOfFirstWordIn(text) do
     System.cmd(Settings.terminal(), [
       "-e",
@@ -84,14 +120,6 @@ defmodule TextPlumber do
       "-c",
       "dict -h localhost #{TextPlumber.firstWordOf(text)} 2>&1 | vim -"
     ])
-  end
-
-  def slugOf(text) do
-    String.replace(text, " ", "-")
-  end
-
-  def lowerCaseOf(text) do
-    String.downcase(text)
   end
 end
 

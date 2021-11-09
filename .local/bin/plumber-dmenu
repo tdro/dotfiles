@@ -1,11 +1,14 @@
 #!/bin/sh -eu
-options="First letter of each word in sentence
-Single line of text
+options="\
+First Letter Word
+Single Line
+Slug
+Title Case
+Lower Case
+Lorem Title
+Lorem Paragraph
 Thesaurus
 KJV Verse Lookup
-Title Case
-Slug
-Lower Case
 "
 printf "%s" "$options" \
   | dmenu -i -b -p Plumb \
