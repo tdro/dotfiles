@@ -1,13 +1,15 @@
 #!/bin/sh -eu
 
 { [ "${1:-}" = "-h" ] ||
-  [ "${1:-}" = "--help" ] ||
-  [ "$#" = 0 ]; } &&
-  printf "nixos-test [FILE]...\n" &&
-  exit;
+	[ "${1:-}" = "--help" ] ||
+	[ "$#" = 0 ]; } &&
+	printf "nixos-test [FILE]...\n" &&
+	exit
+
+[ -f "$1" ] || { printf "Error: File '%s' not found\n" "$1" && exit; }
 
 awk '!s {s=sub("^{$","{ boot.isContainer = true;")}{ print $0 }' "$1" | sponge "$1"
 
-NIXOS_CONFIG=$(realpath "$1") nixos-rebuild --fast dry-build || true;
+NIXOS_CONFIG=$(realpath "$1") nixos-rebuild --fast dry-build || true
 
 awk '!s {s=sub("{ boot.isContainer = true;","{")}{ print $0 }' "$1" | sponge "$1"
