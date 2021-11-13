@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Blender
+Type=Application
+Exec=blender %F
+Terminal=false
+NoDisplay=true
