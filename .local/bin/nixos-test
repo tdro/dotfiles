@@ -1,4 +1,7 @@
-#!/bin/sh -eu
+#!/usr/bin/env nix-shell
+#!nix-shell -i dash -p dash gawk moreutils nixos-rebuild nixfmt
+
+set -eu
 
 { [ "${1:-}" = "-h" ] ||
 	[ "${1:-}" = "--help" ] ||
@@ -8,8 +11,13 @@
 
 [ -f "$1" ] || { printf "Error: File '%s' not found\n" "$1" && exit; }
 
+cp "$1" "$1.bak"
+
+nixfmt "$1"
+
 awk '!s {s=sub("^{$","{ boot.isContainer = true;")}{ print $0 }' "$1" | sponge "$1"
+awk '!s {s=sub("^in {$","in { boot.isContainer = true;")}{ print $0 }' "$1" | sponge "$1"
 
 NIXOS_CONFIG=$(realpath "$1") nixos-rebuild --fast dry-build || true
 
-awk '!s {s=sub("{ boot.isContainer = true;","{")}{ print $0 }' "$1" | sponge "$1"
+mv "$1.bak" "$1"
