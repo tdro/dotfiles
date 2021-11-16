@@ -1,7 +1,6 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i dash -p dash gawk moreutils nixos-rebuild nixfmt
+#!/bin/sh -eu
 
-set -eu
+# nix-shell -i dash -p dash gawk moreutils nixos-rebuild nixfmt
 
 { [ "${1:-}" = "-h" ] ||
 	[ "${1:-}" = "--help" ] ||
