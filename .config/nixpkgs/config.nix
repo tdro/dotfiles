@@ -68,6 +68,7 @@ in
         unstable.hugo
         aerc
         alsaUtils
+        ansi2html
         ansible
         bat
         bleachbit
@@ -472,6 +473,7 @@ in
         (callPackage ./packages/csstidy/default.nix {})
         (callPackage ./packages/stylelint/default.nix {})
         csslint
+        sassc
       ];
     };
 
