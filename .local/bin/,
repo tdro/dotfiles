@@ -25,23 +25,23 @@ nix-index --nixpkgs https://github.com/NixOS/nixpkgs/archive/master.tar.gz
    $program [ARGUMENT]...        Search for packages using file name argument.
    $program --help               Show this help menu.
    $program --check              Check dependencies.
-" "$program";
+" "$program"
 }
 
+[ "${1:-}" = "--check" ] && printf '%s\n' "$requires" && exit
 
-[ "${1:-}" = "--check" ] && printf '%s\n' "$requires" && exit;
-
-{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && help && exit;
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && help && exit
 
 databasePath=${XDG_DATA_HOME:-~/.cache}/nix-index
-nixLocate='nix-locate --db '"$databasePath"' --top-level --minimal --whole-name -- '"${1:-}"
-attributes=$($nixLocate | while read -r attribute; do
-  attributeName=${attribute%.*};
-  printf '%s\n' "$attributeName";
-done)
+nixLocate='nix-locate --db '"$databasePath"' -- '"${1:-}"
+attributes=$($nixLocate | awk '{ print $1, $4 }' | sed 's|/nix/store/.[^-]*-||g')
+attribute=$(printf '%s' "$attributes" | column --table | fzf | awk '{ print $1 }')
 
-attribute=$(printf '%s' "$attributes" | fzf)
-nix-shell --packages "$attribute" fish toybox --command \
+[ -z "$attribute" ] && exit
+
+printf '\nsetting up shell with %s path...\n' "$attribute"
+
+nix-shell --packages "$attribute" fish bat toybox --command \
 '
   home=$TMPDIR/nix-shell-tmp-home.r2np9PHrby
   program=$(printf "%s" "$buildInputs" | cut --delimiter=" " --fields=1)
@@ -61,9 +61,37 @@ nix-shell --packages "$attribute" fish toybox --command \
     export TERMINFO=$TERMINFO
     export TERMINFO_DIRS=$TERMINFO_DIRS
     export HOME=$home
+    export OUT=$program
     export fish_greeting=
     mkdir --parents $home
     cd || exit 1
-    fish --init-command=\"function fish_prompt; printf '"'nix-shell@$attribute $ '"'; end\"
+    fish --init-command=\"
+      function fish_prompt; printf '"'nix-shell@$attribute $ '"'; end
+      set -U fish_color_normal B3B1AD
+      set -U fish_color_command 39BAE6
+      set -U fish_color_quote C2D94C
+      set -U fish_color_redirection FFEE99
+      set -U fish_color_end F29668
+      set -U fish_color_error FF3333
+      set -U fish_color_param 39BAE6
+      set -U fish_color_comment 626A73
+      set -U fish_color_match F07178
+      set -U fish_color_selection E6B450
+      set -U fish_color_search_match E6B450
+      set -U fish_color_history_current --bold
+      set -U fish_color_operator E6B450
+      set -U fish_color_escape 95E6CB
+      set -U fish_color_cwd 59C2FF
+      set -U fish_color_cwd_root red
+      set -U fish_color_valid_path --underline
+      set -U fish_color_autosuggestion aaaaaa
+      set -U fish_color_user brgreen
+      set -U fish_color_host normal
+      set -U fish_color_cancel -r
+      set -U fish_pager_color_completion normal
+      set -U fish_pager_color_description B3A06D yellow
+      set -U fish_pager_color_prefix white --bold --underline
+      set -U fish_pager_color_progress brwhite --background=cyan
+    \"
   "
 ';
