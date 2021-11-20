@@ -24,7 +24,7 @@ in
       paths = [
         Terminal Graphical Xorg Awesome Fonts Audio LaTeX Dictionary
         Android JavaScript Python PHP Lua Elixir HTML Shell Haskell
-        Perl Nix C Golang Rust CSS SQL YAML Ruby Nim Themes
+        Perl Nix C Golang Rust CSS SQL YAML Ruby Nim Themes Emulators
       ];
     };
 
@@ -60,7 +60,6 @@ in
         (callPackage ./packages/gmni/default.nix {})
         (callPackage ./packages/literate/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
-        (callPackage ./packages/tiemu/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         unstable.amfora
@@ -218,7 +217,15 @@ in
         xsane
         yad
         zathura
-        zim
+      ];
+    };
+
+    Emulators = pkgs.buildEnv {
+      name = "emulators";
+      paths = [
+        (callPackage ./packages/tiemu/default.nix {})
+        desmume
+        mgba
       ];
     };
 
