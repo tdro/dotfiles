@@ -19,4 +19,4 @@ nixfmt "$1"
 awk '!s {s=sub("^{$","{ boot.isContainer = true;")}{ print $0 }' "$1" | sponge "$1"
 awk '!s {s=sub("^in {$","in { boot.isContainer = true;")}{ print $0 }' "$1" | sponge "$1"
 
-NIXOS_CONFIG=$(realpath "$1") nixos-rebuild --fast dry-build
+NIXOS_CONFIG=$(realpath "$1") nixos-rebuild --fast --option substituters 'https://cache.nixos.org' dry-build
