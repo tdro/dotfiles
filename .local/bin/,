@@ -33,11 +33,14 @@ nix-index --nixpkgs https://github.com/NixOS/nixpkgs/archive/master.tar.gz
 { [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && help && exit
 
 databasePath=${XDG_DATA_HOME:-~/.cache}/nix-index
-nixLocate='nix-locate --db '"$databasePath"' -- '"${1:-}"
+nixLocate='nix-locate --db '"$databasePath"' --no-group --regex -- '"${1:-}"
 attributes=$($nixLocate | awk '{ print $1, $4 }' | sed 's|/nix/store/.[^-]*-||g')
+
+[ -z "$attributes" ] && printf "No files found containing '%s'\n" "${1:-}" && exit
+
 attribute=$(printf '%s' "$attributes" | column --table | fzf | awk '{ print $1 }')
 
-[ -z "$attribute" ] && exit
+[ -z "$attribute" ]  && exit
 
 printf '\nsetting up shell with %s path...\n' "$attribute"
 
