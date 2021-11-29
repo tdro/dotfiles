@@ -46,6 +46,7 @@ in {
         createHome = false;
         isNormalUser = true;
         home = cfg.directory;
+        group = cfg.group;
       };
     };
 
