@@ -38,11 +38,14 @@ attributes=$($nixLocate | awk '{ print $1, $4 }' | sed 's|/nix/store/.[^-]*-||g'
 
 [ -z "$attributes" ] && printf "No files found containing '%s'\n" "${1:-}" && exit
 
-attribute=$(printf '%s' "$attributes" | column --table | fzf | awk '{ print $1 }')
+option=$(printf '%s' "$attributes" | column --table | fzf)
+attribute=${option%% *}
+file=${option#*/}
 
 [ -z "$attribute" ]  && exit
 
 printf '\nsetting up shell with %s path...\n' "$attribute"
+printf '\n$OUT/%s\n' "$file"
 
 nix-shell --packages "$attribute" fish bat toybox --command \
 '
