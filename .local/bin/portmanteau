@@ -1,6 +1,10 @@
 #!/bin/sh -eu
-word=$(diceware --num 2 --delimiter " ")
+word=$(diceware --no-caps --num 2 --delimiter " ")
 first=${word%??? *}
 second=${word#* ???}
 
-printf '%s\n%s%s\n' "$word" "$first" "$second" | tr '[:upper:]' '[:lower:]'
+# TODO: Maybe manipulate adjacent consonants and vowels at the word merge boundary.
+# barric[ade] [hea]dlock
+# barri[cd]lock -> barrilock
+
+printf '%s\n%s%s\n' "$word" "$first" "$second"
