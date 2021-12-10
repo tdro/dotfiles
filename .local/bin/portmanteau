@@ -1,0 +1,6 @@
+#!/bin/sh -eu
+word=$(diceware --num 2 --delimiter " ")
+first=${word%??? *}
+second=${word#* ???}
+
+printf '%s\n%s%s\n' "$word" "$first" "$second" | tr '[:upper:]' '[:lower:]'
