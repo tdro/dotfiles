@@ -1,0 +1,576 @@
+@define-color fg_color            #000000;
+@define-color bg_color            #f5f5f5;
+@define-color link_fg_color       #1a0dab;
+@define-color link_bg_color       #fafafa;
+@define-color text_fg_color       #3C3C3C;
+@define-color text_bg_color       #ffffff;
+@define-color selected_fg_color   #000000;
+@define-color selected_bg_color   #b1dbff;
+@define-color active_fg_color     #ffffff;
+@define-color active_bg_color     #222222;
+@define-color danger_fg_color     #222222;
+@define-color danger_bg_color     #ff8a8a;
+@define-color disabled_fg_color   #999999;
+@define-color disabled_bg_color   rgba(0,0,0,0.05);
+@define-color hover_fg_color      #000000;
+@define-color hover_bg_color      rgba(0,0,0,0.1);
+@define-color tooltip_fg_color    #ffffff;
+@define-color tooltip_bg_color    #000000;
+@define-color scrollbar_fg_color  #000000;
+@define-color scrollbar_bg_color  #dddddd;
+
+* {
+  color: @fg_color;
+  border-radius: 0.5em;
+  background-color: @bg_color;
+}
+
+window,
+dialog,
+headerbar,
+treeview *,
+.popup menu * {
+  border-radius: unset;
+}
+
+row,
+tab,
+tab *,
+list,
+entry,
+button,
+button *,
+iconview,
+calendar,
+treeview,
+textview *,
+viewport *,
+scrolledwindow,
+scrolledwindow * {
+  background-color: @text_bg_color;
+}
+
+*:hover,
+*:hover *,
+*:hover:checked,
+*:hover:checked {
+  color: @hover_fg_color;
+  background-color: @hover_bg_color;
+}
+
+row:hover *,
+tab:hover *,
+title:hover *,
+button:hover *,
+scale:hover value,
+modelbutton:hover *,
+menuitem:hover label,
+radiobutton:hover label,
+checkbutton:hover label {
+  background-color: transparent;
+}
+
+.popup menu menuitem:hover,
+scrollbar.vertical slider:hover,
+scrollbar.horizontal slider:hover {
+  background-color: @scrollbar_bg_color;
+}
+
+separator:hover {
+  background-color: @selected_bg_color;
+}
+
+*:active,
+*:active * {
+  color: @selected_fg_color;
+  background-color: @selected_bg_color;
+}
+
+scrollbar.vertical slider:active,
+scrollbar.horizontal slider:active {
+  background: @selected_bg_color;
+}
+
+*:disabled,
+*:disabled *,
+*:disabled:checked,
+*:disabled:checked * {
+  color: @disabled_fg_color;
+  background-color: @disabled_bg_color;
+}
+
+box:disabled,
+arrow:disabled,
+image:disabled,
+label:disabled,
+scale:disabled,
+spinner:disabled,
+cellview:disabled,
+spinbutton:disabled,
+modelbutton:disabled,
+checkbutton:disabled,
+radiobutton:disabled,
+checkbutton:disabled:checked,
+radiobutton:disabled:checked,
+button:disabled:checked label {
+  background-color: transparent;
+}
+
+*:focus,
+*:focus * {
+  outline-offset: -3px;
+  outline: 3px @fg_color dotted;
+  -gtk-outline-radius: 0.5em;
+}
+
+entry:focus {
+  border: 1px @fg_color solid;
+  box-shadow: 0 0 0 3px @selected_bg_color;
+}
+
+trough:focus {
+  outline: unset;
+}
+
+*:selected,
+*:selected *,
+*:selected:focus,
+*:selected:focus * {
+  color: @selected_fg_color;
+  background-color: @selected_bg_color;
+}
+
+row:selected,
+row:selected *,
+row:selected:focus * {
+  border-radius: unset;
+  background-color: transparent;
+}
+
+*:checked,
+*:checked * {
+  color: @selected_fg_color;
+  background-color: @selected_bg_color;
+}
+
+tab:checked *,
+button:checked *,
+checkbutton:checked,
+radiobutton:checked,
+checkbutton:checked label,
+radiobutton:checked label {
+  background-color: transparent;
+}
+
+tooltip,
+tooltip * {
+  color: @tooltip_fg_color;
+  background: @tooltip_bg_color;
+}
+
+overlay,
+row grid,
+row label,
+overshoot,
+treeview *,
+undershoot,
+row grid label,
+.popup menu menuitem * {
+  background-color: transparent;
+}
+
+title,
+spinner,
+expander,
+modelbutton,
+frame.app-notification {
+  padding: 0.5em;
+}
+
+popover,
+header tab,
+toolbar.osd,
+window > grid > frame border,
+frame.app-notification,
+scrolledwindow {
+  border: 0.5px @fg_color solid;
+}
+
+.vertical arrow,
+.horizontal > arrow {
+  padding: 8px;
+  background-size: 1.5em;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.vertical arrow {
+  background-image: url("../icons/arrow-right.svg");
+}
+
+.horizontal > arrow {
+  background-image: url("../icons/arrow-down.svg");
+}
+
+widget.path-bar button {
+  margin-left: 4px;
+}
+
+selection {
+  color: @selected_fg_color;
+  background: @selected_bg_color;
+}
+
+textview {
+  padding: 4px 6px;
+}
+
+viewport label {
+  padding: 6px 12px;
+}
+
+viewport list row {
+  padding: 2px 10px;
+}
+
+switch {
+  padding: 4px;
+  border: 1px @fg_color solid;
+}
+
+switch slider {
+  background: @text_bg_color;
+  border: 1px @fg_color solid;
+}
+
+separator.horizontal {
+  border-bottom: 1px @disabled_fg_color solid;
+}
+
+separator.vertical {
+  border-right: 1px @disabled_fg_color solid;
+}
+
+expander {
+  border: 1px @fg_color solid;
+  padding: 4px;
+}
+
+headerbar {
+  padding: 6px;
+  border-bottom: 0.5px @disabled_fg_color solid;
+}
+
+calendar {
+  border: 1px @fg_color solid;
+}
+
+actionbar revealer box {
+  border: 1px @fg_color solid;
+  margin-top: 4px;
+  padding: 4px;
+}
+
+toolbar {
+  padding: 4px;
+}
+
+toolbar toolbutton button {
+  margin: 4px;
+  padding: 2px;
+}
+
+toolbar.inline-toolbar {
+  padding: 4px;
+  margin-top: 4px;
+  border: 1px @fg_color solid;
+}
+
+stackswitcher button {
+  margin-right: 4px;
+}
+
+paned label {
+  padding: 4px;
+}
+
+button {
+  margin: 2px;
+  border: 1px @fg_color solid;
+  padding: 4px 6px;
+}
+
+label link,
+button.link label {
+  color: @link_fg_color;
+  text-decoration: underline;
+}
+
+button.destructive-action,
+button.destructive-action * {
+  background: @danger_bg_color;
+}
+
+.border-inset border {
+  border-left: 1px @fg_color inset;
+  border-top: 1px @fg_color inset;
+}
+
+.border-outset border {
+  border-right: 1px @fg_color outset;
+  border-bottom: 1px @fg_color outset;
+}
+
+header tab {
+  margin: 4px;
+}
+
+header tab label {
+  padding: 4px 8px;
+}
+
+header.top tab label {
+  margin-right: 4px;
+}
+
+header.bottom tab label {
+  border-top: 1px transparent solid;
+  margin-right: 4px;
+}
+
+header.right tab label {
+  border-left: 1px transparent solid;
+  margin-bottom: 4px;
+}
+
+header.left tab label {
+  border-right: 1px transparent solid;
+  margin-bottom: 4px;
+}
+
+header.top tab label {
+  border-bottom: 1px transparent solid;
+}
+
+treeview {
+  padding: 4px 8px;
+}
+
+treeview header button {
+  margin: 0;
+  border: none;
+  border-radius: unset;
+  border-right: 1px @fg_color solid;
+  border-bottom: 1px @fg_color solid;
+}
+
+treeview header button:last-child {
+  border-right: none;
+}
+
+row box colorswatch {
+  border: 2px solid transparent;
+}
+
+row:selected box colorswatch {
+  border: 2px solid @selected_fg_color;
+}
+
+frame widget box > button:last-child {
+  margin-left: 4px;
+}
+
+checkbutton {
+  padding: 4px 6px;
+}
+
+check {
+  border: 1px @fg_color solid;
+  background-color: @text_bg_color;
+}
+
+radiobutton {
+  padding: 4px 6px;
+}
+
+radio {
+  border-radius: 100%;
+  border: 1px @fg_color solid;
+  background-color: @text_bg_color;
+}
+
+expander label,
+modelbutton label,
+radiobutton label,
+checkbutton label {
+  margin: 0 6px;
+}
+
+scrollbar {
+  padding: 2px;
+}
+
+scrollbar trough {
+  background-color: @scrollbar_bg_color;
+}
+
+scrollbar button {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+scrollbar slider {
+  margin: 3px;
+  padding: 3px;
+  border: 1px @fg_color solid;
+  background: @disabled_fg_color;
+}
+
+scrollbar.vertical slider {
+  min-height: 3em;
+}
+
+scrollbar.horizontal slider {
+  min-width: 3em;
+}
+
+scale {
+  border: 2px transparent solid;
+  padding: 4px;
+}
+
+scale.horizontal contents {
+  border: 1px @fg_color solid;
+  margin: 8px 0;
+}
+
+scale.horizontal trough {
+  margin: 1px;
+}
+
+scale.horizontal highlight {
+  background: @selected_bg_color;
+  padding: 1px;
+}
+
+scale.horizontal slider {
+  border: 1px @fg_color solid;
+  border-radius: 100%;
+  padding: 8px;
+  margin: -8px;
+  background: @bg_color;
+}
+
+scale.vertical value.top {
+  margin-bottom: 8px;
+}
+
+scale.vertical contents {
+  border: 1px @fg_color solid;
+  margin: 0 8px;
+}
+
+scale.vertical trough {
+  margin: 1px;
+}
+
+scale.vertical highlight {
+  background: @selected_bg_color;
+  padding: 1px;
+}
+
+scale.vertical slider {
+  border: 1px solid @fg_color;
+  border-radius: 100%;
+  padding: 8px;
+  margin: -8px;
+  background: @bg_color;
+}
+
+scale:disabled highlight {
+  background-color: @disabled_bg_color;
+}
+
+scale:disabled contents {
+  border: 1px solid @disabled_fg_color;
+}
+
+scale:disabled slider {
+  border: 1px solid @disabled_fg_color;
+}
+
+progressbar trough {
+  border: 1px @fg_color solid;
+}
+
+progressbar progress {
+  background: @selected_bg_color;
+}
+
+levelbar.horizontal.continuous trough {
+  border: 1px @fg_color solid;
+}
+
+levelbar.horizontal.continuous trough block.filled {
+  background: @selected_bg_color;
+  margin: 2px;
+  padding: 2px;
+}
+
+levelbar.horizontal.discrete trough {
+  border: 1px @fg_color solid;
+}
+
+levelbar.horizontal.discrete trough block.filled {
+  background: @selected_bg_color;
+  margin: 2px;
+  padding: 2px;
+}
+
+entry {
+  margin: 2px;
+  padding: 4px 6px;
+  border: 1px @disabled_fg_color solid;
+}
+
+entry image {
+  margin: 0 6px;
+}
+
+menubar {
+  border-bottom: 0.5px @fg_color solid;
+}
+
+menubar label {
+  padding: 2px 6px;
+}
+
+menuitem label {
+  margin: 0 2px;
+}
+
+.popup menu menuitem {
+  background-color: @text_bg_color;
+}
+
+.popup separator {
+  border-bottom: 1px @disabled_fg_color solid;
+}
+
+.popup menu menuitem {
+  padding: 0.25em 1em;
+}
+
+.popup menu menuitem:first-child {
+  border-top: 1px solid @fg_color;
+}
+
+.popup menu menuitem:last-child {
+  border-bottom: 1px solid @fg_color;
+}
+
+.popup menu menuitem {
+  border-left: 1px solid @fg_color;
+  border-right: 1px solid @fg_color;
+}
