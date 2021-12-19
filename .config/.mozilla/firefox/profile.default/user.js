@@ -103,6 +103,7 @@ user_pref("dom.battery.enabled", false);
 user_pref("dom.event.clipboardevents.enabled", false);
 user_pref("dom.event.contextmenu.enabled", false);
 user_pref("dom.maxHardwareConcurrency", 2);
+user_pref("dom.popup_allowed_events", "");
 user_pref("dom.webnotifications.enabled", false);
 
 user_pref("extensions.getAddons.cache.enabled", false);
