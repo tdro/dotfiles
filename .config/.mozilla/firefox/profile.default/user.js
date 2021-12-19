@@ -70,15 +70,17 @@ user_pref("browser.sessionstore.privacy_level", 2);
 user_pref("browser.sessionhistory.max_entries", 20);
 user_pref("browser.tabs.crashReporting.sendReport", false);
 
-user_pref("browser.urlbar.trimURLs", false);
 user_pref("browser.urlbar.maxRichResults", 0);
-user_pref("browser.urlbar.suggest.history", false);
-user_pref("browser.urlbar.suggest.bookmark", false);
-user_pref("browser.urlbar.suggest.openpage", false);
-user_pref("browser.urlbar.suggest.searches", false);
 user_pref("browser.urlbar.searchSuggestionsChoice", false);
 user_pref("browser.urlbar.speculativeConnect.enabled", false);
+user_pref("browser.urlbar.suggest.bookmark", false);
+user_pref("browser.urlbar.suggest.engines", false);
+user_pref("browser.urlbar.suggest.history", false);
+user_pref("browser.urlbar.suggest.openpage", false);
+user_pref("browser.urlbar.suggest.searches", false);
+user_pref("browser.urlbar.suggest.topsites", false);
 user_pref("browser.urlbar.timesBeforeHidingSuggestionsHint", 0);
+user_pref("browser.urlbar.trimURLs", false);
 
 user_pref("datareporting.healthreport.service.enabled", false);
 user_pref("datareporting.healthreport.uploadEnabled", false);
@@ -170,6 +172,9 @@ user_pref("toolkit.telemetry.updatePing.enabled", false);
 
 user_pref("signon.autofillForms", false);
 user_pref("signon.generation.enabled", false);
+
+user_pref("extensions.formautofill.addresses.enabled", false);
+user_pref("extensions.formautofill.creditCards.enabled", false);
 
 user_pref("privacy.donottrackheader.value", 1);
 user_pref("privacy.donottrackheader.enabled", true);
