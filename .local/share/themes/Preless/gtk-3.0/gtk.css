@@ -144,7 +144,6 @@ row:selected,
 row:selected *,
 row:selected:focus * {
   border-radius: unset;
-  background-color: transparent;
 }
 
 *:checked,
@@ -192,24 +191,25 @@ header tab,
 toolbar.osd,
 window > grid > frame border,
 frame.app-notification,
-scrolledwindow {
+paned scrolledwindow,
+dialog scrolledwindow {
   border: 0.5px @fg_color solid;
 }
 
-.vertical arrow,
-.horizontal > arrow {
+arrow,
+arrow.right {
   padding: 8px;
   background-size: 1.5em;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.vertical arrow {
-  background-image: url("../icons/arrow-right.svg");
+arrow {
+  background-image: url("../icons/arrow-down.svg");
 }
 
-.horizontal > arrow {
-  background-image: url("../icons/arrow-down.svg");
+arrow.right {
+  background-image: url("../icons/arrow-right.svg");
 }
 
 widget.path-bar button {
@@ -265,9 +265,7 @@ calendar {
   border: 1px @fg_color solid;
 }
 
-actionbar revealer box {
-  border: 1px @fg_color solid;
-  margin-top: 4px;
+actionbar {
   padding: 4px;
 }
 
@@ -536,10 +534,6 @@ entry {
 
 entry image {
   margin: 0 6px;
-}
-
-menubar {
-  border-bottom: 0.5px @fg_color solid;
 }
 
 menubar label {
