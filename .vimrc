@@ -133,6 +133,9 @@ nmap <leader>dm :exe ':term ++close fzf-man ' . expand('<cword>')<cr>
 nmap <leader>di :exe ':term ++close fzf-doc ' . expand('<cword>')<cr>
 nmap <leader>dt :exe ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>
 
+" Search for file containing word under cursor
+nmap <silent> <leader>ag :Ag <C-R><C-W><cr>
+
 " View function documentation
 nmap <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
