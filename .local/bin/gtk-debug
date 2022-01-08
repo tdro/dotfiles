@@ -1,0 +1,8 @@
+#!/bin/sh -eu
+program=$(basename "$0")
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } &&
+	printf "Usage: %s [COMMAND]...\n" "$program" &&
+	exit
+
+GTK_DEBUG=interactive $1
