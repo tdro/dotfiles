@@ -117,16 +117,13 @@ nmap <leader>ev :tabedit ~/.vimrc<cr>
 nmap <leader>eh :tabedit ~/.vim/post-save-hook<cr>
 
 " Git, tags, and help commands
-nmap <leader>fgf :GFiles<cr>
-nmap <leader>fgs :GFiles?<cr>
 nmap <leader>fgc :Commits<cr>
-nmap <leader>ftb :BTags<cr>
-nmap <leader>flh :Helptags<cr>
 nmap <leader>flc :Commands<cr>
 
 " Show key mappings
-nmap <leader>mm :Maps<cr>
-nmap <leader>ma :Marks<cr>
+nmap <leader>mn :nmap<cr>
+nmap <leader>mv :vmap<cr>
+nmap <leader>mi :imap<cr>
 
 " Search documentation under cursor
 nmap <leader>dm :exe ':term ++close fzf-man ' . expand('<cword>')<cr>
@@ -199,8 +196,6 @@ let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height
 nmap <Tab> :Buffers<cr>
 nmap <leader>ov :Lines<cr>
 nmap <leader>ob :BLines<cr>
-nmap <leader>op :History<cr>
-nmap <leader>oc :History:<cr>
 nmap <leader>ol :Locate<space>
 nmap <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' &'<cr><cr>
 nmap <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
