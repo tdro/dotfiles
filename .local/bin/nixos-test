@@ -8,15 +8,23 @@
 	printf "nixos-test [FILE]...\n" &&
 	exit
 
-[ -f "$1" ] || { printf "Error: File '%s' not found\n" "$1" && exit; }
+for configuration in "$@"; do
 
-trap 'mv "$1.bak" "$1"; trap - EXIT; exit' EXIT INT HUP
+  [ -f "$configuration" ] || { printf "Error: File '%s' not found\n" "$configuration" && exit; }
 
-cp "$1" "$1.bak"
+  cp "$configuration" "$configuration.bak"
 
-nixfmt "$1"
+  trap 'for configuration in "$@"; do mv "$configuration.bak" "$configuration"; done; trap - EXIT; exit' EXIT INT HUP
 
-awk '!s {s=sub("^{$","{ boot.isContainer = true;")}{ print $0 }' "$1" | sponge "$1"
-awk '!s {s=sub("^in {$","in { boot.isContainer = true;")}{ print $0 }' "$1" | sponge "$1"
+  nixfmt "$configuration"
 
-NIXOS_CONFIG=$(realpath "$1") nixos-rebuild --fast --option substituters 'https://cache.nixos.org' dry-build
+  awk '!s {s=sub("^{$","{ boot.isContainer = true;")}{ print $0 }' "$configuration" | sponge "$configuration"
+  awk '!s {s=sub("^in {$","in { boot.isContainer = true;")}{ print $0 }' "$configuration" | sponge "$configuration"
+
+  printf '%s ' "$configuration";
+
+  export NIXPKGS_ALLOW_UNFREE=1
+  export NIXOS_CONFIG=$(realpath "$configuration")
+  nixos-rebuild --fast --option substituters 'https://cache.nixos.org' dry-build
+
+done;
