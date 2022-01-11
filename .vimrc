@@ -5,25 +5,6 @@ packadd! matchit                         " Add match tag pairs package.
 let skip_defaults_vim=1                  " Do not load defaults if ~/.vimrc is missing.
 
 
-"------------Plugins------------"
-
-source ~/.vim/bundle/vim-plug/plug.vim   " Source plugin manager
-
-call plug#begin('~/.vim/bundle')         " Specify a directory for plugins
-
-Plug 'junegunn/vim-plug',         { 'tag': 'e718868e85e2a32410144dfcdc3ba1303719450d' }
-Plug 'junegunn/fzf.vim',          { 'tag': 'f86ef1bce602713fe0b5b68f4bdca8c6943ecb59' }
-Plug 'sjl/gundo.vim',             { 'tag': 'c5efef192b975b8e7d5fa3c6db932648d3b76323' }
-Plug 'mcchrish/nnn.vim',          { 'tag': 'bfc91b503769920a366b12851b871795c0eb6825' }
-Plug 'tpope/vim-fugitive',        { 'tag': '85e2c73830b6bb01ce7fc3a926d2b25836a253eb' }
-Plug 'gerw/vim-HiLinkTrace',      { 'tag': '64da6bf463362967876fdee19c6c8d7dd3d0bf0f' }
-Plug 'elixir-editors/vim-elixir', { 'tag': '53c530f79cfcd12498e31fcf8ecc466eba34c75c' }
-
-silent! source /usr/share/doc/fzf/examples/fzf.vim  " Enable fzf.vim on Debian.
-
-call plug#end()                                     " Initialize plugin system
-
-
 "------------General------------"
 
 let mapleader = "\<space>"               " Set default map leader.
