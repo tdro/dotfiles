@@ -53,7 +53,7 @@ in
 
     Ant = pkgs.buildEnv {
       name = "ant";
-      paths = [ Xorg-Aarch64 Xfce-Aarch64 Terminal-Aarch64 Graphical-Aarch64 Themes ];
+      paths = [ Xorg-Aarch64 Xfce-Aarch64 Terminal-Aarch64 Graphical-Aarch64 Themes Fonts ];
     };
 
     # Package Sets
