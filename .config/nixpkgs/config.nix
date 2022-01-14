@@ -51,6 +51,11 @@ in
       paths = [ Terminal Graphical Fonts Xorg Xfce JavaScript Python Themes ];
     };
 
+    Ant = pkgs.buildEnv {
+      name = "ant";
+      paths = [ Xorg-Aarch64 Xfce-Aarch64 Terminal-Aarch64 Graphical-Aarch64 Themes ];
+    };
+
     # Package Sets
 
     Terminal = pkgs.buildEnv {
@@ -73,6 +78,7 @@ in
         bat
         bleachbit
         calcurse
+        cava
         csvkit
         davmail
         desktop-file-utils
@@ -173,9 +179,11 @@ in
         flameshot
         freerdp
         gImageReader
+        gcolor2
         gimp
         google-chrome
         gparted
+        gromit-mpx
         i3lock-fancy
         kcharselect
         keepassxc
@@ -209,7 +217,6 @@ in
         transmission-gtk
         treesheets
         treesheets
-        unclutter
         vimb
         virt-manager
         vlc
@@ -237,6 +244,7 @@ in
         (callPackage ./packages/xprintidle/default.nix {})
         autocutsel
         glxinfo
+        unclutter
         wmctrl
         xbindkeys
         xdotool
@@ -264,10 +272,7 @@ in
 
     Awesome = pkgs.buildEnv {
       name = "awesome";
-      paths = [
-        awesome
-        lxappearance
-      ];
+      paths = [ awesome ];
     };
 
     Xfce = pkgs.buildEnv {
@@ -323,10 +328,11 @@ in
       name = "themes";
       paths = [
         gtk-engine-murrine
-        papirus-icon-theme
-        vanilla-dmz
-        qt4
         librsvg
+        lxappearance
+        papirus-icon-theme
+        qt4
+        vanilla-dmz
       ];
     };
 
@@ -496,6 +502,86 @@ in
         (callPackage ./packages/ruamel.yaml.cmd/default.nix {})
         (callPackage ./packages/yaml2nix/default.nix {})
         python39Packages.yamllint
+      ];
+    };
+
+    Xorg-Aarch64 = pkgs.buildEnv {
+      name = "xorg-aarch64";
+      paths = [
+        (callPackage ./packages/x11vnc/default.nix {})
+        (callPackage ./packages/xprintidle/default.nix {})
+        glxinfo
+        unclutter
+        wmctrl
+        xbindkeys
+        xdotool
+        xorg.xauth
+        xorg.xev
+        xorg.xf86inputevdev
+        xorg.xf86inputlibinput
+        xorg.xf86videofbdev
+        xorg.xinit
+        xorg.xinput
+        xorg.xmodmap
+        xorg.xorgserver
+        xorg.xrandr
+        xorg.xrdb
+        xorg.xset
+        xorg.xsetroot
+        xsel
+        xzoom
+      ];
+    };
+
+    Xfce-Aarch64 = pkgs.buildEnv {
+      name = "xfce-aarch64";
+      paths = [
+        bamf
+        dunst
+        polkit_gnome
+        xfce.exo
+        xfce.garcon
+        xfce.libxfce4ui
+        xfce.libxfce4util
+        xfce.thunar
+        xfce.thunar-archive-plugin
+        xfce.thunar-volman
+        xfce.tumbler
+        xfce.xfce4-session
+        xfce.xfce4-settings
+        xfce.xfconf
+        xfce.xfdesktop
+        xfce.xfwm4
+        xfce.xfwm4-themes
+        zuki-themes
+      ];
+    };
+
+    Graphical-Aarch64 = pkgs.buildEnv {
+      name = "graphical-aarch64";
+      paths = [
+        unstable.fsearch
+        audacity
+        firefox
+        galculator
+        pavucontrol
+        pcmanfm
+        sylpheed
+        ungoogled-chromium
+        xsane
+      ];
+    };
+
+    Terminal-Aarch64 = pkgs.buildEnv {
+      name = "terminal-aarch64";
+      paths = [
+        libnotify
+        redshift
+        rofi
+        rxvt-unicode
+        skippy-xd
+        unstable.fzf
+        vimHugeX
       ];
     };
   };
