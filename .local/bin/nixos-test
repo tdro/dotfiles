@@ -23,8 +23,12 @@ for configuration in "$@"; do
 
   printf '%s ' "$configuration";
 
-  export NIXPKGS_ALLOW_UNFREE=1
-  export NIXOS_CONFIG=$(realpath "$configuration")
+  NIXOS_CONFIG=$(realpath "$configuration")
+
+  export  NIXOS_CONFIG \
+  NIXPKGS_ALLOW_UNFREE=1 \
+  NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+
   nixos-rebuild --fast --option substituters 'https://cache.nixos.org' dry-build
 
 done;
