@@ -1,10 +1,12 @@
+{ version ? "21.05" }:
+
 let
 
   # nix-shell -E 'import (builtins.fetchurl "$url")'
 
-  name = "nix-shell.nixops.${version}.";
+  inherit version;
   pkgs = import <nixpkgs> { };
-  version = "21.05";
+  name = "nix-shell.nixops.${version}.";
   project = "${builtins.getEnv "HOME"}/Shares/Projects/infrastructure";
   channel = (import "${project}/nixos/versions.nix")."${version}".channel;
 
