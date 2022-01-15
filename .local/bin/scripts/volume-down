@@ -1,2 +1,0 @@
-#!/bin/sh -eu
-"$HOME"/.local/bin/scripts/amixer down

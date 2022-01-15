@@ -63,15 +63,15 @@
     Mod4 + a
 
 # volume up
-"$HOME/.local/bin/scripts/volume-up"
+"$HOME/.local/bin/scripts/volume-control up"
     XF86AudioRaiseVolume
 
 # volume down
-"$HOME/.local/bin/scripts/volume-down"
+"$HOME/.local/bin/scripts/volume-control down"
     XF86AudioLowerVolume
 
 # volume mute
-"$HOME/.local/bin/scripts/volume-mute"
+"$HOME/.local/bin/scripts/volume-control mute"
     XF86AudioMute
 
 # lock screen
