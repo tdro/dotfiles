@@ -3,15 +3,15 @@
     Mod4 + q
 
 # program launcher
-"$HOME/.local/bin/scripts/app-launcher"
+"$HOME/.local/bin/dmenu_run_history"
     Mod4 + r
 
 # privilege launcher
-"$HOME/.local/bin/scripts/app-launcher-privilege"
+"$HOME/.local/bin/dmenu_run_history privilege"
     Mod4 + e
 
 # terminal launcher
-"$HOME/.local/bin/scripts/app-launcher-terminal"
+"$HOME/.local/bin/dmenu_run_history terminal"
     Mod4 + w
 
 # zoom application
