@@ -1,12 +1,14 @@
 [Unit]
 Description=Execute events on kernel usb events
+StartLimitBurst=5
+StartLimitIntervalSec=600
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env sh -c 'udevadm monitor | while read; do grep -m1 -q "(usb)" && %h/.local/bin/scripts/events-usb; done'
+RestartSec=3
 Restart=always
-RestartSec=5s
 SyslogIdentifier=events-usb
+ExecStart=/usr/bin/env sh -c 'udevadm monitor | while read; do grep -m1 -q "(usb)" && %h/.local/bin/scripts/events-usb; done'
 
 [Install]
 WantedBy=default.target

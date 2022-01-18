@@ -1,12 +1,14 @@
 [Unit]
 Description=Screenshot tool
+StartLimitBurst=5
+StartLimitIntervalSec=600
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env flameshot
+RestartSec=3
 Restart=always
-RestartSec=5s
 SyslogIdentifier=flameshot
+ExecStart=/usr/bin/env flameshot
 
 [Install]
 WantedBy=default.target

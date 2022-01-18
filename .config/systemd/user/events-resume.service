@@ -1,12 +1,14 @@
 [Unit]
 Description=Execute events on resume event
+StartLimitBurst=5
+StartLimitIntervalSec=600
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env sh -c 'dbus-monitor --system | while read; do grep -q 'PrepareForSleep' && %h/.local/bin/scripts/events-resume; done'
+RestartSec=3
 Restart=always
-RestartSec=5s
 SyslogIdentifier=events-resume
+ExecStart=/usr/bin/env sh -c 'dbus-monitor --system | while read; do grep -q 'PrepareForSleep' && %h/.local/bin/scripts/events-resume; done'
 
 [Install]
 WantedBy=default.target

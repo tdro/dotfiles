@@ -1,21 +1,15 @@
 [Unit]
 Description=Syncthing - Open Source Continuous File Synchronization
-After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=600
 
 [Service]
-ExecStart=/usr/bin/env syncthing -no-browser -no-restart -logflags=0
-Restart=always
-RestartSec=5s
-SyslogIdentifier=syncthing
-CPUQuota=60%
 IOWeight=60
-
-# Hardening
-ProtectSystem=full
-PrivateTmp=true
-SystemCallArchitectures=native
-MemoryDenyWriteExecute=true
-NoNewPrivileges=true
+CPUQuota=60%
+RestartSec=3
+Restart=always
+SyslogIdentifier=syncthing
+ExecStart=/usr/bin/env syncthing -no-browser -no-restart -logflags=0
 
 [Install]
 WantedBy=default.target

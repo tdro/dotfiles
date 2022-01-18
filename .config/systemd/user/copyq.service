@@ -1,12 +1,14 @@
 [Unit]
 Description=Copyq server
+StartLimitBurst=5
+StartLimitIntervalSec=600
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env copyq
+RestartSec=3
 Restart=always
-RestartSec=5s
 SyslogIdentifier=copyq
+ExecStart=/usr/bin/env copyq
 
 [Install]
 WantedBy=default.target

@@ -1,12 +1,15 @@
 [Unit]
 Description=Redshift
+StartLimitBurst=5
+StartLimitIntervalSec=600
+
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/env redshift
+RestartSec=3
 Restart=always
-RestartSec=5s
 SyslogIdentifier=redshift
+ExecStart=/usr/bin/env redshift
 
 [Install]
 WantedBy=default.target

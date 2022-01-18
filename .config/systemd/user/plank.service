@@ -4,12 +4,12 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-Environment=XDG_SESSION_TYPE=X11
-ExecStart=/usr/bin/env plank
+RestartSec=1
 Restart=always
-RestartSec=1s
 KillMode=process
 SyslogIdentifier=plank
+ExecStart=/usr/bin/env plank
+Environment=XDG_SESSION_TYPE=X11
 
 [Install]
 WantedBy=default.target

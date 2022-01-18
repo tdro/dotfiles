@@ -1,9 +1,11 @@
 [Unit]
 Description=Keyboard shortcut binder
+StartLimitBurst=5
+StartLimitIntervalSec=600
 
 [Service]
 Type=simple
-RestartSec=5s
+RestartSec=3
 Restart=always
 KillMode=process
 SyslogIdentifier=xbindkeys

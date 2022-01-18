@@ -1,13 +1,16 @@
 [Unit]
 Description=Keep the X clipboard and the cutbuffer in sync
+StartLimitBurst=5
+StartLimitIntervalSec=600
+
 
 [Service]
 Type=forking
-RestartSec=3s
+RestartSec=3
 Restart=always
 SyslogIdentifier=autocutsel
-ExecStartPre=/usr/bin/env autocutsel -f -s PRIMARY
 ExecStart=/usr/bin/env autocutsel -f -s CLIPBOARD
+ExecStartPre=/usr/bin/env autocutsel -f -s PRIMARY
 
 [Install]
 WantedBy=default.target

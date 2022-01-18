@@ -1,10 +1,11 @@
 [Unit]
 Description=Remote desktop service (VNC)
-StartLimitIntervalSec=0
+StartLimitBurst=5
+StartLimitIntervalSec=600
 
 [Service]
 Type=simple
-RestartSec=1s
+RestartSec=3
 Restart=always
 SyslogIdentifier=x11vnc
 ExecStart=/usr/bin/env x11vnc -display $DISPLAY -rfbport 5900 -shared -usepw -forever -nowireframe -norepeat -noxdamage -noxrecord -ncache_cr -noxfixes -auth $XAUTHORITY
