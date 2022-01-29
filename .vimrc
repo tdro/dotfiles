@@ -284,11 +284,11 @@ augroup AutoCommands
   autocmd FileType nim        autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
   autocmd FileType rust       autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
   autocmd FileType json       autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType javascript autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
   autocmd FileType elixir     autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType haskell    autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType c          autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType bash,sh    autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')'
-  autocmd FileType javascript autocmd! BufWritePost <buffer> exe 'Notify(''eslint -c $HOME/.config/eslintrc.yml --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
   autocmd FileType go         autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType nix        autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e
   autocmd FileType tex        autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
