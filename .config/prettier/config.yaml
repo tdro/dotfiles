@@ -1,0 +1,9 @@
+---
+arrowParens: always     # Include parentheses around a sole arrow function parameter.
+bracketSpacing: true    # Print spaces between brackets in object literals.
+printWidth: 80          # Try to limit the line length to 80.
+semi: true              # Print semicolons at the ends of statements.
+singleQuote: false      # Use double quotes instead of single quotes.
+tabWidth: 2             # Specify the number of spaces per indentation-level.
+trailingComma: es5      # Print trailing commas
+useTabs: false          # Indent lines with tabs instead of spaces.

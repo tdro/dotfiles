@@ -326,8 +326,9 @@ augroup AutoCommands
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " Selective formatting using visual select + gq.
-  autocmd FileType nix set formatprg=nixfmt
-  autocmd FileType sh  set formatprg=shfmt\ -
+  autocmd FileType nix        set formatprg=nixfmt
+  autocmd FileType sh         set formatprg=shfmt\ -
+  autocmd FileType javascript set formatprg=prettier\ --parser\ babel\ --stdin-filepath\ %
 
   " Set file types.
   autocmd BufRead,BufNewFile *.nims set filetype=nim
