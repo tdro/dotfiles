@@ -261,7 +261,8 @@ headerbar {
   border-bottom: 0.5px @disabled_fg_color solid;
 }
 
-calendar {
+calendar,
+viewport widget list {
   border: 1px @fg_color solid;
 }
 
