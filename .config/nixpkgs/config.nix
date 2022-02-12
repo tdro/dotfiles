@@ -290,7 +290,6 @@ in
         xfce.thunar
         xfce.thunar-archive-plugin
         xfce.thunar-volman
-        xfce.tumbler
         xfce.xfce4-session
         xfce.xfce4-settings
         xfce.xfconf
@@ -546,7 +545,6 @@ in
         xfce.thunar
         xfce.thunar-archive-plugin
         xfce.thunar-volman
-        xfce.tumbler
         xfce.xfce4-session
         xfce.xfce4-settings
         xfce.xfconf
@@ -563,7 +561,9 @@ in
         unstable.fsearch
         audacity
         firefox
+        freerdp
         galculator
+        gpicview
         pavucontrol
         pcmanfm
         sylpheed
@@ -575,12 +575,14 @@ in
     Terminal-Aarch64 = pkgs.buildEnv {
       name = "terminal-aarch64";
       paths = [
+        unstable.fzf
+        alsaUtils
         libnotify
         redshift
         rofi
         rxvt-unicode
         skippy-xd
-        unstable.fzf
+        tigervnc
         vimHugeX
       ];
     };
