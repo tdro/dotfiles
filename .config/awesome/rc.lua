@@ -123,12 +123,7 @@ mypromptbox = {}
 mylayoutbox = {}
 mytaglist   = {}
 
-mytaglist.buttons = awful.util.table.join(
-  awful.button({        }, 3, awful.tag.viewtoggle),
-  awful.button({        }, 1, function(t) t:view_only() end),
-  awful.button({ modkey }, 3, function(t) if client.focus then client.focus:toggle_tag(t) end end),
-  awful.button({ modkey }, 1, function(t) if client.focus then client.focus:move_to_tag(t) end end)
-)
+mytaglist.buttons = awful.util.table.join(awful.button({}, 1, function(t) t:view_only() end))
 
 -- Set wallpaper function.
 local function set_wallpaper(s)
