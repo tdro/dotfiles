@@ -47,7 +47,7 @@ file=${option#*/}
 printf '\nsetting up shell with %s path...\n' "$attribute"
 printf '\n$OUT/%s\n' "$file"
 
-nix-shell --packages "$attribute" fish bat toybox --command \
+nix-shell --option substituters 'https://cache.nixos.org' --packages "$attribute" fish bat toybox --command \
 '
   home=$TMPDIR/nix-shell-tmp-home.r2np9PHrby
   program=$(printf "%s" "$buildInputs" | cut --delimiter=" " --fields=1)
