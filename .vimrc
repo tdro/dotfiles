@@ -305,6 +305,7 @@ augroup AutoCommands
   autocmd BufWritePost *.lit                              exe 'Notify(''lit ' . expand('%') . ' 2>&1 && printf "Literate OK: ' . expand('%') . '"'')'
   autocmd BufWritePost Xresources                         exe 'Notify(''xrdb ~/.config/X11/Xresources ' . '2>&1 && printf "Reloading Xresources: ' . expand('%') . '"'')'
   autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Deskop File OK: ' . expand('%') . '"'')'
+  autocmd BufWritePost *.service                          exe 'Notify(''systemd-analyze verify --user ' . expand('%') . ' 2>&1 && printf "Systemd Service File OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.txt,*.md                         :only | :term ++rows=10 vale %
 
   " File type function under cursor lookups.
