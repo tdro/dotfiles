@@ -39,7 +39,8 @@ set autowriteall                         " Write if modified on buffer change.
 set autoindent                           " Copy indent from current line to new line.
 set ignorecase                           " Ignore case on search.
 set smartcase                            " Search by case smartly.
-set lazyredraw                           " Do not redraw screen when using macros.
+set nolazyredraw                         " Disable lazy redraw on screen when using macros.
+set ttyfast                              " Assume fast terminal.
 set undofile                             " Enable undofile.
 set viminfo+=n~/.vim/viminfo             " Set viminfo file path.
 set undodir=~/.vim/undodir               " Set undofile directory.
