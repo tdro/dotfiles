@@ -144,7 +144,7 @@ nmap <leader>qw <C-w>c<cr>
 nmap <leader>re gg=G<C-o><C-o>
 
 " Reset all settings and source configuration.
-nmap <leader>ra :set all& \| :source ~/.vimrc \| :e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>
+nmap <leader>ra :set all& \| :source ~/.vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>
 
 " Remove duplicate lines
 vnoremap <leader>rd !awk '\!visited[$0]++'<cr>
