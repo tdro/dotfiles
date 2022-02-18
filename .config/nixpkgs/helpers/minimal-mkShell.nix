@@ -2,10 +2,9 @@
 ### Usage Example:
 
 # let
-#   pkgs = import <nixpkgs> { };
 #   minimal = import (builtins.fetchurl {
-#     url = "https://raw.githubusercontent.com/tdro/dotfiles/master/.config/nixpkgs/helpers/minimal-mkShell.nix";
-#     sha256 = pkgs.lib.fakeSha256;
+#     url = "https://raw.githubusercontent.com/tdro/dotfiles/83b77bf625613a01c47d82e2b08974bfdf219c51/.config/nixpkgs/helpers/minimal-mkShell.nix";
+#     sha256 = "17w4slnz3p28y5h744wz0zw15122230jafy40yz4fsbvzg3hb6fh";
 #   });
 # in minimal.mkShell {
 #   name = "minimal-shell";
