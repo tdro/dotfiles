@@ -98,14 +98,11 @@ endfunction
 nmap <leader>ev :tabedit ~/.vimrc<cr>
 nmap <leader>eh :tabedit ~/.vim/post-save-hook<cr>
 
-" Git, tags, and help commands
-nmap <leader>fgc :Commits<cr>
-nmap <leader>flc :Commands<cr>
-
 " Show key mappings
 nmap <leader>mn :nmap<cr>
 nmap <leader>mv :vmap<cr>
 nmap <leader>mi :imap<cr>
+nmap <leader>mc :command<cr>
 
 " Search documentation under cursor
 nmap <leader>dm :exe ':term ++close fzf-man ' . expand('<cword>')<cr>
@@ -174,7 +171,6 @@ vnoremap <leader>cf <S-J><S-v> \| !fold -s -w<space>80
 noremap <leader>cs :w !cat > $HOME/.cache/vim-scratchpad<cr>:e +setf\ <space>$HOME/.cache/vim-scratchpad<C-left><left>
 
 " File open mappings
-let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } }
 nmap <Tab> :Buffers<cr>
 nmap <leader>ov :Lines<cr>
 nmap <leader>ob :BLines<cr>
@@ -229,6 +225,8 @@ let g:nnn#command = 'nnn -H'            " Override default command.
 let g:nnn#set_default_mappings = 0      " Disable default mappings.
 let g:nnn#layout = 'new'                " Opens the nnn window in a split.
 let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window.
+
+let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } } " Set fzf window layout
 
 
 "-------------------Scripts-------------------"
