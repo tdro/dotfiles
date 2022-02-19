@@ -33,8 +33,8 @@ derivation ({
     text = ''
       set -e
       PATH=
-      for p in ${toString packages}; do
-        export PATH=$p/bin:$PATH
+      for package in ${toString packages}; do
+        export PATH=$package/bin:$PATH
       done
       ${shellHook}
     '';
