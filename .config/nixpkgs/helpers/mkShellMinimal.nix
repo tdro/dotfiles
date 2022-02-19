@@ -4,17 +4,21 @@
 
 # let
 #
+#   name = "nix-shell.minimal";
 #   pkgs = import <nixpkgs> { };
+#
 #   mkShellMinimal = pkgs.callPackage (builtins.fetchurl {
-#     url = "https://raw.githubusercontent.com/tdro/dotfiles/ae8c382ca82135ad2910cb3ef18c4e6f31ff0fde/.config/nixpkgs/helpers/mkShellMinimal.nix";
-#     sha256 = "123ax7v6fbj1cq0kvr8jiphg99k04zw6b4r5dnn94fj1gmd2hxay";
+#     url = "https://raw.githubusercontent.com/tdro/dotfiles/b710281b132056105709c03dda1899a6afc68a93/.config/nixpkgs/helpers/mkShellMinimal.nix";
+#     sha256 = "0smaflcj4r9q0ix45hx904sfmrhdkav6pvv2m7xapc68ykw0ry1i";
 #   }) { };
 #
 # in mkShellMinimal {
-#   name = "minimal-shell";
-#   packages = [ pkgs.hello ];
+#   packages = [ pkgs.hello pkgs.gnugrep ];
 #   shellHook = ''
-#     printf 'hello world'
+#     hello
+#     printf "$PATH\n"
+#     grep --version
+#     export PS1='\h (${name}) \W \$ '
 #   '';
 # }
 
