@@ -62,8 +62,6 @@ in
       name = "terminal";
       paths = [
         (callPackage ./packages/chromexup/default.nix {})
-        (callPackage ./packages/gmni/default.nix {})
-        (callPackage ./packages/literate/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
@@ -409,7 +407,7 @@ in
 
     Lua = pkgs.buildEnv {
       name = "lua";
-      paths = [ (callPackage ./packages/luaformatter/default.nix {}) lua5_3 lua53Packages.luacheck ];
+      paths = [ lua5_3 lua53Packages.luacheck luaformatter ];
     };
 
     Elixir = pkgs.buildEnv {
