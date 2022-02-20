@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   patches = [
     (fetchpatch {
       name = "ntrviewer.patch";
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/ntrviewer.patch?h=ntrviewer-git";
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/ntrviewer.patch?h=ntrviewer-git&id=7ae6776d6db1476ee9df8cac7a933167a1bc3d25";
       sha256 = "0lw1zmm4fdjb09iqsw593pdv4p36q77zq5lb2qh0xqcaf2ll84z5";
     })
   ];

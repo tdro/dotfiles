@@ -219,8 +219,8 @@ nnoremap ,awk         :-1read $HOME/.vim/snippets/skeleton.awk<cr>
 
 "---------------Plugin Settings---------------"
 
+let g:gundo_prefer_python3=1            " Use python3 to restore gundo functionality.
 let g:netrw_banner=0                    " Disable netrw banner.
-
 let g:nnn#command = 'nnn -H'            " Override default command.
 let g:nnn#set_default_mappings = 0      " Disable default mappings.
 let g:nnn#layout = 'new'                " Opens the nnn window in a split.

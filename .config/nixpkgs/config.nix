@@ -3,12 +3,12 @@ let
   pkgs = import <nixpkgs> {};
 
   stable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/21.05/nixos-21.05.1510.a165aeceda9/nixexprs.tar.xz";
-    sha256 = "124s05b0xk97arw0vvq8b4wcvsw6024dfdzwcx9qjxf3a2zszmam"; }) {};
+    url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
+    sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-21.11pre301985.23cd13167a1/nixexprs.tar.xz";
-    sha256 = "0djd5zr9l2r6ahwhyasl1asrdjhbavdamkz8qzlkkb6j4z015zqd"; }) {};
+    url = "https://releases.nixos.org/nixos/unstable/nixos-22.05pre353770.23d785aa6f8/nixexprs.tar.xz";
+    sha256 = "1n50i34h3yj2a44x3gl2xk27z8r12lzgj2m8n5j1c4k6kh4z1b22"; }) {};
 
 in
 
@@ -157,11 +157,11 @@ in
         (callPackage ./packages/ntrviewer/default.nix {})
         (callPackage ./packages/planner/default.nix {})
         (callPackage ./packages/sowon/default.nix {})
+        (callPackage ./packages/tilp2/default.nix {})
         (mplayer.override { v4lSupport = true; })
         unstable.claws-mail
         unstable.fsearch
         unstable.nyxt
-        unstable.tilp2
         unstable.ungoogled-chromium
         aegisub
         anki
@@ -437,7 +437,7 @@ in
 
     Perl = pkgs.buildEnv {
       name = "perl";
-      paths = [ rakudo (perl530.withPackages (ps: with ps; [ PerlCritic PerlTidy TextLorem ])) ];
+      paths = [ rakudo (perl532.withPackages (ps: with ps; [ PerlCritic PerlTidy TextLorem ])) ];
     };
 
     Nix = pkgs.buildEnv {
@@ -485,9 +485,9 @@ in
       paths = [
         (callPackage ./packages/skeema/default.nix {})
         (callPackage ./packages/sqldef/default.nix {})
-        (callPackage ./packages/sqlfluff/default.nix {})
         dbeaver
         pgformatter
+        sqlfluff
         sqlint
         sqlite
       ];

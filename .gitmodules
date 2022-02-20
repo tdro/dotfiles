@@ -10,9 +10,6 @@
 [submodule ".vim/pack/plugins/start/vim-elixir"]
 	path = .vim/pack/plugins/start/vim-elixir
 	url = https://github.com/elixir-editors/vim-elixir
-[submodule ".vim/pack/plugins/start/vim-fugitive"]
-	path = .vim/pack/plugins/start/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
 [submodule ".vim/pack/plugins/start/vim-HiLinkTrace"]
 	path = .vim/pack/plugins/start/vim-HiLinkTrace
 	url = https://github.com/gerw/vim-HiLinkTrace
