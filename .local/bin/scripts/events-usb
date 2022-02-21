@@ -1,3 +1,6 @@
 #!/bin/sh -eux
-xmodmap "$HOME/.config/X11/Xmodmap";
-xset r rate 200 60;
+
+xmodmap "$HOME/.config/X11/Xmodmap"
+xset r rate 200 60
+[ "$(xset -q | awk '/Caps Lock/ {  print $4 }')" = "on" ] \
+ && xdotool key Caps_Lock
