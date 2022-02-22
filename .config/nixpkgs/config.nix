@@ -120,6 +120,7 @@ in
         pngnq
         pngquant
         poppler_utils
+        quickemu
         ranger
         rclone
         ripgrep
@@ -156,6 +157,7 @@ in
         (callPackage ./packages/gnaural/default.nix {})
         (callPackage ./packages/ntrviewer/default.nix {})
         (callPackage ./packages/planner/default.nix {})
+        (callPackage ./packages/scribus/default.nix {})
         (callPackage ./packages/sowon/default.nix {})
         (callPackage ./packages/tilp2/default.nix {})
         (mplayer.override { v4lSupport = true; })
@@ -203,7 +205,6 @@ in
         rofi
         scrcpy
         screenkey
-        scribusUnstable
         sigil
         skippy-xd
         spaceFM
@@ -485,11 +486,11 @@ in
       paths = [
         (callPackage ./packages/skeema/default.nix {})
         (callPackage ./packages/sqldef/default.nix {})
-        dbeaver
         pgformatter
         sqlfluff
         sqlint
         sqlite
+        sqlitebrowser
       ];
     };
 
