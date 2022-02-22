@@ -33,10 +33,10 @@ let
 
   ruamel.yaml.cmd = python39.pkgs.buildPythonPackage rec {
     pname = "ruamel.yaml.cmd";
-    version = "0.5.6";
+    version = "0.5.7";
     src = python39.pkgs.fetchPypi {
       inherit pname version;
-      sha256 = "0zc2h6b721r8c05dm7y8zgrgbvifbgcm8jmqvns7ar4ajll3cvwv";
+      sha256 = "0w6ralskvjhswqsgxyqm5wpn0an7kj3v2mzf46ipp7b8xirjrc6r";
     };
     propagatedBuildInputs = [ python39.pkgs.configobj ruamel.std.argparse ruamel.std.convert ];
     patches = [
@@ -73,7 +73,7 @@ in python39.pkgs.buildPythonApplication rec {
     runHook preInstall
     mkdir -p $out/bin
     cp ${ruamel.yaml.cmd}/bin/yaml $out/bin
-    sed -i 's|^#!.*$|#!${pythonEnvironment}/bin/python3.9|' $out/bin/yaml
+    sed -i 's|^#!.*$|#!${pythonEnvironment}/bin/python|' $out/bin/yaml
     runHook postInstall
   '';
 
