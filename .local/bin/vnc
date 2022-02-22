@@ -27,4 +27,4 @@ vncviewer -passwd "$HOME/.vnc/keys/passwd-$host" \
   PreferredEncoding=Hextile \
   QualityLevel=6            \
   Shared=1                  \
-  "$address";
+  "$address:5901";
