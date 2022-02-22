@@ -1,6 +1,6 @@
 let
 
-  pkgs = import <nixpkgs> {};
+  pkgs = import <nixpkgs> { };
 
   stable = import (builtins.fetchTarball {
     url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
@@ -13,7 +13,10 @@ let
 in
 
 {
+  allowBroken = true;
   allowUnfree = true;
+  allowUnsupportedSystem = true;
+  allowInsecurePredicate = pkgs: true;
 
   packageOverrides = pkgs: with stable; {
 
