@@ -331,6 +331,7 @@ augroup AutoCommands
 
   " Set file types.
   autocmd BufRead,BufNewFile *.nims set filetype=nim
+  autocmd BufRead,BufNewFile *.rasi set filetype=css
 
   " Clear notification on cursor movement.
   autocmd CursorMoved * silent! call popup_clear()

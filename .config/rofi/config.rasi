@@ -1,15 +1,13 @@
 configuration {
-	bw: 0;
-	disable-history: false;
-	separator-style: "none";
-	hide-scrollbar: true;
-	fake-transparency: false;
-	color-normal: "argb:00000000, #FFFFFF, argb:00000000, #FAC863, #1B2B34";
-	color-urgent: "argb:00000000, #F99157, argb:00000000, #F99157, #1B2B34";
-	color-active: "argb:00000000, #FFFFFF, argb:00000000, #6699CC, #1B2B34";
-	color-window: "argb:cc222222, #FAC863, #FAC863";
-  kb-remove-to-eol: "";
-  kb-row-up:        "Up,Control+k";
-  kb-row-down:      "Down,Control+j";
-  kb-accept-entry: "Control+m,Return,KP_Enter";
+  bw:                0;
+  kb-remove-to-eol:  "";
+  hide-scrollbar:    true;
+  disable-history:   false;
+  fake-transparency: false;
+  separator-style:   "none";
+  kb-row-up:         "Up,Control+k";
+  kb-row-down:       "Down,Control+j";
+  kb-accept-entry:   "Control+m,Return,KP_Enter";
 }
+
+@theme "theme"
