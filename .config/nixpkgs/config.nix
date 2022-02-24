@@ -379,7 +379,7 @@ in
     JavaScript = pkgs.buildEnv {
       name = "javascript";
       paths = [
-        nodejs-14_x
+        nodejs
         unstable.deno
         nodePackages.bower2nix
         nodePackages.eslint
@@ -400,23 +400,23 @@ in
     PHP = pkgs.buildEnv {
       name = "php";
       paths = [
-        php74
-        php74Packages.psysh
-        php74Packages.psalm
-        php74Packages.phpcbf
-        php74Packages.phpstan
-        php74Packages.composer
+        php
+        phpPackages.psysh
+        phpPackages.psalm
+        phpPackages.phpcbf
+        phpPackages.phpstan
+        phpPackages.composer
       ];
     };
 
     Lua = pkgs.buildEnv {
       name = "lua";
-      paths = [ lua5_3 lua53Packages.luacheck luaformatter ];
+      paths = [ lua luaPackages.luacheck luaformatter ];
     };
 
     Elixir = pkgs.buildEnv {
       name = "elixir";
-      paths = [ elixir_1_10 ];
+      paths = [ elixir ];
     };
 
     HTML = pkgs.buildEnv {
@@ -441,7 +441,7 @@ in
 
     Perl = pkgs.buildEnv {
       name = "perl";
-      paths = [ rakudo (perl532.withPackages (ps: with ps; [ PerlCritic PerlTidy TextLorem ])) ];
+      paths = [ rakudo (perl.withPackages (ps: with ps; [ PerlCritic PerlTidy TextLorem ])) ];
     };
 
     Nix = pkgs.buildEnv {
