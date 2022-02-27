@@ -7,3 +7,4 @@ singleQuote: false      # Use double quotes instead of single quotes.
 tabWidth: 2             # Specify the number of spaces per indentation-level.
 trailingComma: es5      # Print trailing commas
 useTabs: false          # Indent lines with tabs instead of spaces.
+proseWrap: always       # Always wrap prose in markdown.

@@ -329,6 +329,8 @@ augroup AutoCommands
   autocmd FileType nix        set formatprg=nixfmt
   autocmd FileType sh         set formatprg=shfmt\ -
   autocmd FileType javascript set formatprg=prettier\ --parser\ babel\ --stdin-filepath\ %
+  autocmd FileType html       set formatprg=prettier\ --parser\ html\ --stdin-filepath\ %
+  autocmd FileType markdown   set formatprg=prettier\ --parser\ markdown\ --stdin-filepath\ %
 
   " Set file types.
   autocmd BufRead,BufNewFile *.nims set filetype=nim
