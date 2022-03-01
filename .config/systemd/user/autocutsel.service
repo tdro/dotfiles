@@ -1,8 +1,6 @@
 [Unit]
 Description=Keep the X clipboard and the cutbuffer in sync
-StartLimitBurst=5
-StartLimitIntervalSec=600
-
+StartLimitIntervalSec=0
 
 [Service]
 Type=forking

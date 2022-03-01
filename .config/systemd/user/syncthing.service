@@ -1,7 +1,6 @@
 [Unit]
 Description=Syncthing - Open Source Continuous File Synchronization
-StartLimitBurst=5
-StartLimitIntervalSec=600
+StartLimitIntervalSec=0
 
 [Service]
 IOWeight=60

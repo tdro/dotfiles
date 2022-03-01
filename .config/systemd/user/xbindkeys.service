@@ -1,7 +1,6 @@
 [Unit]
 Description=Keyboard shortcut binder
-StartLimitBurst=5
-StartLimitIntervalSec=600
+StartLimitIntervalSec=0
 
 [Service]
 Type=simple

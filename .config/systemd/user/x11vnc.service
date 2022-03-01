@@ -1,7 +1,6 @@
 [Unit]
 Description=Remote desktop service (VNC)
-StartLimitBurst=5
-StartLimitIntervalSec=600
+StartLimitIntervalSec=0
 
 [Service]
 Type=simple
