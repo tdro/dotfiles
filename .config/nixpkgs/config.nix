@@ -65,6 +65,7 @@ in
       name = "terminal";
       paths = [
         (callPackage ./packages/chromexup/default.nix {})
+        (callPackage ./packages/quickemu/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
@@ -123,7 +124,6 @@ in
         pngnq
         pngquant
         poppler_utils
-        quickemu
         ranger
         rclone
         ripgrep
@@ -140,6 +140,7 @@ in
         vale
         vault
         vcal
+        ventoy-bin
         vimHugeX
         vnstat
         w3m
