@@ -7,7 +7,7 @@ Type=simple
 RestartSec=3
 Restart=always
 SyslogIdentifier=unclutter
-ExecStart=/usr/bin/env unclutter -idle 1
+ExecStart=/usr/bin/env unclutter -idle 1 -grab
 
 [Install]
 WantedBy=default.target
