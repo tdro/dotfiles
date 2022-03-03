@@ -9,15 +9,14 @@ terminal="urxvt -pe tabbed -geometry 150x20 -title $name"
 }
 
 options=$(grep --count . $state || true)
-
 [ "$options" != "1" ] && { printf '1\n' > $state; }
 
 pid=$(pgrep --full "title $name" | head --lines 1)
+[ -z "$pid" ] && rm $state && "$0" && exit;
 
-visible=$(awk 'NR==1 { print; exit }' $state)
 window=$(wmctrl -lpGx  | awk "/$pid/"'{ print $1 }')
-
 [ -z "$window" ] && rm "$state" && "$0" && exit;
 
+visible=$(awk 'NR==1 { print; exit }' $state)
 [ "$visible" = 0 ] && wmctrl -i -u -R "$window"      && wmctrl -i -u -r "$window" -b add,above               && sed --in-place '1s/.*/1/' "$state" && exit;
 [ "$visible" = 1 ] && xdotool mousemove_relative 0 1 && wmctrl -i -u -r "$window" -b add,skip_taskbar,hidden && sed --in-place '1s/.*/0/' "$state" && exit;
