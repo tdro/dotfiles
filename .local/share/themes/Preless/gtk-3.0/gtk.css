@@ -20,6 +20,10 @@
 @define-color scrollbar_bg_color  #dddddd;
 
 * {
+  all: unset;
+}
+
+* {
   color: @fg_color;
   border-radius: 0.5em;
   background-color: @bg_color;
@@ -112,7 +116,8 @@ checkbutton:disabled,
 radiobutton:disabled,
 checkbutton:disabled:checked,
 radiobutton:disabled:checked,
-button:disabled:checked label {
+button:disabled:checked label,
+checkbutton:disabled:checked label {
   background-color: transparent;
 }
 
@@ -189,10 +194,11 @@ frame.app-notification {
 popover,
 header tab,
 toolbar.osd,
-window > grid > frame border,
-frame.app-notification,
+placessidebar,
 paned scrolledwindow,
-dialog scrolledwindow {
+dialog scrolledwindow,
+frame.app-notification,
+window > grid > frame border {
   border: 0.5px @fg_color solid;
 }
 
@@ -252,8 +258,7 @@ separator.vertical {
 }
 
 expander {
-  border: 1px @fg_color solid;
-  padding: 4px;
+  padding: 0;
 }
 
 headerbar {
