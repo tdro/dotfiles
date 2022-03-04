@@ -24,6 +24,7 @@ let
       ${script}
       rm "$0"
     '';
+    PROOT_NO_SECCOMP = "1";
     installPhase = ''
       set -euo pipefail
       mkdir --parents rootfs $out/rootfs
@@ -165,7 +166,18 @@ let
     ];
   };
 
-  # proot --cwd=/ --rootfs=${alpine}/rootfs --bind=/proc --bind=/dev /usr/bin/env - /bin/sh -c '. /etc/profile && sh'
+  container = { rootfs, binds ? [ ], options ? [] }:
+    pkgs.writeScript name ''
+    set -euxo pipefail
+    PATH=${pkgs.lib.strings.makeBinPath [ pkgs.proot ]}
+    proot \
+      --cwd=/ \
+      --rootfs='${rootfs}' \
+      ${pkgs.lib.strings.concatMapStringsSep " " (option: "--bind=${option}") binds} \
+      ${pkgs.lib.strings.concatMapStringsSep " " (value: value) options} \
+      /usr/bin/env - /bin/sh -c '. /etc/profile && sh'
+  '';
+
   # doas ${alpine-machine}
   # sudo ${alpine-machine}
   # qemu-system-x86_64 -nographic -drive if=virtio,file=./${alpine-machine.name}.img,format=raw
@@ -179,7 +191,11 @@ in pkgs.mkShell {
 
   shellHook = ''
     export PS1='\h (${name}) \W \$ '
-    proot --cwd=/ --rootfs=${alpine}/rootfs --bind=/proc --bind=/dev /usr/bin/env - /bin/sh -c '. /etc/profile && sh'
+    ${container {
+      rootfs = "${alpine}/rootfs";
+      binds = [ "/proc" "/dev" ];
+      options = [ "--verbose=0" ];
+    }}
     exit
   '';
 }
