@@ -247,7 +247,7 @@ in
         (callPackage ./packages/xprintidle/default.nix {})
         autocutsel
         glxinfo
-        unclutter
+        unclutter-xfixes
         wmctrl
         xbindkeys
         xdotool
@@ -513,7 +513,7 @@ in
         (callPackage ./packages/x11vnc/default.nix {})
         (callPackage ./packages/xprintidle/default.nix {})
         glxinfo
-        unclutter
+        unclutter-xfixes
         wmctrl
         xbindkeys
         xdotool
