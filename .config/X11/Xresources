@@ -34,23 +34,23 @@ URxvt.colorUL:             #8fc1ff
 ! -----------------
 
 !black
-*color0:  #2c303c
-*color8:  #666666
+*color0:  #111111
+*color8:  #999999
 
 !red
-*color1:  #e84f4f
-*color9:  #ff3838
+*color1:  #ed7373
+*color9:  #ff6666
 
 !green
 *color2:  #beff3e
 *color10: #cfff72
 
 !yellow
-*color3:  #fea63c
+*color3:  #feac48
 *color11: #ffdf23
 
 !blue
-*color4:  #69aeff
+*color4:  #80c6ff
 *color12: #5aa5ff
 
 !magenta
@@ -59,10 +59,10 @@ URxvt.colorUL:             #8fc1ff
 
 !cyan
 *color6:  #69aeff
-*color14: #8b8b8b
+*color14: #9fc1dd
 
 !white
-*color7:  #ffffff
+*color7:  #eeeeee
 *color15: #ffffff
 
 ! -----------------

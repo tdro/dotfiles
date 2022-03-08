@@ -52,7 +52,7 @@ exe 'hi DiffAdd        guifg='.s:none         . ' guibg='.s:g_darkgreen  . ' gui
 exe 'hi DiffChange     guifg='.s:none         . ' guibg='.s:g_darkblue   . ' guisp='.s:none . ' gui='.s:bold . ' ctermfg='.s:none     . ' ctermbg='.s:t_darkblue  . ' cterm='.s:none
 exe 'hi DiffDelete     guifg='.s:g_black      . ' guibg='.s:g_pink       . ' guisp='.s:none . ' gui='.s:bold . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_pink      . ' cterm='.s:none
 exe 'hi DiffText       guifg='.s:g_red        . ' guibg='.s:g_grey2      . ' guisp='.s:none . ' gui='.s:bold . ' ctermfg='.s:t_red    . ' ctermbg='.s:t_grey2     . ' cterm='.s:none
-exe 'hi EndOfBuffer    guifg='.s:g_background . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_clear  . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi EndOfBuffer    guifg='.s:g_grey4      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_grey4  . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Error          guifg='.s:g_red        . ' guibg='.s:g_grey3      . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_red    . ' ctermbg='.s:t_grey3     . ' cterm='.s:none
 exe 'hi ErrorMsg       guifg='.s:g_black      . ' guibg='.s:g_red        . ' guisp='.s:none . ' gui='.s:bold . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_red       . ' cterm='.s:bold
 exe 'hi Exception      guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
