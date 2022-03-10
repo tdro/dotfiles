@@ -123,7 +123,10 @@ lxc-destroy() { for container in "$@"; do $(type -P lxc-destroy) --name "$contai
 history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" | sponge "$HOME/.bash_history"; }
 
 # extract docker container as rootfs
-docker-rootfs() { id=$(docker run -d "$1" /bin/true) && docker export "$id" -o "$2.tar" && docker container rm "$id"; }
+docker-rootfs() { id=$(docker run --detach "$1" /bin/true) \
+  && docker export "$id" --output "rootfs.tar" \
+  && docker container rm "$id" \
+  && ls -l rootfs.tar; }
 
 # https://til.simonwillison.net/bash/escaping-a-string
 # press ctrl+d after writing string to standard input
