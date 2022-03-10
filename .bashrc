@@ -92,8 +92,8 @@ alias grep='grep --color=tty -d skip'
 alias locate='locate -ie'
 alias ls='ls -hN --color=always --group-directories-first'
 alias lsblk='lsblk -o NAME,MAJ:MIN,RM,SIZE,FSTYPE,RO,TYPE,MOUNTPOINT,MODEL'
-alias lxc-attach='lxc-attach --clear-env -n'
-alias lxc-ls='lxc-ls -f'
+alias lxc-attach='lxc-attach --clear-env --name'
+alias lxc-ls='lxc-ls --fancy'
 alias lynx='lynx -cfg ~/.config/lynx/lynx.cfg'
 alias mocp='mocp -M $XDG_CONFIG_HOME/moc'
 alias newsboat='newsboat -c $XDG_CONFIG_HOME/newsboat/cache.db -u $XDG_CONFIG_HOME/newsboat/urls -C $XDG_CONFIG_HOME/newsboat/config'
@@ -109,11 +109,12 @@ alias units='units --history "$XDG_CACHE_HOME"/units_history'
 nix-which() { readlink "$(type -P "$1")"; }
 
 # lxc helpers
-lxc-copy() { A=$1 && B=$2 && shift 2 && $(type -P lxc-copy) -an "$A" -N "$B" "$@"; }
-lxc-restart() { $(type -P lxc-stop) -kn "$1"; $(type -P lxc-start) -n "$1"; }
-lxc-start() { for container in "$@"; do $(type -P lxc-start) -n "$container"; done }
-lxc-stop() { for container in "$@"; do $(type -P lxc-stop) -kn "$container"; done }
-lxc-destroy() { for container in "$@"; do $(type -P lxc-destroy) -n "$container"; done }
+lxc-copy() { A=$1 && B=$2 && shift 2 && $(type -P lxc-copy) --allowrunning --name "$A" -N "$B" "$@"; }
+lxc-shell() { lxc-attach "$1" -- /bin/sh -c 'export HOME="/root" && . /etc/profile && /bin/sh'; }
+lxc-restart() { $(type -P lxc-stop) --kill --name "$1"; $(type -P lxc-start) -n "$1"; }
+lxc-start() { for container in "$@"; do $(type -P lxc-start) --name "$container"; done }
+lxc-stop() { for container in "$@"; do $(type -P lxc-stop) --kill --name "$container"; done }
+lxc-destroy() { for container in "$@"; do $(type -P lxc-destroy) --name "$container"; done }
 
 # source fzf markers
 [ -f "$HOME/.config/fzf/marks.plugin.bash" ] && . "$HOME/.config/fzf/marks.plugin.bash"
