@@ -131,6 +131,7 @@ docker-rootfs() { id=$(docker run --detach "$1" /bin/true) \
 # https://til.simonwillison.net/bash/escaping-a-string
 # press ctrl+d after writing string to standard input
 shellquote() { printf '%q\n' "$(cat)"; }
+trap 'echo -ne "\033]2;command: $(history 1 | shellquote)\007"' DEBUG
 
 # swallow
 swallow() { "$@" & disown; exit; }
