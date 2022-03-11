@@ -15,6 +15,7 @@ in pkgs.mkShell {
   inherit name;
 
   shellHook = ''
+    export VAULT_TOKEN=$(cat $HOME/.local/share/vault/token)
     export VAULT_ADDR='http://vault.test'
     export NIX_PATH=${channel}/nixexprs.tar.xz
     export _NIX_CHANNEL=${channel}
