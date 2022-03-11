@@ -2,7 +2,7 @@
 
 mapclear                                 " Clear all mappings.
 packadd! matchit                         " Add match tag pairs package.
-let skip_defaults_vim=1                  " Do not load defaults if ~/.vimrc is missing.
+let skip_defaults_vim=1                  " Do not load defaults if vimrc is missing.
 
 
 "------------General------------"
@@ -95,7 +95,7 @@ endfunction
 "---------------Shortcuts---------------"
 
 " Edit shortcuts
-nmap <leader>ev :tabedit ~/.vimrc<cr>
+nmap <leader>ev :tabedit ~/.vim/vimrc<cr>
 nmap <leader>eh :tabedit ~/.vim/post-save-hook<cr>
 
 " Show key mappings
@@ -119,7 +119,7 @@ nmap <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \|
 nmap <leader>jl :norm yaW<cr> \| :Jump<cr>
 
 " Load and save sessions
-nmap <leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>
+nmap <leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>
 nmap <leader>ss :silent! exe "!~/.vim/hooks/pre-session-save" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>
 
 " Toggle Spell Check
@@ -141,7 +141,7 @@ nmap <leader>qw <C-w>c<cr>
 nmap <leader>re gg=G<C-o><C-o>
 
 " Reset all settings and source configuration.
-nmap <leader>ra :set all& \| :source ~/.vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>
+nmap <leader>ra :set all& \| :source ~/.vim/vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>
 
 " Remove duplicate lines
 vnoremap <leader>rd !awk '\!visited[$0]++'<cr>
@@ -161,6 +161,10 @@ nmap <leader>cl :call TypographyFormat()<cr>
 " Toggle line numbers
 nmap <leader>cn :set relativenumber!<cr>
 
+" Move line up or down
+nmap <leader>ck ddkkpk<cr>
+nmap <leader>cj ddpk<cr>
+
 " Justify columns
 vnoremap <leader>ct !column -t -o' '<cr>
 
@@ -179,6 +183,7 @@ nmap <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' &'<cr><cr>
 nmap <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
+nmap <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $HOME -type d -maxdepth 6", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 
 " Mappings for nnn
 nmap <leader>nm :NnnPicker<cr>

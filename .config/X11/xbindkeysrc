@@ -1,17 +1,17 @@
 # quake terminal
-"$HOME/.local/bin/scripts/dropdown-terminal"
+"dropdown-terminal"
     Mod4 + q
 
 # program launcher
-"$HOME/.local/bin/dmenu_run_history"
+"dmenu_run_history"
     Mod4 + r
 
 # privilege launcher
-"$HOME/.local/bin/dmenu_run_history privilege"
+"dmenu_run_history privilege"
     Mod4 + e
 
 # terminal launcher
-"$HOME/.local/bin/dmenu_run_history terminal"
+"dmenu_run_history terminal"
     Mod4 + w
 
 # zoom application
@@ -31,59 +31,59 @@
     Mod4 + t
 
 # show bookmarks
-"bookmarks show $HOME/Documents/text/bookmarks/bookmarks.html"
+"bookmarks show $HOME/Shares/Projects/bookmarks/archives/bookmarks-old.html"
     Mod4 + g
 
 # clipboard toggle
-"$HOME/.local/bin/scripts/clipboard"
+"clipboard"
     Mod4 + z
 
 # text plumber
-"$HOME/.local/bin/plumber-dmenu"
+"plumber-dmenu"
     Mod4 + i
 
 # pass menu
-"$HOME/.local/bin/pass-menu"
+"pass-menu"
     Mod4 + d
 
 # file search
-"$HOME/.local/bin/scripts/file-search"
+"file-search"
     Mod4 + p
 
 # window switcher
-"$HOME/.local/bin/scripts/window-switcher"
+"window-switcher"
     Alt + Tab
 
 # window overview
-"$HOME/.local/bin/scripts/window-overview"
+"window-overview"
     Mod4 + Tab
 
 # file search
-"$HOME/.local/bin/scripts/internet-search"
+"internet-search"
     Mod4 + a
 
 # volume up
-"$HOME/.local/bin/scripts/volume-control up"
+"volume-control up"
     XF86AudioRaiseVolume
 
 # volume down
-"$HOME/.local/bin/scripts/volume-control down"
+"volume-control down"
     XF86AudioLowerVolume
 
 # volume mute
-"$HOME/.local/bin/scripts/volume-control mute"
+"volume-control mute"
     XF86AudioMute
 
 # lock screen
-"$HOME/.local/bin/scripts/lockscreen"
+"lockscreen"
     XF86ScreenSaver
 
 # snipping tool
-"$HOME/.local/bin/scripts/snipping-tool"
+"snipping-tool"
     Print
 
 # switch monitor
-"$HOME/.local/bin/scripts/switch-monitor"
+"switch-monitor"
     XF86Display
 
 # screen record

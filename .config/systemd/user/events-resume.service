@@ -7,7 +7,7 @@ Type=simple
 RestartSec=3
 Restart=always
 SyslogIdentifier=events-resume
-ExecStart=/usr/bin/env sh -c 'dbus-monitor --system | while read; do grep -q 'PrepareForSleep' && %h/.local/bin/scripts/events-resume; done'
+ExecStart=/usr/bin/env sh -c 'dbus-monitor --system | while read; do grep -q 'PrepareForSleep' && events-resume; done'
 
 [Install]
 WantedBy=default.target

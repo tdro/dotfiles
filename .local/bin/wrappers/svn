@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+$(which svn --all | grep --invert-match "local/bin" | head -n 1) --config-dir "$XDG_CONFIG_HOME"/subversion "$@";

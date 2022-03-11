@@ -1,2 +1,3 @@
-#!/bin/sh
+#!/bin/sh -eu
+# TODO: Output can change default $1 to first known monitor.
 xrandr --output "$1" --scale "$2"x"$2"

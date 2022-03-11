@@ -4,5 +4,5 @@ Description=Workout notifications
 [Service]
 Type=oneshot
 Environment=DISPLAY=:0
-ExecStart=%h/.local/bin/scripts/workout-notify
+ExecStart=/usr/bin/env sh -c 'workout-notify'
 SyslogIdentifier=workout-notify

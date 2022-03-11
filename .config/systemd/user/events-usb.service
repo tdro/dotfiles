@@ -7,7 +7,7 @@ Type=simple
 RestartSec=3
 Restart=always
 SyslogIdentifier=events-usb
-ExecStart=/usr/bin/env sh -c 'udevadm monitor | while read; do grep -m1 -q "(usb)" && %h/.local/bin/scripts/events-usb; done'
+ExecStart=/usr/bin/env sh -c 'udevadm monitor | while read; do grep -m1 -q "(usb)" && events-usb; done'
 
 [Install]
 WantedBy=default.target
