@@ -10,7 +10,9 @@ modifyLineBreaks:
     manipulateSentences: 0
     textWrapSentences: 1
   textWrapOptions:
+    all: 1
     columns: 80
+    perCodeBlockBasis: 1
 
 verbatimEnvironments:
   pre: 1
