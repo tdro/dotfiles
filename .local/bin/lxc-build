@@ -1,0 +1,95 @@
+#!/usr/bin/env runhaskell
+
+import           System.Console.GetOpt
+import           System.Environment
+import           System.Exit
+import           System.Process
+
+version :: Fractional p => p
+version = 0.01
+
+help :: [Char]
+help = unlines
+  [ ""
+  , "NAME"
+  , ""
+  , "   lxc-build"
+  , ""
+  , "SYNOPSIS"
+  , ""
+  , "   Create an lxc container named rockylinux with the specified Dockerfile"
+  , ""
+  , "       lxc-build --name rockylinux rockylinux8.dockerfile"
+  , ""
+  , "   Start the container after building"
+  , ""
+  , "       lxc-build --start --name rockylinux rockylinux8.dockerfile"
+  , ""
+  , "   Replace a container of the same name with the new build"
+  , ""
+  , "       lxc-build --replace --name rockylinux rockylinux8.dockerfile"
+  , ""
+  , "DESCRIPTION"
+  , ""
+  , "   Builds a lxc container from a Dockerfile"
+  , ""
+  , "COMMANDS"
+  , ""
+  , "   -n, -name,        --name        The container name"
+  , "   -c, -create,      --create      Create the container"
+  , "   -h, -help,        --help        Shows this help menu"
+  , "   -u, -user-map,    --user-map    User mapping id"
+  , "   -g, -group-map,   --group-map   Group mapping id"
+  , "   -r, -replace,     --replace     Replace container with new build"
+  , "   -v, -version,     --version     Prints program version"
+  ]
+
+display = putStrLn
+
+main = do
+  arguments <- getArgs
+  case arguments of
+    ["--replace", "--name", name, dockerfile] -> do
+      callCommand ("\\lxc-destroy --force --name " ++ name ++ " |& \\true")
+      callCommand
+        (  "\\lxc-create --name "
+        ++ name
+        ++ " --template=none && \\mkdir ~/.local/share/lxc/"
+        ++ name
+        ++ "/rootfs"
+        )
+      callCommand ("\\docker build --file " ++ dockerfile)
+      callCommand
+        (  "id=$(\\docker run --detach \"$(\\docker build --file "
+        ++ dockerfile
+        ++ " | tail --lines=1)\" /bin/true) && \\docker export \"$id\" | \\tar --extract --directory ~/.local/share/lxc/"
+        ++ name
+        ++ "/rootfs && \\docker container rm \"$id\""
+        )
+      callCommand
+        (  "\\printf 'doas chown --recursive 200000:200000 ~/.local/share/lxc/"
+        ++ name
+        ++ "/rootfs\n'"
+        )
+      callCommand
+        (  "\\doas chown --recursive 200000:200000 ~/.local/share/lxc/"
+        ++ name
+        ++ "/rootfs"
+        )
+      callCommand
+        (  "\\printf 'lxc.uts.name = "
+        ++ name
+        ++ "\n' >> ~/.local/share/lxc/"
+        ++ name
+        ++ "/config"
+        )
+      callCommand
+        (  "\\printf \"lxc.rootfs.path = dir:$HOME/.local/share/lxc/"
+        ++ name
+        ++ "/rootfs\n\" >> ~/.local/share/lxc/"
+        ++ name
+        ++ "/config"
+        )
+      callCommand ("\\lxc-start --name " ++ name)
+    _ -> do
+      die help

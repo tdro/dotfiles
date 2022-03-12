@@ -110,7 +110,7 @@ nix-which() { readlink "$(type -P "$1")"; }
 
 # lxc helpers
 lxc-copy() { A=$1 && B=$2 && shift 2 && $(type -P lxc-copy) --allowrunning --name "$A" -N "$B" "$@"; }
-lxc-shell() { lxc-attach "$1" -- /bin/sh -c 'export HOME="/root" && . /etc/profile && /bin/sh'; }
+lxc-shell() { lxc-start "$1" > /dev/null 2>&1 && lxc-attach "$1" -- /bin/sh -c 'export HOME="/root" && . /etc/profile && /bin/sh'; }
 lxc-restart() { $(type -P lxc-stop) --kill --name "$1"; $(type -P lxc-start) -n "$1"; }
 lxc-start() { for container in "$@"; do $(type -P lxc-start) --name "$container"; done }
 lxc-stop() { for container in "$@"; do $(type -P lxc-stop) --kill --name "$container"; done }
