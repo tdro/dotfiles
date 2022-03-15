@@ -11,11 +11,6 @@ URxvt.internalBorder:      10
 URxvt.geometry:            74x18
 URxvt.cursorUnderline:     0
 URxvt.cursorBlink:         1
-URxvt.cursorColor:         #69AEFF
-URxvt*font:                xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
 URxvt.keysym.C-0:          perl:font-size:reset
 URxvt.keysym.C-Up:         perl:font-size:increase
 URxvt.keysym.C-Down:       perl:font-size:decrease
@@ -25,13 +20,16 @@ URxvt.scrollWithBuffer:    true
 URxvt.scrollTtyKeypress:   true
 URxvt.transparent:         false
 URxvt.shading:             20
-URxvt.foreground:          #ffffff
-URxvt.background:          #2c303c
-URxvt.colorUL:             #8fc1ff
 
 ! -----------------
 ! Terminal Colors
 ! -----------------
+
+*colorUL:     #8fc1ff
+*cursorColor: #69aeff
+
+*foreground: #ffffff
+*background: #2c303c
 
 !black
 *color0:  #2c303c
@@ -69,12 +67,17 @@ URxvt.colorUL:             #8fc1ff
 ! Font Settings
 ! -----------------
 
+*font:           xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+*boldFont:       xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+*italicFont:     xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+*boldItalicFont: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+
 Xft.autohint:  0
 Xft.antialias: 1
 Xft.hinting:   1
-Xft.hintstyle: hintslight
 Xft.dpi:       96
 Xft.rgba:      rgb
+Xft.hintstyle: hintslight
 Xft.lcdfilter: lcddefault
 
 ! -----------------

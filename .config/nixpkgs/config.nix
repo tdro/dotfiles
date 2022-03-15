@@ -66,6 +66,7 @@ in
       paths = [
         (callPackage ./packages/chromexup/default.nix {})
         (callPackage ./packages/quickemu/default.nix {})
+        (callPackage ./packages/rxvt-unicode/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
@@ -127,7 +128,6 @@ in
         ranger
         rclone
         ripgrep
-        rxvt-unicode
         sbcl
         silver-searcher
         sshfs
@@ -228,6 +228,7 @@ in
         xsane
         yad
         zathura
+        zeal
       ];
     };
 
@@ -248,6 +249,7 @@ in
         autocutsel
         glxinfo
         unclutter-xfixes
+        weston
         wmctrl
         xbindkeys
         xdotool
