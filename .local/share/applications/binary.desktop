@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Binary Viewer
+Exec=hexmime %F
+Terminal=true
+NoDisplay=true
+Type=Application

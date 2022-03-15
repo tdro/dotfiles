@@ -1,6 +1,4 @@
 #!/bin/sh -eu
 
-term='urxvt -e %s'
-
-notify-send "$(mimeo --term "$term" --deprecated "$@" 2>&1)" \
-  && mimeo --term "$term" --deprecated "$@"
+term="$TERMINAL -e %s"
+mimeo --term "$term" --deprecated "$@"

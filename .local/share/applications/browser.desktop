@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Internet Browser
+Exec=browser %U
+Terminal=false
+NoDisplay=true
+Type=Application

@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+mimeo --mimetype "$1" && hexyl --length 196 "$1" && cat

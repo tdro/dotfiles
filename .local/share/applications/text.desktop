@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Editor
+Name=Text Viewer
 Type=Application
 Exec=vim %U
 Terminal=true

@@ -78,6 +78,7 @@ in
         alsaUtils
         ansi2html
         ansible
+        atool
         bat
         bleachbit
         calcurse
@@ -101,6 +102,7 @@ in
         gifsicle
         git
         groff
+        hexyl
         highlight
         ideviceinstaller
         imagemagick

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Archive Extractor
+Exec=sh -c "atool --subdir --extract %F || cat"
+Terminal=true
+NoDisplay=true
+Type=Application
