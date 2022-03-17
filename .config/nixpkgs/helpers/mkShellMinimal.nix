@@ -1,5 +1,27 @@
 ### Source:  https://github.com/NixOS/nixpkgs/commit/459771518d44f60b59a19381d07b12297908215d
 ### Article: https://fzakaria.com/2021/08/02/a-minimal-nix-shell.html
+### Usage:
+
+# let
+#
+#   name = "nix-shell.minimal";
+#   pkgs = import <nixpkgs> { };
+#
+#   mkShellMinimal = pkgs.callPackage (builtins.fetchurl {
+#     url = "https://raw.githubusercontent.com/tdro/dotfiles/0aac4414559235f8cd8c454acce30c0471e0f6b1/.config/nixpkgs/helpers/mkShellMinimal.nix";
+#     sha256 = "06vbyyhaam3nmzimzasz6la590ni9cbdql3jy29hhw9ln0xf09yy";
+#   }) { };
+#
+# in mkShellMinimal rec {
+#   buildInputs = [ pkgs.coreutils pkgs.hello pkgs.gnugrep pkgs.which ];
+#   shellHook = ''
+#     hello
+#     which mkdir
+#     printf "\nPATH is $PATH\n\n"
+#     grep --version
+#     export PS1='\h (${name}) \W \$ '
+#   '';
+# }
 
 { lib }:
 
