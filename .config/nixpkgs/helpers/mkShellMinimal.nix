@@ -1,54 +1,59 @@
 ### Source:  https://github.com/NixOS/nixpkgs/commit/459771518d44f60b59a19381d07b12297908215d
 ### Article: https://fzakaria.com/2021/08/02/a-minimal-nix-shell.html
-### Usage:
 
-# let
-#
-#   name = "nix-shell.minimal";
-#   pkgs = import <nixpkgs> { };
-#
-#   mkShellMinimal = pkgs.callPackage (builtins.fetchurl {
-#     url = "https://raw.githubusercontent.com/tdro/dotfiles/b710281b132056105709c03dda1899a6afc68a93/.config/nixpkgs/helpers/mkShellMinimal.nix";
-#     sha256 = "0smaflcj4r9q0ix45hx904sfmrhdkav6pvv2m7xapc68ykw0ry1i";
-#   }) { };
-#
-# in mkShellMinimal {
-#   packages = [ pkgs.hello pkgs.gnugrep ];
-#   shellHook = ''
-#     hello
-#     printf "$PATH\n"
-#     grep --version
-#     export PS1='\h (${name}) \W \$ '
-#   '';
-# }
+{ lib }:
 
-{ writeTextFile, writeScript, system }:
+{ packages ? [ ], inputsFrom ? [ ], buildInputs ? [ ], nativeBuildInputs ? [ ]
+, propagatedBuildInputs ? [ ], propagatedNativeBuildInputs ? [ ], ... }@attrs:
+let
+  mergeInputs = name:
+    (attrs.${name} or [ ]) ++ (lib.subtractLists inputsFrom
+      (lib.flatten (lib.catAttrs name inputsFrom)));
 
-{ shellHook ? "", packages ? [ ], ... }@attrs:
-derivation ({
-  inherit system;
+  rest = builtins.removeAttrs attrs [
+    "packages"
+    "inputsFrom"
+    "buildInputs"
+    "nativeBuildInputs"
+    "propagatedBuildInputs"
+    "propagatedNativeBuildInputs"
+    "shellHook"
+  ];
 
-  name = "minimal-nix-shell";
+  pkgs = import (builtins.fetchTarball {
+    url = "https://releases.nixos.org/nixos/21.05/nixos-21.05.1510.a165aeceda9/nixexprs.tar.xz";
+    sha256 = "124s05b0xk97arw0vvq8b4wcvsw6024dfdzwcx9qjxf3a2zszmam";
+  }) { };
 
-  "stdenv" = writeTextFile rec {
-    name = "setup";
-    executable = true;
-    destination = "/${name}";
-    text = ''
-      set -e
-      PATH=
-      for package in ${toString packages}; do
-        export PATH=$package/bin:$PATH
-      done
-      ${shellHook}
-    '';
+  stdenv = pkgs.stdenvNoCC.override {
+    cc = null;
+    preHook = "";
+    allowedRequisites = null;
+    initialPath = pkgs.coreutils;
+    extraNativeBuildInputs = [ ];
   };
 
-  builder = writeScript "builder.sh" ''
-    #!/bin/sh
+in stdenv.mkDerivation ({
+  name = "nix-shell";
+  phases = [ "nobuildPhase" ];
+
+  buildInputs = mergeInputs "buildInputs";
+  nativeBuildInputs = packages ++ (mergeInputs "nativeBuildInputs");
+  propagatedBuildInputs = mergeInputs "propagatedBuildInputs";
+  propagatedNativeBuildInputs = mergeInputs "propagatedNativeBuildInputs";
+
+  shellHook = ''
+    PATH=${stdenv.initialPath}/bin
+    for package in ${toString buildInputs}; do
+      export PATH=$package/bin:$PATH
+    done
+  '' + lib.concatStringsSep "\n"
+    (lib.catAttrs "shellHook" (lib.reverseList inputsFrom ++ [ attrs ]));
+
+  nobuildPhase = ''
     echo
-    echo "This derivation is not meant to be built, unless you want to capture the dependency closure.";
+    echo "This derivation is not meant to be built, aborting";
     echo
-    export > $out
+    exit 1
   '';
-} // attrs)
+} // rest)
