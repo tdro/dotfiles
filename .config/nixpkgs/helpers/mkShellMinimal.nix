@@ -12,10 +12,12 @@
 #     sha256 = "06vbyyhaam3nmzimzasz6la590ni9cbdql3jy29hhw9ln0xf09yy";
 #   }) { };
 #
-# in mkShellMinimal rec {
+# in mkShellMinimal {
 #   buildInputs = [ pkgs.coreutils pkgs.hello pkgs.gnugrep pkgs.which ];
+#   ENV = "ENV";
 #   shellHook = ''
 #     hello
+#     printf "%s\n" "$ENV"
 #     which mkdir
 #     printf "\nPATH is $PATH\n\n"
 #     grep --version
