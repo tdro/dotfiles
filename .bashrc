@@ -1,37 +1,37 @@
 #!/bin/bash -eu
 
 # source exports
-export BASH_PROFILE=1 && . "$HOME/.bash_profile";
+export BASH_PROFILE=1 && . "$HOME/.bash_profile"
 
 # bail if not interactive
-printf '%s' "$-" | grep -q "i" || return;
+printf '%s' "$-" | grep -q "i" || return
 
 # cd using directory name
-shopt -s autocd;
+shopt -s autocd
 
 # append bash history entries
-shopt -s histappend;
+shopt -s histappend
 
 # bash history one command per line
-shopt -s cmdhist;
+shopt -s cmdhist
 
 # disable program completion
-shopt -u progcomp;
+shopt -u progcomp
 
 # enable vi mode
-set -o vi;
+set -o vi
 
 # disable ctrl+s
-stty stop '';
-stty start '';
-stty -ixon;
-stty -ixoff;
+stty stop ''
+stty start ''
+stty -ixon
+stty -ixoff
 
 # fzf bindings
-fzfcompletion=$(readlink "$(type -P fzf)" | cut -d '/' -f -4)/share/fzf/completion.bash;
-fzfkeybindings=$(readlink "$(type -P fzf)" | cut -d '/' -f -4)/share/fzf/key-bindings.bash;
-[ -f "$fzfcompletion" ] && . "$fzfcompletion";
-[ -f "$fzfkeybindings" ] && . "$fzfkeybindings";
+fzfcompletion="$HOME/.config/fzf/completion.bash"
+fzfkeybindings="$HOME/.config/fzf/key-bindings.bash"
+[ -f "$fzfcompletion" ] && . "$fzfcompletion"
+[ -f "$fzfkeybindings" ] && . "$fzfkeybindings"
 
 # set virtual console colors
 if [ "$TERM" = "linux" ]; then
@@ -118,9 +118,6 @@ lxc-destroy() { for container in "$@"; do $(type -P lxc-destroy) --name "$contai
 
 # source fzf markers
 [ -f "$HOME/.config/fzf/marks.plugin.bash" ] && . "$HOME/.config/fzf/marks.plugin.bash"
-
-# remove bash history duplicates
-history-remove-duplicates() { awk '!visited[$0]++' "$HOME/.bash_history" | sponge "$HOME/.bash_history"; }
 
 # extract docker container as rootfs
 docker-rootfs() { id=$(docker run --detach "$1" /bin/true) \

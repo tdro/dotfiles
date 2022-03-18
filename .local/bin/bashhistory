@@ -1,0 +1,31 @@
+#!/bin/sh -eu
+
+directory="$XDG_DATA_HOME/bash"
+persist="$directory/history"
+default="$HOME/.bash_history"
+current="$HISTFILE"
+
+_prune() {
+ sed --in-place '/^#/d' "$1" &&            # Remove all timestamps.
+ sed --in-place '/......../!d' "$1" &&     # Remove all commands 8 characters or less.
+ sort --unique "$1" | sponge "$1"          # Remove all duplicate entries.
+}
+
+mkdir --parents "$directory"
+touch "$current"
+
+_migrate() {
+ [ -f "$default" ] &&
+  cat "$default" >>"$persist" &&
+  _prune "$persist" &&
+  rm "$default"
+}
+
+_store() {
+ cat "$current" >> "$persist" &&
+ _prune "$persist" &&
+ true > "$current"
+}
+
+_migrate || true
+_store
