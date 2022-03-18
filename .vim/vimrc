@@ -65,8 +65,8 @@ set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
 set foldcolumn=2                         " Set fold column width to 2.
 
-" Convert tab to spaces.
-set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab
+set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab       " Set spaces as default.
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣   " Set hidden character identifiers.
 
 
 "----------------Visuals----------------"
@@ -129,8 +129,8 @@ nmap <leader>sp :set spell!<cr>
 vnoremap <leader>sn !perl -e 'print sort { length($a) <=> length($b) } <>'<cr>
 
 " Switch between tabs and spaces
-nmap <leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab \| :%retab!<cr>
-nmap <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab \| :%retab!<cr>
+nmap <leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>
+nmap <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab<cr>
 
 " Close buffer and window
 nmap <leader>qq :bd<cr>
@@ -179,7 +179,7 @@ nmap <Tab> :Buffers<cr>
 nmap <leader>ov :Lines<cr>
 nmap <leader>ob :BLines<cr>
 nmap <leader>ol :Locate<space>
-nmap <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' &'<cr><cr>
+nmap <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>
 nmap <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
