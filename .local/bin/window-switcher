@@ -1,3 +1,23 @@
-#!/bin/sh -eu
-wmctrl -l | dmenu -f -i -b -p 'Switch' | awk '{ print $1 }' | xargs wmctrl -ia
-#rofi -no-disable-history -show window -theme-str '#prompt { enabled: false; }' -window-format {t} -font "ubuntu 12" -padding 15 -lines 1
+#!/bin/sh -u
+# https://git.suckless.org/sites/file/tools.suckless.org/dmenu/scripts/switch.html
+
+windows=$(wmctrl -xl |
+	tr --squeeze-repeats '[:blank:]' |
+	tr '[:upper:]' '[:lower:]' |
+	cut --delimiter ' ' --fields 3-3,5- |
+	sed 's/^[a-zA-Z0-9-]*\.//' |
+	sort |
+	uniq)
+
+windows=$(printf "%s" "$windows" |
+	awk --assign list="$windows" \
+		'{cur=length($1); printf $1; for(i=0; i < list - cur + 1; i++) printf " "; $1 = ""; printf "%s\n", $0}' 2> /dev/null)
+
+selection=$(
+	printf "%s" "$windows" | dmenu -nhf '#e68a00' -sf '#e68a00' -f -i -b -p ⠀:::⠀windows⠀:::
+	[ "$?" = 127 ] && kill -15 "$$" && "$0"
+)
+
+target=$(printf "%s" "$selection" | tr --squeeze-repeats '[:blank:]' | cut --delimiter ' ' --fields 2-)
+
+[ -n "$target" ] && wmctrl -a "$target"

@@ -1,2 +1,2 @@
 #!/bin/sh -eu
-rofi -dmenu -show run -font "ubuntu 16" -padding 10 -lines 0 -p " " | xargs -r surfraw duckduckgo
+rofi -dmenu -i -font "ubuntu 16" -theme-str 'listview { lines: 0; }' -p " " | xargs -r surfraw duckduckgo

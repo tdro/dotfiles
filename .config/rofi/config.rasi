@@ -1,10 +1,6 @@
 configuration {
-  bw:                0;
   kb-remove-to-eol:  "";
-  hide-scrollbar:    true;
   disable-history:   false;
-  fake-transparency: false;
-  separator-style:   "none";
   kb-row-up:         "Up,Control+k";
   kb-row-down:       "Down,Control+j";
   kb-accept-entry:   "Control+m,Return,KP_Enter";

@@ -1,27 +1,16 @@
-{ lib, stdenv, fetchurl, fetchpatch, libX11, libXinerama, libXft, zlib }:
+{ lib, stdenv, fetchgit, libX11, libXinerama, libXft, zlib }:
 
 stdenv.mkDerivation rec {
-  name = "dmenu-5.0";
+  name = "dmenu";
+  version = "9b0be7712e2aae65b459f758a080c56983056021";
 
-  src = fetchurl {
-    url = "https://dl.suckless.org/tools/${name}.tar.gz";
-    sha256 = "1lvfxzg3chsgcqbc2vr0zic7vimijgmbvnspayx73kyvqi1f267y";
+  src = fetchgit {
+    rev = version;
+    url = "https://www.thedroneely.com/git/thedroneely/dmenu/";
+    sha256 = "0sbwwxbm5bcn0m4s1y2gl90wc224kf6755d1xdr23bz5ihy3jzg2";
   };
 
   buildInputs = [ libX11 libXinerama zlib libXft ];
-
-  patches = [
-    (fetchpatch {
-      name = "dmenu-xresources-4.9.patch";
-      url = "https://tools.suckless.org/dmenu/patches/xresources/dmenu-xresources-4.9.diff";
-      sha256 = "0clczp17zwkxy1qhy0inqjplxpq4mgaf4vvfvn063hk733r4i7rn";
-    })
-    (fetchpatch {
-      name = "dmenu-fuzzymatch-4.9.patch";
-      url = "https://tools.suckless.org/dmenu/patches/fuzzymatch/dmenu-fuzzymatch-4.9.diff";
-      sha256 = "000fkg4dcr2vrpd442f2v6ycmmxdml781ziblzx5rxvvyclsryfd";
-    })
-  ];
 
   postPatch = ''
     sed -ri -e 's!\<(dmenu|dmenu_path|stest)\>!'"$out/bin"'/&!g' dmenu_run
@@ -34,11 +23,11 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "CC:=$(CC)" ];
 
-  meta = with lib; {
-    description = "A generic, highly customizable, and efficient menu for the X Window System";
+  meta = {
+    license = lib.licenses.mit;
+    platforms = lib.platforms.all;
     homepage = "https://tools.suckless.org/dmenu";
-    license = licenses.mit;
-    maintainers = with maintainers; [ pSub globin ];
-    platforms = platforms.all;
+    maintainers = with lib.maintainers; [ pSub globin ];
+    description = "A generic, highly customizable, and efficient menu for the X Window System";
   };
 }

@@ -13,15 +13,15 @@ defmodule ArgParser do
       |> OptionParser.parse!(strict: [option: :string, text: :string])
 
     options = [
-      first_letter: "First Letter Word",
-      single_line: "Single Line",
-      slug_text: "Slug",
-      title_case: "Title Case",
-      lower_case: "Lower Case",
-      lorem_title: "Lorem Title",
-      lorem_paragraph: "Lorem Paragraph",
-      thesaurus: "Thesaurus",
-      kjv_lookup: "KJV Verse Lookup"
+      first_letter: "first letter word",
+      single_line: "single line",
+      slug_text: "slug",
+      title_case: "title case",
+      lower_case: "lower case",
+      lorem_title: "lorem title",
+      lorem_paragraph: "lorem paragraph",
+      thesaurus: "thesaurus",
+      kjv_lookup: "kjv verse lookup"
     ]
 
     cond do

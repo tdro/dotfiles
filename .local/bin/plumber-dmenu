@@ -1,17 +1,17 @@
 #!/bin/sh -eu
 options="\
-First Letter Word
-Single Line
-Slug
-Title Case
-Lower Case
-Lorem Title
-Lorem Paragraph
-Thesaurus
-KJV Verse Lookup
+first letter word
+single line
+slug
+title case
+lower case
+lorem title
+lorem paragraph
+thesaurus
+kjv verse lookup
 "
 printf "%s" "$options" \
-  | dmenu -i -b -p Plumb \
+  | dmenu -i -b -p ⠀:::⠀plumber⠀::: \
   | while read -r option
     do
       text=$(plumber --option "$option" --text "$(xsel -o)")

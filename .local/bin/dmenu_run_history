@@ -2,8 +2,15 @@
 
 # https://tools.suckless.org/dmenu/scripts/
 
-[ "$1" = "privilege" ] && export cmd_prefix='rofi-askpass '   && export dmenu_args='-p Privilege -sb red' && shift 1;
-[ "$1" = "terminal" ]  && export cmd_prefix='urxvt -hold -e ' && export dmenu_args='-p Terminal -sb gray' && shift 1;
+[ "$1" = "privilege" ] &&
+	export cmd_prefix='rofi-askpass ' &&
+	export dmenu_args='-nhf #ff7070 -sf #ff7070 -p ⠀:::⠀privilege⠀:::' &&
+	shift 1
+
+[ "$1" = "terminal" ] &&
+	export cmd_prefix='urxvt -hold -e ' &&
+	export dmenu_args='-nhf #9e9e9e -sf #9e9e9e -p ⠀:::⠀terminal⠀:::' &&
+	shift 1
 
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}
 cache=$cachedir/dmenu_run
@@ -26,7 +33,7 @@ awk -v histfile="$historyfile" '
 			x[$0]=1
 		}
 	} !x[$0]++ ' "$cache" \
-	| dmenu -i -b ${dmenu_args:--p Launch} "$@" \
+	| dmenu -i -b ${dmenu_args:--p ⠀:::⠀execute⠀:::} "$@" \
 	| awk -v histfile="$historyfile" '
 		BEGIN {
 			FS=OFS="\t"
