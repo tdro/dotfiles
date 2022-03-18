@@ -67,10 +67,10 @@ URxvt.shading:             20
 ! Font Settings
 ! -----------------
 
-*font:           xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-*boldFont:       xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-*italicFont:     xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-*boldItalicFont: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+*font:           xft:monospace:size=10
+*boldFont:       xft:monospace:size=10
+*italicFont:     xft:monospace:size=10
+*boldItalicFont: xft:monospace:size=10
 
 Xft.autohint:  0
 Xft.antialias: 1
