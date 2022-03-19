@@ -65,6 +65,7 @@ in
       name = "terminal";
       paths = [
         (callPackage ./packages/chromexup/default.nix {})
+        (callPackage ./packages/hugo/default.nix {})
         (callPackage ./packages/rxvt-unicode/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
@@ -72,7 +73,6 @@ in
         unstable.amfora
         unstable.emacs
         unstable.fzf
-        unstable.hugo
         unstable.quickemu
         aerc
         alsaUtils
