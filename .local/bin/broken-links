@@ -1,3 +1,27 @@
 #!/bin/sh -eu
-wget --spider --recursive --level 3 --no-verbose \
-  --no-directories --delete-after "$1" 2>&1 | grep --invert-match --extended-regexp 'URL:|unlink:'
+
+lynx -nocolor -dump -listonly "${1:-https://example.com}" |
+ grep --color="never" "\." |
+ while read -r line; do
+  url=${line#*. }
+  head=$(wget \
+   --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36" \
+   --timeout=1 \
+   --wait=1 \
+   --waitretry=1 \
+   --random-wait \
+      --no-cache \
+      --no-dns-cache \
+   --method=HEAD "$url" 2>&1 |
+   grep --color="never" -E 'HTTP')
+  response=$(printf '%s' "${head#*... }" | head --lines=1)
+  printf '%s %s\n' "$url" "$response"
+  printf '%s %s\n' "$url" "$response" >&2
+ done |
+  awk '{ print $1, $2, $3}' |
+  column \
+  --output-width 80 \
+  --table \
+  --table-columns URL,STATUS,MESSAGE \
+  --table-truncate URL |
+  sort --reverse --key=2
