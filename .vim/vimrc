@@ -303,13 +303,15 @@ augroup AutoCommands
   autocmd FileType sql        autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format -i ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
 
   " Linting extension post write commands.
+  autocmd BufWritePost *.txt,*.md                         :only | :term ++rows=10 vale %
   autocmd BufWritePost $HOME/.config/chromexup/config.ini exe 'Notify(''chromexup 2>&1'')'
   autocmd BufWritePost rc.lua                             exe 'Notify(''awesome -k 2>&1'')'
   autocmd BufWritePost quotes,*.fortune                   exe 'Notify(''strfile ' . expand('%') . ''')'
+  autocmd BufWritePost *.doas                             exe 'Notify(''doas -C ' . expand('%') . ' 2>&1 && printf "doas OK: ' . expand('%') . '"'')'
   autocmd BufWritePost Xresources                         exe 'Notify(''xrdb ~/.config/X11/Xresources ' . '2>&1 && printf "Reloading Xresources: ' . expand('%') . '"'')'
+  autocmd BufWritePost *.nft                              exe 'Notify(''doas nft --check --file  ' . expand('%') . ' 2>&1 && printf "nftables OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Deskop File OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.service                          exe 'Notify(''systemd-analyze verify --user ' . expand('%') . ' 2>&1 && printf "Systemd Service File OK: ' . expand('%') . '"'')'
-  autocmd BufWritePost *.txt,*.md                         :only | :term ++rows=10 vale %
 
   " File type function under cursor lookups.
   autocmd FileType go     noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
@@ -340,6 +342,8 @@ augroup AutoCommands
   " Set file types.
   autocmd BufRead,BufNewFile *.nims set filetype=nim
   autocmd BufRead,BufNewFile *.rasi set filetype=css
+  autocmd BufRead,BufNewFile *.doas set filetype=conf
+  autocmd BufRead,BufNewFile *.nft  set filetype=nftables
 
   " Clear notification on cursor movement.
   autocmd CursorMoved * silent! call popup_clear()
