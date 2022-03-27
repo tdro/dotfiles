@@ -1,2 +1,4 @@
 #!/bin/sh -eu
+
+pgrep --full "scratchpad.md" && pkill --oldest --full "scratchpad.md" && exit
 $TERMINAL -e vim ~/Documents/notes/scratchpad.md
