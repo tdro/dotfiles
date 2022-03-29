@@ -49,7 +49,12 @@ RUN   pacman --noconfirm -Rns go gcc sudo
 RUN   rm --recursive --force /tmp/yay /tmp/yay.tar.gz /var/cache/pacman/pkg
 
 RUN   systemctl enable dhcpcd
-RUN   systemctl mask sys-kernel-config.mount sys-kernel-debug.mount systemd-journald-audit.socket systemd-firstboot.service
+RUN   systemctl mask \
+      sys-kernel-config.mount \
+      sys-kernel-debug.mount \
+      systemd-journald-audit.socket \
+      systemd-firstboot.service \
+      tmp.mount \
 
 RUN   printf 'permit :wheel\npermit nopass keepenv root\n' > /etc/doas.conf && chmod 400 /etc/doas.conf
 
