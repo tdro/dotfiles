@@ -350,7 +350,7 @@ augroup AutoCommands
   autocmd CursorMoved * silent! call popup_clear()
 
   " Automatically remove trailing white space on save.
-  autocmd InsertLeave,BufWritePre * %s/\s\+$//e
+  autocmd BufWritePre * %s/\s\+$//e
 
   " Automatically save file on insert and idle.
   autocmd InsertLeave,CursorHold * silent! write
