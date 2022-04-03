@@ -309,6 +309,7 @@ augroup AutoCommands
   autocmd BufWritePost quotes,*.fortune                   exe 'Notify(''strfile ' . expand('%') . ''')'
   autocmd BufWritePost *.doas                             exe 'Notify(''doas -C ' . expand('%') . ' 2>&1 && printf "doas OK: ' . expand('%') . '"'')'
   autocmd BufWritePost Xresources                         exe 'Notify(''xrdb ~/.config/X11/Xresources ' . '2>&1 && printf "Reloading Xresources: ' . expand('%') . '"'')'
+  autocmd BufWritePost Makefile                           exe 'Notify(''make --dry-run --warn-undefined-variables ' . '2>&1 && printf "\nMake OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.nft                              exe 'Notify(''doas nft --check --file  ' . expand('%') . ' 2>&1 && printf "nftables OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Deskop File OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.service                          exe 'Notify(''systemd-analyze verify --user ' . expand('%') . ' 2>&1 && printf "Systemd Service File OK: ' . expand('%') . '"'')'
