@@ -13,27 +13,65 @@ defmodule ArgParser do
       |> OptionParser.parse!(strict: [option: :string, text: :string])
 
     options = [
-      first_letter: "first letter word",
-      single_line: "single line",
-      slug_text: "slug",
-      title_case: "title case",
-      lower_case: "lower case",
-      lorem_title: "lorem title",
-      lorem_paragraph: "lorem paragraph",
-      thesaurus: "thesaurus",
-      kjv_lookup: "kjv verse lookup"
+      camelize:          "text->camelize",
+      dictionary:        "word->dictionary",
+      first_letter:      "text->first-letter-words",
+      kjv_lookup:        "verse->kjv",
+      lorem_paragraph:   "lorem->paragraph",
+      lorem_title:       "lorem->title",
+      lower_case:        "case->lower",
+      single_line:       "text->single-line",
+      slugize:           "text->slugize",
+      title_case:        "case->title",
+      title_case_strict: "case->title-strict"
     ]
 
     cond do
       opts[:option] == options[:first_letter] ->
         TextPlumber.firstLetterOfWordsIn(opts[:text]) |> IO.binwrite()
 
+      opts[:option] == options[:slugize] ->
+        opts[:text]
+        |> String.normalize(:nfd)
+        |> String.replace(~r/[[:space:]]+/, " ")
+        |> String.replace(~r/[[:punct:]]+/, " ")
+        |> Macro.underscore()
+        |> String.replace(~r/[[:space:]]+/, "-")
+        |> String.replace(~r/[[:punct:]]+/, "-")
+        |> String.trim("-")
+        |> IO.binwrite()
+
+      opts[:option] == options[:camelize] ->
+        opts[:text]
+        |> String.normalize(:nfd)
+        |> String.replace(~r/[[:space:]]+/, "_")
+        |> String.replace(~r/[[:punct:]]+/, "_")
+        |> Macro.camelize()
+        |> String.replace(~r/[[:space:]]+/, "")
+        |> String.replace(~r/[[:punct:]]+/, "")
+        |> IO.binwrite()
+
       opts[:option] == options[:single_line] ->
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
 
-      opts[:option] == options[:thesaurus] ->
-        TextPlumber.synonymOfFirstWordIn(opts[:text])
+      opts[:option] == options[:dictionary] ->
+        TextPlumber.dictionOfFirstWordIn(opts[:text])
         TextPlumber.firstWordOf(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == options[:title_case] ->
+        opts[:text] |> to_string |> TextPlumber.titleCaseOf() |> IO.binwrite()
+
+      opts[:option] == options[:title_case_strict] ->
+        String.downcase(opts[:text]) |> TextPlumber.titleCaseOf() |> IO.binwrite()
+
+      opts[:option] == options[:lower_case] ->
+        String.downcase(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == options[:lorem_title] ->
+        TextPlumber.loremTitle()
+
+      opts[:option] == options[:lorem_paragraph] ->
+        TextPlumber.loremParagraph()
 
       opts[:option] == options[:kjv_lookup] ->
         System.cmd(Settings.terminal(), [
@@ -44,21 +82,6 @@ defmodule ArgParser do
         ])
 
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
-
-      opts[:option] == options[:title_case] ->
-        TextPlumber.lowerCaseOf(opts[:text]) |> TextPlumber.titleCaseOf() |> IO.binwrite()
-
-      opts[:option] == options[:slug_text] ->
-        TextPlumber.lowerCaseOf(opts[:text]) |> TextPlumber.slugOf() |> IO.binwrite()
-
-      opts[:option] == options[:lower_case] ->
-        TextPlumber.lowerCaseOf(opts[:text]) |> IO.binwrite()
-
-      opts[:option] == options[:lorem_title] ->
-        TextPlumber.loremTitle()
-
-      opts[:option] == options[:lorem_paragraph] ->
-        TextPlumber.loremParagraph()
 
       true ->
         Enum.each(options, fn {_, value} -> IO.puts(value) end)
@@ -85,19 +108,11 @@ defmodule TextPlumber do
     text |> String.split() |> Enum.map(fn word -> :string.titlecase(word) end) |> Enum.join(" ")
   end
 
-  def slugOf(text) do
-    String.replace(text, " ", "-")
-  end
-
-  def lowerCaseOf(text) do
-    String.downcase(text)
-  end
-
   def loremParagraph() do
     {string, _return} =
       System.cmd("sh", [
         "-c",
-        "perl -e 'use Text::Lorem; print Text::Lorem->new()->sentences(5)';"
+        "perl -e 'use Text::Lorem; use Text::Wrap; $Text::Wrap::columns = 80; print wrap(\"\", \"\", Text::Lorem->new()->sentences(5));'"
       ])
 
     IO.puts(string)
@@ -113,7 +128,7 @@ defmodule TextPlumber do
     IO.puts(string)
   end
 
-  def synonymOfFirstWordIn(text) do
+  def dictionOfFirstWordIn(text) do
     System.cmd(Settings.terminal(), [
       "-e",
       "sh",

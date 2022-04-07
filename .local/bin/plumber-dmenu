@@ -1,14 +1,15 @@
 #!/bin/sh -eu
 options="\
-first letter word
-single line
-slug
-title case
-lower case
-lorem title
-lorem paragraph
-thesaurus
-kjv verse lookup
+text->camelize
+word->dictionary
+text->first-letter-words
+verse->kjv
+lorem->paragraph
+lorem->title
+case->lower
+text->single-line
+text->slugize
+case->title
 "
 printf "%s" "$options" \
   | dmenu -i -b -p ⠀:::⠀plumber⠀::: \
