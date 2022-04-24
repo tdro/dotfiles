@@ -113,7 +113,7 @@ nmap <leader>dt :exe ':term dict -h localhost -d dict-moby-thesaurus-latest ' . 
 nmap <silent> <leader>ag :Ag <C-R><C-W><cr>
 
 " View function documentation
-nmap <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold -s -w 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
+nmap <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold --spaces --width 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
 
 " Jump to line
 nmap <leader>jl :norm yaW<cr> \| :Jump<cr>
@@ -143,6 +143,9 @@ nmap <leader>re gg=G<C-o><C-o>
 " Reset all settings and source configuration.
 nmap <leader>ra :set all& \| :source ~/.vim/vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>
 
+" Remove trailing whitespace
+nmap <leader>rs :%s/\s\+$//e
+
 " Remove duplicate lines
 vnoremap <leader>rd !awk '\!visited[$0]++'<cr>
 
@@ -169,7 +172,7 @@ nmap <leader>cj ddpk<cr>
 vnoremap <leader>ct !column -t -o' '<cr>
 
 " Fold text
-vnoremap <leader>cf <S-J><S-v> \| !fold -s -w<space>80
+vnoremap <leader>cf <S-J><S-v> \| !fold --spaces --width<space>80
 
 " Go to scratchpad of specified filetype
 noremap <leader>cs :w !cat > $HOME/.cache/vim-scratchpad<cr>:e +setf\ <space>$HOME/.cache/vim-scratchpad<C-left><left>
