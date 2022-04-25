@@ -18,7 +18,8 @@ for configuration in "$@"; do
 
   nixfmt "$configuration"
 
-  awk '!s {s=sub("^{$","{ boot.isContainer = true;")}{ print $0 }' "$configuration" | sponge "$configuration"
+  awk '!s {s=sub("^{$","{ boot.isContainer = true;")}{ print $0 }'       "$configuration" | sponge "$configuration"
+  awk '!s {s=sub("}: {","}: { boot.isContainer = true;")}{ print $0 }'   "$configuration" | sponge "$configuration"
   awk '!s {s=sub("^in {$","in { boot.isContainer = true;")}{ print $0 }' "$configuration" | sponge "$configuration"
 
   printf '%s ' "$configuration";
