@@ -41,12 +41,14 @@ in {
     services.${service}.settings = { };
 
     users = {
-      groups.${cfg.user} = { };
+      groups.${cfg.user} = { gid = 9999; };
       users.${cfg.group} = {
-        createHome = false;
-        isNormalUser = true;
+        uid = 9999;
+        shell = pkgs.shadow;
         home = cfg.directory;
         group = cfg.group;
+        createHome = true;
+        isSystemUser = true;
       };
     };
 
