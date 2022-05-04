@@ -15,6 +15,7 @@ in pkgs.mkShell {
   inherit name;
 
   shellHook = ''
+    export NIXOPS_STATE=nixos/deployments.nixops
     export VAULT_TOKEN=$(cat $HOME/.local/share/vault/token)
     export VAULT_ADDR='http://vault.test'
     export NIX_PATH=${channel}/nixexprs.tar.xz
