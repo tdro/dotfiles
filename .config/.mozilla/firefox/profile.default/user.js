@@ -13,7 +13,7 @@ user_pref("browser.aboutConfig.showWarning", false);
 
 user_pref("browser.cache.disk.enable", false);
 user_pref("browser.cache.disk_cache_ssl", false);
-user_pref("browser.cache.memory.capacity", 30);
+user_pref("browser.cache.memory.capacity", 25600);
 user_pref("browser.cache.offline.enable", false);
 
 user_pref("browser.crashReports.unsubmittedCheck.autoSubmit", false);
