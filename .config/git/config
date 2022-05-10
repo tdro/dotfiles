@@ -1,6 +1,6 @@
 [user]
   name = tdro
-  email = tdro@users.noreply.github.com
+  email = tdro@noreply.example.com
 [push]
   default = simple
 [color]
