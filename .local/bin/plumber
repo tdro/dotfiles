@@ -13,16 +13,17 @@ defmodule ArgParser do
       |> OptionParser.parse!(strict: [option: :string, text: :string])
 
     options = [
-      camelize:          "text->camelize",
-      dictionary:        "word->dictionary",
-      first_letter:      "text->first-letter-words",
-      kjv_lookup:        "verse->kjv",
-      lorem_paragraph:   "lorem->paragraph",
-      lorem_title:       "lorem->title",
-      lower_case:        "case->lower",
-      single_line:       "text->single-line",
-      slugize:           "text->slugize",
-      title_case:        "case->title",
+      camelize: "text->camelize",
+      date8601: "text->date8601",
+      dictionary: "word->dictionary",
+      first_letter: "text->first-letter-words",
+      kjv_lookup: "verse->kjv",
+      lorem_paragraph: "lorem->paragraph",
+      lorem_title: "lorem->title",
+      lower_case: "case->lower",
+      single_line: "text->single-line",
+      slugize: "text->slugize",
+      title_case: "case->title",
       title_case_strict: "case->title-strict"
     ]
 
@@ -72,6 +73,9 @@ defmodule ArgParser do
 
       opts[:option] == options[:lorem_paragraph] ->
         TextPlumber.loremParagraph()
+
+      opts[:option] == options[:date8601] ->
+        TextPlumber.date8601()
 
       opts[:option] == options[:kjv_lookup] ->
         System.cmd(Settings.terminal(), [
@@ -135,6 +139,16 @@ defmodule TextPlumber do
       "-c",
       "dict -h localhost #{TextPlumber.firstWordOf(text)} 2>&1 | vim -"
     ])
+  end
+
+  def date8601() do
+    {string, _return} =
+      System.cmd("date", [
+        "--universal",
+        "--iso-8601=seconds"
+      ])
+
+    IO.puts(string)
   end
 end
 

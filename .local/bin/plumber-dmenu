@@ -1,6 +1,7 @@
 #!/bin/sh -eu
 options="\
 text->camelize
+text->date8601
 word->dictionary
 text->first-letter-words
 verse->kjv
