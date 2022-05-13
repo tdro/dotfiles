@@ -68,6 +68,7 @@ in
         (callPackage ./packages/hugo/default.nix {})
         (callPackage ./packages/rxvt-unicode/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
+        (callPackage ./packages/validatornu/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         unstable.amfora
