@@ -137,6 +137,7 @@ in
         subversion
         surfraw
         tcl
+        tesseract
         tmux
         trash-cli
         units
