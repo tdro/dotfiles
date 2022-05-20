@@ -210,11 +210,11 @@ arrow.right {
   background-repeat: no-repeat;
 }
 
-arrow {
+menuitem arrow {
   background-image: url("../icons/arrow-down.svg");
 }
 
-arrow.right {
+menuitem arrow.right {
   background-image: url("../icons/arrow-right.svg");
 }
 
