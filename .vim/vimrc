@@ -296,7 +296,7 @@ augroup AutoCommands
   autocmd FileType haskell    autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType c          autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType bash,sh    autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')'
-  autocmd FileType xml        autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' 2>&1 | sponge ' . expand('%') . ' && printf "XML OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType xml,xslt   autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' 2>&1 | sponge ' . expand('%') . ' && printf "XML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType go         autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType nix        autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e
   autocmd FileType tex        autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
