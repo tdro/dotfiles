@@ -150,6 +150,7 @@ in
         w3m
         wavemon
         weechat
+        woof
         xdg-user-dirs
         zbar
       ];
@@ -177,6 +178,7 @@ in
         anki
         blender
         code-server
+        corrscope
         dconf
         diffpdf
         escrotum
