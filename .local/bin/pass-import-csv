@@ -1,0 +1,14 @@
+#!/bin/sh -eu
+
+csv_file="$HOME/.cache/k.csv"
+import_directory="$HOME/.config/pass";
+target_directory="$import_directory/keepassxc";
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && printf 'Usage: %s /path/to/keepassxc/database\n' "$(basename "$0")" && exit
+
+keepassxc-cli export --format csv "$1" > "$csv_file"
+rm --recursive --force "${import_directory:?}"/*;
+pass import "$csv_file";
+rsync --verbose --archive "$target_directory/" "$import_directory";
+rm --recursive "$target_directory";
+rm --verbose "$csv_file";
