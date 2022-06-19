@@ -27,7 +27,7 @@ mkYarnPackage rec {
     dontBuild = true;
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "0cz16mnhagm300sfgmc031mzhbbwagbz3agji4hwrinw7bg3195f";
+    outputHash = "sha256-ER+AkEQTIDL0oE1CQEMpXdGbZtcz2KUYkP2mw3eDKHU=";
   };
 
   meta = with lib; {
