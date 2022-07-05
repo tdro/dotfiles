@@ -4,10 +4,11 @@ directory="$XDG_DATA_HOME/bash"
 persist="$directory/history"
 default="$HOME/.bash_history"
 current="$HISTFILE"
+lockfile='/tmp/bashhistory_Ri5ki9ei.lock'
 
 _prune() {
  sed --in-place '/^#/d' "$1" &&            # Remove all timestamps.
- sed --in-place '/......../!d' "$1" &&     # Remove all commands 8 characters or less.
+ sed --in-place '/.........../!d' "$1" &&  # Remove all commands less than 11 characters.
  sort --unique "$1" | sponge "$1"          # Remove all duplicate entries.
 }
 
@@ -25,8 +26,12 @@ _store() {
  true > "$current"
 }
 
+[ -f "$lockfile" ] && exit;
+
 mkdir --parents "$directory"
-touch "$current"
+touch "$current" "$lockfile"
+
+trap 'rm "$lockfile"; trap - EXIT; exit' EXIT INT HUP
 
 _migrate || true
 _store
