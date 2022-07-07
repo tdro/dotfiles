@@ -1,6 +1,7 @@
 let
 
   # nix-shell -E 'import (builtins.fetchurl "$url")'
+  # NIX_CONFIG="sandbox = relaxed" nix-shell --option builders '' cake.nix
 
   name = "nix-shell.cake";
 
@@ -17,6 +18,7 @@ let
   };
 
   cook = { name, src, contents ? [ ], path ? [ ], script ? "", prepare ? "", cleanup ? "", sha256 ? pkgs.lib.fakeSha256 }: pkgs.stdenvNoCC.mkDerivation {
+    __noChroot = true;
     inherit name src contents;
     phases = [ "unpackPhase" "installPhase" ];
     buildInputs = [ pkgs.proot pkgs.rsync pkgs.tree pkgs.kmod ];
@@ -50,9 +52,6 @@ let
       printf '\n%s\n\n' "$(du --all --max-depth 1 --human-readable rootfs | sort --human-numeric-sort)"
       cp -rT rootfs $out/rootfs
     '';
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-    outputHash = sha256;
   };
 
   bake = { name, image, size ? "1G", debug ? false, kernel ? pkgs.linux, options ? [ ], modules ? [ ], uuid ? "99999999-9999-9999-9999-999999999999", sha256 ? pkgs.lib.fakeSha256 }: let
@@ -178,11 +177,6 @@ let
       /usr/bin/env - /bin/sh -c '. /etc/profile && sh'
   '';
 
-  # doas ${alpine-machine}
-  # sudo ${alpine-machine}
-  # qemu-system-x86_64 -nographic -drive if=virtio,file=./${alpine-machine.name}.img,format=raw
-  # qemu-system-x86_64 -curses -drive if=virtio,file=./${alpine-machine.name}.img,format=raw
-
 in pkgs.mkShell {
 
   inherit name;
@@ -191,6 +185,12 @@ in pkgs.mkShell {
 
   shellHook = ''
     export PS1='\h (${name}) \W \$ '
+
+    # sudo ${alpine-machine}
+    # doas ${alpine-machine}
+    # qemu-system-x86_64 -nographic -drive if=virtio,file=./${alpine-machine.name}.img,format=raw
+    # qemu-system-x86_64 -curses -drive if=virtio,file=./${alpine-machine.name}.img,format=raw
+
     ${container {
       rootfs = "${alpine}/rootfs";
       binds = [ "/proc" "/dev" ];
