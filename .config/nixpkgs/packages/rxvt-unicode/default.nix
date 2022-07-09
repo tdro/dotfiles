@@ -6,16 +6,6 @@ let
   version = "9.26";
   description = "A clone of the well-known terminal emulator rxvt";
 
-  desktopItem = makeDesktopItem {
-    name = pname;
-    exec = "urxvt";
-    genericName = pname;
-    comment = description;
-    desktopName = "URxvt";
-    icon = "utilities-terminal";
-    categories = "System;TerminalEmulator;";
-  };
-
 in stdenv.mkDerivation {
 
   inherit pname version;
@@ -85,7 +75,6 @@ in stdenv.mkDerivation {
   postInstall = ''
     mkdir -p $out/nix-support
     echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
-    cp -r ${desktopItem}/share/applications/ $out/share/
   '';
 
   meta = {
