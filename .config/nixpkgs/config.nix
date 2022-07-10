@@ -7,8 +7,8 @@ let
     sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-22.05pre353770.23d785aa6f8/nixexprs.tar.xz";
-    sha256 = "1n50i34h3yj2a44x3gl2xk27z8r12lzgj2m8n5j1c4k6kh4z1b22"; }) {};
+    url = "https://releases.nixos.org/nixos/unstable/nixos-22.11pre386147.e0a42267f73/nixexprs.tar.xz";
+    sha256 = "0y6q1j17lmhxh1pqi2jj6xr21pnmachra48336nnbcpnxizswjgg"; }) { };
 
 in
 
@@ -71,12 +71,10 @@ in
         (callPackage ./packages/validatornu/default.nix {})
         (callPackage ./packages/youtube-dl/default.nix {})
         (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
-        unstable.amfora
-        unstable.emacs
-        unstable.fzf
         unstable.quickemu
         aerc
         alsaUtils
+        amfora
         ansi2html
         ansible
         atool
@@ -92,6 +90,7 @@ in
         docker-compose
         dtrx
         electrum
+        emacs
         encfs
         entr
         exercism
@@ -99,6 +98,7 @@ in
         ffmpeg
         flashrom
         fortune
+        fzf
         gettext
         gifsicle
         git
@@ -170,13 +170,16 @@ in
         (callPackage ./packages/sowon/default.nix {})
         (callPackage ./packages/tilp2/default.nix {})
         (mplayer.override { v4lSupport = true; })
+        unstable.blender
         unstable.claws-mail
-        unstable.fsearch
+        unstable.firefox
+        unstable.google-chrome
         unstable.nyxt
+        unstable.palemoon
         unstable.ungoogled-chromium
+        unstable.vimb
         aegisub
         anki
-        blender
         code-server
         corrscope
         dconf
@@ -185,13 +188,12 @@ in
         evince
         exiftool
         feh
-        firefox
         flameshot
         freerdp
+        fsearch
         gImageReader
         gcolor2
         gimp
-        google-chrome
         gparted
         gromit-mpx
         i3lock-fancy
@@ -205,7 +207,6 @@ in
         meld
         mupdf
         mypaint
-        palemoon
         pavucontrol
         peek
         qownnotes
@@ -215,9 +216,11 @@ in
         rofi
         scrcpy
         screenkey
+        sent
         sigil
         skippy-xd
         spaceFM
+        stalonetray
         sublime3
         sxiv
         syncthing
@@ -226,7 +229,6 @@ in
         transmission-gtk
         treesheets
         treesheets
-        vimb
         virt-manager
         vlc
         vscodium
@@ -389,7 +391,7 @@ in
       name = "javascript";
       paths = [
         nodejs
-        unstable.deno
+        deno
         nodePackages.bower2nix
         nodePackages.eslint
         nodePackages.jsonlint
@@ -470,7 +472,7 @@ in
 
     Golang = pkgs.buildEnv {
       name = "golang";
-      paths = [ go unstable.gore ];
+      paths = [ go gore ];
     };
 
     Rust = pkgs.buildEnv {
@@ -570,16 +572,16 @@ in
     Graphical-Aarch64 = pkgs.buildEnv {
       name = "graphical-aarch64";
       paths = [
-        unstable.fsearch
+        unstable.firefox
+        unstable.ungoogled-chromium
         audacity
-        firefox
         freerdp
+        fsearch
         galculator
         gpicview
         pavucontrol
         pcmanfm
         sylpheed
-        ungoogled-chromium
         xsane
       ];
     };
@@ -587,8 +589,8 @@ in
     Terminal-Aarch64 = pkgs.buildEnv {
       name = "terminal-aarch64";
       paths = [
-        unstable.fzf
         alsaUtils
+        fzf
         libnotify
         redshift
         rofi

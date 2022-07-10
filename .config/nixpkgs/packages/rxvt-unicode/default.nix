@@ -45,7 +45,7 @@ in stdenv.mkDerivation {
     (fetchpatch {
       name = "256-color-resources.patch";
       url = "https://raw.githubusercontent.com/NixOS/nixpkgs/2bb3a9da24ca60d9f5bed69f679a1ec50dbdf997/pkgs/applications/terminal-emulators/rxvt-unicode/patches/256-color-resources.patch";
-      sha256 = "00yw67faybglypnvz59k7m3cp5bvdwaiq0771zfi1x7drz3xfql6";
+      sha256 = "sha256-lz0naMdlu7+e2/+zP6KvGTI6exIS4qx+Tqr0OpUkXGI=";
     })
     (fetchpatch {
       name = "fixed-layout-size.patch";
