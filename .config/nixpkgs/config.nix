@@ -422,7 +422,7 @@ in
 
     Lua = pkgs.buildEnv {
       name = "lua";
-      paths = [ lua luaPackages.luacheck luaformatter ];
+      paths = [ (callPackage ./packages/redbean/default.nix {}) lua luaPackages.luacheck luaformatter ];
     };
 
     Elixir = pkgs.buildEnv {
