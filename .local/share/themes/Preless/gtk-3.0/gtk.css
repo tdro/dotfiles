@@ -74,9 +74,7 @@ checkbutton:hover label {
   background-color: transparent;
 }
 
-.popup menu menuitem:hover,
-scrollbar.vertical slider:hover,
-scrollbar.horizontal slider:hover {
+.popup menu menuitem:hover {
   background-color: @scrollbar_bg_color;
 }
 
@@ -90,9 +88,11 @@ separator:hover {
   background-color: @selected_bg_color;
 }
 
+scrollbar.vertical slider:hover,
+scrollbar.horizontal slider:hover,
 scrollbar.vertical slider:active,
 scrollbar.horizontal slider:active {
-  background: @selected_bg_color;
+  background: #4c5e6e;
 }
 
 *:disabled,
@@ -550,27 +550,17 @@ menuitem label {
   margin: 0 2px;
 }
 
+menu,
+.menu,
+.context-menu {
+  padding: 1px;
+}
+
 .popup menu menuitem {
   background-color: @text_bg_color;
+  padding: 2px 10px;
 }
 
 .popup separator {
   border-bottom: 1px @disabled_fg_color solid;
-}
-
-.popup menu menuitem {
-  padding: 0.25em 1em;
-}
-
-.popup menu menuitem:first-child {
-  border-top: 1px solid @fg_color;
-}
-
-.popup menu menuitem:last-child {
-  border-bottom: 1px solid @fg_color;
-}
-
-.popup menu menuitem {
-  border-left: 1px solid @fg_color;
-  border-right: 1px solid @fg_color;
 }
