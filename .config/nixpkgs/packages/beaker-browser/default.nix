@@ -1,9 +1,8 @@
 { lib, fetchurl, appimageTools }:
 
-let version = "1.1.0"; in
-
-appimageTools.wrapType2  {
+appimageTools.wrapType2 rec {
   name = "beaker-browser";
+  version = "1.1.0";
 
   src = fetchurl {
     url = "https://github.com/beakerbrowser/beaker/releases/download/${version}/Beaker.Browser-${version}.AppImage";
@@ -11,8 +10,8 @@ appimageTools.wrapType2  {
   };
 
   meta = with lib; {
-    homepage = "https://beakerbrowser.com";
     license = licenses.mit;
+    homepage = "https://beakerbrowser.com";
     description = "An experimental peer-to-peer Web browser";
   };
 }
