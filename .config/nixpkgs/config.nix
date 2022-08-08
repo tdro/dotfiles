@@ -66,6 +66,7 @@ in
       paths = [
         (callPackage ./packages/chromexup/default.nix {})
         (callPackage ./packages/hugo/default.nix {})
+        (callPackage ./packages/pdf2htmlex/default.nix {})
         (callPackage ./packages/rxvt-unicode/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
         (callPackage ./packages/validatornu/default.nix {})
