@@ -391,8 +391,8 @@ in
     JavaScript = pkgs.buildEnv {
       name = "javascript";
       paths = [
+        unstable.deno
         nodejs
-        deno
         nodePackages.bower2nix
         nodePackages.eslint
         nodePackages.jsonlint
