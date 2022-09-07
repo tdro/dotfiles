@@ -80,6 +80,7 @@ in
         ansible
         atool
         bat
+        bind
         bleachbit
         calcurse
         cava
