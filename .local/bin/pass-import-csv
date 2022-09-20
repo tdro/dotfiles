@@ -2,7 +2,7 @@
 
 csv_file="$HOME/.cache/k.csv"
 import_directory="$HOME/.config/pass";
-target_directory="$import_directory/keepassxc";
+target_directory="$import_directory/secrets";
 
 { [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && printf 'Usage: %s /path/to/keepassxc/database\n' "$(basename "$0")" && exit
 
