@@ -106,7 +106,7 @@ alias tidy='tidy -config $HOME/.config/tidy.conf'
 alias units='units --history "$XDG_CACHE_HOME"/units_history'
 
 # nix helpers
-nix-which() { readlink "$(type -P "$1")"; }
+nix-which() { readlink --canonicalize "$(type -P "$1")"; }
 
 # lxc helpers
 lxc-copy() { A=$1 && B=$2 && shift 2 && $(type -P lxc-copy) --allowrunning --name "$A" -N "$B" "$@"; }
