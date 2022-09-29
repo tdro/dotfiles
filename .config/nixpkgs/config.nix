@@ -25,9 +25,9 @@ in
     Woodpecker = pkgs.buildEnv {
       name = "woodpecker";
       paths = [
-        Terminal Graphical Xorg Awesome Fonts Audio LaTeX Dictionary
-        Android JavaScript Python PHP Lua Elixir HTML Shell Haskell
-        Perl Nix C Golang Rust CSS SQL YAML Ruby Nim Themes Emulators
+        Terminal Graphical Xorg Awesome Fonts Audio LaTeX Dictionary Android JavaScript
+        Python PHP Lua Elixir HTML Shell Haskell Perl Nix C Golang Rust CSS SQL YAML
+        Ruby Nim Themes Emulators Clojure
       ];
     };
 
@@ -111,6 +111,7 @@ in
         imagemagick
         img2pdf
         jpegoptim
+        jq
         keychain
         kjv
         libqalculate
@@ -451,6 +452,11 @@ in
     Haskell = pkgs.buildEnv {
       name = "haskell";
       paths = [ ghc ghcid haskellPackages.hlint haskellPackages.brittany ];
+    };
+
+    Clojure = pkgs.buildEnv {
+      name = "clojure";
+      paths = [ clojure leiningen ];
     };
 
     Perl = pkgs.buildEnv {
