@@ -368,7 +368,14 @@ in
 
     Audio = pkgs.buildEnv {
       name = "audio";
-      paths = [ pulseeffects-pw pulsemixer audacity ardour qjackctl ];
+      paths = [
+        (callPackage ./packages/qprompt/default.nix { })
+        ardour
+        audacity
+        pulseeffects-pw
+        pulsemixer
+        qjackctl
+      ];
     };
 
     Design = pkgs.buildEnv {
@@ -388,7 +395,7 @@ in
 
     LaTeX = pkgs.buildEnv {
       name = "latex";
-      paths = [ gummi texworks texlive.combined.scheme-full ];
+      paths = [ gummi texlive.combined.scheme-full texworks ];
     };
 
     JavaScript = pkgs.buildEnv {
@@ -408,7 +415,15 @@ in
     Python = pkgs.buildEnv {
       name = "python";
       paths = [
-        (python39.withPackages (ps: with ps; [ bandit black mypy pylint pyflakes flake8 pygments ]))
+        (python39.withPackages (ps: with ps; [
+          bandit
+          black
+          flake8
+          mypy
+          pyflakes
+          pygments
+          pylint
+        ]))
       ];
     };
 
@@ -426,7 +441,12 @@ in
 
     Lua = pkgs.buildEnv {
       name = "lua";
-      paths = [ (callPackage ./packages/redbean/default.nix {}) lua luaPackages.luacheck luaformatter ];
+      paths = [
+        (callPackage ./packages/redbean/default.nix {})
+        lua
+        luaPackages.luacheck
+        luaformatter
+      ];
     };
 
     Elixir = pkgs.buildEnv {
