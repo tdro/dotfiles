@@ -125,11 +125,13 @@ in
         nnn
         ocrmypdf
         pandoc
+        pdsh
         picotts
         pipes
         pngnq
         pngquant
         poppler_utils
+        pssh
         ranger
         rclone
         ripgrep
@@ -229,7 +231,6 @@ in
         tabula
         tigervnc
         transmission-gtk
-        treesheets
         treesheets
         virt-manager
         vlc
