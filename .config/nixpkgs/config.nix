@@ -106,6 +106,7 @@ in
         git
         groff
         hexyl
+        hexedit
         highlight
         ideviceinstaller
         imagemagick
