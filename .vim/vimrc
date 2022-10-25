@@ -146,6 +146,9 @@ nmap <leader>ra :set all& \| :source ~/.vim/vimrc \| :packloadall \|:e<cr>:Notif
 " Remove trailing whitespace
 nmap <leader>rs :%s/\s\+$//e
 
+" Dump output of command to new buffer
+nmap <leader>rr :enew \| .!<space>
+
 " Remove duplicate lines
 vnoremap <leader>rd !awk '\!visited[$0]++'<cr>
 
