@@ -487,7 +487,7 @@ in
 
     Nix = pkgs.buildEnv {
       name = "nix";
-      paths = [ nixos-generators nix-index nix-linter nixfmt nixpkgs-fmt nixpkgs-lint ];
+      paths = [ nix-index nix-linter nixfmt nixpkgs-fmt nixpkgs-lint ];
     };
 
     Ruby = pkgs.buildEnv {
