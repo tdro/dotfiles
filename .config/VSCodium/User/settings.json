@@ -1,0 +1,8 @@
+{
+  "workbench.startupEditor": "none",
+  "update.mode": "none",
+  "window.menuBarVisibility": "toggle",
+  "update.showReleaseNotes": false,
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false
+}
