@@ -431,7 +431,13 @@ in
     PHP = pkgs.buildEnv {
       name = "php";
       paths = [
-        php
+        (php.buildEnv {
+          extensions = ({ enabled, all }: enabled ++ (with all; [ xdebug ]));
+          extraConfig = ''
+            xdebug.mode=develop,debug
+            xdebug.start_with_request=yes
+          '';
+        })
         phpPackages.psysh
         phpPackages.psalm
         phpPackages.phpcbf
