@@ -287,7 +287,7 @@ augroup AutoCommands
   autocmd BufWritePost plugins.vim source % | Notify('printf "Plugins configuration sourced."')
 
   " Linting file type post write commands.
-  autocmd FileType php        autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType php        autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1 && phpstan --no-progress --no-ansi --no-interaction analyze --level max ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType css        autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType html       autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType python     autocmd! BufWritePost <buffer> exe 'Notify(''black ' . expand('%') . ' 2>&1 && pylint ' . expand('%') . ' 2>&1'')' | :e
