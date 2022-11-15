@@ -1,12 +1,19 @@
 [user]
   name = tdro
   email = tdro@noreply.example.com
+
 [push]
   default = simple
+
 [color]
   ui = auto
+
 [core]
   editor = vim
   excludesfile = ~/.config/git/ignore
+
 [init]
   defaultBranch = master
+
+[alias]
+  ignored = !git ls-files -v | grep '^h'
