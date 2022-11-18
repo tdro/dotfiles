@@ -134,7 +134,7 @@ nmap <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab<
 
 " Close buffer and window
 nmap <leader>qq :bd<cr>
-nmap <leader>qa :silent! %bd!\|e#<cr>
+nmap <leader>qa :silent! %bd!\|e#\|bd#<cr>
 nmap <leader>qw <C-w>c<cr>
 
 " Re-indent entire file
