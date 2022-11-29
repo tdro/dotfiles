@@ -467,6 +467,7 @@ in
         html-tidy
         html-xml-utils
         libxml2
+        libxslt
         xmlstarlet
       ];
     };
