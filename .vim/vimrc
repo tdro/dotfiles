@@ -287,28 +287,28 @@ augroup AutoCommands
   autocmd BufWritePost plugins.vim source % | Notify('printf "Plugins configuration sourced."')
 
   " Linting file type post write commands.
-  autocmd FileType php        autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1 && phpstan --no-progress --no-ansi --no-interaction analyze --level max ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType css        autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType html       autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType python     autocmd! BufWritePost <buffer> exe 'Notify(''black ' . expand('%') . ' 2>&1 && pylint ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType ruby       autocmd! BufWritePost <buffer> exe 'Notify(''rufo ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType nim        autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType rust       autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType json       autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType javascript autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
-  autocmd FileType elixir     autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType haskell    autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType c          autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType bash,sh    autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')'
-  autocmd FileType xml,xslt   autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' 2>&1 | sponge ' . expand('%') . ' && printf "XML OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType go         autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType nix        autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e
-  autocmd FileType tex        autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
-  autocmd FileType awk        autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType bindzone   autocmd! BufWritePost <buffer> exe 'Notify(''file="' . expand('%') . '" && named-checkzone "$(head --lines=1  "$file" | cut --delimiter=" " --fields=2 | perl -ple "chop")" $file'')' | :e
-  autocmd FileType yaml       autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType typescript autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --config tsconfig.json --allow-all --location https://example.com/  %
-  autocmd FileType sql        autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --type-case 2 --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType css          autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType html         autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType python       autocmd! BufWritePost <buffer> exe 'Notify(''black ' . expand('%') . ' 2>&1 && pylint ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType ruby         autocmd! BufWritePost <buffer> exe 'Notify(''rufo ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType nim          autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType rust         autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType json         autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType javascript   autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
+  autocmd FileType elixir       autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType haskell      autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType c            autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType bash,sh      autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')'
+  autocmd FileType xml,xslt,rng autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' 2>&1 | sponge ' . expand('%') . ' && printf "XML OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType go           autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType nix          autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e
+  autocmd FileType php          autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1 && phpstan --no-progress --no-ansi --no-interaction analyze --level max ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType tex          autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
+  autocmd FileType bindzone     autocmd! BufWritePost <buffer> exe 'Notify(''file="' . expand('%') . '" && named-checkzone "$(head --lines=1  "$file" | cut --delimiter=" " --fields=2 | perl -ple "chop")" $file'')' | :e
+  autocmd FileType awk          autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType yaml         autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType typescript   autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --config tsconfig.json --allow-all --location https://example.com/  %
+  autocmd FileType sql          autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --type-case 2 --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
 
   " Linting extension post write commands.
   autocmd BufWritePost *.txt,*.md                         :only | :term ++rows=10 vale %
