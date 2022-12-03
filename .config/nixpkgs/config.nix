@@ -205,6 +205,7 @@ in
         i3lock-fancy
         kcharselect
         keepassxc
+        kiwix
         krop
         libnotify
         libreoffice
