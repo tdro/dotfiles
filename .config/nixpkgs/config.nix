@@ -7,8 +7,8 @@ let
     sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj"; }) {};
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-22.11pre386147.e0a42267f73/nixexprs.tar.xz";
-    sha256 = "0y6q1j17lmhxh1pqi2jj6xr21pnmachra48336nnbcpnxizswjgg"; }) { };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-23.05pre431956.14ddeaebcbe/nixexprs.tar.xz";
+    sha256 = "0ilpmvj84gdahz43z141qqninrzywmzz7hylzvnxbw8j6wxjznwv"; }) { };
 
 in
 
@@ -64,8 +64,8 @@ in
     Terminal = pkgs.buildEnv {
       name = "terminal";
       paths = [
+        (unstable.callPackage ./packages/hugo/default.nix {})
         (callPackage ./packages/chromexup/default.nix {})
-        (callPackage ./packages/hugo/default.nix {})
         (callPackage ./packages/pdf2htmlex/default.nix {})
         (callPackage ./packages/rxvt-unicode/default.nix {})
         (callPackage ./packages/systemd2nix/default.nix {})
@@ -105,8 +105,8 @@ in
         gifsicle
         git
         groff
-        hexyl
         hexedit
+        hexyl
         highlight
         ideviceinstaller
         imagemagick
@@ -138,6 +138,7 @@ in
         rclone
         ripgrep
         sbcl
+        sfeed
         silver-searcher
         sshfs
         subversion
