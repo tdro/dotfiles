@@ -17,3 +17,6 @@
 
 [alias]
   ignored = !git ls-files -v | grep '^h'
+
+[diff]
+  algorithm = patience
