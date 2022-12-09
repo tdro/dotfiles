@@ -10,10 +10,10 @@ touch "$read"
 sfeed_update "$config"
 
 sfeed_plain_function() {
-	sfeed_plain "$feeds"/* |
-		sed 's/^[N ]\+//g' |
-		sort --reverse |
-		grep --invert-match --fixed-strings --file "$read" > "$unread"
+  sfeed_plain "$feeds"/* |
+    sed 's/^[N ]\+//g' |
+    sort --reverse |
+    grep --invert-match --fixed-strings --file "$read" > "$unread"
 }
 
 sfeed_plain_function
