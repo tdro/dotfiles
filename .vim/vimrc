@@ -283,8 +283,8 @@ augroup AutoCommands
   autocmd!
 
   " Source reloads.
-  autocmd BufWritePost .vimrc      source % | Notify('printf "Configuration sourced."')
-  autocmd BufWritePost plugins.vim source % | Notify('printf "Plugins configuration sourced."')
+  autocmd BufWritePost .vimrc,vimrc source % | Notify('printf "Configuration sourced."')
+  autocmd BufWritePost plugins.vim  source % | Notify('printf "Plugins configuration sourced."')
 
   " Linting file type post write commands.
   autocmd FileType css          autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
