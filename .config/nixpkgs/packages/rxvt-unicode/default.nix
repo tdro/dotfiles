@@ -1,5 +1,5 @@
-{ lib, stdenv, fetchurl, fetchpatch, makeDesktopItem, libX11, libXt, libXft
-, libXrender, ncurses, fontconfig, freetype, pkg-config, gdk-pixbuf, perl }:
+{ lib, stdenv, fetchurl, fetchpatch, libX11, libXt, libXft, libXrender, ncurses
+, fontconfig, freetype, pkg-config, gdk-pixbuf, perl, writeTextFile }:
 
 let
   pname = "rxvt-unicode";
@@ -51,6 +51,21 @@ in stdenv.mkDerivation {
       name = "fixed-layout-size.patch";
       url = "https://raw.githubusercontent.com/owl4ce/nelumbonaceae/b593a0eb7bb45a0b471c2ee2aa02b0e66776b9c0/x11-terms/rxvt-unicode/files/fixed-layout-size.patch";
       sha256 = "148vpln61zs3qv4sipcc5c7fiyc4d4q6k10r7bpr0k0q4pzshljh";
+    })
+    (writeTextFile {
+      name = "silence-x-errors.patch";
+      text = ''
+        --- a/src/main.C
+        +++ b/src/main.C
+        @@ -494,7 +494,7 @@
+         #if ENABLE_MINIMAL
+               old_xerror_handler (display, event);
+         #else
+        -      print_x_error (display, event);
+        +      // print_x_error (display, event);
+         #endif
+             }
+      '';
     })
   ];
 
