@@ -74,6 +74,7 @@ in
         (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         unstable.quickemu
         aerc
+        alacritty
         alsaUtils
         amfora
         ansi2html
