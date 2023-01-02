@@ -1,4 +1,4 @@
-{ lib, pkgs, stdenv, fetchgit }:
+{ lib, stdenv, fetchgit, writeTextFile }:
 
 stdenv.mkDerivation rec {
 
@@ -19,11 +19,9 @@ stdenv.mkDerivation rec {
   '';
 
   patches = [
-    (pkgs.writeTextFile {
+    (writeTextFile {
       name = "remove-nonexistent-external-calls.patch";
       text = ''
-        diff --git a/lib/default.nix b/lib/default.nix
-        index 0c0e2d5..76b99fe 100644
         --- a/lib/default.nix
         +++ b/lib/default.nix
         @@ -24,8 +24,8 @@ let
