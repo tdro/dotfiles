@@ -1,17 +1,15 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, nim, libX11, libXrandr, libGL }:
+{ lib, stdenv, fetchgit, makeWrapper, nim, libX11, libXrandr, libGL }:
 
 let
 
-  x11-nim = fetchFromGitHub {
-    repo = "x11";
-    owner = "nim-lang";
+  x11-nim = fetchgit {
+    url = "https://github.com/nim-lang/x11";
     rev = "b7bae7dffa4e3f12370d5a18209359422ae8bedd";
     sha256 = "1j3kyp0vf2jl20c67gcm759jnfskdf0wc4ajrdbvfxias285c5sb";
   };
 
-  opengl-nim = fetchFromGitHub {
-    repo = "opengl";
-    owner = "nim-lang";
+  opengl-nim = fetchgit {
+    url = "https://github.com/nim-lang/opengl";
     rev = "a6fb649e5bd94d8420d4a11287092a4dc3e922b4";
     sha256 = "0w62lfrdms2vb24kd4jnypwmqvdk5x9my1dinnqdq82yl4nz6d0s";
   };
@@ -19,12 +17,12 @@ let
 in stdenv.mkDerivation rec {
 
   pname = "boomer";
-  version = "d16c65ce3eae31f4c77de1585b340d8d624c1252";
-  src = fetchFromGitHub {
-    owner = "tsoding";
-    repo = "boomer";
+  version = "cc0f5311193da8361ee782a421d6bc4ad8541cf3";
+
+  src = fetchgit {
+    url = "https://github.com/tsoding/boomer";
     rev = version;
-    sha256 = "1kqfg2i5p1zrvl9jx0ig7f0ckxnaxi9svr0bs52aavwydldnnl8d";
+    sha256 = "sha256-3yg0nuJE0Rrw13VEQ/CjjjPN5G4ytssgiesdXwlHaF8=";
   };
 
   buildInputs = [ nim libX11 libXrandr libGL makeWrapper ];
@@ -44,9 +42,7 @@ in stdenv.mkDerivation rec {
 
   fixupPhase = ''
     runHook preFixup
-    patchelf --set-rpath ${
-      lib.makeLibraryPath [ stdenv.cc.cc libX11 libXrandr libGL ]
-    } $out/bin/boomer
+    patchelf --set-rpath ${lib.makeLibraryPath [ stdenv.cc.cc libX11 libXrandr libGL ]} $out/bin/boomer
     wrapProgram "$out/bin/boomer" --set LIBGL_ALWAYS_SOFTWARE 1
     runHook postFixup
   '';

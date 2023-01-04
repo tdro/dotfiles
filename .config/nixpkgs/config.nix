@@ -4,7 +4,7 @@ let
 
   stable = import (builtins.fetchTarball {
     url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
-    sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj"; }) {};
+    sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj"; }) { };
 
   unstable = import (builtins.fetchTarball {
     url = "https://releases.nixos.org/nixos/unstable/nixos-23.05pre431956.14ddeaebcbe/nixexprs.tar.xz";
@@ -169,7 +169,6 @@ in
       name = "graphical";
       paths = [
         (callPackage ./packages/beaker-browser/default.nix {})
-        (callPackage ./packages/boomer/default.nix {})
         (callPackage ./packages/dmenu/default.nix {})
         (callPackage ./packages/gnaural/default.nix {})
         (callPackage ./packages/ntrviewer/default.nix {})
@@ -177,6 +176,7 @@ in
         (callPackage ./packages/scribus/default.nix {})
         (callPackage ./packages/sowon/default.nix {})
         (callPackage ./packages/tilp2/default.nix {})
+        (unstable.callPackage ./packages/boomer/default.nix {})
         (mplayer.override { v4lSupport = true; })
         unstable.blender
         unstable.claws-mail
