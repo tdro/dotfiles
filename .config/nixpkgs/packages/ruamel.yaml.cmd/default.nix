@@ -71,14 +71,15 @@ in python39.pkgs.buildPythonApplication rec {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/bin
+    mkdir --parents $out/bin
     cp ${ruamel.yaml.cmd}/bin/yaml $out/bin
-    sed -i 's|^#!.*$|#!${pythonEnvironment}/bin/python|' $out/bin/yaml
+    sed --in-place 's|^#!.*$|#!${pythonEnvironment}/bin/python|' $out/bin/yaml
     runHook postInstall
   '';
 
   dontUnpack = true;
   dontBuild = true;
   doCheck = false;
+  format = "other";
   inherit meta;
 }

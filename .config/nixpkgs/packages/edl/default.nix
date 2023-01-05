@@ -14,24 +14,27 @@ python38.pkgs.buildPythonApplication rec {
 
   doCheck = false;
   dontBuild = true;
+  format = "other";
 
-  propagatedBuildInputs = with python38.pkgs; [
-    pyusb
-    pyserial
-    docopt
-    pycryptodome
-    qrcode
+  propagatedBuildInputs = [
+    python38.pkgs.pyusb
+    python38.pkgs.pyserial
+    python38.pkgs.docopt
+    python38.pkgs.pycryptodome
+    python38.pkgs.qrcode
   ];
 
   pythonEnv = python38.withPackages (ps: with ps; propagatedBuildInputs);
 
   installPhase = ''
-    mkdir -p $out/share/edl
-    cp -rT ${src} $out/share/edl
+    runHook preInstall
+    mkdir --parents $out/share/edl
+    cp --recursive --no-target-directory ${src} $out/share/edl
     makeWrapper ${pythonEnv}/bin/python $out/bin/edl --add-flags $out/share/edl/edl.py
     makeWrapper ${pythonEnv}/bin/python $out/bin/edl-diag --add-flags $out/share/edl/diag.py
     makeWrapper ${pythonEnv}/bin/python $out/bin/edl-tcpclient --add-flags $out/share/edl/tcpclient.py
     makeWrapper ${pythonEnv}/bin/python $out/bin/edl-fhloaderparse --add-flags $out/share/edl/fhloaderparse.py
+    runHook postInstall
   '';
 
   meta = with lib; {

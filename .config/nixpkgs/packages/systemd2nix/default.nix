@@ -14,11 +14,14 @@ python38.pkgs.buildPythonApplication rec {
 
   doCheck = false;
   dontBuild = true;
+  format = "other";
 
   installPhase = ''
-    mkdir -p $out/bin $out/share/${pname}
+    runHook preInstall
+    mkdir --parents $out/bin $out/share/${pname}
     cp ${src}/${pname}.py $out/share/${pname}
     makeWrapper ${python38}/bin/python $out/bin/${pname} --add-flags $out/share/${pname}/${pname}.py
+    runHook postInstall
   '';
 
   meta = with lib; {

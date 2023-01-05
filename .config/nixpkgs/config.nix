@@ -3,8 +3,8 @@ let
   pkgs = import <nixpkgs> { };
 
   stable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
-    sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj"; }) { };
+    url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.466.596a8e828c5/nixexprs.tar.xz";
+    sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { };
 
   unstable = import (builtins.fetchTarball {
     url = "https://releases.nixos.org/nixos/unstable/nixos-23.05pre431956.14ddeaebcbe/nixexprs.tar.xz";
@@ -64,15 +64,14 @@ in
     Terminal = pkgs.buildEnv {
       name = "terminal";
       paths = [
-        (unstable.callPackage ./packages/hugo/default.nix {})
-        (callPackage ./packages/chromexup/default.nix {})
-        (callPackage ./packages/pdf2htmlex/default.nix {})
-        (callPackage ./packages/rxvt-unicode/default.nix {})
-        (callPackage ./packages/systemd2nix/default.nix {})
-        (callPackage ./packages/validatornu/default.nix {})
-        (callPackage ./packages/youtube-dl/default.nix {})
-        (unstable.pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
-        unstable.quickemu
+        (callPackage ./packages/hugo/default.nix { })
+        (callPackage ./packages/chromexup/default.nix { })
+        (callPackage ./packages/pdf2htmlex/default.nix { })
+        (callPackage ./packages/rxvt-unicode/default.nix { })
+        (callPackage ./packages/systemd2nix/default.nix { })
+        (callPackage ./packages/validatornu/default.nix { })
+        (callPackage ./packages/youtube-dl/default.nix { })
+        (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         aerc
         alacritty
         alsaUtils
@@ -135,6 +134,7 @@ in
         pngquant
         poppler_utils
         pssh
+        quickemu
         ranger
         rclone
         ripgrep
@@ -168,18 +168,24 @@ in
     Graphical = pkgs.buildEnv {
       name = "graphical";
       paths = [
-        (callPackage ./packages/beaker-browser/default.nix {})
-        (callPackage ./packages/dmenu/default.nix {})
-        (callPackage ./packages/gnaural/default.nix {})
-        (callPackage ./packages/ntrviewer/default.nix {})
-        (callPackage ./packages/planner/default.nix {})
-        (callPackage ./packages/scribus/default.nix {})
-        (callPackage ./packages/sowon/default.nix {})
-        (callPackage ./packages/tilp2/default.nix {})
-        (unstable.callPackage ./packages/boomer/default.nix {})
+        ((import (builtins.fetchTarball {
+          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
+          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
+        }) { }).callPackage ./packages/planner/default.nix { })
+        ((import (builtins.fetchTarball {
+          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
+          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
+        }) { }).callPackage ./packages/scribus/default.nix { })
+        ((import (builtins.fetchTarball {
+          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
+          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
+        }) { }).callPackage ./packages/tilp2/default.nix { })
+        (callPackage ./packages/beaker-browser/default.nix { })
+        (callPackage ./packages/dmenu/default.nix { })
+        (callPackage ./packages/ntrviewer/default.nix { })
+        (callPackage ./packages/sowon/default.nix { })
+        (callPackage ./packages/boomer/default.nix { })
         (mplayer.override { v4lSupport = true; })
-        unstable.blender
-        unstable.claws-mail
         unstable.firefox
         unstable.google-chrome
         unstable.nyxt
@@ -188,6 +194,8 @@ in
         unstable.vimb
         aegisub
         anki
+        blender
+        claws-mail
         code-server
         corrscope
         dconf
@@ -202,6 +210,7 @@ in
         gImageReader
         gcolor2
         gimp
+        gnaural
         gparted
         gromit-mpx
         i3lock-fancy
@@ -251,7 +260,7 @@ in
     Emulators = pkgs.buildEnv {
       name = "emulators";
       paths = [
-        (callPackage ./packages/tiemu/default.nix {})
+        (callPackage ./packages/tiemu/default.nix { })
         desmume
         mgba
       ];
@@ -260,8 +269,8 @@ in
     Xorg = pkgs.buildEnv {
       name = "xorg";
       paths = [
-        (callPackage ./packages/x11vnc/default.nix {})
-        (callPackage ./packages/xprintidle/default.nix {})
+        (callPackage ./packages/x11vnc/default.nix { })
+        (callPackage ./packages/xprintidle/default.nix { })
         autocutsel
         glxinfo
         unclutter-xfixes
@@ -324,7 +333,7 @@ in
     Fonts = pkgs.buildEnv {
       name = "fonts";
       paths = [
-        (callPackage ./packages/nerdfonts-dejavu-sans-mono/default.nix {})
+        (callPackage ./packages/nerdfonts-dejavu-sans-mono/default.nix { })
         cm_unicode
         cooper-hewitt
         corefonts
@@ -390,9 +399,9 @@ in
     Android = pkgs.buildEnv {
       name = "android";
       paths = [
-        (callPackage ./packages/edl/default.nix {})
-        (callPackage ./packages/mkbootfs/default.nix {})
-        (callPackage ./packages/mkbootimg/default.nix {})
+        (callPackage ./packages/edl/default.nix { })
+        (callPackage ./packages/mkbootfs/default.nix { })
+        (callPackage ./packages/mkbootimg/default.nix { })
         abootimg
       ];
     };
@@ -452,7 +461,7 @@ in
     Lua = pkgs.buildEnv {
       name = "lua";
       paths = [
-        (callPackage ./packages/redbean/default.nix {})
+        (callPackage ./packages/redbean/default.nix { })
         lua
         luaPackages.luacheck
         luaformatter
@@ -502,7 +511,7 @@ in
 
     Ruby = pkgs.buildEnv {
       name = "ruby";
-      paths = [ (callPackage ./packages/rufo/default.nix {}) rubocop ruby ];
+      paths = [ rufo rubocop ruby ];
     };
 
     C = pkgs.buildEnv {
@@ -528,8 +537,8 @@ in
     CSS = pkgs.buildEnv {
       name = "css";
       paths = [
-        (callPackage ./packages/csstidy/default.nix {})
-        (callPackage ./packages/stylelint/default.nix {})
+        (callPackage ./packages/csstidy/default.nix { })
+        nodePackages.stylelint
         csslint
         sassc
       ];
@@ -538,9 +547,9 @@ in
     SQL = pkgs.buildEnv {
       name = "sql";
       paths = [
-        (callPackage ./packages/skeema/default.nix {})
-        (callPackage ./packages/sqldef/default.nix {})
+        (callPackage ./packages/sqldef/default.nix { })
         pgformatter
+        skeema
         sqlfluff
         sqlint
         sqlite
@@ -551,8 +560,8 @@ in
     YAML = pkgs.buildEnv {
       name = "yaml";
       paths = [
-        (callPackage ./packages/ruamel.yaml.cmd/default.nix {})
-        (callPackage ./packages/yaml2nix/default.nix {})
+        (callPackage ./packages/ruamel.yaml.cmd/default.nix { })
+        (callPackage ./packages/yaml2nix/default.nix { })
         python39Packages.yamllint
         yj
       ];
@@ -561,8 +570,8 @@ in
     Xorg-Aarch64 = pkgs.buildEnv {
       name = "xorg-aarch64";
       paths = [
-        (callPackage ./packages/x11vnc/default.nix {})
-        (callPackage ./packages/xprintidle/default.nix {})
+        (callPackage ./packages/x11vnc/default.nix { })
+        (callPackage ./packages/xprintidle/default.nix { })
         glxinfo
         unclutter-xfixes
         wmctrl
