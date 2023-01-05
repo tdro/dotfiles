@@ -78,6 +78,7 @@ command -v rsvg-convert > /dev/null 2>&1 && \
   export GDK_PIXBUF_MODULE_FILE
 
 export FZF_DEFAULT_OPTS="\
+ --no-separator \
  --inline-info \
  --color=fg:255,hl:203 \
  --color=fg+:81,bg+:237,hl+:203 \
