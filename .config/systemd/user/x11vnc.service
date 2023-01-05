@@ -7,7 +7,7 @@ Type=simple
 RestartSec=3
 Restart=always
 SyslogIdentifier=x11vnc
-ExecStart=/usr/bin/env x11vnc -display $DISPLAY -rfbport 5901 -shared -usepw -forever -nowireframe -norepeat -noxdamage -noxrecord -ncache_cr -noxfixes -auth $XAUTHORITY
+ExecStart=/usr/bin/env x11vnc -display $DISPLAY -rfbport 5901 -shared -usepw -forever -nowireframe -norepeat -noxdamage -noxrecord -ncache_cr -noxfixes -cursor arrow -auth $XAUTHORITY
 
 [Install]
 WantedBy=default.target
