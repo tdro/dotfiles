@@ -7,7 +7,7 @@ feeds=$XDG_CONFIG_HOME/sfeed/feeds
 
 touch "$read"
 
-sfeed_update "$config"
+sfeed_update "$config" || true
 
 sfeed_plain_function() {
   sfeed_plain "$feeds"/* |
