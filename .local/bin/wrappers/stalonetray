@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+$(which stalonetray --all | grep --invert-match "local/bin" | head -n 1) --background '#000000' --window-type normal "$@";
