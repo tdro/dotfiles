@@ -25,9 +25,9 @@ in
     Woodpecker = pkgs.buildEnv {
       name = "woodpecker";
       paths = [
-        Terminal Graphical Xorg Awesome Fonts Audio LaTeX Dictionary Android JavaScript
-        Python PHP Lua Elixir HTML Shell Haskell Perl Nix C Golang Rust CSS SQL YAML
-        Ruby Nim Themes Emulators Clojure
+        Terminal Graphical Xorg Wayland Awesome Fonts Audio LaTeX Dictionary Android
+        JavaScript Python PHP Lua Elixir HTML Shell Haskell Perl Nix C Golang Rust CSS
+        SQL YAML Ruby Nim Themes Emulators Clojure
       ];
     };
 
@@ -180,6 +180,14 @@ in
           url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
           sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
         }) { }).callPackage ./packages/tilp2/default.nix { })
+        ((import (builtins.fetchTarball {
+          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
+          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
+        }) { }).mupdf)
+        ((import (builtins.fetchTarball {
+          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
+          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
+        }) { }).rofi)
         (callPackage ./packages/beaker-browser/default.nix { })
         (callPackage ./packages/dmenu/default.nix { })
         (callPackage ./packages/ntrviewer/default.nix { })
@@ -223,7 +231,6 @@ in
         liferea
         mate.engrampa
         meld
-        mupdf
         mypaint
         pavucontrol
         peek
@@ -231,7 +238,6 @@ in
         qrencode
         recoll
         redshift
-        rofi
         scrcpy
         screenkey
         sent
@@ -297,6 +303,15 @@ in
         xorg.xsetroot
         xsel
         xzoom
+      ];
+    };
+
+    Wayland = pkgs.buildEnv {
+      name = "wayland";
+      paths = [
+        wayfire
+        weston
+        wofi
       ];
     };
 
