@@ -1,0 +1,28 @@
+#!/bin/sh -eu
+
+program=$(basename "$0")
+option=${1:-0@9}
+real=${option%%@*}
+virtual=${option#*@}
+
+{
+	[ "$option" = "help" ] ||
+	[ "$option" = "-help" ] ||
+	[ "$option" = "--help" ]
+} &&
+	printf '%s 0@9\n# /dev/video0 -> /dev/video9\n' "$program" &&
+	exit
+
+{
+	[ "$option" = "kill" ] ||
+	[ "$option" = "-kill" ] ||
+	[ "$option" = "--kill" ]
+} &&
+	killall mplayer &&
+  killall mplayer &&
+  killall ffmpeg &&
+	exit
+
+ffmpeg -i "/dev/video$real" -f v4l2 -vcodec rawvideo -pix_fmt rgb24 "/dev/video$virtual" &
+sleep 2
+mplayer tv:// -tv "driver=v4l2:device=/dev/video$virtual" -fps 15

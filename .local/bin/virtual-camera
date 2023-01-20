@@ -1,7 +1,0 @@
-#!/bin/sh -eu
-program=$(basename "$0")
-option=${1:-}
-real=${option%%@*}
-virtual=${option#*@}
-[ "$#" = 0 ] && printf '%s 0@9\n# /dev/video0 -> /dev/video9\n' "$program" && exit;
-ffmpeg -i "/dev/video$real" -f v4l2 -vcodec rawvideo -pix_fmt rgb24 "/dev/video$virtual"

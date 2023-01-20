@@ -221,6 +221,9 @@ in
         gnaural
         gparted
         gromit-mpx
+        gst_all_1.gst-plugins-base
+        gst_all_1.gst-plugins-good
+        gst_all_1.gstreamer
         i3lock-fancy
         kcharselect
         keepassxc
@@ -280,7 +283,6 @@ in
         autocutsel
         glxinfo
         unclutter-xfixes
-        weston
         wmctrl
         xbindkeys
         xdotool

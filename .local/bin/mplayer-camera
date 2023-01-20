@@ -1,5 +1,0 @@
-#!/bin/sh -eu
-program=$(basename "$0")
-[ "$#" = 0 ] && printf '%s 9\n# /dev/video9 -> mplayer\n' "$program" && exit
-[ "$1" = kill ] && killall --quiet -9 mplayer
-mplayer tv:// -tv "driver=v4l2:device=/dev/video$1" -fps 15
