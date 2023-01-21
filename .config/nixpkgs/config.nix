@@ -188,6 +188,10 @@ in
           url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
           sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
         }) { }).rofi)
+        ((import (builtins.fetchTarball {
+          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
+          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
+        }) { }).freerdp)
         (callPackage ./packages/beaker-browser/default.nix { })
         (callPackage ./packages/dmenu/default.nix { })
         (callPackage ./packages/ntrviewer/default.nix { })
@@ -213,12 +217,12 @@ in
         exiftool
         feh
         flameshot
-        freerdp
         fsearch
         gImageReader
         gcolor2
         gimp
         gnaural
+        gnome.dconf-editor
         gparted
         gromit-mpx
         gst_all_1.gst-plugins-base
@@ -319,7 +323,12 @@ in
 
     Awesome = pkgs.buildEnv {
       name = "awesome";
-      paths = [ awesome ];
+      paths = [
+        ((import (builtins.fetchTarball {
+          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
+          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
+        }) { }).awesome)
+      ];
     };
 
     Xfce = pkgs.buildEnv {
