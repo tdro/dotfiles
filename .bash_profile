@@ -13,12 +13,6 @@ prefixPath "$HOME/.local/bin"
 prefixPath "$HOME/.local/bin/scripts"
 prefixPath "$HOME/.local/bin/wrappers"
 
-# auto login
-[ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] \
-  && command -v nix && nix-xorg-conf > "$HOME"/.config/X11/xorg.conf.d/00-modules.conf \
-  && { [ "$(systemctl --user is-enabled redshift)" = "enabled" ] && systemctl --user restart redshift & } \
-  && exec sx
-
 umask 0022
 
 PS1_USER='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;34m\]\W\[\e[0m\] \[\e[0;34m\]\$\[\e[0m\] '
@@ -87,3 +81,8 @@ export FZF_DEFAULT_OPTS="\
  --color=marker:109,spinner:236,header:255"
 
 [ -z "$BASH_PROFILE" ] && . "$HOME/.bashrc"
+
+[ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] \
+  && command -v nix && nix-xorg-conf > "$HOME"/.config/X11/xorg.conf.d/00-modules.conf \
+  && { [ "$(systemctl --user is-enabled redshift)" = "enabled" ] && systemctl --user restart redshift & } \
+  && exec sx
