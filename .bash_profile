@@ -16,6 +16,7 @@ prefixPath "$HOME/.local/bin/wrappers"
 # auto login
 [ "$EUID" != 0 ] && [ -z "$DISPLAY" ] && [ "$(tty)" = '/dev/tty1' ] \
   && command -v nix && nix-xorg-conf > "$HOME"/.config/X11/xorg.conf.d/00-modules.conf \
+  && { [ "$(systemctl --user is-enabled redshift)" = "enabled" ] && systemctl --user restart redshift & } \
   && exec sx
 
 umask 0022
