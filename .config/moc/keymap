@@ -1,0 +1,9 @@
+menu_down         = j DOWN
+menu_up           = k UP
+menu_page_down    = ^f PAGE_DOWN
+menu_page_up      = ^b PAGE_UP
+menu_first_item   = J HOME
+menu_last_item    = K END
+toggle_menu       = ^W TAB
+toggle_layout     =
+help              = ?
