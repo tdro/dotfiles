@@ -222,7 +222,6 @@ in
         gcolor2
         gimp
         gnaural
-        gnome.dconf-editor
         gparted
         gromit-mpx
         gst_all_1.gst-plugins-base
@@ -382,6 +381,10 @@ in
     Themes = pkgs.buildEnv {
       name = "themes";
       paths = [
+        (callPackage ./packages/nwg-look/default.nix { })
+        gtk3.dev
+        glib
+        gnome.dconf-editor
         gtk-engine-murrine
         librsvg
         lxappearance
