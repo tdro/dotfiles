@@ -7,9 +7,9 @@ current="$HISTFILE"
 lockfile='/tmp/bashhistory_Ri5ki9ei.lock'
 
 _prune() {
- sed --in-place '/^#/d' "$1" &&            # Remove all timestamps.
- sed --in-place '/.........../!d' "$1" &&  # Remove all commands less than 11 characters.
- sort --unique "$1" | sponge "$1"          # Remove all duplicate entries.
+ sed --in-place '/^#/d' "$1" &&                            # Remove all timestamps.
+ sed --in-place '/.........../!d' "$1" &&                  # Remove all commands less than 11 characters.
+ sort --unique "$1" > "$1.tmp" && mv --force "$1.tmp" "$1" # Remove all duplicate entries.
 }
 
 _migrate() {
