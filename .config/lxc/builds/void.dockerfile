@@ -1,7 +1,7 @@
 FROM docker.io/voidlinux/voidlinux:latest@sha256:26ba972f0c06beadcec4796ec3037e0bec32af4d255edb68a528bd98304c74f4
 
+RUN xbps-install -Syu xbps
 RUN xbps-install -Syu
-
 RUN xbps-install -y openssh dhcpcd iputils iproute2 socklog-void neofetch htop
 
 RUN mkdir --parents /run/runit/runsvdir

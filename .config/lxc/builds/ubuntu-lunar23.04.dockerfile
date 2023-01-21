@@ -1,14 +1,16 @@
-FROM  docker.io/library/ubuntu:impish@sha256:4e4222975b1673cbbff799934fa00dc0b3191d0c9a7711f5b1d0b81fdcbfe6aa
+FROM  docker.io/library/ubuntu:lunar@sha256:a40051efc6b591d38faffb11fdcef157103b9a4143edbc959c47e4b8c7d2e9eb
 
 RUN   apt update
 
 RUN   apt install --no-install-recommends --assume-yes \
-      init uuid-runtime neofetch vim-tiny iproute2 dhcpcd5 xauth htop
+      init uuid-runtime neofetch vim-tiny iproute2 xauth htop
 
 RUN   systemctl mask sys-kernel-debug.mount
+RUN   systemctl enable systemd-networkd
 
 RUN   ln --symbolic --force bash /bin/sh
 
+RUN   printf '[Match]\nName=eth0\n\n[Network]\nDHCP=yes' > /etc/systemd/network/20-wired.network
 RUN   printf 'export TERM=linux\n' >> /etc/profile
 RUN   printf 'neofetch\n' >> /etc/profile
 

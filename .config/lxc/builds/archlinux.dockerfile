@@ -1,4 +1,4 @@
-FROM  docker.io/library/archlinux:base-devel-20220306.0.49442@sha256:bd9ac4ed9caf9a7e61ae1981d009d5b67fc419027f9cb87f7b2f45af737f44d6
+FROM  docker.io/library/archlinux:base-devel-20230115.0.118859@sha256:d363f036cbbe40976a3b5883712fa56637a7245c24eca278d9afe71d64a93aea
 
 RUN   pacman --noconfirm -Syu wget
 
@@ -54,7 +54,7 @@ RUN   systemctl mask \
       sys-kernel-debug.mount \
       systemd-journald-audit.socket \
       systemd-firstboot.service \
-      tmp.mount \
+      tmp.mount
 
 RUN   printf 'permit :wheel\npermit nopass keepenv root\n' > /etc/doas.conf && chmod 400 /etc/doas.conf
 
