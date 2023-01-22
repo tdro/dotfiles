@@ -10,7 +10,6 @@ prefixPath() {
 }
 
 prefixPath "$HOME/.local/bin"
-prefixPath "$HOME/.local/bin/scripts"
 prefixPath "$HOME/.local/bin/wrappers"
 
 umask 0022
