@@ -314,6 +314,7 @@ in
     Wayland = pkgs.buildEnv {
       name = "wayland";
       paths = [
+        (callPackage ./packages/wf-shell/default.nix { })
         wayfire
         weston
         wofi
