@@ -398,10 +398,11 @@ in
     Dictionary = pkgs.buildEnv {
       name = "dictionary";
       paths = [
-        aspell
-        aspellDicts.en
-        aspellDicts.en-computers
-        aspellDicts.en-science
+        (aspellWithDicts (dictionary: [
+          dictionary.en
+          dictionary.en-computers
+          dictionary.en-science
+        ]))
         hunspell
         hunspellDicts.en_US-large
         hyphen

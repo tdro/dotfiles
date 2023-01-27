@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+$(which aspell --all | grep --invert-match "local/bin" | head -n 1) --conf "$HOME/.config/aspell/aspell.conf" "$@";
