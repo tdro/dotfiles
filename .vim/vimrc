@@ -269,9 +269,13 @@ function s:notify(command)
   call popup_notification(systemlist(a:command), { 'pos': 'topright', 'col': 9999, 'time' : 600000, 'highlight': 'Normal' })
 endfunction
 
+
+"-------------------Commands-------------------"
+
 command! -nargs=? -range Jump   call s:cursor(@*)
 command! -nargs=? -range REPL   call s:repl(<line1>, <line2>, <f-args>)
 command! -nargs=1 -range Notify call s:notify(<args>)
+command! Term term ++noclose
 
 
 "----------------Autorun----------------"
