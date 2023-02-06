@@ -286,6 +286,7 @@ augroup AutoCommands
   autocmd BufWritePost .vimrc,vimrc source % | Notify('printf "Configuration sourced."')
 
   " Linting file type post write commands.
+  autocmd FileType markdown         autocmd! BufWritePost <buffer> :only | :term ++rows=10 sh -c "cat % | vale --ext .md"
   autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''black ' . expand('%') . ' 2>&1 && pylint ' . expand('%') . ' 2>&1'')' | :e
@@ -310,7 +311,6 @@ augroup AutoCommands
   autocmd FileType sql              autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --type-case 2 --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
 
   " Linting extension post write commands.
-  autocmd BufWritePost *.txt,*.md                         :only | :term ++rows=10 vale %
   autocmd BufWritePost $HOME/.config/chromexup/config.ini exe 'Notify(''chromexup 2>&1'')'
   autocmd BufWritePost rc.lua                             exe 'Notify(''awesome -k 2>&1'')'
   autocmd BufWritePost quotes,*.fortune                   exe 'Notify(''strfile ' . expand('%') . ''')'
