@@ -46,7 +46,7 @@ commit() {
 }
 
 [ "${1:-}" = "commit" ] &&
-  { commit | grep --file="$spirits" > "$session" || printf "Warning empty or failed session file!\n"; } &&
+  { commit | grep --file="$spirits" >> "$session" || printf "Warning empty or failed session file!\n"; } &&
   printf 'Session %s canonized.\n' "$session" &&
   exit
 
