@@ -1,7 +1,13 @@
 #!/bin/sh -eu
 
-lynx -nocolor -dump -listonly "${1:-https://example.com}" |
- grep --color="never" "\." |
+lynx \
+  -nocolor \
+  -dump \
+  -listonly \
+  "${1:-https://example.com}" |
+ grep \
+  --color="never" \
+  "\." |
  while read -r line; do
   url=${line#*. }
   head=$(wget \
