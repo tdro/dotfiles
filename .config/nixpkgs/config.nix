@@ -82,6 +82,7 @@ in
         bat
         bind
         bleachbit
+        caddy
         calcurse
         cava
         csvkit
@@ -97,6 +98,7 @@ in
         entr
         exercism
         expect
+        fdupes
         ffmpeg
         flashrom
         fortune
@@ -130,6 +132,7 @@ in
         pdsh
         picotts
         pipes
+        plantuml
         pngnq
         pngquant
         poppler_utils
