@@ -37,6 +37,8 @@ export XDG_CURRENT_DESKTOP=gnome
 
 export CARGO_HOME="$XDG_CACHE_HOME/cargo"
 export DENO_DIR=vendor
+export DENO_INSTALL_ROOT=bin
+export DENO_NO_UPDATE_CHECK=1
 export DOWNLOAD_KEYSERVER="hkp://keyserver.ubuntu.com"
 export ELECTRUMDIR="$XDG_DATA_HOME/electrum"
 export FZF_DIRECTORY_MARKS=$XDG_CONFIG_HOME/fzf/marks/directories
