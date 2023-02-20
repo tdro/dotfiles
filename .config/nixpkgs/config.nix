@@ -233,7 +233,6 @@ in
         i3lock-fancy
         kcharselect
         keepassxc
-        kiwix
         krop
         libnotify
         libreoffice
@@ -484,11 +483,12 @@ in
             xdebug.start_with_request=yes
           '';
         })
-        phpPackages.psysh
-        phpPackages.psalm
+        (callPackage ./packages/phar-composer/default.nix { })
+        phpPackages.composer
         phpPackages.phpcbf
         phpPackages.phpstan
-        phpPackages.composer
+        phpPackages.psalm
+        phpPackages.psysh
       ];
     };
 
