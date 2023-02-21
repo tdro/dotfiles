@@ -1,0 +1,20 @@
+#!/bin/sh -eu
+
+audio=/tmp/speak-jfgOUcZdWu.wav
+text=${1:-Nothing to say.}
+
+[ "${1-}" = "echo" ] && $0 "${2-}" "${1-}" && exit;
+
+printf '%s' "$text" | larynx -q low > $audio
+
+[ "${2-}" = "echo" ] &&
+  ffmpeg \
+    -y \
+    -i "$audio" \
+    -map 0 \
+    -c:v copy \
+    -af aecho=1:1:50:0.5,atempo=0.85 "$audio.mp3"  &&
+      mplayer -really-quiet "$audio.mp3" &&
+        exit;
+
+mplayer -really-quiet "$audio";

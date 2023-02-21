@@ -7,8 +7,8 @@ let
     sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { };
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-23.05pre431956.14ddeaebcbe/nixexprs.tar.xz";
-    sha256 = "0ilpmvj84gdahz43z141qqninrzywmzz7hylzvnxbw8j6wxjznwv"; }) { };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-23.05pre455282.ac1f5b72a9e/nixexprs.tar.xz";
+    sha256 = "0hmzawy3s2kzp6n9yd20xqa7hcp38z9v6pj797wxd0v1a2slicfv"; }) { };
 
 in
 
@@ -64,6 +64,8 @@ in
     Terminal = pkgs.buildEnv {
       name = "terminal";
       paths = [
+        (import ./shells/larynx/shell.nix).fhs
+        (import ./shells/larynx-server/shell.nix).fhs
         (callPackage ./packages/hugo/default.nix { })
         (callPackage ./packages/chromexup/default.nix { })
         (callPackage ./packages/pdf2htmlex/default.nix { })
@@ -130,7 +132,6 @@ in
         ocrmypdf
         pandoc
         pdsh
-        picotts
         pipes
         plantuml
         pngnq
@@ -204,7 +205,6 @@ in
         unstable.firefox
         unstable.google-chrome
         unstable.nyxt
-        unstable.palemoon
         unstable.ungoogled-chromium
         unstable.vimb
         aegisub
@@ -240,6 +240,7 @@ in
         mate.engrampa
         meld
         mypaint
+        palemoon
         pavucontrol
         peek
         qownnotes
