@@ -6,21 +6,25 @@ let
   name = "nix-shell.cake";
 
   pkgs = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/21.05/nixos-21.05.650.eaba7870ffc/nixexprs.tar.xz";
-    sha256 = "08fpds1bkv9106c6s5w3p5r4v3dc24bhk9asm9vqbxxypjglqg9l"; }) { };
+    url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.466.596a8e828c5/nixexprs.tar.xz";
+    sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg";
+  }) { };
 
-  alpine-3-12-amd64 = pkgs.dockerTools.pullImage rec {
-    imageName = "alpine";
-    imageDigest = "sha256:2a8831c57b2e2cb2cda0f3a7c260d3b6c51ad04daea0b3bfc5b55f489ebafd71";
-    sha256 = "1px8xhk0a3b129cc98d3wm4s0g1z2mahnrxd648gkdbfsdj9dlxp";
-    finalImageName = imageName;
-    finalImageTag = "3.12";
+  alpine-3-12-amd64 = pkgs.dockerTools.exportImage {
+    fromImage = pkgs.dockerTools.pullImage rec {
+      imageName = "alpine";
+      imageDigest = "sha256:2a8831c57b2e2cb2cda0f3a7c260d3b6c51ad04daea0b3bfc5b55f489ebafd71";
+      sha256 = "1px8xhk0a3b129cc98d3wm4s0g1z2mahnrxd648gkdbfsdj9dlxp";
+      finalImageName = imageName;
+      finalImageTag = "3.12";
+    };
+    diskSize = "128";
   };
 
-  cook = { name, src, contents ? [ ], path ? [ ], script ? "", prepare ? "", cleanup ? "", sha256 ? pkgs.lib.fakeSha256 }: pkgs.stdenvNoCC.mkDerivation {
+  cook = { name, src, contents ? [ ], path ? [ ], script ? "", prepare ? "", cleanup ? "" }: pkgs.stdenvNoCC.mkDerivation {
     __noChroot = true;
     inherit name src contents;
-    phases = [ "unpackPhase" "installPhase" ];
+    phases = [ "installPhase" ];
     buildInputs = [ pkgs.proot pkgs.rsync pkgs.tree pkgs.kmod ];
     bootstrap = pkgs.writeScript "bootstrap-${name}" ''
       ${script}
@@ -30,7 +34,7 @@ let
     installPhase = ''
       set -euo pipefail
       mkdir --parents rootfs $out/rootfs
-      tar --extract --file=layer.tar -C rootfs
+      tar --extract --file=${src} -C rootfs
 
       ${prepare}
 
@@ -50,13 +54,12 @@ let
       ${cleanup}
 
       printf '\n%s\n\n' "$(du --all --max-depth 1 --human-readable rootfs | sort --human-numeric-sort)"
-      cp -rT rootfs $out/rootfs
+      cp --recursive --no-target-directory rootfs $out/rootfs
     '';
   };
 
-  bake = { name, image, size ? "1G", debug ? false, kernel ? pkgs.linux, options ? [ ], modules ? [ ], uuid ? "99999999-9999-9999-9999-999999999999", sha256 ? pkgs.lib.fakeSha256 }: let
+  bake = { name, image, size ? "1G", debug ? false, kernel ? pkgs.linux, options ? [ ], modules ? [ ], uuid ? "99999999-9999-9999-9999-999999999999" }: let
     initrd = cook {
-      inherit sha256;
       name = "initrd-${name}";
       src = alpine-3-12-amd64;
       script = ''
@@ -136,19 +139,18 @@ let
   alpine = cook {
     name = "alpine";
     src = alpine-3-12-amd64;
-    sha256 = "1ss4rh1fgs99h0v6czqq5rnfk1cag1ldazarm9jr5a0ahc4bnk0v";
     contents = [ pkgs.glibc pkgs.gawk ];
     path = [ pkgs.gawk ];
     script = ''
       cat /etc/alpine-release
       sed -i 's/#ttyS0/ttyS0/' /etc/inittab
+      printf 'migh7Lib\nmigh7Lib\n' | adduser alpine
     '';
   };
 
   alpine-machine = bake {
     name = "alpine-machine";
     image = alpine;
-    sha256 = "0k5migqcrf5hz99ka5p6pr9qv86bd69y7fbs9m5qpby9qh3xmskf";
     kernel = pkgs.linuxPackages_5_10.kernel;
     options = [ "console=tty1" "console=ttyS0" ];
     size = "128M";
