@@ -129,6 +129,7 @@ in
         netcat-openbsd
         newsboat
         nnn
+        nodePackages.mermaid-cli
         ocrmypdf
         pandoc
         pdsh
@@ -418,10 +419,10 @@ in
       paths = [
         (callPackage ./packages/qprompt/default.nix { })
         ardour
-        audacity
         pulseeffects-pw
         pulsemixer
         qjackctl
+        tenacity
       ];
     };
 
@@ -485,6 +486,8 @@ in
           '';
         })
         (callPackage ./packages/phar-composer/default.nix { })
+        graphviz
+        kcachegrind
         phpPackages.composer
         phpPackages.phpcbf
         phpPackages.phpstan
