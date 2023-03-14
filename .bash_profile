@@ -45,6 +45,7 @@ export FZF_DIRECTORY_MARKS=$XDG_CONFIG_HOME/fzf/marks/directories
 export FZF_FILE_MARKS=$XDG_CONFIG_HOME/fzf/marks/files
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export GOPATH="$XDG_DATA_HOME/go"
+export GOPROXY=direct
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export GTK_OVERLAY_SCROLLING=0
 export HISTCONTROL=ignoreboth:erasedups
