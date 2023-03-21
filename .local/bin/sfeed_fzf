@@ -20,5 +20,5 @@ sfeed_plain_function
 fzf < "$unread" \
   --multi \
   --info hidden \
-  --bind "enter:execute(firefox \$(printf {} | awk '{ print \$NF }'))" \
+  --bind "enter:execute(firefox \$(echo {} | awk '{ print \$NF }'))" \
   --bind "ctrl-d:reload(echo {} >> $read && { sfeed_plain $feeds/* | sed 's/^[N ]\+//g' | sort --reverse | grep --invert-match --fixed-strings --file $read > $unread && cat $unread; })"
