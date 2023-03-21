@@ -8,3 +8,4 @@ urxvt -e vim
 urxvt -hold
 zim
 QOwnNotes
+recoll
