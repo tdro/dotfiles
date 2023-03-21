@@ -1,10 +1,38 @@
-#!/bin/sh -eu
-word=$(diceware --no-caps --num 2 --delimiter " ")
-first=${word%??? *}
-second=${word#* ???}
+#!/usr/bin/env bash
+set -eu
 
-# TODO: Maybe manipulate adjacent consonants and vowels at the word merge boundary.
-# barric[ade] [hea]dlock
-# barri[cd]lock -> barrilock
+minimum=4
+words=$(diceware --no-caps --num 2 --delimiter " ")
+first=${words%??? *}
+second=${words#* ???}
 
-printf '%s\n%s%s\n' "$word" "$first" "$second"
+[ ${#first} -lt $minimum ] && "$0" && exit
+[ ${#second} -lt $minimum ] && "$0" && exit
+
+vowels="a e i o u"
+sounds="h r w y"
+consonants="b c d f g j k l m n p q s t v x z"
+suffix=${first: -1:1}
+prefix=${second: 0:1}
+digraph="$suffix$prefix"
+compressed="${first: 0:-1}${second: 1}"
+
+printf 'words:      %s\n'   "$words"
+printf 'digraph:    %s\n'   "$digraph"
+printf 'merge:      %s%s\n' "$first" "$second"
+printf 'compressed: %s\n\n' "$compressed"
+
+Grammar() {
+  for left in $consonants; do
+    [ "$suffix" = "$left" ] &&
+      {
+        for right in $consonants; do
+          [ "$prefix" = "$right" ] &&
+            printf '%s\n' "$compressed" &&
+            exit
+        done
+      }
+  done || printf '%s%s\n' "$first" "$second"
+}
+
+Grammar
