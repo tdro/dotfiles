@@ -293,10 +293,10 @@ augroup AutoCommands
   autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''black ' . expand('%') . ' 2>&1 && pylint ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType ruby             autocmd! BufWritePost <buffer> exe 'Notify(''rufo ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType nim              autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
   autocmd FileType rust             autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
   autocmd FileType json             autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType ruby             autocmd! BufWritePost <buffer> exe 'Notify(''rubocop --fix-layout ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType javascript       autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
   autocmd FileType elixir           autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType haskell          autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
@@ -310,7 +310,7 @@ augroup AutoCommands
   autocmd FileType bindzone         autocmd! BufWritePost <buffer> exe 'Notify(''file="' . expand('%') . '" && named-checkzone "$(head --lines=1  "$file" | cut --delimiter=" " --fields=2 | perl -ple "chop")" $file'')' | :e
   autocmd FileType awk              autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
   autocmd FileType yaml             autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --config tsconfig.json --allow-all --location https://example.com/  %
+  autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --allow-all --location https://example.com/ %
   autocmd FileType sql              autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --type-case 2 --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
 
   " Linting extension post write commands.
@@ -348,9 +348,10 @@ augroup AutoCommands
   autocmd FileType sh              set formatprg=shfmt\ -
   autocmd FileType typescriptreact set formatprg=deno\ fmt\ -
   autocmd FileType typescript      set formatprg=deno\ fmt\ -
-  autocmd FileType javascript      set formatprg=prettier\ --parser\ babel\ --stdin-filepath\ %
   autocmd FileType html            set formatprg=prettier\ --parser\ html\ --stdin-filepath\ %
+  autocmd FileType javascript      set formatprg=prettier\ --parser\ babel\ --stdin-filepath\ %
   autocmd FileType markdown        set formatprg=prettier\ --parser\ markdown\ --stdin-filepath\ %
+  autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
 
   " Set file types.
   autocmd BufRead,BufNewFile *.nims set filetype=nim

@@ -549,7 +549,7 @@ in
 
     Ruby = pkgs.buildEnv {
       name = "ruby";
-      paths = [ rufo rubocop ruby ];
+      paths = [ rubocop ruby ];
     };
 
     C = pkgs.buildEnv {
