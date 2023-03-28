@@ -88,6 +88,7 @@ in
         calcurse
         cava
         csvkit
+        curlftpfs
         davmail
         desktop-file-utils
         diceware
