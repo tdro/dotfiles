@@ -451,12 +451,12 @@ in
       name = "javascript";
       paths = [
         unstable.deno
-        nodejs
-        nodePackages.bower2nix
+        unstable.swc
+        esbuild
         nodePackages.eslint
         nodePackages.jsonlint
-        nodePackages.node2nix
         nodePackages.prettier
+        nodejs
       ];
       pathsToLink = [ "/bin" ];
     };

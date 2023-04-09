@@ -349,7 +349,7 @@ augroup AutoCommands
   autocmd FileType typescriptreact set formatprg=deno\ fmt\ -
   autocmd FileType typescript      set formatprg=deno\ fmt\ -
   autocmd FileType html            set formatprg=prettier\ --parser\ html\ --stdin-filepath\ %
-  autocmd FileType javascript      set formatprg=prettier\ --parser\ babel\ --stdin-filepath\ %
+  autocmd FileType javascript      set formatprg=swc\ compile\ --filename\ %
   autocmd FileType markdown        set formatprg=prettier\ --parser\ markdown\ --stdin-filepath\ %
   autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
 
