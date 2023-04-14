@@ -53,7 +53,6 @@ let
             pkgs.lib.strings.makeBinPath [
               package
               pkgs.busybox
-              pkgs.chromium
               pkgs.git
               pkgs.yarn
             ]
