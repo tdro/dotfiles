@@ -7,8 +7,8 @@ let
     sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { };
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-23.05pre455282.ac1f5b72a9e/nixexprs.tar.xz";
-    sha256 = "0hmzawy3s2kzp6n9yd20xqa7hcp38z9v6pj797wxd0v1a2slicfv"; }) { };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-23.05pre472387.3fb8eedc450/nixexprs.tar.xz";
+    sha256 = "1bsgq5i71zm6x6yinbyqf3spz3bayfjqq009sgmp2gbhwv89xg2m"; }) { };
 
 in
 
@@ -71,9 +71,9 @@ in
         (callPackage ./packages/pdf2htmlex/default.nix { })
         (callPackage ./packages/rxvt-unicode/default.nix { })
         (callPackage ./packages/systemd2nix/default.nix { })
-        (callPackage ./packages/validatornu/default.nix { })
         (callPackage ./packages/youtube-dl/default.nix { })
         (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
+        unstable.validator-nu
         aerc
         alacritty
         alsaUtils
@@ -174,35 +174,13 @@ in
     Graphical = pkgs.buildEnv {
       name = "graphical";
       paths = [
-        ((import (builtins.fetchTarball {
-          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
-          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
-        }) { }).callPackage ./packages/planner/default.nix { })
-        ((import (builtins.fetchTarball {
-          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
-          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
-        }) { }).callPackage ./packages/scribus/default.nix { })
-        ((import (builtins.fetchTarball {
-          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
-          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
-        }) { }).callPackage ./packages/tilp2/default.nix { })
-        ((import (builtins.fetchTarball {
-          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
-          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
-        }) { }).mupdf)
-        ((import (builtins.fetchTarball {
-          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
-          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
-        }) { }).rofi)
-        ((import (builtins.fetchTarball {
-          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
-          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
-        }) { }).freerdp)
-        (callPackage ./packages/beaker-browser/default.nix { })
-        (callPackage ./packages/dmenu/default.nix { })
-        (callPackage ./packages/ntrviewer/default.nix { })
-        (callPackage ./packages/sowon/default.nix { })
         (callPackage ./packages/boomer/default.nix { })
+        (callPackage ./packages/dmenu/default.nix { })
+        (callPackage ./packages/rofi/default.nix { })
+        (callPackage ./packages/sowon/default.nix { })
+        (import ./shells/planner/shell.nix).package
+        (import ./shells/scribus/shell.nix).package
+        (import ./shells/tilp2/shell.nix).package
         (mplayer.override { v4lSupport = true; })
         unstable.firefox
         unstable.google-chrome
@@ -222,6 +200,7 @@ in
         exiftool
         feh
         flameshot
+        freerdp
         fsearch
         gImageReader
         gcolor2
@@ -241,6 +220,7 @@ in
         liferea
         mate.engrampa
         meld
+        mupdf_1_17
         mypaint
         palemoon
         pavucontrol
@@ -259,7 +239,6 @@ in
         sublime3
         sxiv
         syncthing
-        tabula
         tigervnc
         transmission-gtk
         treesheets
@@ -277,6 +256,7 @@ in
     Emulators = pkgs.buildEnv {
       name = "emulators";
       paths = [
+        (callPackage ./packages/ntrviewer/default.nix { })
         (callPackage ./packages/tiemu/default.nix { })
         desmume
         mgba

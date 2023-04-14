@@ -20,7 +20,6 @@ stdenv.mkDerivation rec {
     description = "A command-line tool to print idle time from libXss";
     homepage = "https://github.com/g0hl1n/xprintidle";
     license = licenses.gpl2;
-    maintainers = [ maintainers.raskin ];
     platforms = platforms.linux;
   };
 }

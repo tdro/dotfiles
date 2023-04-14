@@ -96,7 +96,6 @@ in stdenv.mkDerivation {
     inherit description;
     license = lib.licenses.gpl3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ rnhmjoj ];
     downloadPage = "http://dist.schmorp.de/rxvt-unicode/Attic/";
     homepage = "http://software.schmorp.de/pkg/rxvt-unicode.html";
   };

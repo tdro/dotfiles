@@ -27,7 +27,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
     homepage = "https://tools.suckless.org/dmenu";
-    maintainers = with lib.maintainers; [ pSub globin ];
     description = "A generic, highly customizable, and efficient menu for the X Window System";
   };
 }

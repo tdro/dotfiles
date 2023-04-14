@@ -28,7 +28,6 @@ buildPythonPackage rec {
 
   meta = with lib; {
     license = licenses.unlicense;
-    maintainers = with maintainers; [ mkg20001 ];
     homepage = "https://github.com/yt-dlp/yt-dlp/";
     changelog = "https://github.com/yt-dlp/yt-dlp/raw/${version}/Changelog.md";
     description = "Command-line tool to download videos from YouTube.com and other sites (youtube-dl fork)";
