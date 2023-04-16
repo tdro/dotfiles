@@ -16,7 +16,7 @@
   "mods_mode": "normal",
   "mods_only": false,
   "multiline": false,
-  "vis_shift": false,
+  "vis_shift": true,
   "vis_space": true,
   "geometry": null,
   "screen": 0,
