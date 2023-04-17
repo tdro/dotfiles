@@ -7,8 +7,10 @@ Type=forking
 RestartSec=3
 Restart=always
 SyslogIdentifier=autocutsel
-ExecStart=/usr/bin/env autocutsel -f -s CLIPBOARD
-ExecStartPre=/usr/bin/env autocutsel -f -s PRIMARY
+ExecStartPre=/usr/bin/env autocutsel -fork -selection PRIMARY
+ExecStart=/usr/bin/env autocutsel -fork -selection CLIPBOARD
+MemoryHigh=3M
+MemoryMax=5M
 
 [Install]
 WantedBy=default.target
