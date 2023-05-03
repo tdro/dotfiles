@@ -85,7 +85,6 @@ in
         bind
         bleachbit
         caddy
-        calcurse
         cava
         csvkit
         curlftpfs
