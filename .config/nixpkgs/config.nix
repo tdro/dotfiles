@@ -143,6 +143,7 @@ in
         ranger
         rclone
         ripgrep
+        s-tui
         sbcl
         sfeed
         silver-searcher
