@@ -35,6 +35,9 @@ export TERMINAL=urxvt
 export DESKTOP_SESSION=gnome
 export XDG_CURRENT_DESKTOP=gnome
 
+export ANSIBLE_CONFIG="$XDG_CONFIG_HOME/ansible/ansible.cfg"
+export ANSIBLE_GALAXY_CACHE_DIR="$XDG_CACHE_HOME/ansible/galaxy_cache"
+export ANSIBLE_HOME="$XDG_CONFIG_HOME/ansible"
 export CARGO_HOME="$XDG_CACHE_HOME/cargo"
 export DENO_DIR=vendor
 export DENO_INSTALL_ROOT=bin
