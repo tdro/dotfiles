@@ -27,7 +27,7 @@ in
       paths = [
         Terminal Graphical Xorg Wayland Awesome Fonts Audio LaTeX Dictionary Android
         JavaScript Python PHP Lua Elixir HTML Shell Haskell Perl Nix C Golang Rust CSS
-        SQL YAML Ruby Nim Themes Emulators Clojure
+        SQL YAML Ruby Nim Themes Emulators Clojure Lisp
       ];
     };
 
@@ -144,7 +144,6 @@ in
         rclone
         ripgrep
         s-tui
-        sbcl
         sfeed
         silver-searcher
         sshfs
@@ -551,6 +550,11 @@ in
     Nim = pkgs.buildEnv {
       name = "nim";
       paths = [ nim ];
+    };
+
+    Lisp = pkgs.buildEnv {
+      name = "lisp";
+      paths = [ guile sbcl ];
     };
 
     CSS = pkgs.buildEnv {
