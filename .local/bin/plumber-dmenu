@@ -13,7 +13,6 @@ text->letterize
 text->singleline
 text->slugize
 verse->kjv
-
 word->dictionary
 "
 printf "%s" "$options" \
