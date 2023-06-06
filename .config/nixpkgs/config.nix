@@ -27,7 +27,7 @@ in
       paths = [
         Terminal Graphical Xorg Wayland Awesome Fonts Audio LaTeX Dictionary Android
         JavaScript Python PHP Lua Elixir HTML Shell Haskell Perl Nix C Golang Rust CSS
-        SQL YAML Ruby Nim Themes Emulators Clojure Lisp
+        SQL YAML HTTP Ruby Nim Themes Emulators Clojure Lisp
       ];
     };
 
@@ -66,8 +66,9 @@ in
       paths = [
         (import ./shells/larynx/shell.nix).fhs
         (import ./shells/larynx-server/shell.nix).fhs
-        (callPackage ./packages/hugo/default.nix { })
         (callPackage ./packages/chromexup/default.nix { })
+        (callPackage ./packages/emacs-batch-indent/default.nix { })
+        (callPackage ./packages/hugo/default.nix { })
         (callPackage ./packages/pdf2htmlex/default.nix { })
         (callPackage ./packages/rxvt-unicode/default.nix { })
         (callPackage ./packages/systemd2nix/default.nix { })
@@ -84,7 +85,6 @@ in
         bat
         bind
         bleachbit
-        caddy
         cava
         csvkit
         curlftpfs
@@ -452,6 +452,7 @@ in
           pygments
           pylint
         ]))
+        ruff
       ];
     };
 
@@ -555,6 +556,11 @@ in
     Lisp = pkgs.buildEnv {
       name = "lisp";
       paths = [ guile sbcl ];
+    };
+
+    HTTP = pkgs.buildEnv {
+      name = "http";
+      paths = [ caddy apacheHttpd ];
     };
 
     CSS = pkgs.buildEnv {

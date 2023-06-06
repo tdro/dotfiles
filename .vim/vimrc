@@ -292,7 +292,7 @@ augroup AutoCommands
   autocmd FileType markdown         autocmd! BufWritePost <buffer> :only | :term ++rows=10 sh -c "cat % | vale --ext .md"
   autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''black ' . expand('%') . ' 2>&1 && pylint ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''ruff --no-cache ' . expand('%') . ' 2>&1 && black ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType nim              autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
   autocmd FileType rust             autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
   autocmd FileType json             autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
@@ -326,21 +326,22 @@ augroup AutoCommands
 
   " File type function under cursor lookups.
   autocmd FileType go     noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
-  autocmd FileType nix    noremap <buffer> <leader>df :exe ':term ++rows=10 nixos-option ' . expand('<cexpr>')<cr>
   autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
 
   " REPL commands.
-  autocmd FileType go         noremap <buffer> <leader>cc :REPL gore<cr>
-  autocmd FileType lua        noremap <buffer> <leader>cc :REPL lua<cr>
-  autocmd FileType php        noremap <buffer> <leader>cc :REPL psysh<cr>
-  autocmd FileType elixir     noremap <buffer> <leader>cc :REPL iex<cr>
-  autocmd FileType sh         noremap <buffer> <leader>cc :REPL dash -x<cr>
-  autocmd FileType rust       noremap <buffer> <leader>cc :REPL evcxr<cr>
-  autocmd FileType nix        noremap <buffer> <leader>cc :REPL nix repl<cr>
   autocmd FileType bash       noremap <buffer> <leader>cc :REPL bash -x<cr>
-  autocmd FileType python     noremap <buffer> <leader>cc :REPL python<cr>
-  autocmd FileType perl       noremap <buffer> <leader>cc :REPL perl -de0<cr>
+  autocmd FileType elixir     noremap <buffer> <leader>cc :REPL iex<cr>
+  autocmd FileType go         noremap <buffer> <leader>cc :REPL gore<cr>
   autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
+  autocmd FileType lua        noremap <buffer> <leader>cc :REPL lua<cr>
+  autocmd FileType nix        noremap <buffer> <leader>cc :REPL nix repl<cr>
+  autocmd FileType perl       noremap <buffer> <leader>cc :REPL perl -de0<cr>
+  autocmd FileType php        noremap <buffer> <leader>cc :REPL psysh<cr>
+  autocmd FileType python     noremap <buffer> <leader>cc :REPL python<cr>
+  autocmd FileType rust       noremap <buffer> <leader>cc :REPL evcxr<cr>
+  autocmd FileType scheme     noremap <buffer> <leader>cc :REPL guile<cr>
+  autocmd FileType sh         noremap <buffer> <leader>cc :REPL dash -x<cr>
+  autocmd FileType typescript noremap <buffer> <leader>cc :REPL deno<cr>
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " Selective formatting using visual select + gq.
@@ -348,9 +349,12 @@ augroup AutoCommands
   autocmd FileType sh              set formatprg=shfmt\ -
   autocmd FileType typescriptreact set formatprg=deno\ fmt\ -
   autocmd FileType typescript      set formatprg=deno\ fmt\ -
+  autocmd FileType python          set formatprg=black\ --quiet\ -
+  autocmd FileType scheme          set formatprg=emacs-batch-indent\ scheme
+  autocmd FileType css             set formatprg=prettier\ --parser\ css\ --stdin-filepath\ %
   autocmd FileType html            set formatprg=prettier\ --parser\ html\ --stdin-filepath\ %
-  autocmd FileType javascript      set formatprg=swc\ compile\ --filename\ %\ \|\ tail\ --lines\ +2
   autocmd FileType markdown        set formatprg=prettier\ --parser\ markdown\ --stdin-filepath\ %
+  autocmd FileType javascript      set formatprg=swc\ compile\ --filename\ %\ \|\ tail\ --lines\ +2
   autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
 
   " Set file types.
