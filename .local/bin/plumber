@@ -2,7 +2,7 @@
 
 defmodule Settings do
   def terminal do
-    "urxvt"
+    System.get_env("TERMINAL")
   end
 end
 
@@ -14,21 +14,23 @@ defmodule ArgParser do
 
     options = [
       camelize: "text->camelize",
+      case_lower: "case->lower",
+      case_title: "case->title",
+      case_titleize: "case->titleize",
+      case_upper: "case->upper",
       date8601: "text->date8601",
       dictionary: "word->dictionary",
-      first_letter: "text->first-letter-words",
-      kjv_lookup: "verse->kjv",
+      jumbleize: "text->jumbleize",
+      kjv: "verse->kjv",
+      letterize: "text->letterize",
       lorem_paragraph: "lorem->paragraph",
       lorem_title: "lorem->title",
-      lower_case: "case->lower",
-      single_line: "text->single-line",
+      singleline: "text->singleline",
       slugize: "text->slugize",
-      title_case: "case->title",
-      title_case_strict: "case->title-strict"
     ]
 
     cond do
-      opts[:option] == options[:first_letter] ->
+      opts[:option] == options[:letterize] ->
         TextPlumber.firstLetterOfWordsIn(opts[:text]) |> IO.binwrite()
 
       opts[:option] == options[:slugize] ->
@@ -52,21 +54,32 @@ defmodule ArgParser do
         |> String.replace(~r/[[:punct:]]+/, "")
         |> IO.binwrite()
 
-      opts[:option] == options[:single_line] ->
+      opts[:option] == options[:singleline] ->
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == options[:jumbleize] ->
+        String.split(opts[:text])
+          |> Enum.map(&String.codepoints/1)
+          |> Enum.map(&TextPlumber.jumble/1)
+          |> Enum.map(&Enum.join/1)
+          |> Enum.join(" ")
+          |> IO.binwrite()
 
       opts[:option] == options[:dictionary] ->
         TextPlumber.dictionOfFirstWordIn(opts[:text])
         TextPlumber.firstWordOf(opts[:text]) |> IO.binwrite()
 
-      opts[:option] == options[:title_case] ->
+      opts[:option] == options[:case_title] ->
         opts[:text] |> to_string |> TextPlumber.titleCaseOf() |> IO.binwrite()
 
-      opts[:option] == options[:title_case_strict] ->
+      opts[:option] == options[:case_titleize] ->
         String.downcase(opts[:text]) |> TextPlumber.titleCaseOf() |> IO.binwrite()
 
-      opts[:option] == options[:lower_case] ->
+      opts[:option] == options[:case_lower] ->
         String.downcase(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == options[:case_upper] ->
+        String.upcase(opts[:text]) |> IO.binwrite()
 
       opts[:option] == options[:lorem_title] ->
         TextPlumber.loremTitle()
@@ -77,7 +90,7 @@ defmodule ArgParser do
       opts[:option] == options[:date8601] ->
         TextPlumber.date8601()
 
-      opts[:option] == options[:kjv_lookup] ->
+      opts[:option] == options[:kjv] ->
         System.cmd(Settings.terminal(), [
           "-e",
           "sh",
@@ -139,6 +152,20 @@ defmodule TextPlumber do
       "-c",
       "dict -h localhost #{TextPlumber.firstWordOf(text)} 2>&1 | vim -"
     ])
+  end
+
+  def jumble(list) do
+    if length(list) == 1 do
+     list
+    else
+    head = Enum.take(list, 1)
+    tail = Enum.take(list, -1)
+    head ++ (list
+      |> Enum.drop(-1)
+      |> Enum.drop(1)
+      |> Enum.shuffle)
+      ++ tail
+    end
   end
 
   def date8601() do

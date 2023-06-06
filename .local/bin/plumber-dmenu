@@ -1,16 +1,20 @@
 #!/bin/sh -eu
 options="\
-text->camelize
-text->date8601
-word->dictionary
-text->first-letter-words
-verse->kjv
+case->lower
+case->title
+case->titleize
+case->upper
 lorem->paragraph
 lorem->title
-case->lower
-text->single-line
+text->camelize
+text->date8601
+text->jumbleize
+text->letterize
+text->singleline
 text->slugize
-case->title
+verse->kjv
+
+word->dictionary
 "
 printf "%s" "$options" \
   | dmenu -i -b -p ⠀:::⠀plumber⠀::: \
