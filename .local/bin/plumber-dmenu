@@ -6,6 +6,8 @@ case->titleize
 case->upper
 lorem->paragraph
 lorem->title
+reverse->letters
+reverse->words
 text->camelize
 text->date8601
 text->jumbleize

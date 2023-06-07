@@ -25,6 +25,8 @@ defmodule ArgParser do
       letterize: "text->letterize",
       lorem_paragraph: "lorem->paragraph",
       lorem_title: "lorem->title",
+      reverse_letters: "reverse->letters",
+      reverse_words: "reverse->words",
       singleline: "text->singleline",
       slugize: "text->slugize",
     ]
@@ -58,10 +60,20 @@ defmodule ArgParser do
         TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
 
       opts[:option] == options[:jumbleize] ->
-        String.split(opts[:text])
+        String.split(opts[:text] |> String.replace(~r/[[:punct:]]+/, ""))
           |> Enum.map(&String.codepoints/1)
           |> Enum.map(&TextPlumber.jumble/1)
           |> Enum.map(&Enum.join/1)
+          |> Enum.join(" ")
+          |> IO.binwrite()
+
+      opts[:option] == options[:reverse_words] ->
+        TextPlumber.reverse(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == options[:reverse_letters] ->
+        String.split(opts[:text])
+          |> Enum.map(&String.codepoints/1)
+          |> Enum.map(&Enum.reverse/1)
           |> Enum.join(" ")
           |> IO.binwrite()
 
@@ -121,6 +133,10 @@ defmodule TextPlumber do
     String.split(text) |> List.first()
   end
 
+  def reverse(text) do
+    String.split(text) |> Enum.reverse |> Enum.join(" ")
+  end
+
   def titleCaseOf(text) do
     text |> String.split() |> Enum.map(fn word -> :string.titlecase(word) end) |> Enum.join(" ")
   end
@@ -156,15 +172,17 @@ defmodule TextPlumber do
 
   def jumble(list) do
     if length(list) == 1 do
-     list
+      list
     else
-    head = Enum.take(list, 1)
-    tail = Enum.take(list, -1)
-    head ++ (list
-      |> Enum.drop(-1)
-      |> Enum.drop(1)
-      |> Enum.shuffle)
-      ++ tail
+      head = Enum.take(list, 1)
+      tail = Enum.take(list, -1)
+      list = list |> Enum.drop(-1) |> Enum.drop(1)
+
+      if length(list) == 2 do
+        head ++ (list |> Enum.reverse()) ++ tail
+      else
+        head ++ (list |> Enum.shuffle()) ++ tail
+      end
     end
   end
 

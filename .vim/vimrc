@@ -349,6 +349,7 @@ augroup AutoCommands
   autocmd FileType sh              set formatprg=shfmt\ -
   autocmd FileType typescriptreact set formatprg=deno\ fmt\ -
   autocmd FileType typescript      set formatprg=deno\ fmt\ -
+  autocmd FileType elixir          set formatprg=mix\ format\ -
   autocmd FileType python          set formatprg=black\ --quiet\ -
   autocmd FileType scheme          set formatprg=emacs-batch-indent\ scheme
   autocmd FileType css             set formatprg=prettier\ --parser\ css\ --stdin-filepath\ %
