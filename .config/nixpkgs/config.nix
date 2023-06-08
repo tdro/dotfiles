@@ -7,8 +7,8 @@ let
     sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { };
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-23.05pre472387.3fb8eedc450/nixexprs.tar.xz";
-    sha256 = "1bsgq5i71zm6x6yinbyqf3spz3bayfjqq009sgmp2gbhwv89xg2m"; }) { };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-23.11pre491650.7409480d5c8/nixexprs.tar.xz";
+    sha256 = "0csg97lkanf5zj28i5py94sldjnzk1zy0ywniv3gmkn393hiskif"; }) { };
 
 in
 
@@ -555,7 +555,16 @@ in
 
     Lisp = pkgs.buildEnv {
       name = "lisp";
-      paths = [ guile sbcl ];
+      paths = [
+        (pkgs.writeScriptBin "guile" ''
+          export GUILE_LOAD_PATH="${pkgs.lib.concatStrings [
+            "${unstable.guile-gnutls}/share/guile/site:"
+            "$GUILE_LOAD_PATH"
+          ]}"
+          ${pkgs.guile_3_0}/bin/guile "$@"
+        '')
+        sbcl
+      ];
     };
 
     HTTP = pkgs.buildEnv {
