@@ -11,19 +11,16 @@ let
 
   project = "${builtins.getEnv "HOME"}/Shares/Projects/infrastructure/ansible";
 
+  python = pkgs.python39.withPackages (ps: with ps; [ mitogen ]);
+
 in pkgs.mkShell {
 
   inherit name;
 
-  buildInputs = [ pkgs.python38.pkgs.pip pkgs.ansible_2_9 ];
+  buildInputs = [ python pkgs.ansible_2_10 ];
 
   shellHook = ''
-    export virtualenvs=$HOME/.local/share/virtualenvs
-    mkdir -p $virtualenvs
-    python -m venv $virtualenvs/ansible-mitogen
-    . $virtualenvs/ansible-mitogen/bin/activate
-    pip install mitogen==0.2.9
-    export ANSIBLE_STRATEGY_PLUGINS=$virtualenvs/ansible-mitogen/lib/*/site-packages/ansible_mitogen/plugins
+    export ANSIBLE_STRATEGY_PLUGINS=${python}/lib/*/site-packages/ansible_mitogen/plugins
     export ANSIBLE_STRATEGY=mitogen_linear
     export PS1='\h (${name}) \W \$ '
     cd '${project}' || exit 1
