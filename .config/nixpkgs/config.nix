@@ -127,6 +127,7 @@ in
         monolith
         neofetch
         netcat-openbsd
+        nethogs
         newsboat
         nnn
         nodePackages.mermaid-cli
