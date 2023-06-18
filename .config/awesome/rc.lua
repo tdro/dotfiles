@@ -94,7 +94,7 @@ widget_swap         = awful.widget.watch('sh -c "printf \'   \' && free --gig
 widget_battery      = awful.widget.watch('sh -c "printf \'  \'  && acpi --battery 2>&1 | awk -F, \'{ print $2 }\'"', 5)                   -- Create battery widget.
 widget_date         = awful.widget.watch('sh -c "printf \'   \' && date \'+%H:%M      %A %B %-d\'"', 1)                                  -- Create date widget.
 widget_loadaverage  = awful.widget.watch('sh -c "printf \'   \' && cat /proc/loadavg | awk -v OFS=\'  \' \'{ print $1, $2, $3 }\'"', 5)   -- Create load average widget.
-widget_temperature  = awful.widget.watch('sh -c "printf \'   \' && sensors | awk \'/temp1:/ { print $2 }\' | head -n1"', 5)               -- Create temperature widget.
+widget_temperature  = awful.widget.watch('sh -c "printf \'   \' && sensors | awk \'/Core 0:/ { print $3 }\' | head -n1"', 5)              -- Create temperature widget.
 widget_traffic_down = awful.widget.watch(
   'sh -c "printf \'   \'' ..
   ' && vnstat -tr 2 -i $(ip addr | awk \'/state UP/ { print $2; exit }\' | sed \'s/.$//\') | awk \'/rx/ { print $2, $3 }\'"', 5)           -- Create download traffic widget.
