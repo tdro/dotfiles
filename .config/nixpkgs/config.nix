@@ -156,7 +156,6 @@ in
         trash-cli
         units
         vale
-        vault
         vcal
         ventoy-bin
         vimHugeX
