@@ -7,8 +7,8 @@ let
     sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { };
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-23.11pre491650.7409480d5c8/nixexprs.tar.xz";
-    sha256 = "0csg97lkanf5zj28i5py94sldjnzk1zy0ywniv3gmkn393hiskif"; }) { };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-23.11pre516114.d680ded26da5/nixexprs.tar.xz";
+    sha256 = "13cnlhpp3v7jay4jxyyy2d4kxw4ngpz3m00rhj3vlhvf7jl7hr48"; }) { };
 
 in
 
@@ -408,7 +408,7 @@ in
 
     Design = pkgs.buildEnv {
       name = "design";
-      paths = [ freecadStable kicad ];
+      paths = [ kicad freecadStable openscad librecad ];
     };
 
     Android = pkgs.buildEnv {
@@ -558,10 +558,10 @@ in
       paths = [
         (pkgs.writeScriptBin "guile" ''
           export GUILE_LOAD_PATH="${pkgs.lib.concatStrings [
-            "${unstable.guile-gnutls}/share/guile/site:"
+            "${unstable.guile-gnutls}/share/guile/site/3.0:"
             "$GUILE_LOAD_PATH"
           ]}"
-          ${pkgs.guile_3_0}/bin/guile "$@"
+          ${unstable.guile_3_0}/bin/guile "$@"
         '')
         sbcl
       ];
