@@ -153,6 +153,7 @@ in
         tcl
         tesseract
         tmux
+        toipe
         trash-cli
         units
         vale
@@ -183,9 +184,7 @@ in
         (mplayer.override { v4lSupport = true; })
         unstable.firefox
         unstable.google-chrome
-        unstable.nyxt
         unstable.ungoogled-chromium
-        unstable.vimb
         aegisub
         anki
         blender
@@ -221,7 +220,6 @@ in
         meld
         mupdf_1_17
         mypaint
-        palemoon
         pavucontrol
         peek
         qownnotes
