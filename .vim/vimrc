@@ -50,6 +50,7 @@ set shortmess+=I                         " Disable startup message.
 set shortmess-=S                         " Count number of search result matches.
 set showtabline=0                        " Disable tab bar.
 set updatetime=1500                      " Set duration for cursor hold event.
+set synmaxcol=500                        " Maximum column in which to search for syntax items.
 set fillchars=                           " Set split window margin fill to none.
 set laststatus=0                         " Disable status bar.
 set linespace=3                          " Set line spaces.
@@ -230,14 +231,13 @@ nnoremap ,awk         :-1read $HOME/.vim/snippets/skeleton.awk<cr>
 
 "---------------Plugin Settings---------------"
 
-let g:gundo_prefer_python3=1            " Use python3 to restore gundo functionality.
-let g:netrw_banner=0                    " Disable netrw banner.
-let g:nnn#command = 'nnn -H'            " Override default command.
-let g:nnn#set_default_mappings = 0      " Disable default mappings.
-let g:nnn#layout = 'new'                " Opens the nnn window in a split.
-let g:nnn#layout = { 'left': '~20%' }   " Left 20% of the window.
-
-let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } } " Set fzf window layout
+let g:gundo_prefer_python3=1                                                                " Use python3 to restore gundo functionality.
+let g:netrw_banner=0                                                                        " Disable netrw banner.
+let g:nnn#command = 'nnn -H'                                                                " Override default command.
+let g:nnn#set_default_mappings = 0                                                          " Disable default mappings.
+let g:nnn#layout = 'new'                                                                    " Opens the nnn window in a split.
+let g:nnn#layout = { 'left': '~20%' }                                                       " Left 20% of the window.
+let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } }  " Set fzf window layout,
 
 
 "-------------------Scripts-------------------"
@@ -348,6 +348,8 @@ augroup AutoCommands
   " Selective formatting using visual select + gq.
   autocmd FileType nix             set formatprg=nixfmt
   autocmd FileType sh              set formatprg=shfmt\ -
+  autocmd FileType lua             set formatprg=lua-format
+  autocmd FileType perl            set formatprg=perltidy\ -
   autocmd FileType typescriptreact set formatprg=deno\ fmt\ -
   autocmd FileType typescript      set formatprg=deno\ fmt\ -
   autocmd FileType elixir          set formatprg=mix\ format\ -
