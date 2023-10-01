@@ -29,11 +29,15 @@ defmodule ArgParser do
       reverse_words: "reverse->words",
       singleline: "text->singleline",
       slugize: "text->slugize",
+      urlize: "text->urlize",
     ]
 
     cond do
       opts[:option] == options[:letterize] ->
         TextPlumber.firstLetterOfWordsIn(opts[:text]) |> IO.binwrite()
+
+      opts[:option] == options[:urlize] ->
+        URI.encode(opts[:text]) |> IO.binwrite()
 
       opts[:option] == options[:slugize] ->
         opts[:text]

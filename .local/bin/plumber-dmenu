@@ -14,6 +14,7 @@ text->jumbleize
 text->letterize
 text->singleline
 text->slugize
+text->urlize
 verse->kjv
 word->dictionary
 "
