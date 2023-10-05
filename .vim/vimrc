@@ -362,10 +362,11 @@ augroup AutoCommands
   autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
 
   " Set file types.
-  autocmd BufRead,BufNewFile *.nims set filetype=nim
-  autocmd BufRead,BufNewFile *.rasi set filetype=css
-  autocmd BufRead,BufNewFile *.doas set filetype=conf
-  autocmd BufRead,BufNewFile *.nft  set filetype=nftables
+  autocmd BufRead,BufNewFile *.nims       set filetype=nim
+  autocmd BufRead,BufNewFile *.rasi       set filetype=css
+  autocmd BufRead,BufNewFile *.doas       set filetype=conf
+  autocmd BufRead,BufNewFile *.nft        set filetype=nftables
+  autocmd BufRead,BufNewFile *.blade.php  set filetype=php
 
   " Clear notification on cursor movement.
   autocmd CursorMoved * silent! call popup_clear()
