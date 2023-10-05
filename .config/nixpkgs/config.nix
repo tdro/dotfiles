@@ -77,7 +77,7 @@ in
         unstable.hugo
         unstable.piper-tts
         unstable.validator-nu
-        unstable.vim
+        unstable.vimHugeX
         unstable.yt-dlp
         aerc
         alacritty
@@ -668,7 +668,7 @@ in
     Terminal-Aarch64 = pkgs.buildEnv {
       name = "terminal-aarch64";
       paths = [
-        unstable.vim
+        unstable.vimHugeX
         alsaUtils
         fzf
         libnotify
