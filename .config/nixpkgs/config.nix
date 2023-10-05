@@ -2,13 +2,17 @@ let
 
   pkgs = import <nixpkgs> { };
 
-  stable = import (builtins.fetchTarball {
+  previous = import (builtins.fetchTarball {
     url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.466.596a8e828c5/nixexprs.tar.xz";
     sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { };
 
+  stable = import (builtins.fetchTarball {
+    url = "https://releases.nixos.org/nixos/23.05/nixos-23.05.861.d3bb401dcfc/nixexprs.tar.xz";
+    sha256 = "1b9871if05n92r6acmy46jn6kj583wflp0sgrgfmfmkj3xxsd2i0"; }) { };
+
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-23.11pre516114.d680ded26da5/nixexprs.tar.xz";
-    sha256 = "13cnlhpp3v7jay4jxyyy2d4kxw4ngpz3m00rhj3vlhvf7jl7hr48"; }) { };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-23.11pre530560.f5892ddac112/nixexprs.tar.xz";
+    sha256 = "0i4hycnrl8m38gyk5qv76wr8zkwd0g9swgwhwhaczrfczskpms31"; }) { };
 
 in
 
@@ -64,17 +68,17 @@ in
     Terminal = pkgs.buildEnv {
       name = "terminal";
       paths = [
-        (import ./shells/larynx/shell.nix).fhs
-        (import ./shells/larynx-server/shell.nix).fhs
         (callPackage ./packages/chromexup/default.nix { })
         (callPackage ./packages/emacs-batch-indent/default.nix { })
-        (callPackage ./packages/hugo/default.nix { })
         (callPackage ./packages/pdf2htmlex/default.nix { })
         (callPackage ./packages/rxvt-unicode/default.nix { })
         (callPackage ./packages/systemd2nix/default.nix { })
-        (callPackage ./packages/youtube-dl/default.nix { })
         (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
+        unstable.hugo
+        unstable.piper-tts
         unstable.validator-nu
+        unstable.vim
+        unstable.yt-dlp
         aerc
         alacritty
         alsaUtils
@@ -98,7 +102,6 @@ in
         emacs
         encfs
         entr
-        exercism
         expect
         fdupes
         ffmpeg
@@ -159,7 +162,6 @@ in
         vale
         vcal
         ventoy-bin
-        vimHugeX
         vnstat
         w3m
         wavemon
@@ -178,9 +180,6 @@ in
         (callPackage ./packages/dmenu/default.nix { })
         (callPackage ./packages/rofi/default.nix { })
         (callPackage ./packages/sowon/default.nix { })
-        (import ./shells/planner/shell.nix).package
-        (import ./shells/scribus/shell.nix).package
-        (import ./shells/tilp2/shell.nix).package
         (mplayer.override { v4lSupport = true; })
         unstable.firefox
         unstable.google-chrome
@@ -263,12 +262,11 @@ in
     Xorg = pkgs.buildEnv {
       name = "xorg";
       paths = [
-        (callPackage ./packages/x11vnc/default.nix { })
-        (callPackage ./packages/xprintidle/default.nix { })
         autocutsel
         glxinfo
         unclutter-xfixes
         wmctrl
+        x11vnc
         xbindkeys
         xdotool
         xorg.xauth
@@ -288,6 +286,7 @@ in
         xorg.xrdb
         xorg.xset
         xorg.xsetroot
+        xprintidle
         xsel
         xzoom
       ];
@@ -305,12 +304,7 @@ in
 
     Awesome = pkgs.buildEnv {
       name = "awesome";
-      paths = [
-        ((import (builtins.fetchTarball {
-          url = "https://releases.nixos.org/nixos/21.11/nixos-21.11.336020.2128d0aa28e/nixexprs.tar.xz";
-          sha256 = "0w8plbxms0di6gnh0k2yhj0pgxzxas7g5x0m01zjzixf16i2bapj";
-        }) { }).awesome)
-      ];
+      paths = [ awesome ];
     };
 
     Xfce = pkgs.buildEnv {
@@ -364,15 +358,15 @@ in
     Themes = pkgs.buildEnv {
       name = "themes";
       paths = [
-        (callPackage ./packages/nwg-look/default.nix { })
-        gtk3.dev
         glib
         gnome.dconf-editor
         gtk-engine-murrine
+        gtk3.dev
         librsvg
         lxappearance
         papirus-icon-theme
         qt4
+        unstable.nwg-look
         vanilla-dmz
       ];
     };
@@ -412,9 +406,9 @@ in
     Android = pkgs.buildEnv {
       name = "android";
       paths = [
-        (callPackage ./packages/edl/default.nix { })
         (callPackage ./packages/mkbootfs/default.nix { })
         (callPackage ./packages/mkbootimg/default.nix { })
+        edl
         abootimg
       ];
     };
@@ -508,7 +502,7 @@ in
 
     Haskell = pkgs.buildEnv {
       name = "haskell";
-      paths = [ ghc ghcid haskellPackages.hlint haskellPackages.brittany ];
+      paths = [ ghc ghcid haskellPackages.hlint previous.haskellPackages.brittany ];
     };
 
     Clojure = pkgs.buildEnv {
@@ -523,7 +517,7 @@ in
 
     Nix = pkgs.buildEnv {
       name = "nix";
-      paths = [ nix-index nix-linter nixfmt nixpkgs-fmt nixpkgs-lint ];
+      paths = [ nix-index previous.nix-linter nixfmt nixpkgs-fmt nixpkgs-lint ];
     };
 
     Ruby = pkgs.buildEnv {
@@ -573,7 +567,7 @@ in
     CSS = pkgs.buildEnv {
       name = "css";
       paths = [
-        (callPackage ./packages/csstidy/default.nix { })
+        (previous.callPackage ./packages/csstidy/default.nix { })
         nodePackages.stylelint
         csslint
         sassc
@@ -583,21 +577,21 @@ in
     SQL = pkgs.buildEnv {
       name = "sql";
       paths = [
-        (callPackage ./packages/sqldef/default.nix { })
         pgformatter
         skeema
         sqlfluff
         sqlint
         sqlite
         sqlitebrowser
+        unstable.sqldef
       ];
     };
 
     YAML = pkgs.buildEnv {
       name = "yaml";
       paths = [
+        (previous.callPackage ./packages/yaml2nix/default.nix { })
         (callPackage ./packages/ruamel.yaml.cmd/default.nix { })
-        (callPackage ./packages/yaml2nix/default.nix { })
         python39Packages.yamllint
         yj
       ];
@@ -606,11 +600,10 @@ in
     Xorg-Aarch64 = pkgs.buildEnv {
       name = "xorg-aarch64";
       paths = [
-        (callPackage ./packages/x11vnc/default.nix { })
-        (callPackage ./packages/xprintidle/default.nix { })
         glxinfo
         unclutter-xfixes
         wmctrl
+        x11vnc
         xbindkeys
         xdotool
         xorg.xauth
@@ -626,6 +619,7 @@ in
         xorg.xrdb
         xorg.xset
         xorg.xsetroot
+        xprintidle
         xsel
         xzoom
       ];
@@ -674,6 +668,7 @@ in
     Terminal-Aarch64 = pkgs.buildEnv {
       name = "terminal-aarch64";
       paths = [
+        unstable.vim
         alsaUtils
         fzf
         libnotify
@@ -682,7 +677,6 @@ in
         rxvt-unicode
         skippy-xd
         tigervnc
-        vimHugeX
       ];
     };
   };

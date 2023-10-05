@@ -5,7 +5,10 @@ text=${1:-Nothing to say.}
 
 [ "${1-}" = "echo" ] && $0 "${2-}" "${1-}" && exit;
 
-printf '%s' "$text" | larynx -q low > $audio
+printf '%s' "$text" |
+  piper \
+    --model "$HOME/.local/share/piper/voices/en_GB-jenny_dioco-medium.onnx"  \
+    --output_file $audio
 
 [ "${2-}" = "echo" ] &&
   ffmpeg \

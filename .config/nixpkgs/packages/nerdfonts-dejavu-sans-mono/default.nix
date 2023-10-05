@@ -4,7 +4,6 @@ stdenv.mkDerivation rec {
 
   pname = "nerdfonts-dejavu-sans-mono";
   version = "2.1.0";
-
   buildInputs = [ unzip ];
 
   src = fetchurl {
@@ -13,23 +12,18 @@ stdenv.mkDerivation rec {
   };
 
   phases = [ "unpackPhase" "installPhase" ];
-
   unpackPhase = '' unzip ${src} '';
 
   installPhase = ''
-    mkdir -p $out/share/fonts/nerdfonts-dejavu-sans-mono
-    cp -r * $out/share/fonts/nerdfonts-dejavu-sans-mono
+    runHook preInstall
+    mkdir --parents $out/share/fonts/nerdfonts-dejavu-sans-mono
+    cp --recursive * $out/share/fonts/nerdfonts-dejavu-sans-mono
+    runHook postInstall
   '';
 
   meta = with lib; {
-    description = ''
-      Nerd Fonts is a project that attempts to patch as many developer targeted
-      and/or used fonts as possible. The patch is to specifically add a high
-      number of additional glyphs from popular 'iconic fonts' such as Font
-      Awesome, Devicons, Octicons, and others.
-    '';
-    homepage = "https://github.com/ryanoasis/nerd-fonts";
     license = licenses.mit;
     platforms = platforms.all;
+    homepage = "https://github.com/ryanoasis/nerd-fonts";
   };
 }

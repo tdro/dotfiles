@@ -14,12 +14,14 @@ stdenv.mkDerivation rec {
   buildInputs = [ sconsPackages.scons_3_0_1 ];
 
   preBuild = ''
-    sed -i "/env = Environment()/a env.Replace(CXX='${gcc}/bin/g++')" SConstruct
+    sed --in-place "/env = Environment()/a env.Replace(CXX='${gcc}/bin/g++')" SConstruct
   '';
 
   installPhase = ''
-    mkdir -p $out/bin
+    runHook preInstall
+    mkdir --parents $out/bin
     cp release/csstidy/csstidy $out/bin
+    runHook postInstall
   '';
 
   meta = with lib; {

@@ -1,27 +1,27 @@
 { stdenv, lib, fetchgit, meson, ninja, pkg-config, wayland, alsa-lib, gtkmm3
-, gtk-layer-shell, pulseaudio, wayfire, wf-config }:
+, gtk-layer-shell, pulseaudio, wayfire, wf-config, libdbusmenu-gtk3 }:
 
 stdenv.mkDerivation rec {
   pname = "wf-shell";
-  version = "deffdbae2df1f4f3280e5416965b977062059b41";
+  version = "9a9af00dc02780357466e27c5e77e316469e7a37";
 
   src = fetchgit {
     url = "https://github.com/WayfireWM/wf-shell";
-    sha256 = "sha256-eCga6ZdxqJYKc9yAI77fZUXOSaee8ijCE0XiJRJtDAg=";
+    sha256 = "sha256-DoGW9rCEQFDO/SJ/ZWv2SPzC/acLFnPPncs683ugEvY=";
   };
 
+  mesonFlags = [ "--sysconfdir" "/etc" ];
   nativeBuildInputs = [ meson ninja pkg-config wayland ];
 
   buildInputs = [
     alsa-lib
-    gtkmm3
     gtk-layer-shell
+    gtkmm3
+    libdbusmenu-gtk3
     pulseaudio
     wayfire
     wf-config
   ];
-
-  mesonFlags = [ "--sysconfdir" "/etc" ];
 
   meta = with lib; {
     homepage = "https://github.com/WayfireWM/wf-shell";
