@@ -181,6 +181,7 @@ in
         (callPackage ./packages/rofi/default.nix { })
         (callPackage ./packages/sowon/default.nix { })
         (mplayer.override { v4lSupport = true; })
+        previous.recoll
         unstable.firefox
         unstable.google-chrome
         unstable.ungoogled-chromium
@@ -223,7 +224,6 @@ in
         peek
         qownnotes
         qrencode
-        recoll
         redshift
         scrcpy
         screenkey
@@ -262,11 +262,11 @@ in
     Xorg = pkgs.buildEnv {
       name = "xorg";
       paths = [
+        previous.x11vnc
         autocutsel
         glxinfo
         unclutter-xfixes
         wmctrl
-        x11vnc
         xbindkeys
         xdotool
         xorg.xauth
@@ -298,6 +298,7 @@ in
         (callPackage ./packages/wf-shell/default.nix { })
         wayfire
         weston
+        wev
         wofi
       ];
     };
