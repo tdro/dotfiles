@@ -168,6 +168,7 @@ in
         weechat
         woof
         xdg-user-dirs
+        xterm
         zbar
       ];
       pathsToLink = [ "/etc" "/share" "/bin" ];

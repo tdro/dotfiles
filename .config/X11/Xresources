@@ -2,29 +2,45 @@
 ! URxvt Settings
 ! -----------------
 
-URxvt.perl-ext-common:     default,matcher,font-size,vtwheel,url-select,keyboard-select
-URxvt.url-launcher:        /usr/bin/env xdg-open
-URxvt.url-select.launcher: /usr/bin/env xdg-open
+URxvt.cursorBlink:         1
+URxvt.cursorUnderline:     0
+URxvt.geometry:            80x18
+URxvt.internalBorder:      10
+URxvt.keysym.C-0:          perl:font-size:reset
+URxvt.keysym.C-Down:       perl:font-size:decrease
+URxvt.keysym.C-Up:         perl:font-size:increase
 URxvt.keysym.M-Escape:     perl:keyboard-select:activate
 URxvt.matcher.button:      1
-URxvt.internalBorder:      10
-URxvt.geometry:            80x18
-URxvt.cursorUnderline:     0
-URxvt.cursorBlink:         1
-URxvt.keysym.C-0:          perl:font-size:reset
-URxvt.keysym.C-Up:         perl:font-size:increase
-URxvt.keysym.C-Down:       perl:font-size:decrease
+URxvt.perl-ext-common:     default,matcher,font-size,vtwheel,url-select,keyboard-select
 URxvt.scrollBar:           false
+URxvt.scrollTtyKeypress:   true
 URxvt.scrollTtyOutput:     false
 URxvt.scrollWithBuffer:    true
-URxvt.scrollTtyKeypress:   true
-URxvt.transparent:         false
 URxvt.shading:             20
+URxvt.transparent:         false
+URxvt.url-launcher:        /usr/bin/env xdg-open
+URxvt.url-select.launcher: /usr/bin/env xdg-open
 
-URxvt.font:                xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
 URxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
 URxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.font:                xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+
+! -----------------
+! UXTerm Settings
+! -----------------
+
+UXTerm.termName: xterm-256color
+UXTerm.ttyModes: erase ^?
+UXTerm.vt100.backarrowKey: false
+UXTerm.vt100.cursorBlink: true
+UXTerm.vt100.faceName: xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+UXTerm.vt100.geometry: 80x18
+UXTerm.vt100.internalBorder: 10
+UXTerm.vt100.locale: false
+UXTerm.vt100.metaSendsEscape: true
+UXTerm.vt100.saveLines: 4096
+UXTerm.vt100.utf8: true
 
 ! -----------------
 ! Terminal Colors
