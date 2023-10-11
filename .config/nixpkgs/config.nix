@@ -348,10 +348,12 @@ in
         fira-mono
         font-awesome_4
         ibm-plex
+        inter
         noto-fonts
         noto-fonts-cjk
         noto-fonts-emoji
         source-code-pro
+        source-sans-pro
         source-serif-pro
         yanone-kaffeesatz
       ];
