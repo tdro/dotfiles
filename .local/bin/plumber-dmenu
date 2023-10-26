@@ -1,4 +1,5 @@
 #!/bin/sh -eu
+
 options="\
 case->lower
 case->title
@@ -18,11 +19,14 @@ text->urlize
 verse->kjv
 word->dictionary
 "
-printf "%s" "$options" \
-  | dmenu -i -b -p ⠀:::⠀plumber⠀::: \
-  | while read -r option
-    do
-      text=$(plumber --option "$option" --text "$(xsel -o)")
-      { notify-send "$text" && printf "%s" "$text" | xsel -ib; } \
-        || notify-send "Plumber: Clipboard selection is empty"
-    done
+
+selection=$(
+  printf "%s" "$options" | dmenu -i -b -p ⠀:::⠀plumber⠀::: ||
+    { [ "$?" = 127 ] && kill -15 "$$" && "$0"; }
+)
+
+printf "%s\n" "$selection" | while read -r option; do
+  text=$(plumber --option "$option" --text "$(xsel -o)")
+  { notify-send "$text" && printf "%s" "$text" | xsel -ib; } ||
+    notify-send "Plumber: Clipboard selection is empty"
+done
