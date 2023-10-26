@@ -34,10 +34,10 @@ defmodule ArgParser do
 
     cond do
       opts[:option] == options[:letterize] ->
-        TextPlumber.firstLetterOfWordsIn(opts[:text]) |> IO.binwrite()
+        TextPlumber.firstLetterOfWordsIn(opts[:text]) |> IO.puts()
 
       opts[:option] == options[:urlize] ->
-        URI.encode(opts[:text]) |> IO.binwrite()
+        URI.encode(opts[:text]) |> IO.puts()
 
       opts[:option] == options[:slugize] ->
         opts[:text]
@@ -48,7 +48,7 @@ defmodule ArgParser do
         |> String.replace(~r/[[:space:]]+/, "-")
         |> String.replace(~r/[[:punct:]]+/, "-")
         |> String.trim("-")
-        |> IO.binwrite()
+        |> IO.puts()
 
       opts[:option] == options[:camelize] ->
         opts[:text]
@@ -58,10 +58,10 @@ defmodule ArgParser do
         |> Macro.camelize()
         |> String.replace(~r/[[:space:]]+/, "")
         |> String.replace(~r/[[:punct:]]+/, "")
-        |> IO.binwrite()
+        |> IO.puts()
 
       opts[:option] == options[:singleline] ->
-        TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
+        TextPlumber.singleLineOf(opts[:text]) |> IO.puts()
 
       opts[:option] == options[:jumbleize] ->
         String.split(opts[:text] |> String.replace(~r/[[:punct:]]+/, ""))
@@ -69,33 +69,33 @@ defmodule ArgParser do
           |> Enum.map(&TextPlumber.jumble/1)
           |> Enum.map(&Enum.join/1)
           |> Enum.join(" ")
-          |> IO.binwrite()
+          |> IO.puts()
 
       opts[:option] == options[:reverse_words] ->
-        TextPlumber.reverse(opts[:text]) |> IO.binwrite()
+        TextPlumber.reverse(opts[:text]) |> IO.puts()
 
       opts[:option] == options[:reverse_letters] ->
         String.split(opts[:text])
           |> Enum.map(&String.codepoints/1)
           |> Enum.map(&Enum.reverse/1)
           |> Enum.join(" ")
-          |> IO.binwrite()
+          |> IO.puts()
 
       opts[:option] == options[:dictionary] ->
         TextPlumber.dictionOfFirstWordIn(opts[:text])
-        TextPlumber.firstWordOf(opts[:text]) |> IO.binwrite()
+        TextPlumber.firstWordOf(opts[:text]) |> IO.puts()
 
       opts[:option] == options[:case_title] ->
-        opts[:text] |> to_string |> TextPlumber.titleCaseOf() |> IO.binwrite()
+        opts[:text] |> to_string |> TextPlumber.titleCaseOf() |> IO.puts()
 
       opts[:option] == options[:case_titleize] ->
-        String.downcase(opts[:text]) |> TextPlumber.titleCaseOf() |> IO.binwrite()
+        String.downcase(opts[:text]) |> TextPlumber.titleCaseOf() |> IO.puts()
 
       opts[:option] == options[:case_lower] ->
-        String.downcase(opts[:text]) |> IO.binwrite()
+        String.downcase(opts[:text]) |> IO.puts()
 
       opts[:option] == options[:case_upper] ->
-        String.upcase(opts[:text]) |> IO.binwrite()
+        String.upcase(opts[:text]) |> IO.puts()
 
       opts[:option] == options[:lorem_title] ->
         TextPlumber.loremTitle()
@@ -114,7 +114,7 @@ defmodule ArgParser do
           "kjv #{TextPlumber.singleLineOf(opts[:text])}"
         ])
 
-        TextPlumber.singleLineOf(opts[:text]) |> IO.binwrite()
+        TextPlumber.singleLineOf(opts[:text]) |> IO.puts()
 
       true ->
         Enum.each(options, fn {_, value} -> IO.puts(value) end)
@@ -124,8 +124,8 @@ end
 
 defmodule TextPlumber do
   def firstLetterOfWordsIn(text) do
-    String.replace(text, ~r/(\w)\w*/, "\\1", global: true)
-    |> String.replace(~r/\s\s+/, " ", global: true)
+    String.replace(text, ~r/(\w)\w*/u, "\\1", global: true)
+    |> String.replace(~r/\s\s+/u, " ", global: true)
   end
 
   def singleLineOf(text) do
