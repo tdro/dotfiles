@@ -254,7 +254,7 @@ function s:repl(start, end, language)
     exe 'sbuffer ' . g:terminal_buffer
     wincmd p
   endif
-  call term_sendkeys(g:terminal_buffer, join(getline(a:start, a:end), "\<cr>") . "\<cr>")
+  call term_sendkeys(g:terminal_buffer, join(getline(a:start, a:end), "\<cr>") . " " . "\<cr>")
 endfunction
 
 " Jump to line and column in the format 123:13
