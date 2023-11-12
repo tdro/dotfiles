@@ -516,7 +516,7 @@ in
 
     Perl = pkgs.buildEnv {
       name = "perl";
-      paths = [ rakudo (perl.withPackages (ps: with ps; [ PerlCritic PerlTidy TextLorem ])) ];
+      paths = [ rakudo (perl.withPackages (ps: with ps; [ PerlCritic PerlTidy TextLorem LaTeXML ])) ];
     };
 
     Nix = pkgs.buildEnv {

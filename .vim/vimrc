@@ -345,7 +345,7 @@ augroup AutoCommands
   autocmd FileType typescript noremap <buffer> <leader>cc :REPL deno<cr>
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
-  " Selective formatting using visual select + gq.
+  " Format using visual select + gq.
   autocmd FileType nix             set formatprg=nixfmt
   autocmd FileType sh              set formatprg=shfmt\ -
   autocmd FileType lua             set formatprg=lua-format
@@ -361,7 +361,10 @@ augroup AutoCommands
   autocmd FileType javascript      set formatprg=swc\ compile\ --filename\ %\ \|\ tail\ --lines\ +2
   autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
 
-  " Set file types.
+  " Format by extension using visual select + gq
+  autocmd BufRead,BufNewFile *.mathml.xml set formatprg=latexmlmath\ -
+
+  " Set file types by extension
   autocmd BufRead,BufNewFile *.nims       set filetype=nim
   autocmd BufRead,BufNewFile *.rasi       set filetype=css
   autocmd BufRead,BufNewFile *.doas       set filetype=conf
