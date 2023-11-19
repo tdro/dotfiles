@@ -301,17 +301,17 @@ augroup AutoCommands
   autocmd FileType javascript       autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
   autocmd FileType elixir           autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType haskell          autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType c                autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType bash,sh          autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')'
   autocmd FileType xml,xslt,rng,xsd autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' 2>&1 | sponge ' . expand('%') . ' && printf "XML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType go               autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType nix              autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e
   autocmd FileType php              autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1 && phpstan --no-progress --no-ansi --no-interaction analyze --level max ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType tex              autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
-  autocmd FileType bindzone         autocmd! BufWritePost <buffer> exe 'Notify(''file="' . expand('%') . '" && named-checkzone "$(head --lines=1  "$file" | cut --delimiter=" " --fields=2 | perl -ple "chop")" $file'')' | :e
+  autocmd FileType bindzone         autocmd! BufWritePost <buffer> exe 'Notify(''file="' . expand('%') . '" && named-checkzone "$(head --lines=1 "$file" | cut --delimiter=" " --fields=2 | perl -ple "chop")" $file'')' | :e
   autocmd FileType awk              autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
   autocmd FileType yaml             autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --allow-all --location https://example.com/ %
+  autocmd FileType c                autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '\n"' . ' && gcc -Wall -Wpedantic -Werror -fsyntax-only ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType sql              autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --type-case 2 --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
 
   " Linting extension post write commands.
@@ -321,7 +321,7 @@ augroup AutoCommands
   autocmd BufWritePost *.doas                             exe 'Notify(''doas -C ' . expand('%') . ' 2>&1 && printf "doas OK: ' . expand('%') . '"'')'
   autocmd BufWritePost Xresources                         exe 'Notify(''xrdb ~/.config/X11/Xresources ' . '2>&1 && printf "Reloading Xresources: ' . expand('%') . '"'')'
   autocmd BufWritePost Makefile                           exe 'Notify(''make --dry-run --warn-undefined-variables ' . '2>&1 && printf "\nMake OK: ' . expand('%') . '"'')'
-  autocmd BufWritePost *.nft                              exe 'Notify(''doas nft --check --file  ' . expand('%') . ' 2>&1 && printf "nftables OK: ' . expand('%') . '"'')'
+  autocmd BufWritePost *.nft                              exe 'Notify(''doas nft --check --file ' . expand('%') . ' 2>&1 && printf "nftables OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Deskop File OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.service                          exe 'Notify(''systemd-analyze verify --user ' . expand('%') . ' 2>&1 && printf "Systemd Service File OK: ' . expand('%') . '"'')'
 
@@ -353,6 +353,7 @@ augroup AutoCommands
   autocmd FileType typescriptreact set formatprg=deno\ fmt\ -
   autocmd FileType typescript      set formatprg=deno\ fmt\ -
   autocmd FileType elixir          set formatprg=mix\ format\ -
+  autocmd FileType c               set formatprg=clang-format\ -
   autocmd FileType python          set formatprg=black\ --quiet\ -
   autocmd FileType scheme          set formatprg=emacs-batch-indent\ scheme
   autocmd FileType css             set formatprg=prettier\ --parser\ css\ --stdin-filepath\ %
