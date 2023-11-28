@@ -85,11 +85,13 @@ in
         amfora
         ansi2html
         ansible
+        atftp
         atool
         bat
         bind
         bleachbit
         cava
+        cloc
         csvkit
         curlftpfs
         davmail
@@ -364,6 +366,7 @@ in
       paths = [
         glib
         gnome.dconf-editor
+        gnome.gnome-themes-extra
         gtk-engine-murrine
         gtk3.dev
         librsvg
