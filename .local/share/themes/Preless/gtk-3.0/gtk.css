@@ -218,6 +218,10 @@ menuitem arrow.right {
   background-image: url("../icons/arrow-right.svg");
 }
 
+combobox box.horizontal arrow {
+  background-image: url("../icons/selector.svg");
+}
+
 widget.path-bar button {
   margin-left: 4px;
 }
