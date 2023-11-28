@@ -81,7 +81,6 @@ alias chgrp='chgrp --preserve-root'
 # general aliases
 alias alsamixer='alsamixer --view all'
 alias archey3="archey3 --config=~/.config/archey3.cfg"
-alias audacity='PULSE_LATENCY_MSEC=30 audacity'
 alias colortest='msgcat --color=test'
 alias dash='PS1="$ " dash'
 alias diceware='diceware -d " "'
