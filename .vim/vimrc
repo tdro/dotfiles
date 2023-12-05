@@ -302,7 +302,7 @@ augroup AutoCommands
   autocmd FileType elixir           autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType haskell          autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType bash,sh          autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')'
-  autocmd FileType xml,xslt,rng,xsd autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' 2>&1 | sponge ' . expand('%') . ' && printf "XML OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType xml,xslt,rng,xsd autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' --output ' . expand('%') . ' 2>&1 && printf "XML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType go               autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e
   autocmd FileType nix              autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e
   autocmd FileType php              autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1 && phpstan --no-progress --no-ansi --no-interaction analyze --level max ' . expand('%') . ' 2>&1'')' | :e
@@ -322,7 +322,7 @@ augroup AutoCommands
   autocmd BufWritePost Xresources                         exe 'Notify(''xrdb ~/.config/X11/Xresources ' . '2>&1 && printf "Reloading Xresources: ' . expand('%') . '"'')'
   autocmd BufWritePost Makefile                           exe 'Notify(''make --dry-run --warn-undefined-variables ' . '2>&1 && printf "\nMake OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.nft                              exe 'Notify(''doas nft --check --file ' . expand('%') . ' 2>&1 && printf "nftables OK: ' . expand('%') . '"'')'
-  autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Deskop File OK: ' . expand('%') . '"'')'
+  autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Desktop File OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.service                          exe 'Notify(''systemd-analyze verify --user ' . expand('%') . ' 2>&1 && printf "Systemd Service File OK: ' . expand('%') . '"'')'
 
   " File type function under cursor lookups.
