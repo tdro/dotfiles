@@ -68,11 +68,11 @@ in
     Terminal = pkgs.buildEnv {
       name = "terminal";
       paths = [
-        (callPackage ./packages/chromexup/default.nix { })
-        (callPackage ./packages/emacs-batch-indent/default.nix { })
-        (callPackage ./packages/pdf2htmlex/default.nix { })
-        (callPackage ./packages/rxvt-unicode/default.nix { })
-        (callPackage ./packages/systemd2nix/default.nix { })
+        (callPackage ./packages/chromexup/package.nix { })
+        (callPackage ./packages/emacs-batch-indent/package.nix { })
+        (callPackage ./packages/pdf2htmlex/package.nix { })
+        (callPackage ./packages/rxvt-unicode/package.nix { })
+        (callPackage ./packages/systemd2nix/package.nix { })
         (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         unstable.hugo
         unstable.piper-tts
@@ -179,10 +179,10 @@ in
     Graphical = pkgs.buildEnv {
       name = "graphical";
       paths = [
-        (callPackage ./packages/boomer/default.nix { })
-        (callPackage ./packages/dmenu/default.nix { })
-        (callPackage ./packages/rofi/default.nix { })
-        (callPackage ./packages/sowon/default.nix { })
+        (callPackage ./packages/boomer/package.nix { })
+        (callPackage ./packages/dmenu/package.nix { })
+        (callPackage ./packages/rofi/package.nix { })
+        (callPackage ./packages/sowon/package.nix { })
         (mplayer.override { v4lSupport = true; })
         previous.recoll
         unstable.firefox
@@ -255,8 +255,8 @@ in
     Emulators = pkgs.buildEnv {
       name = "emulators";
       paths = [
-        (callPackage ./packages/ntrviewer/default.nix { })
-        (callPackage ./packages/tiemu/default.nix { })
+        (callPackage ./packages/ntrviewer/package.nix { })
+        (callPackage ./packages/tiemu/package.nix { })
         desmume
         mgba
       ];
@@ -298,7 +298,7 @@ in
     Wayland = pkgs.buildEnv {
       name = "wayland";
       paths = [
-        (callPackage ./packages/wf-shell/default.nix { })
+        (callPackage ./packages/wf-shell/package.nix { })
         wayfire
         weston
         wev
@@ -339,7 +339,7 @@ in
     Fonts = pkgs.buildEnv {
       name = "fonts";
       paths = [
-        (callPackage ./packages/nerdfonts-dejavu-sans-mono/default.nix { })
+        (callPackage ./packages/nerdfonts-dejavu-sans-mono/package.nix { })
         cm_unicode
         cooper-hewitt
         corefonts
@@ -396,7 +396,7 @@ in
     Audio = pkgs.buildEnv {
       name = "audio";
       paths = [
-        (callPackage ./packages/qprompt/default.nix { })
+        (callPackage ./packages/qprompt/package.nix { })
         ardour
         pulseeffects-pw
         pulsemixer
@@ -413,8 +413,8 @@ in
     Android = pkgs.buildEnv {
       name = "android";
       paths = [
-        (callPackage ./packages/mkbootfs/default.nix { })
-        (callPackage ./packages/mkbootimg/default.nix { })
+        (callPackage ./packages/mkbootfs/package.nix { })
+        (callPackage ./packages/mkbootimg/package.nix { })
         edl
         abootimg
       ];
@@ -465,7 +465,7 @@ in
             xdebug.start_with_request=yes
           '';
         })
-        (callPackage ./packages/phar-composer/default.nix { })
+        (callPackage ./packages/phar-composer/package.nix { })
         graphviz
         kcachegrind
         phpPackages.composer
@@ -479,7 +479,7 @@ in
     Lua = pkgs.buildEnv {
       name = "lua";
       paths = [
-        (callPackage ./packages/redbean/default.nix { })
+        (callPackage ./packages/redbean/package.nix { })
         lua
         luaPackages.luacheck
         luaformatter
@@ -568,13 +568,13 @@ in
 
     HTTP = pkgs.buildEnv {
       name = "http";
-      paths = [ caddy apacheHttpd ];
+      paths = [ caddy apacheHttpd httpie ];
     };
 
     CSS = pkgs.buildEnv {
       name = "css";
       paths = [
-        (previous.callPackage ./packages/csstidy/default.nix { })
+        (previous.callPackage ./packages/csstidy/package.nix { })
         nodePackages.stylelint
         csslint
         sassc
@@ -597,8 +597,8 @@ in
     YAML = pkgs.buildEnv {
       name = "yaml";
       paths = [
-        (previous.callPackage ./packages/yaml2nix/default.nix { })
-        (callPackage ./packages/ruamel.yaml.cmd/default.nix { })
+        (previous.callPackage ./packages/yaml2nix/package.nix { })
+        (callPackage ./packages/ruamel.yaml.cmd/package.nix { })
         python39Packages.yamllint
         yj
       ];
