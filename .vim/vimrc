@@ -291,6 +291,7 @@ augroup AutoCommands
 
   " Linting file type post write commands.
   autocmd FileType markdown         autocmd! BufWritePost <buffer> :only | :term ++rows=10 sh -c "cat % | vale --ext .md"
+  autocmd FileType raku             autocmd! BufWritePost <buffer> exe 'Notify(''raku -c ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType scheme           autocmd! BufWritePost <buffer> exe 'Notify(''guile -s ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
