@@ -1,3 +1,0 @@
-#!/bin/sh -eu
-$(which tidy --all | grep --invert-match "local/bin" | head -n 1) \
-  -config "$HOME/.config/tidy/default.conf" "$@"

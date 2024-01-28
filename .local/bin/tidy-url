@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+curl --silent "$1" | tidy -config "$HOME/.config/tidy/url.conf"
