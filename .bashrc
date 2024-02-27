@@ -124,10 +124,11 @@ docker-rootfs() { id=$(docker run --detach "$1" /bin/true) \
   && docker container rm "$id" \
   && ls -l rootfs.tar; }
 
-# https://til.simonwillison.net/bash/escaping-a-string
-# press ctrl+d after writing string to standard input
+# press ctrl+d after writing string to standard input (https://til.simonwillison.net/bash/escaping-a-string)
 shellquote() { printf '%q\n' "$(cat)"; }
-trap 'echo -ne "\033]2;command: $(history 1 | shellquote)\007"' DEBUG
+
+# show window title of last command (https://stackoverflow.com/a/5080670)
+trap 'echo -ne "\033]2;command: $PWD $(history 1 | sed "s/^[ ]*[0-9]*[ ]*//g")\007"' DEBUG
 
 # swallow
 swallow() { "$@" & disown; exit; }
