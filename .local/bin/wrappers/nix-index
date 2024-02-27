@@ -1,0 +1,16 @@
+#!/bin/sh -eu
+
+# https://github.com/nix-community/nix-index-database?tab=readme-ov-file#ad-hoc-download
+
+Update() {
+	directory=~/.local/share/nix-index
+	file="index-$(uname -m | sed 's/^arm64$/aarch64/')-$(uname | tr '[:lower:]' '[:upper:]')"
+	mkdir --parents $directory && cd $directory
+	wget --quiet --timestamping "https://github.com/Mic92/nix-index-database/releases/latest/download/$file"
+  printf "\nUpdating database %s\n\n" "$file"
+	ln --symbolic --force "$file" files
+}
+
+Update
+
+$(which nix-index --all | grep --invert-match "local/bin" | head --lines 1) "$@"
