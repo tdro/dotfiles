@@ -20,3 +20,6 @@
 
 [diff]
   algorithm = patience
+
+[commit]
+  verbose = true
