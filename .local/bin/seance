@@ -27,6 +27,7 @@ Configuration: $spirits
    $program list        List saved programs.
    $program config      View current configuration.
    $program search      Search for a running program.
+   $program windows     List running programs
    $program start       Restore previous session.
    $program -h --help   Show this help menu.
 
@@ -40,9 +41,9 @@ mkdir --parents "$directory"
 touch "$spirits"
 
 commit() {
-  ps aux |
-  awk '$1 == "'"$(whoami)"'" { $1=$2=$3=$4=$5=$6=$7=$8=$9=$10=""; print $0 }' |
-  awk '!deduplicate[$0]++ { $1=$1; printf "%s &\n", $0 }'
+  ps aux \
+    | awk '$1 == "'"$(whoami)"'" { $1=$2=$3=$4=$5=$6=$7=$8=$9=$10=""; print $0 }' \
+    | awk '!deduplicate[$0]++ { $1=$1; printf "%s &\n", $0 }'
 }
 
 [ "${1:-}" = "commit" ] &&
@@ -50,12 +51,14 @@ commit() {
   printf 'Session %s canonized.\n' "$session" &&
   exit
 
-[ "${1:-}" = "list" ] && cat "$session" && exit;
+[ "${1:-}" = "list" ]    && cat "$session" && exit;
 
-[ "${1:-}" = "config" ] && cat "$spirits" && exit;
+[ "${1:-}" = "config" ]  && cat "$spirits" && exit;
 
-[ "${1:-}" = "search" ] && commit |  grep --ignore-case -- "$2" | head --lines=1 && exit;
+[ "${1:-}" = "windows" ] && wmctrl -lp && exit;
 
-[ "${1:-}" = "start" ] && /bin/sh "$session" && exit;
+[ "${1:-}" = "search" ]  && commit | grep --ignore-case -- "$2" | head --lines=1 && exit;
+
+[ "${1:-}" = "start" ]   && /bin/sh "$session" && exit;
 
 help && printf "Error: Unknown argument '%s'.\n\n" "$@" && exit 1;
