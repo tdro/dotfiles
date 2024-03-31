@@ -5,21 +5,23 @@ Xresources=$HOME/.config/X11/Xresources
 Xauthority=$HOME/.config/X11/Xauthority
 
 # merge in defaults and keymaps
-[ -f "$Xmodmap" ] && xmodmap "$Xmodmap";
-[ -f "$Xresources" ] && xrdb -merge "$Xresources";
+[ -f "$Xmodmap"    ] && xmodmap "$Xmodmap"
+[ -f "$Xresources" ] && xrdb -merge "$Xresources"
 
 # screen timeouts
 xset s 0 0 &
 xset dpms 3600 3600 3600 &
 
 # set cursor
-xsetroot -cursor_name left_ptr;
+xsetroot -cursor_name left_ptr
 
 # set keypress repeat
-xset r rate 200 60;
+xset r rate 200 60
 
 # import systemctl environment
-systemctl --user import-environment;
+systemctl --user import-environment
 
-# run desktop
-dbus-launch xfce4-session || exec awesome --no-argb;
+# launch environment
+dbus-launch xfce4-session \
+  || dbus-broker-launch xfce4-session \
+  || exec awesome --no-argb
