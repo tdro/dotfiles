@@ -1,0 +1,12 @@
+#!/bin/sh -eu
+
+GIT=$(which git --all | grep --invert-match "local/bin" | head --lines 1)
+GIT_COMMITTER_DATE="$(date --utc --date '0' '+%a %b %d %H:%M:%S %Y %z')"
+
+export GIT_COMMITTER_DATE
+
+[ "${1:-}" = "commit" ] && export DATE=1 && $GIT "$@" --date="$GIT_COMMITTER_DATE"
+
+[ "${DATE:-}" = 1 ] && exit
+
+$GIT "$@"
