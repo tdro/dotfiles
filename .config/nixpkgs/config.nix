@@ -2,17 +2,19 @@ let
 
   pkgs = import <nixpkgs> { };
 
+  system = builtins.currentSystem;
+
   previous = import (builtins.fetchTarball {
     url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.466.596a8e828c5/nixexprs.tar.xz";
-    sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { };
+    sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { inherit system; };
 
   stable = import (builtins.fetchTarball {
     url = "https://releases.nixos.org/nixos/23.05/nixos-23.05.861.d3bb401dcfc/nixexprs.tar.xz";
-    sha256 = "1b9871if05n92r6acmy46jn6kj583wflp0sgrgfmfmkj3xxsd2i0"; }) { };
+    sha256 = "1b9871if05n92r6acmy46jn6kj583wflp0sgrgfmfmkj3xxsd2i0"; }) { inherit system; };
 
   unstable = import (builtins.fetchTarball {
     url = "https://releases.nixos.org/nixos/unstable/nixos-23.11pre530560.f5892ddac112/nixexprs.tar.xz";
-    sha256 = "0i4hycnrl8m38gyk5qv76wr8zkwd0g9swgwhwhaczrfczskpms31"; }) { };
+    sha256 = "0i4hycnrl8m38gyk5qv76wr8zkwd0g9swgwhwhaczrfczskpms31"; }) { inherit system; };
 
 in
 
@@ -79,6 +81,8 @@ in
         unstable.validator-nu
         unstable.vimHugeX
         unstable.yt-dlp
+        unstable.ios-webkit-debug-proxy
+        unstable.libimobiledevice
         aerc
         alacritty
         alsaUtils
@@ -185,6 +189,7 @@ in
         (callPackage ./packages/sowon/package.nix { })
         (mplayer.override { v4lSupport = true; })
         previous.recoll
+        previous.qownnotes
         unstable.firefox
         unstable.google-chrome
         unstable.ungoogled-chromium
@@ -225,7 +230,6 @@ in
         mypaint
         pavucontrol
         peek
-        qownnotes
         qrencode
         redshift
         scrcpy
@@ -422,7 +426,7 @@ in
 
     LaTeX = pkgs.buildEnv {
       name = "latex";
-      paths = [ gummi texlive.combined.scheme-full texworks ];
+      paths = [ gummi texlive.combined.scheme-full previous.texworks ];
     };
 
     JavaScript = pkgs.buildEnv {
@@ -442,7 +446,7 @@ in
     Python = pkgs.buildEnv {
       name = "python";
       paths = [
-        (python39.withPackages (ps: with ps; [
+        (python3.withPackages (ps: with ps; [
           bandit
           black
           flake8
