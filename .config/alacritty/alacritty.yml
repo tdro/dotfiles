@@ -3,3 +3,8 @@ window:
   padding:
     x: 15
     y: 15
+  dimensions:
+    columns: 79
+    lines: 18
+font:
+  size: 10
