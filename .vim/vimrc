@@ -66,6 +66,7 @@ set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
 set foldcolumn=2                         " Set fold column width to 2.
 
+set title titlestring=vim:\ %F titlelen=999999                    " Set parseable title.
 set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab       " Set spaces as default.
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣   " Set hidden character identifiers.
 
