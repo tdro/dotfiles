@@ -128,7 +128,7 @@ docker-rootfs() { id=$(docker run --detach "$1" /bin/true) \
 shellquote() { printf '%q\n' "$(cat)"; }
 
 # show window title of last command (https://stackoverflow.com/a/5080670)
-trap 'echo -ne "\033]2;command: $PWD $(history 1 | sed "s/^[ ]*[0-9]*[ ]*//g")\007"' DEBUG
+trap 'echo -ne "\033]2;term: $PWD $(history 1 | tr -s " " | cut -d " " -f 5-)\007"' DEBUG
 
 # swallow
 swallow() { "$@" & disown; exit; }
