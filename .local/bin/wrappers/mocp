@@ -1,0 +1,2 @@
+#!/bin/sh -eu
+$(which mocp --all | grep --invert-match "local/bin" | head --lines 1) -M "$HOME/.config/moc" "$@"
