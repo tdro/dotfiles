@@ -9,12 +9,12 @@ let
     sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { inherit system; };
 
   stable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/23.05/nixos-23.05.861.d3bb401dcfc/nixexprs.tar.xz";
-    sha256 = "1b9871if05n92r6acmy46jn6kj583wflp0sgrgfmfmkj3xxsd2i0"; }) { inherit system; };
+    url = "https://releases.nixos.org/nixos/23.11/nixos-23.11.6510.a5e4bbcb4780/nixexprs.tar.xz";
+    sha256 = "0f73pbh4j89wgk7rn9xp0q8ybw15zkhw0prjz5r37aaryjs8hnbd"; }) { inherit system; };
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-23.11pre530560.f5892ddac112/nixexprs.tar.xz";
-    sha256 = "0i4hycnrl8m38gyk5qv76wr8zkwd0g9swgwhwhaczrfczskpms31"; }) { inherit system; };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-24.05pre615148.6143fc5eeb9c/nixexprs.tar.xz";
+    sha256 = "0bymwq04dxl3ljjjzw21aspdnwwfm56pqi218lg0vdwargy8yxm8"; }) { inherit system; };
 
 in
 
@@ -73,7 +73,6 @@ in
         (callPackage ./packages/chromexup/package.nix { })
         (callPackage ./packages/emacs-batch-indent/package.nix { })
         (callPackage ./packages/pdf2htmlex/package.nix { })
-        (callPackage ./packages/rxvt-unicode/package.nix { })
         (callPackage ./packages/systemd2nix/package.nix { })
         (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         unstable.hugo
@@ -153,6 +152,7 @@ in
         ranger
         rclone
         ripgrep
+        rxvt-unicode
         s-tui
         sfeed
         silver-searcher
@@ -188,8 +188,9 @@ in
         (callPackage ./packages/rofi/package.nix { })
         (callPackage ./packages/sowon/package.nix { })
         (mplayer.override { v4lSupport = true; })
-        previous.recoll
+        previous.code-server
         previous.qownnotes
+        previous.recoll
         unstable.firefox
         unstable.google-chrome
         unstable.ungoogled-chromium
@@ -197,7 +198,6 @@ in
         anki
         blender
         claws-mail
-        code-server
         corrscope
         dconf
         diffpdf
@@ -269,11 +269,11 @@ in
     Xorg = pkgs.buildEnv {
       name = "xorg";
       paths = [
-        previous.x11vnc
         autocutsel
         glxinfo
         unclutter-xfixes
         wmctrl
+        x11vnc
         xbindkeys
         xdotool
         xorg.xauth
@@ -312,7 +312,7 @@ in
 
     Awesome = pkgs.buildEnv {
       name = "awesome";
-      paths = [ awesome ];
+      paths = [ (callPackage ./packages/awesome/package.nix { }) ];
     };
 
     Xfce = pkgs.buildEnv {
@@ -376,7 +376,7 @@ in
         librsvg
         lxappearance
         papirus-icon-theme
-        qt4
+        qt5ct
         unstable.nwg-look
         vanilla-dmz
       ];
@@ -402,7 +402,6 @@ in
       paths = [
         (callPackage ./packages/qprompt/package.nix { })
         ardour
-        pulseeffects-pw
         pulsemixer
         qjackctl
         tenacity

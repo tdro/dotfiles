@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
 
   src = fetchgit {
     url = "https://github.com/WayfireWM/wf-shell";
-    sha256 = "sha256-DoGW9rCEQFDO/SJ/ZWv2SPzC/acLFnPPncs683ugEvY=";
+    sha256 = "sha256-qkfN6JfAp5UaHXNuU6Jwu87YNCyjEJzVLLy8EUG5UNE";
   };
 
   mesonFlags = [ "--sysconfdir" "/etc" ];
