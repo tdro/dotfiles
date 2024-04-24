@@ -1,11 +1,12 @@
 anki
-bin/chromium
+chromium
 claws-mail
+firefox
+google-chrome
 keepassxc
 mupdf
-spacefm
-urxvt -e vim
-urxvt -hold
-zim
-QOwnNotes
 recoll
+spacefm
+stalonetray
+vim
+zathura

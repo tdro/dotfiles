@@ -5,7 +5,7 @@ directory=$HOME/.config/seance
 session=$directory/session
 spirits=$directory/spirits
 
-help() {
+Help() {
 printf \
 "
 Usage: %s [FLAGS]... [ARGUMENT]...
@@ -14,51 +14,119 @@ The program $program shall save and restore
 running programs in a desktop session according
 to a specified configuration file.
 
-Add a program string, one per line,
-to $spirits to
-save programs in current session.
+Add a program command, one per line, in
+$spirits
+to save to current session.
 
-Session:       $session
-Configuration: $spirits
+Session: $session
+Config:  $spirits
 
   Command List:
 
-   $program commit      Saves current running programs to session.
-   $program list        List saved programs.
-   $program config      View current configuration.
-   $program search      Search for a running program.
-   $program windows     List running programs
-   $program start       Restore previous session.
-   $program -h --help   Show this help menu.
+   $program commit        Saves programs in config to session.
+   $program list          List session commands.
+   $program config        View programs to be saved to session.
+   $program windows       List running programs
+   $program search        Search for a running program.
+   $program start         Restore previous session.
+   $program edit session  Edit session commands.
+   $program edit config   Edit programs in config.
+   $program -h --help     Show this help menu.
 
 " "$program";
 }
 
-{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && help && exit;
+Commit() {
+
+windows=$(wmctrl -Glp)
+date=$(date --utc '+%a-%b-%d-%H:%M:%S-%Y')
+
+IFS='
+'
+
+mv "$1" "$1-$date"
+
+true > "$1"
+
+for window in $windows; do
+
+pid=$(printf "%s" "$window" | awk '{ print $3 }')
+desktop=$(printf "%s" "$window" | awk '{ print $2 }')
+title=$(printf "%s" "$window" | tr -s ' ' | cut -d ' ' -f 9-)
+dimensions=$(printf "%s" "$window" | awk '{ print $4, ",", $5, ",", $6, ",", $7 }' | tr -d ' ')
+[ "$pid" = "0" ] && continue;
+process=$(ps -ww -p "$pid" -o command | tail -n 1)
+
+while read -r spirit; do
+  case "$process" in
+  *$spirit*) process=$spirit ;;
+  esac
+done < "$spirits"
+
+commands=$(printf "%s" "$title" | cut -d ' ' -f 3- | sed "s|'|'\\\\\\\''|g")
+
+[ -z "$commands" ] && commands="true"
+
+mime="$(file --mime-type "$title" | awk '{ print $2 }')"
+directory=$(printf "%s" "$title" | cut -d ' ' -f 2)
+
+case "$mime" in
+application/pdf) process="zathura $title" ;;
+esac
+
+case "$title" in
+*term:*) process="\$TERMINAL -e sh -c 'cd $directory && $commands; \$SHELL'" ;;
+esac
+
+case "$title" in
+*vim:*) process="\$TERMINAL -e sh -c '\$EDITOR $directory; \$SHELL'" ;;
+esac
+
+case "$title" in
+*\[Scratch\]*) continue ;;
+esac
+
+case "$commands" in
+*$program*) continue ;;
+esac
+
+grep "$process" "$1" > /dev/null 2>&1 && continue
+
+printf "%s\n" "$process"
+
+printf "\
+$process > /dev/null 2>&1 & disown
+i=0; until wmctrl -Glp | grep -i \"\$!\"; do i=\$((i+1)); [ \$i -gt 150 ] && break; done
+wmctrl -i -r \"\$(wmctrl -Glp | awk -v pid=\"\$!\" '\$0 ~ pid { print \$1 }')\" -t $desktop
+wmctrl -i -r \"\$(wmctrl -Glp | awk -v pid=\"\$!\" '\$0 ~ pid { print \$1 }')\" -e '0,$dimensions'
+
+" >> "$1"
+done
+}
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && exit;
 
 mkdir --parents "$directory"
 
 touch "$spirits"
 
-commit() {
-  ps aux \
-    | awk '$1 == "'"$(whoami)"'" { $1=$2=$3=$4=$5=$6=$7=$8=$9=$10=""; print $0 }' \
-    | awk '!deduplicate[$0]++ { $1=$1; printf "%s &\n", $0 }'
-}
-
-[ "${1:-}" = "commit" ] &&
-  { commit | grep --file="$spirits" >> "$session" || printf "Warning empty or failed session file!\n"; } &&
-  printf 'Session %s canonized.\n' "$session" &&
-  exit
+[ "${1:-}" = "commit" ] \
+  && { Commit "$session" || printf "Warning empty or failed session file!\n"; } \
+  && printf '\nSession %s canonized.\n\n' "$session" \
+  && exit
 
 [ "${1:-}" = "list" ]    && cat "$session" && exit;
 
 [ "${1:-}" = "config" ]  && cat "$spirits" && exit;
 
-[ "${1:-}" = "windows" ] && wmctrl -lp && exit;
+[ "${1:-}" = "windows" ] && wmctrl -Glp && exit;
 
-[ "${1:-}" = "search" ]  && commit | grep --ignore-case -- "$2" | head --lines=1 && exit;
+[ "${1:-}" = "search" ]  && wmctrl -Glp | grep --ignore-case -- "$2" && exit;
 
-[ "${1:-}" = "start" ]   && /bin/sh "$session" && exit;
+[ "${1:-}" = "start" ]   && sh "$session" && exit;
 
-help && printf "Error: Unknown argument '%s'.\n\n" "$@" && exit 1;
+[ "${1:-}" = "edit" ] && [ "${2:-}" = "session" ] && $EDITOR "$session" && exit;
+
+[ "${1:-}" = "edit" ] && [ "${2:-}" = "config" ]  && $EDITOR "$spirits" && exit;
+
+Help && printf "Error: Unknown argument '%s'.\n\n" "$@" && exit 1;
