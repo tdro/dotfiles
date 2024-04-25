@@ -1,24 +1,18 @@
 let
 
   # nix-shell -E 'import (builtins.fetchurl "$url")'
-  # NIX_CONFIG="sandbox = relaxed" nix-shell --option builders '' cake.nix
+  # NIX_CONFIG="sandbox = relaxed" nix-shell --option builders '' shell.nix
 
   name = "nix-shell.cake";
 
   pkgs = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/22.11/nixos-22.11.466.596a8e828c5/nixexprs.tar.xz";
-    sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg";
+    url = "https://releases.nixos.org/nixos/23.11/nixos-23.11.6510.a5e4bbcb4780/nixexprs.tar.xz";
+    sha256 = "0f73pbh4j89wgk7rn9xp0q8ybw15zkhw0prjz5r37aaryjs8hnbd";
   }) { };
 
-  alpine-3-12-amd64 = pkgs.dockerTools.exportImage {
-    fromImage = pkgs.dockerTools.pullImage rec {
-      imageName = "alpine";
-      imageDigest = "sha256:2a8831c57b2e2cb2cda0f3a7c260d3b6c51ad04daea0b3bfc5b55f489ebafd71";
-      sha256 = "1px8xhk0a3b129cc98d3wm4s0g1z2mahnrxd648gkdbfsdj9dlxp";
-      finalImageName = imageName;
-      finalImageTag = "3.12";
-    };
-    diskSize = "128";
+  alpine = pkgs.fetchurl {
+    url = "https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/alpine-minirootfs-3.19.1-x86_64.tar.gz";
+    sha256 = "sha256-GFEjzrbn0I8kSf/1VD2yBv+3nezYFGCNOZrUR+CPop4=";
   };
 
   cook = { name, src, contents ? [ ], path ? [ ], script ? "", prepare ? "", cleanup ? "" }: pkgs.stdenvNoCC.mkDerivation {
@@ -39,7 +33,7 @@ let
       ${prepare}
 
       cp $bootstrap rootfs/bootstrap
-      proot --cwd=/ --root-id --rootfs=rootfs /usr/bin/env - /bin/sh -euc '. /etc/profile && /bootstrap'
+      proot --cwd=/ --root-id --rootfs=rootfs /usr/bin/env - /bin/sh -euc 'BASH_VERSION= . /etc/profile && /bootstrap'
       printf 'PATH=${pkgs.lib.strings.makeBinPath path}:$PATH' >> rootfs/etc/profile
 
       [ -n "$contents" ] && {
@@ -61,7 +55,7 @@ let
   bake = { name, image, size ? "1G", debug ? false, kernel ? pkgs.linux, options ? [ ], modules ? [ ], uuid ? "99999999-9999-9999-9999-999999999999" }: let
     initrd = cook {
       name = "initrd-${name}";
-      src = alpine-3-12-amd64;
+      src = alpine;
       script = ''
         rm -rf home opt media root run srv tmp var
         printf '#!/bin/sh -eu
@@ -136,9 +130,9 @@ let
     losetup --detach "$LOOP"
   '';
 
-  alpine = cook {
+  system = cook {
     name = "alpine";
-    src = alpine-3-12-amd64;
+    src = alpine;
     contents = [ pkgs.glibc pkgs.gawk ];
     path = [ pkgs.gawk ];
     script = ''
@@ -148,9 +142,24 @@ let
     '';
   };
 
-  alpine-machine = bake {
+  machine = cook {
+    name = "alpine";
+    src = alpine;
+    contents = [ pkgs.glibc pkgs.gawk ];
+    path = [ pkgs.gawk ];
+    script = ''
+      apk update
+      apk upgrade
+      apk add openrc
+      cat /etc/alpine-release
+      sed -i 's/#ttyS0/ttyS0/' /etc/inittab
+      printf 'migh7Lib\nmigh7Lib\n' | adduser alpine
+    '';
+  };
+
+  virtual-machine = bake {
     name = "alpine-machine";
-    image = alpine;
+    image = machine;
     kernel = pkgs.linuxPackages_5_10.kernel;
     options = [ "console=tty1" "console=ttyS0" ];
     size = "128M";
@@ -188,13 +197,13 @@ in pkgs.mkShell {
   shellHook = ''
     export PS1='\h (${name}) \W \$ '
 
-    # sudo ${alpine-machine}
-    # doas ${alpine-machine}
-    # qemu-system-x86_64 -nographic -drive if=virtio,file=./${alpine-machine.name}.img,format=raw
-    # qemu-system-x86_64 -curses -drive if=virtio,file=./${alpine-machine.name}.img,format=raw
+    # sudo ${virtual-machine}
+    # doas ${virtual-machine}
+    # qemu-system-x86_64 -nographic -drive if=virtio,file=./${virtual-machine.name}.img,format=raw
+    # qemu-system-x86_64 -curses    -drive if=virtio,file=./${virtual-machine.name}.img,format=raw
 
     ${container {
-      rootfs = "${alpine}/rootfs";
+      rootfs = "${system}/rootfs";
       binds = [ "/proc" "/dev" ];
       options = [ "--verbose=0" ];
     }}
