@@ -358,6 +358,7 @@ augroup AutoCommands
   autocmd FileType elixir          set formatprg=mix\ format\ -
   autocmd FileType c               set formatprg=clang-format\ -
   autocmd FileType python          set formatprg=black\ --quiet\ -
+  autocmd FileType lisp            set formatprg=emacs-batch-indent\ scheme
   autocmd FileType scheme          set formatprg=emacs-batch-indent\ scheme
   autocmd FileType css             set formatprg=prettier\ --parser\ css\ --stdin-filepath\ %
   autocmd FileType html            set formatprg=prettier\ --parser\ html\ --stdin-filepath\ %

@@ -5,10 +5,11 @@
 (custom-set-faces
  '(region ((t (:background "color-238")))))
 
-(setq inhibit-startup-screen t)     ; Disable startup screen.
-(setq-default indent-tabs-mode nil) ; Use spaces for indentation.
-(setq inferior-lisp-program "sbcl") ; Enable slime.
-(setq-default mode-line-format nil) ; Remove status line.
+(set-face-background 'fringe "color-238")  ; Set border color.
+(setq inhibit-startup-screen t)            ; Disable startup screen.
+(setq-default indent-tabs-mode nil)        ; Use spaces for indentation.
+(setq inferior-lisp-program "sbcl")        ; Enable slime.
+(setq-default mode-line-format nil)        ; Remove status line.
 
 (menu-bar-mode   -1)    ; Disable menu bar.
 (tool-bar-mode   -1)    ; Disable tool bar.
@@ -16,6 +17,10 @@
 (scroll-bar-mode -1)    ; Disable scroll bar.
 (set-fringe-mode 10)    ; Create space.
 (ido-mode t)            ; Enable file search interactive mode C-x C-f.
+
+(set-face-attribute 'menu nil            ; Set context menu colors.
+                    :background "black"
+                    :foreground "white")
 
 (setq backup-directory-alist
   '(("." . "~/.config/emacs/backups")))
