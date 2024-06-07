@@ -23,15 +23,15 @@ Config:  $spirits
 
   Command List:
 
-   $program commit        Saves programs in config to session.
-   $program list          List session commands.
-   $program config        View programs to be saved to session.
-   $program windows       List running programs
-   $program search        Search for a running program.
-   $program start         Restore previous session.
-   $program edit session  Edit session commands.
-   $program edit config   Edit programs in config.
-   $program -h --help     Show this help menu.
+   $program commit          Saves programs in config to session.
+   $program list            List session commands.
+   $program config          View programs to be saved to session.
+   $program windows         List running programs
+   $program search          Search for a running program.
+   $program start           Restore previous session.
+   $program edit session    Edit session commands.
+   $program edit config     Edit programs in config.
+   $program help -h --help  Show this help menu.
 
 " "$program";
 }
@@ -114,6 +114,8 @@ touch "$spirits"
   && { Commit "$session" || printf "Warning empty or failed session file!\n"; } \
   && printf '\nSession %s canonized.\n\n' "$session" \
   && exit
+
+[ "${1:-}" = "help" ]    && Help && exit;
 
 [ "${1:-}" = "list" ]    && cat "$session" && exit;
 
