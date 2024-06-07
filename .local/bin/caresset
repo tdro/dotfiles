@@ -1,0 +1,47 @@
+#!/bin/sh -eu
+
+program=$(basename "$0")
+directory=$HOME/.config/$program
+
+Help() {
+printf \
+"
+Usage: %s [FLAGS]... [ARGUMENT]...
+
+The program $program shall use OCR (Optical Character Recognition) to retrieve
+text from the selected part of the screen.
+
+  Command List:
+
+   $program select          Select text on screen.
+   $program check           Checks dependencies.
+   $program help -h --help  Show this help menu.
+
+" "$program";
+}
+
+Check() {
+  escrotum    --version
+  notify-send --version
+  tesseract   --version
+  xsel        --version
+  rm          --version
+}
+
+Select() {
+  image="$(escrotum -s /tmp/"$program-ok4out6I.png")"
+  trap 'rm $image; trap - EXIT; exit' EXIT INT HUP
+  text=$(tesseract "$image" -)
+  notify-send "$text"
+  printf "%s" "$text" | xsel -ib
+}
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && exit;
+
+[ "${1:-}" = "select" ] && Select && exit;
+
+[ "${1:-}" = "check" ]  && Check && exit;
+
+[ "${1:-}" = "help" ]   && Help  && exit;
+
+Help && printf "Error: Unknown argument '%s'.\n\n" "$@" && exit 1;
