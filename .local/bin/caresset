@@ -2,6 +2,7 @@
 
 program=$(basename "$0")
 directory=$HOME/.config/$program
+identifier=ok4out6I
 
 Help() {
 printf \
@@ -14,6 +15,7 @@ text from the selected part of the screen.
   Command List:
 
    $program select          Select text on screen.
+   $program select qr       Select quick response code on screen.
    $program check           Checks dependencies.
    $program help -h --help  Show this help menu.
 
@@ -25,18 +27,29 @@ Check() {
   notify-send --version
   tesseract   --version
   xsel        --version
+  zbarimg     --version
   rm          --version
 }
 
 Select() {
-  image="$(escrotum -s /tmp/"$program-ok4out6I.png")"
+  image="$(escrotum -s /tmp/"$program-$identifier.png")"
   trap 'rm $image; trap - EXIT; exit' EXIT INT HUP
   text=$(tesseract "$image" -)
   notify-send "$text"
   printf "%s" "$text" | xsel -ib
 }
 
+QR() {
+  image="$(escrotum -s /tmp/"$program-$identifier.png")"
+  trap 'rm $image; trap - EXIT; exit' EXIT INT HUP
+  text=$(zbarimg "$image")
+  notify-send "$text"
+  printf "%s" "$text" | xsel -ib
+}
+
 { [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && exit;
+
+[ "${1:-}" = "select" ] && [ "${2:-}" = "qr" ] && QR && exit;
 
 [ "${1:-}" = "select" ] && Select && exit;
 
