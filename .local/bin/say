@@ -1,23 +1,84 @@
 #!/bin/sh -eu
 
-audio=/tmp/speak-jfgOUcZdWu.wav
-text=${1:-Nothing to say.}
+program=$(basename "$0")
+voices=$HOME/.local/share/piper/voices
 
-[ "${1-}" = "echo" ] && $0 "${2-}" "${1-}" && exit;
+identifier=jfgOUcZdWu
+audio=/tmp/say-$identifier.wav
+default=${1:-Nothing to say.}
 
-printf '%s' "$text" |
-  piper \
-    --model "$HOME/.local/share/piper/voices/en_GB-jenny_dioco-medium.onnx"  \
-    --output_file $audio
+trap 'rm $audio > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
+
+Help() {
+printf \
+"
+Usage: %s [FLAGS]... [ARGUMENT]...
+
+The program $program shall use TTS (Text to Speech)
+to convert a given text input into speech.
+
+  Command List:
+
+   $program 'text'                Say given text.
+   $program echo 'text'           Say given text with echo effect.
+   $program check                 Checks dependencies.
+   $program download              Download default voice.
+   $program help -h -help --help  Show this help menu.
+
+" "$program";
+}
+
+Check() {
+  mplayer
+  ffmpeg -version
+  wget   -version
+  piper  --version
+  mkdir  --version
+  rm     --version
+}
+
+Say() {
+  Piper && mplayer -really-quiet "$audio"
+}
+
+Piper() {
+ [ ! -e "$voices/en_GB-jenny_dioco-medium.onnx" ] && Download
+  printf '%s' "$default" |
+    piper \
+      --model "$voices/en_GB-jenny_dioco-medium.onnx" \
+      --output_file $audio > /dev/null 2>&1
+}
+
+Wget() {
+  wget --progress=bar --quiet --show-progress --directory-prefix "$voices" "$@"
+}
+
+Download() {
+  mkdir --parents "$voices"
+  Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx.json?download=true.json" \
+    -O "$voices/en_GB-jenny_dioco-medium.onnx.json"
+  Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx?download=true" \
+    -O "$voices/en_GB-jenny_dioco-medium.onnx"
+}
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "-help" ]|| [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && Say && exit
+
+[ "${1:-}" = "help" ] && Help && Say && exit
+
+[ "${1:-}" = "check" ] && Check && exit
+
+[ "${1:-}" = "download" ] && Download && exit
+
+[ "${1-}" = "echo" ] && $0 "${2-}" "${1-}" && exit
 
 [ "${2-}" = "echo" ] &&
-  ffmpeg \
+  Piper && ffmpeg \
     -y \
     -i "$audio" \
     -map 0 \
     -c:v copy \
-    -af aecho=1:1:50:0.5,atempo=0.85 "$audio.mp3"  &&
-      mplayer -really-quiet "$audio.mp3" &&
-        exit;
+    -af aecho=1:1:50:0.5,atempo=0.85 "$audio.mp3" > /dev/null 2>&1 \
+    && mplayer -really-quiet "$audio.mp3" \
+    && exit
 
-mplayer -really-quiet "$audio";
+Say
