@@ -7,7 +7,7 @@ identifier=jfgOUcZdWu
 audio=/tmp/say-$identifier.wav
 default=${1:-Nothing to say.}
 
-trap 'rm $audio > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
+trap 'rm $audio $audio.mp3 > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
 
 Help() {
 printf \
