@@ -3,6 +3,7 @@
 program=$(basename "$0")
 directory=$HOME/.config/$program
 identifier=ok4out6I
+path="/tmp/$program-$identifier.png"
 
 Help() {
 printf \
@@ -32,17 +33,19 @@ Check() {
 }
 
 Select() {
-  image="$(escrotum -s /tmp/"$program-$identifier.png")"
-  trap 'rm $image; trap - EXIT; exit' EXIT INT HUP
-  text=$(tesseract "$image" -)
+  image="$(escrotum -s "$path")"
+  trap 'rm "$path" > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
+  text=$(tesseract "$path" -)
+  [ -z "$text" ] && notify-send "Selection is empty" && exit
   notify-send "$text"
   printf "%s" "$text" | xsel -ib
 }
 
 QR() {
-  image="$(escrotum -s /tmp/"$program-$identifier.png")"
-  trap 'rm $image; trap - EXIT; exit' EXIT INT HUP
-  text=$(zbarimg "$image")
+  image="$(escrotum -s "$path")"
+  trap 'rm "$path" > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
+  text=$(zbarimg "$path")
+  [ -z "$text" ] && notify-send "QR selection is empty" && exit
   notify-send "$text"
   printf "%s" "$text" | xsel -ib
 }
@@ -51,10 +54,10 @@ QR() {
 
 [ "${1:-}" = "select" ] && [ "${2:-}" = "qr" ] && QR && exit;
 
-[ "${1:-}" = "select" ] && Select && exit;
+[ "${1:-}" = "select" ] && [ "${2:-}" = "" ] && Select && exit;
 
-[ "${1:-}" = "check" ]  && Check && exit;
+[ "${1:-}" = "check" ] && Check && exit;
 
-[ "${1:-}" = "help" ]   && Help  && exit;
+[ "${1:-}" = "help" ] && Help && exit;
 
-Help && printf "Error: Unknown argument '%s'.\n\n" "$@" && exit 1;
+Help && printf "Error: Unknown argument: " && printf "'%s' " "$@" && printf "\n" && exit 1
