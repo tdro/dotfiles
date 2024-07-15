@@ -13,17 +13,30 @@ let
 
   python = pkgs.python39.withPackages (ps: with ps; [ mitogen ]);
 
+  shell = pkgs.writeShellApplication {
+    inherit name;
+    text = ''
+      /usr/bin/env --ignore-environment /bin/sh -c ${
+        pkgs.writeScript name ''
+          export HOME=/tmp
+          export PS1='\h (${name}) \W \$ '
+          export PATH=${pkgs.lib.strings.makeBinPath [
+            python
+            pkgs.busybox
+            pkgs.openssh
+            pkgs.ansible_2_10
+          ]}
+          export ANSIBLE_STRATEGY_PLUGINS=${python}/lib/*/site-packages/ansible_mitogen/plugins
+          export ANSIBLE_STRATEGY=mitogen_linear
+          cd '${project}' || exit 1
+          ssh -T git@github.com
+          /bin/sh
+        ''
+      };
+    '';
+  };
+
 in pkgs.mkShell {
-
   inherit name;
-
-  buildInputs = [ python pkgs.ansible_2_10 ];
-
-  shellHook = ''
-    export ANSIBLE_STRATEGY_PLUGINS=${python}/lib/*/site-packages/ansible_mitogen/plugins
-    export ANSIBLE_STRATEGY=mitogen_linear
-    export PS1='\h (${name}) \W \$ '
-    cd '${project}' || exit 1
-    ssh -T git@github.com
-  '';
+  shellHook = "exec ${shell}/bin/${shell.name}";
 }
