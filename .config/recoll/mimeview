@@ -14,4 +14,4 @@ inode/directory = spacefm %f
 inode/directory|parentopen = spacefm %f
 application/x-fsdirectory = spacefm %f
 application/pdf = zathura --page %p --find %s %f
-text/html = chromium --new-window --app=file://%f#:~:text=%s
+text/html = chromium --user-data-dir=/tmp/chromium-recoll --new-window --app=file://%f#:~:text=%s
