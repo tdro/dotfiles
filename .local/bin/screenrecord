@@ -1,7 +1,7 @@
 #!/bin/sh -eu
 
 process=x11grab
-directory=$HOME/Desktop/screen-recordings
+directory=$HOME/Desktop/workspace
 default=$(xrandr | awk '/*/ { print $1 }' | head -n1)
 file="$(date +%I:%M:%S-%p-%A-%d-%B-%Y).mp4"
 resolution=${1:-$default}

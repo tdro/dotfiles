@@ -1,5 +1,5 @@
 #!/bin/sh -eu
-directory=$HOME/Desktop/audio-recordings
+directory=$HOME/Desktop/workspace
 file="$(date +%I:%M:%S-%p-%A-%d-%B-%Y).mp3"
 mkdir --parents "$directory"
 ffmpeg -f alsa -i default -f alsa -i default "$directory/$file"
