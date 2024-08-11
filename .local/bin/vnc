@@ -3,7 +3,7 @@
 host="$1"
 address="$host.internal"
 
-. "$HOME/.vnc/keys/macs"
+. "$HOME/.local/share/.vnc/keys/macs"
 
 [ "$host" = 'hound' ] && wol "$hound";
 [ "$host" = 'tiger' ] && wol "$tiger";
@@ -18,7 +18,7 @@ done;
 
 notify-send -t 4000 Connected.;
 
-vncviewer -passwd "$HOME/.vnc/keys/passwd-$host" \
+vncviewer -passwd "$HOME/.local/share/.vnc/keys/passwd-$host" \
   AlertOnFatalError=0       \
   AutoSelect=0              \
   CompressLevel=0           \
