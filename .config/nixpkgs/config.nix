@@ -13,8 +13,8 @@ let
     sha256 = "0f73pbh4j89wgk7rn9xp0q8ybw15zkhw0prjz5r37aaryjs8hnbd"; }) { inherit system; };
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-24.05pre615148.6143fc5eeb9c/nixexprs.tar.xz";
-    sha256 = "0bymwq04dxl3ljjjzw21aspdnwwfm56pqi218lg0vdwargy8yxm8"; }) { inherit system; };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-24.11pre664135.5e0ca22929f3/nixexprs.tar.xz";
+    sha256 = "1bs0l5x55vxgqhmil8rbnv8ly7zw1h3lsvrqwcqr68cqf7wyyj77"; }) { inherit system; };
 
 in
 
@@ -269,11 +269,11 @@ in
     Xorg = pkgs.buildEnv {
       name = "xorg";
       paths = [
+        previous.x11vnc
         autocutsel
         glxinfo
         unclutter-xfixes
         wmctrl
-        x11vnc
         xbindkeys
         xdotool
         xorg.xauth

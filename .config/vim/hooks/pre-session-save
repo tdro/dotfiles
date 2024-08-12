@@ -1,4 +1,4 @@
 #!/bin/sh -eu
-cd "$HOME/.vim/sessions" || exit 1
+cd "$HOME/.config/vim/sessions" || exit 1
 cp session.vim "session-$(date +%d-%b-%Y-%H:%M:%S).vim"
 find ./*.vim -type f -mtime +31 -delete

@@ -42,8 +42,8 @@ set smartcase                            " Search by case smartly.
 set nolazyredraw                         " Disable lazy redraw on screen when using macros.
 set ttyfast                              " Assume fast terminal.
 set undofile                             " Enable undofile.
-set viminfo+=n~/.vim/viminfo             " Set viminfo file path.
-set undodir=~/.vim/undodir               " Set undofile directory.
+set viminfo+=n~/.config/vim/viminfo      " Set viminfo file path.
+set undodir=~/.config/vim/undodir        " Set undofile directory.
 
 set mouse=a                              " Enable mouse.
 set shortmess+=I                         " Disable startup message.
@@ -97,8 +97,8 @@ endfunction
 "---------------Shortcuts---------------"
 
 " Edit shortcuts
-nmap <leader>ev :tabedit ~/.vim/vimrc<cr>
-nmap <leader>eh :tabedit ~/.vim/post-save-hook<cr>
+nmap <leader>ev :tabedit ~/.config/vim/vimrc<cr>
+nmap <leader>eh :tabedit ~/.config/vim/hooks/post-save<cr>
 
 " Show key mappings
 nmap <leader>mn :nmap<cr>
@@ -120,8 +120,8 @@ nmap <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \|
 nmap <leader>jl :norm yaW<cr> \| :Jump<cr>
 
 " Load and save sessions
-nmap <leader>sl :source ~/.vim/sessions/session.vim \| :source ~/.vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>
-nmap <leader>ss :silent! exe "!~/.vim/hooks/pre-session-save" \| :mksession! ~/.vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>
+nmap <leader>sl :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>
+nmap <leader>ss :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>
 
 " Toggle Spell Check
 nmap <leader>sp :set spell!<cr>
@@ -142,7 +142,7 @@ nmap <leader>qw <C-w>c<cr>
 nmap <leader>re gg=G<C-o><C-o>
 
 " Reset all settings and source configuration.
-nmap <leader>ra :set all& \| :source ~/.vim/vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>
+nmap <leader>ra :set all& \| :source ~/.config/vim/vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>
 
 " Remove trailing whitespace
 nmap <leader>rs :%s/\s\+$//e
@@ -224,11 +224,11 @@ vnoremap <expr>y "my\"" . v:register . "y`y"
 
 "------------------Snippets-------------------"
 
-nnoremap ,awk         :-1read $HOME/.vim/snippets/skeleton.awk<cr>
-nnoremap ,nix-shell   :-1read $HOME/.vim/snippets/shell.nix<cr>2jf"a
-nnoremap ,nix-module  :-1read $HOME/.vim/snippets/module.nix<cr>4jf"a
-nnoremap ,nix-package :-1read $HOME/.vim/snippets/package.nix<cr>3jf"a
-nnoremap ,html        :-1read $HOME/.vim/snippets/skeleton.html<cr>3jwf>a
+nnoremap ,awk         :-1read $HOME/.config/vim/snippets/skeleton.awk<cr>
+nnoremap ,nix-shell   :-1read $HOME/.config/vim/snippets/shell.nix<cr>2jf"a
+nnoremap ,nix-module  :-1read $HOME/.config/vim/snippets/module.nix<cr>4jf"a
+nnoremap ,nix-package :-1read $HOME/.config/vim/snippets/package.nix<cr>3jf"a
+nnoremap ,html        :-1read $HOME/.config/vim/snippets/skeleton.html<cr>3jwf>a
 
 
 "---------------Plugin Settings---------------"
@@ -239,7 +239,7 @@ let g:nnn#command = 'nnn -H'                                                    
 let g:nnn#set_default_mappings = 0                                                          " Disable default mappings.
 let g:nnn#layout = 'new'                                                                    " Opens the nnn window in a split.
 let g:nnn#layout = { 'left': '~20%' }                                                       " Left 20% of the window.
-let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } }  " Set fzf window layout,
+let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } }  " Set fzf window layout.
 
 
 "-------------------Scripts-------------------"
@@ -384,7 +384,7 @@ augroup AutoCommands
 
   " Automatically save file on insert and idle.
   autocmd InsertLeave,CursorHold * silent! write
-    \| silent! exe "!~/.vim/hooks/post-save > /dev/null 2>&1 &"
+    \| silent! exe "!~/.config/vim/hooks/post-save > /dev/null 2>&1 &"
     \| :echo expand('%:t') '[filetype=' . &filetype . ']'
 
 augroup END
