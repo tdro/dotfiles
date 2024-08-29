@@ -591,7 +591,7 @@ in
         skeema
         sqlfluff
         sqlint
-        sqlite
+        sqlite-interactive
         sqlitebrowser
         unstable.sqldef
       ];

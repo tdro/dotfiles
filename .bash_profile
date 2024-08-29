@@ -72,6 +72,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export TEXINPUTS=$XDG_DATA_HOME/tex:
 export URXVT_PERL_LIB="$XDG_CONFIG_HOME/urxvt/ext"
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
+export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 
 command -v rsvg-convert > /dev/null 2>&1 && \
   GDK_PIXBUF_MODULE_FILE=$(printf "%s" "$HOME"/.nix-profile/lib/gdk-pixbuf*/*/loaders.cache) && \
