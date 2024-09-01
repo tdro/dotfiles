@@ -1,7 +1,12 @@
 #!/bin/sh
 
-# prevent multiple instances
-pidof -s -o '%PPID' -x "$(basename "$0")" > /dev/null 2>&1 && exit;
+# toggle prevent multiple instances
 
-# run skippy-xd
-skippy-xd > /dev/null 2>&1;
+pidof \
+  -s \
+  -o '%PPID' \
+  -x "$(basename "$0")" > /dev/null 2>&1 \
+    && killall -q skippy-xd \
+    && exit
+
+skippy-xd > /dev/null 2>&1
