@@ -315,7 +315,7 @@ augroup AutoCommands
   autocmd FileType yaml             autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --allow-all --location https://example.com/ %
   autocmd FileType c                autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '\n"' . ' && gcc -Wall -Wpedantic -Werror -fsyntax-only ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType sql              autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --type-case 2 --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType sql              autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --type-case 2 --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016,LT09 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
 
   " Linting extension post write commands.
   autocmd BufWritePost $HOME/.config/chromexup/config.ini exe 'Notify(''chromexup 2>&1'')'
@@ -358,6 +358,7 @@ augroup AutoCommands
   autocmd FileType elixir          set formatprg=mix\ format\ -
   autocmd FileType c               set formatprg=clang-format\ -
   autocmd FileType python          set formatprg=black\ --quiet\ -
+  autocmd FileType sql             set formatprg=pg_format\ --type-case\ 2
   autocmd FileType lisp            set formatprg=emacs-batch-indent\ scheme
   autocmd FileType scheme          set formatprg=emacs-batch-indent\ scheme
   autocmd FileType css             set formatprg=prettier\ --parser\ css\ --stdin-filepath\ %
