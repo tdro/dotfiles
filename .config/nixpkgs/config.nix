@@ -276,6 +276,7 @@ in
         wmctrl
         xbindkeys
         xdotool
+        xorg.libxcvt
         xorg.xauth
         xorg.xev
         xorg.xf86inputevdev
