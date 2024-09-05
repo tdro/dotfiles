@@ -18,10 +18,10 @@ PS1_USER='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;34m\]\W\[\e[0m\] \[\e[0;34
 PS1_ROOT='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;31m\]\W\[\e[0m\] \[\e[0;31m\]\$\[\e[0m\] '
 PS1_SSHD='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;32m\]\$\[\e[0m\] '
 
-[ "$EUID" != 0 ] && export PS1="$PS1_USER"
-[ "$EUID" = 0 ] && export PS1="$PS1_ROOT"
+[ "$(id -u)" != 0 ] && export PS1="$PS1_USER"
+[ "$(id -u)"  = 0 ] && export PS1="$PS1_ROOT"
 
-[ -n "$SSH_CLIENT" ] && [ "$EUID" != 0 ] && export PS1="$PS1_SSHD"
+[ -n "$SSH_CLIENT" ] && [ "$(id -u)" != 0 ] && export PS1="$PS1_SSHD"
 
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
