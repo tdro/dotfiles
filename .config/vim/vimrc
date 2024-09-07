@@ -334,6 +334,7 @@ augroup AutoCommands
 
   " REPL commands.
   autocmd FileType bash       noremap <buffer> <leader>cc :REPL bash -x<cr>
+  autocmd FileType sql        noremap <buffer> <leader>cc :REPL sqlite3<cr>
   autocmd FileType elixir     noremap <buffer> <leader>cc :REPL iex<cr>
   autocmd FileType go         noremap <buffer> <leader>cc :REPL gore<cr>
   autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
