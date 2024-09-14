@@ -1,107 +1,80 @@
-# quake terminal
-"dropdown-terminal"
+"dropdown-terminal" # quake terminal
     Mod4 + q
 
-# program launcher
-"dmenu_run_history"
+"launch" # program launcher
     Mod4 + r
 
-# privilege launcher
-"dmenu_run_history privilege"
+"launch privilege" # privilege launcher
     Mod4 + e
 
-# terminal launcher
-"dmenu_run_history terminal"
+"launch terminal" # terminal launcher
     Mod4 + w
 
-# zoom application
-"sh -c 'notify-send Zoom && boomer'"
+"sh -c 'notify-send Zoom && boomer'" # zoom application
     Mod4 + x
 
-# close active window
-"wmctrl -c :ACTIVE:"
+"wmctrl -c :ACTIVE:" # close active window
     Mod4 + Shift + c
 
-# toggle ontop active window
-"wmctrl -r :ACTIVE: -b toggle,above"
+"wmctrl -r :ACTIVE: -b toggle,above" # toggle ontop active window
     Mod4 + t
 
-# show bookmarks
-"bookmarks show $HOME/Shares/Projects/bookmarks/archives/bookmarks-old.html"
+"bookmarks show $HOME/Shares/Projects/bookmarks/archives/bookmarks-old.html" # show bookmarks
     Mod4 + g
 
-# clipboard toggle
-"clipboard"
+"clipboard" # clipboard toggle
     Mod4 + z
 
-# text plumber
-"plumber-dmenu"
+"plumber-dmenu" # text plumber
     Mod4 + i
 
-# pass menu
-"pass-menu"
+"pass-menu" # pass menu
     Mod4 + d
 
-# file search
-"file-search"
+"file-search" # file search
     Mod4 + p
 
-# window switcher
-"window-switcher"
+"window-switcher" # window switcher
     Alt + Tab
 
-# window overview
-"window-overview"
+"window-overview" # window overview
     Mod4 + Tab
 
-# file search
-"internet-search"
+"internet-search" # file search
     Mod4 + a
 
-# volume up
-"volume-control up"
+"volume-control up" # volume up
     XF86AudioRaiseVolume
 
-# volume down
-"volume-control down"
+"volume-control down" # volume down
     XF86AudioLowerVolume
 
-# volume mute
-"volume-control mute"
+"volume-control mute" # volume mute
     XF86AudioMute
 
-# lock screen
-"lockscreen"
+"lockscreen" # lock screen
     XF86ScreenSaver
 
-# snipping tool
-"snipping-tool"
+"snipping-tool" # snipping tool
     Print
 
-# switch monitor
-"switch-monitor"
+"switch-monitor" # switch monitor
     XF86Display
 
-# screen record
-"peek"
+"peek" # screen record
     Alt + Print
 
-# flameshot screenshots
-"flameshot gui"
+"flameshot gui" # screenshots
     Control + Print
 
-# shortcut key check
-"urxvt -hold -e xbindkeys --multikey -f $HOME/.config/xbindkeysrc"
+"urxvt -hold -e xbindkeys --multikey -f $HOME/.config/X11/xbindkeysrc" # shortcut key check
     Shift + Mod4 + b
 
-# terminal
-"urxvt"
+"urxvt" # terminal
     Mod4 + Return
 
-# terminal tabbed
-"urxvt -pe tabbed"
+"urxvt -pe tabbed" # terminal tabbed
     Control + Mod4 + Return
 
-# terminal multiplexer
-"urxvt -e tmux attach"
+"urxvt -e tmux attach" # terminal multiplexer
     Alt + Mod4 + Return
