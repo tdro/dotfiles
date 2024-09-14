@@ -29,7 +29,7 @@ set nojoinspaces                         " Insert one space after a '.', '?' and
 set path+=**                             " Search subfolders.
 set display=lastline                     " @@@ which indicates remaining line is not displayed.
 
-set hidden                               " Set hidden buffers.
+set nohidden                             " Unload read only buffers when abandoned.
 set nobackup                             " No write backups.
 set noswapfile                           " Disable swap files.
 set nowritebackup                        " No overwrite backups.
@@ -377,6 +377,9 @@ augroup AutoCommands
   autocmd BufRead,BufNewFile *.doas       set filetype=conf
   autocmd BufRead,BufNewFile *.nft        set filetype=nftables
   autocmd BufRead,BufNewFile *.blade.php  set filetype=php
+
+  " Allow switching between [No Name] buffers
+  autocmd BufWinEnter * if &filetype == "" | set bh=hide | endif
 
   " Clear notification on cursor movement.
   autocmd CursorMoved * silent! call popup_clear()
