@@ -1,0 +1,10 @@
+#!/bin/sh -eu
+
+repo=$1
+temp="$(mktemp --directory)"
+
+trap 'rm --recursive --force "$temp"; trap - EXIT; exit' EXIT INT HUP
+
+git clone --depth=1 "$repo" "$temp"
+cd "$temp" || exit 1
+vim --cmd "cd $temp"
