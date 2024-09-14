@@ -1,2 +1,3 @@
 #!/bin/sh -eu
-HOME=$HOME/.config && $(which adb --all | grep --invert-match "local/bin" | head -n 1) "$@";
+HOME=$HOME/.config && $(which adb --all | grep --invert-match "local/bin" | head -n 1) "$@"
+killall --quiet adb
