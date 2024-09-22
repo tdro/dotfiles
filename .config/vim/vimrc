@@ -1,6 +1,6 @@
 "------------Setup-------------"
 
-mapclear                                 " Clear all mappings.
+mapclear!                                " Clear all mappings.
 packadd! matchit                         " Add match tag pairs package.
 let skip_defaults_vim=1                  " Do not load defaults if vimrc is missing.
 
@@ -38,6 +38,7 @@ set autowrite                            " Write if modified.
 set autowriteall                         " Write if modified on buffer change.
 set autoindent                           " Copy indent from current line to new line.
 set ignorecase                           " Ignore case on search.
+set infercase                            " Infer the case on completion.
 set smartcase                            " Search by case smartly.
 set nolazyredraw                         " Disable lazy redraw on screen when using macros.
 set ttyfast                              " Assume fast terminal.
@@ -45,6 +46,7 @@ set undofile                             " Enable undofile.
 set viminfo+=n~/.config/vim/viminfo      " Set viminfo file path.
 set undodir=~/.config/vim/undodir        " Set undofile directory.
 
+set completeopt=fuzzy                    " Disable ctrl+p popup menu
 set mouse=a                              " Enable mouse.
 set shortmess+=I                         " Disable startup message.
 set shortmess-=S                         " Count number of search result matches.
@@ -59,12 +61,13 @@ set history=50                           " Keep 50 lines of command line history
 set clipboard=unnamed                    " Use clipboard as default register.
 set backspace=indent,eol,start           " Enable backspacing.
 set formatoptions-=t                     " Do not auto wrap text when typing.
-set complete=.,w,b,u                     " Set our desired autocompletion match pattern.
+set complete=.,w,b,u,i                   " Set our desired autocompletion match pattern.
 set encoding=utf-8                       " Set UTF-8 encoding.
 set scrolloff=3                          " Set vertical scroll headroom.
 set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
 set foldcolumn=2                         " Set fold column width to 2.
+set thesaurus=~/.config/vim/thesaurus    " Set the location of thesaurus file.
 
 set title titlestring=vim:\ %F titlelen=999999                    " Set parseable title.
 set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab       " Set spaces as default.
@@ -96,130 +99,82 @@ endfunction
 
 "---------------Shortcuts---------------"
 
-" Edit shortcuts
-nmap <leader>ev :tabedit ~/.config/vim/vimrc<cr>
-nmap <leader>eh :tabedit ~/.config/vim/hooks/post-save<cr>
+nmap <leader>ev :tabedit ~/.config/vim/vimrc<cr>|            " Edit configuration
+nmap <leader>eh :tabedit ~/.config/vim/hooks/post-save<cr>|  " Edit hook script
 
-" Show key mappings
-nmap <leader>mn :nmap<cr>
-nmap <leader>mv :vmap<cr>
-nmap <leader>mi :imap<cr>
-nmap <leader>mc :command<cr>
+nmap <leader>mn :nmap<cr>|     " Normal mappings
+nmap <leader>mv :vmap<cr>|     " Visual mappings
+nmap <leader>mi :imap<cr>|     " Insert mappings
+nmap <leader>mc :command<cr>|  " List commands
 
-" Search documentation under cursor
-nmap <leader>ds :exe ':term ++hidden ++close recoll -q ' . '' . expand('<cword>') . ''<cr>
-nmap <leader>dt :exe ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>
+nmap <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold --spaces --width 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>| " View function documentation
+nmap <leader>ds :exe ':term ++hidden ++close recoll -q ' . '' . expand('<cword>') . ''<cr>|             " Send word under cursor to search engine
+nmap <leader>dt :exe ':term dict -h localhost -d dict-moby-thesaurus-latest ' . expand('<cword>')<cr>|  " Send word under cursor to dictionary
 
-" Search for file containing word under cursor
-nmap <silent> <leader>ag :Ag <C-R><C-W><cr>
+nmap <silent> <leader>ag :Ag <C-R><C-W><cr>| " Search for file containing word under cursor
 
-" View function documentation
-nmap <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold --spaces --width 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>
+nmap <leader>jl :norm yaW<cr> \| :Jump<cr>| " Jump to line
 
-" Jump to line
-nmap <leader>jl :norm yaW<cr> \| :Jump<cr>
+nmap <leader>sl :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
+nmap <leader>ss :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
 
-" Load and save sessions
-nmap <leader>sl :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>
-nmap <leader>ss :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>
+nmap     <leader>sp :set spell!<cr>|                                                      " Toggle Spell Check
+nmap     <leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>|    " Switch to spaces
+nmap     <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab<cr>|  " Switch to tabs
+vnoremap <leader>sn !perl -e 'print sort { length($a) <=> length($b) } <>'<cr>|           " Sort lines by length
 
-" Toggle Spell Check
-nmap <leader>sp :set spell!<cr>
+nmap <leader>qq :bd<cr>|                      " Close buffer
+nmap <leader>qa :silent! %bd!\|e#\|bd#<cr>|   " Close all buffers
+nmap <leader>qw <C-w>c<cr>|                   " Close window
 
-" Sort lines by length
-vnoremap <leader>sn !perl -e 'print sort { length($a) <=> length($b) } <>'<cr>
+nmap     <leader>ra :set all& \| :source ~/.config/vim/vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>| " Reset all settings and source configuration.
+nmap     <leader>re gg=G<C-o><C-o>|                 " Re-indent entire file
+nmap     <leader>rs :%s/\s\+$//e|                   " Remove trailing whitespace
+nmap     <leader>rr :enew \| .!<space>|             " Dump output of command to new buffer
+vnoremap <leader>rd !awk '\!visited[$0]++'<cr>|     " Remove duplicate lines
 
-" Switch between tabs and spaces
-nmap <leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>
-nmap <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab<cr>
+nmap     <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>|                                         " Toggle color column
+nmap     <leader>cx :set cursorcolumn!<cr>|                                                                                 " Toggle cursor column
+nmap     <leader>ce :silent! %s/–/--/g<cr> \| :silent! %s/—/---/g<cr> \| my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y|  " Transliterate special characters to ascii
+nmap     <leader>cl :call TypographyFormat()<cr>|                                                                           " Use typographic characters
+nmap     <leader>cn :set number!<cr>|                                                                                       " Toggle line numbers
+nmap     <leader>cr :set relativenumber!<cr>|                                                                               " Toggle relative line numbers
+nmap     <leader>ck ddkkpk<cr>|                                                                                             " Move line up
+nmap     <leader>cj ddpk<cr>|                                                                                               " Move line down
+vnoremap <leader>ct !column -t -o' '<cr>|                                                                                   " Justify columns
+vnoremap <leader>cf <S-J><S-v> \| !fold --spaces --width<space>80|                                                          " Fold text
+noremap  <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\ <space>$HOME/.cache/scratchpad<C-left><left>|            " Scratchpad of specified filetype
 
-" Close buffer and window
-nmap <leader>qq :bd<cr>
-nmap <leader>qa :silent! %bd!\|e#\|bd#<cr>
-nmap <leader>qw <C-w>c<cr>
-
-" Re-indent entire file
-nmap <leader>re gg=G<C-o><C-o>
-
-" Reset all settings and source configuration.
-nmap <leader>ra :set all& \| :source ~/.config/vim/vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>
-
-" Remove trailing whitespace
-nmap <leader>rs :%s/\s\+$//e
-
-" Dump output of command to new buffer
-nmap <leader>rr :enew \| .!<space>
-
-" Remove duplicate lines
-vnoremap <leader>rd !awk '\!visited[$0]++'<cr>
-
-" Toggle color column
-nmap <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>
-
-" Toggle cursor column
-nmap <leader>cx :set cursorcolumn!<cr>
-
-" Transliterate special characters to ascii
-nmap <leader>ce :silent! %s/–/--/g<cr> \| :silent! %s/—/---/g<cr> \| my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y
-
-" Use typographic characters
-nmap <leader>cl :call TypographyFormat()<cr>
-
-" Toggle line numbers
-nmap <leader>cn :set number!<cr>
-nmap <leader>cr :set relativenumber!<cr>
-
-" Move line up or down
-nmap <leader>ck ddkkpk<cr>
-nmap <leader>cj ddpk<cr>
-
-" Justify columns
-vnoremap <leader>ct !column -t -o' '<cr>
-
-" Fold text
-vnoremap <leader>cf <S-J><S-v> \| !fold --spaces --width<space>80
-
-" Go to scratchpad of specified filetype
-noremap <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\ <space>$HOME/.cache/scratchpad<C-left><left>
-
-" File open mappings
-nmap <Tab> :Buffers<cr>
-nmap <leader>ov :Lines<cr>
-nmap <leader>ob :BLines<cr>
-nmap <leader>ol :Locate<space>
+nmap <Tab> :Buffers<cr>|          " List buffers
+nmap <leader>ov :Lines<cr>|       " List lines in loaded buffers
+nmap <leader>ob :BLines<cr>|      " List lines in loaded buffer
+nmap <leader>ol :Locate<space>|   " List files containing search term
 nmap <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>
 nmap <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $HOME -type d -maxdepth 6", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 
-" Mappings for nnn
-nmap <leader>nm :NnnPicker<cr>
-nmap <leader>nn :NnnPicker '%:p:h'<cr>
+nmap <leader>nm :NnnPicker<cr>|           " Open file manager
+nmap <leader>nn :NnnPicker '%:p:h'<cr>|   " Open file manager at current file path
 
-" Exit incremental search
-nmap <Esc><Esc> :nohl<cr>
+nmap <Bslash> :vsplit<cr>|            " Vertical split
+nmap <C-Bslash> :split<cr>|           " Horizontal split
+nmap <C-j> :resize +5<cr>|            " Horizontal split resize down
+nmap <C-k> :resize -5<cr>|            " Horizontal split resize up
+nmap <C-h> :vertical resize +5<cr>|   " Vertical split resize left
+nmap <C-l> :vertical resize -5<cr>|   " Vertical split resize right
 
-" Disable Ex Mode
-nnoremap Q <Nop>
+imap <C-o> <C-x><C-n>|  " Whole chunked line next completion
+imap <C-y> <C-x><C-l>|  " Whole line next completion
+imap <C-t> <C-x><C-t>|  " Thesaurus completion
+inoremap <S-Tab> <C-d>| " Inverse Tabs
 
-" Split window mappings
-nmap <Bslash> :vsplit<cr>
-nmap <C-Bslash> :split<cr>
-nmap <C-j> :resize +5<cr>
-nmap <C-k> :resize -5<cr>
-nmap <C-h> :vertical resize +5<cr>
-nmap <C-l> :vertical resize -5<cr>
-
-" Inverse Tabs
-inoremap <S-Tab> <C-d>
-
-" Retain visual selection when tabbing
-vnoremap < <gv
-vnoremap > >gv
-
-" Prevent cursor from jumping in visual select context https://ddrscott.github.io/blog/2016/yank-without-jank/
-vnoremap <expr>y "my\"" . v:register . "y`y"
+vnoremap < <gv|             " Retain visual selection when tabbing left
+vnoremap > >gv|             " Retain visual selection when tabbing right
+nnoremap Q <Nop>|           " Disable Ex Mode
+nmap <Esc><Esc> :nohl<cr>|  " Exit incremental search
+vnoremap <expr>y "my\"" . v:register . "y`y"| " Prevent cursor from jumping in visual select context https://ddrscott.github.io/blog/2016/yank-without-jank/
 
 
 "------------------Snippets-------------------"
