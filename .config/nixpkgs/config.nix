@@ -109,7 +109,7 @@ in
         entr
         expect
         fdupes
-        ffmpeg
+        ffmpeg-full
         flashrom
         fortune
         fzf
@@ -191,6 +191,7 @@ in
         previous.code-server
         previous.qownnotes
         previous.recoll
+        unstable.scrcpy
         unstable.firefox
         unstable.google-chrome
         unstable.ungoogled-chromium
@@ -228,11 +229,11 @@ in
         meld
         mupdf_1_17
         mypaint
+        opensnitch-ui
         pavucontrol
         peek
         qrencode
         redshift
-        scrcpy
         screenkey
         sent
         sigil
@@ -412,6 +413,11 @@ in
     Design = pkgs.buildEnv {
       name = "design";
       paths = [ kicad freecadStable openscad librecad ];
+    };
+
+    Graphs = pkgs.buildEnv {
+      name = "graphs";
+      paths = [ R gnuplot julia ];
     };
 
     Android = pkgs.buildEnv {
