@@ -1,0 +1,10 @@
+#!/bin/sh -eu
+
+path=$HOME/.config/vim/thesaurus
+buffer=$HOME/.config/vim/thesaurus-buffer
+
+term=$(printf "%s" "$1" | xargs)               # Trim leading/trailing whitespace
+term=$(printf "%s" "$term" | tr --delete '\r') # Trim carriage return
+
+grep --max-count 1 --ignore-case --extended-regexp \
+  "^$term" "$path" > "$buffer"
