@@ -299,6 +299,7 @@ image/ktx=image.desktop;
 image/naplps=image.desktop;
 image/pcx=image.desktop;
 image/png=image.desktop;
+image/apng=image.desktop;
 image/prs.btif=image.desktop;
 image/prs.pti=image.desktop;
 image/pwg-raster=image.desktop;
