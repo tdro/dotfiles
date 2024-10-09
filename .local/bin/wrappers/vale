@@ -2,15 +2,6 @@
 
 directory="$XDG_CONFIG_HOME/vale"
 styles="$directory/styles"
-mkdir -p "$directory" "$styles";
-
-if [ "${1:-}" = "--update" ]; then
-  svn export --force https://github.com/errata-ai/Google/trunk/Google         "$styles/google";
-  svn export --force https://github.com/errata-ai/joblint/trunk/Joblint       "$styles/joblint";
-  svn export --force https://github.com/errata-ai/Microsoft/trunk/Microsoft   "$styles/microsoft";
-  svn export --force https://github.com/errata-ai/proselint/trunk/proselint   "$styles/proselint";
-  svn export --force https://github.com/errata-ai/write-good/trunk/write-good "$styles/write-good";
-  exit;
-fi
+mkdir --parents "$directory" "$styles";
 
 $(which vale --all | grep --invert-match "local/bin" | head -n 1) --config "$directory/vale.ini" "$@";
