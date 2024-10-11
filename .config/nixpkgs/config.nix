@@ -13,8 +13,8 @@ let
     sha256 = "0f73pbh4j89wgk7rn9xp0q8ybw15zkhw0prjz5r37aaryjs8hnbd"; }) { inherit system; };
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-24.11pre664135.5e0ca22929f3/nixexprs.tar.xz";
-    sha256 = "1bs0l5x55vxgqhmil8rbnv8ly7zw1h3lsvrqwcqr68cqf7wyyj77"; }) { inherit system; };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-24.11pre690827.5633bcff0c61/nixexprs.tar.xz";
+    sha256 = "09vghfcvmics34y6n2m7adn41y423i40ir4y63bq8jn7i5g70fwy"; }) { inherit system; };
 
 in
 
