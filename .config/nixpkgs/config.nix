@@ -75,13 +75,14 @@ in
         (callPackage ./packages/pdf2htmlex/package.nix { })
         (callPackage ./packages/systemd2nix/package.nix { })
         (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
+        unstable.emacs
         unstable.hugo
+        unstable.ios-webkit-debug-proxy
+        unstable.libimobiledevice
         unstable.piper-tts
         unstable.validator-nu
         unstable.vimHugeX
         unstable.yt-dlp
-        unstable.ios-webkit-debug-proxy
-        unstable.libimobiledevice
         aerc
         alacritty
         alsaUtils
@@ -104,7 +105,6 @@ in
         docker-compose
         dtrx
         electrum
-        emacs
         encfs
         entr
         expect
