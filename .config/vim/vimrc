@@ -68,11 +68,11 @@ set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
 set foldcolumn=2                         " Set fold column width to 2.
 
-set thesaurus=~/.config/vim/thesaurus-buffer                      " Set the location of thesaurus file.
-set grepprg=rg\ --no-heading\ --line-number                       " Set grep program.
-set title titlestring=vim:\ %F titlelen=999999                    " Set parseable title.
-set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab       " Set spaces as default.
-set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣   " Set hidden character identifiers.
+set thesaurus=~/.config/vim/thesaurus-buffer                        " Set the location of thesaurus file.
+set grepprg=rg\ --no-heading\ --line-number\ --column\ --smart-case " Set grep program.
+set title titlestring=vim:\ %F titlelen=999999                      " Set parseable title.
+set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab         " Set spaces as default.
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣     " Set hidden character identifiers.
 
 
 "----------------Visuals----------------"
@@ -83,12 +83,10 @@ colorscheme fluid                        " Set color scheme.
 
 "---------------Functions---------------"
 
-" Ansible Check
 function! AnsibleCheck()
   :exe 'Notify(''ansible-playbook --syntax-check ' . expand('%') . ' 2>&1'')' | :e
 endfunction
 
-" Typography Format
 function! TypographyFormat()
   :silent! %s/\(^\|\s\|\w\)\zs--\ze\($\|\s\|\w\)/–/g | silent! %s/\(^\|\s\|\w\)\zs---\ze\($\|\s\|\w\)/—/g
   :silent! %s/ '/ ‘/g | silent! %s/' /’ /g | :silent! %s/^'/‘/g | silent! %s/'$/’/g
@@ -97,65 +95,84 @@ function! TypographyFormat()
   :silent! %s/\S\@="\S@!/”/g | :silent! %s/\S\@<="\S\@=/”/g
 endfunction
 
-" REPL https://vi.stackexchange.com/a/19875
-function s:repl(start, end, language)
+function s:repl(start, end, language) " REPL https://vi.stackexchange.com/a/19875
   let g:terminal_buffer = get(g:, 'terminal_buffer', -1)
   if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer)
     terminal ++rows=10
     let g:terminal_buffer = bufnr('')
-    call term_sendkeys(g:terminal_buffer, a:language . "; exit" . "\<cr>")
-    wincmd p
+    call term_sendkeys(g:terminal_buffer, a:language . "; exit" . "\<cr>") | wincmd p
   elseif bufwinnr(g:terminal_buffer) == -1
-    exe 'sbuffer ' . g:terminal_buffer
-    wincmd p
+    exe 'sbuffer ' . g:terminal_buffer | wincmd p
   endif
   call term_sendkeys(g:terminal_buffer, join(getline(a:start, a:end), "\<cr>") . " " . "\<cr>")
 endfunction
 
-" Jump to line and column in the format 123:13
-function s:cursor(selection)
+function s:jump(selection) " Jump to line and column under cursor in the format 123:13
   wincmd p
-  let g:cursor_request = split(a:selection, ":")
-  call cursor(g:cursor_request[0], g:cursor_request[1])
+  let g:segment = split(a:selection, ":")
+  call cursor(g:segment[0], g:segment[1])
+  if filereadable(g:segment[0])
+    exe ':edit ' . g:segment[0]
+    call cursor(g:segment[1], g:segment[2])
+  endif
 endfunction
 
-" Notify
 function s:notify(command)
   call popup_notification(systemlist(a:command), { 'pos': 'topright', 'col': 9999, 'time' : 600000, 'highlight': 'Normal' })
 endfunction
 
+function s:replace(this, that)
+   noautocmd exe 'silent cfdo %s/' . a:this . '/'. a:that . '/g' | exe 'silent grep ' . a:that ' | ' . ':copen' | call feedkeys("/" . a:that . "\<cr>")
+endfunction
+
+function s:find(that)
+   exe 'silent grep ' . a:that ' | ' . ':copen' | call feedkeys("/" . a:that . "\<cr>")
+endfunction
+
+
+"----------------Commands----------------"
+
+command! Term term ++noclose
+command! -nargs=? -range Jump    call s:jump(@*)
+command! -nargs=1 -range Notify  call s:notify(<args>)
+command! -nargs=+ -range Find    call s:find(<f-args>)
+command! -nargs=+ -range Replace call s:replace(<f-args>)
+command! -nargs=? -range REPL    call s:repl(<line1>, <line2>, <f-args>)
+command! -bar BdReadOnly silent! exe 'bd '.join(filter(range(1, bufnr('$')), {i,v -> getbufvar(v, '&modifiable') == 0}))| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
+
 
 "---------------Shortcuts---------------"
 
-nmap <leader>ev :tabedit ~/.config/vim/vimrc<cr>|            " Edit configuration
-nmap <leader>eh :tabedit ~/.config/vim/hooks/post-save<cr>|  " Edit hook script
+nmap     <leader>ev :tabedit ~/.config/vim/vimrc<cr>|            " Edit configuration
+nmap     <leader>eh :tabedit ~/.config/vim/hooks/post-save<cr>|  " Edit hook script
 
-nmap <leader>mn :nmap<cr>|     " Normal mappings
-nmap <leader>mv :vmap<cr>|     " Visual mappings
-nmap <leader>mi :imap<cr>|     " Insert mappings
-nmap <leader>mc :command<cr>|  " List commands
+nmap     <leader>mn :nmap<cr>|     " Normal mappings
+nmap     <leader>mv :vmap<cr>|     " Visual mappings
+nmap     <leader>mi :imap<cr>|     " Insert mappings
+nmap     <leader>mc :command<cr>|  " List commands
 
 nmap     <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold --spaces --width 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>| " View function documentation
-vnoremap <leader>dt y:BdReadOnly \| term dict -h localhost <C-R>*<cr>| " Send visual selection under cursor to dictionary
-vnoremap <leader>ds y:term ++hidden ++close recoll -q <C-R>*<cr>|      " Send visual selection under cursor to search engine
+vnoremap <leader>dt y:BdReadOnly \| :term dict -h localhost <C-R>*<cr>| " Send visual selection under cursor to dictionary
+vnoremap <leader>ds y:term ++hidden ++close recoll -q <C-R>*<cr>|       " Send visual selection under cursor to search engine
 
-vnoremap <leader>ag y:Ag <C-R>*<cr>|                   " Search for files containing visual selection
-vnoremap <leader>ar y:Rg <C-R>*<cr>|                   " Search for files containing visual selection
-vnoremap <leader>af y/<C-R>*<cr> \| :grep <C-R>*<cr>|  " Search for files containing visual selection
+vnoremap <leader>grep y/<C-R>*<cr> \| :grep <C-R>*<cr><cr>:copen<cr>|              " Cycle through files containing visual selection
+nmap     <leader>grep :Find<space>|                                                " Cycle through files containing search query
+vnoremap <leader>af y:BdReadOnly \| :exe ':term ' . &grepprg . ' ' . '<C-R>*'<cr>| " Show files containing visual selection in terminal
+nmap     <leader>af  :BdReadOnly \| :exe ':term ' . &grepprg . ' ' . ''<left>|     " Show files containing search query in terminal
 
-nmap <leader>jl :norm yaW<cr> \| :Jump<cr>| " Jump to line
+nmap     <leader>jl :norm yaW<cr> \| :Jump<cr>| " Jump to line
 
-nmap <leader>sl :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
-nmap <leader>ss :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
+nmap     <leader>sl :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
+nmap     <leader>ss :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
 
-nmap     <leader>sp :set spell!<cr>|                                                      " Toggle Spell Check
+nmap     <leader>sp  :set spell!<cr>|                                                     " Toggle spell check
 nmap     <leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>|    " Switch to spaces
 nmap     <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab<cr>|  " Switch to tabs
-vnoremap <leader>sn !perl -e 'print sort { length($a) <=> length($b) } <>'<cr>|           " Sort lines by length
+vnoremap <leader>sn  <Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>| " Sort lines by length
 
-nmap <leader>qq :bd<cr>|                      " Close buffer
-nmap <leader>qa :silent! %bd!\|e#\|bd#<cr>|   " Close all buffers
-nmap <leader>qw <C-w>c<cr>|                   " Close window
+nmap     <leader>qq :bd<cr>|                       " Close buffer
+nmap     <leader>qa :silent! %bd<cr><C-o>:bd#<cr>| " Close all buffers
+nmap     <leader>qw <C-w>c<cr>|                    " Close window
 
 nmap     <leader>ra :set all& \| :source ~/.config/vim/vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>| " Reset all settings and source configuration.
 nmap     <leader>re gg=G<C-o><C-o>|                 " Re-indent entire file
@@ -172,28 +189,28 @@ nmap     <leader>cr :set relativenumber!<cr>|                                   
 nmap     <leader>ck ddkkpk<cr>|                                                                                             " Move line up
 nmap     <leader>cj ddpk<cr>|                                                                                               " Move line down
 vnoremap <leader>ct !column -t -o' '<cr>|                                                                                   " Justify columns
-vnoremap <leader>cf <S-J><S-v> \| !fold --spaces --width<space>80|                                                          " Fold text
-noremap  <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\ <space>$HOME/.cache/scratchpad<C-left><left>|            " Scratchpad of specified filetype
+vnoremap <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
+noremap  <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\<space><space>$HOME/.cache/scratchpad<C-left><left>|      " Scratchpad of specified filetype
 
-nmap <Tab> :Buffers<cr>|          " List buffers
-nmap <leader>ov :Lines<cr>|       " List lines in loaded buffers
-nmap <leader>ob :BLines<cr>|      " List lines in loaded buffer
-nmap <leader>ol :Locate<space>|   " List files containing search term
-nmap <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>
-nmap <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
-nmap <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
-nmap <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
-nmap <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $HOME -type d -maxdepth 6", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
+nmap     <Tab>      :Buffers<cr>|     " List buffers
+nmap     <leader>ov :Lines<cr>|       " List lines in loaded buffers
+nmap     <leader>ob :BLines<cr>|      " List lines in loaded buffer
+nmap     <leader>ol :Locate<space>|   " List files containing search term
+nmap     <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>
+nmap     <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
+nmap     <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
+nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
+nmap     <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $HOME -type d -maxdepth 6", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 
-nmap <leader>nm :NnnPicker<cr>|           " Open file manager
-nmap <leader>nn :NnnPicker '%:p:h'<cr>|   " Open file manager at current file path
+nmap     <leader>nm :NnnPicker<cr>|           " Open file manager
+nmap     <leader>nn :NnnPicker '%:p:h'<cr>|   " Open file manager at current file path
 
-nmap <Bslash> :vsplit<cr>|            " Vertical split
-nmap <C-Bslash> :split<cr>|           " Horizontal split
-nmap <C-j> :resize +5<cr>|            " Horizontal split resize down
-nmap <C-k> :resize -5<cr>|            " Horizontal split resize up
-nmap <C-h> :vertical resize +5<cr>|   " Vertical split resize left
-nmap <C-l> :vertical resize -5<cr>|   " Vertical split resize right
+nmap     <Bslash>   :vsplit<cr>|              " Vertical split
+nmap     <C-Bslash> :split<cr>|               " Horizontal split
+nmap     <C-j>      :resize +5<cr>|           " Horizontal split resize down
+nmap     <C-k>      :resize -5<cr>|           " Horizontal split resize up
+nmap     <C-h>      :vertical resize +5<cr>|  " Vertical split resize left
+nmap     <C-l>      :vertical resize -5<cr>|  " Vertical split resize right
 
 inoremap <S-Tab> <C-d>|     " Inverse Tabs
 imap     <C-o> <C-x><C-n>|  " Whole chunked line next completion
@@ -201,11 +218,13 @@ imap     <C-y> <C-x><C-l>|  " Whole line next completion
 imap     <C-t> <Esc>:term ++hidden ++close editor-thesaurus <cword><cr>:sleep 150m<cr>hea<C-x><C-t>| " Thesaurus insert completion
 vmap     <C-t> y:term ++hidden ++close editor-thesaurus <C-R>*<cr>:sleep 150m<cr>hea<C-x><C-t>|      " Thesaurus visual completion
 
-nmap     <Esc><Esc> :nohl<cr>|                " Exit incremental search
-vnoremap < <gv|                               " Retain visual selection when tabbing left
-vnoremap > >gv|                               " Retain visual selection when tabbing right
-nnoremap Q <Nop>|                             " Disable Ex Mode
-vnoremap <expr>y "my\"" . v:register . "y`y"| " Prevent cursor from jumping in visual select context https://ddrscott.github.io/blog/2016/yank-without-jank/
+nmap     <Esc><Esc> :nohl<cr>|                       " Exit incremental search
+vnoremap < <gv|                                      " Retain visual selection when tabbing left
+vnoremap > >gv|                                      " Retain visual selection when tabbing right
+nnoremap Q <Nop>|                                    " Disable Ex Mode
+nnoremap <S-v> :call setreg('c', col('.'))<cr><S-v>| " Prevent cursor from jumping in visual context https://ddrscott.github.io/blog/2016/yank-without-jank/
+nnoremap yy yy:call setreg('c', col('.'))<cr>|       " Prevent cursor from jumping in yanking context
+nnoremap p p:call cursor(0, getreg('c'))<cr>|        " Prevent cursor from jumping in pasting context
 
 
 "------------------Snippets-------------------"
@@ -228,16 +247,7 @@ let g:nnn#layout = { 'left': '~20%' }                                           
 let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } }  " Set fzf window layout.
 
 
-"-------------------Commands-------------------"
-
-command! -nargs=? -range Jump   call s:cursor(@*)
-command! -nargs=? -range REPL   call s:repl(<line1>, <line2>, <f-args>)
-command! -nargs=1 -range Notify call s:notify(<args>)
-command! Term term ++noclose
-command! -bar BdReadOnly silent! exe 'bd '.join(filter(range(1, bufnr('$')), {i,v -> getbufvar(v, '&modifiable') == 0}))| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
-
-
-"----------------Autorun----------------"
+"-------------------Autorun-------------------"
 
 augroup AutoCommands
 
@@ -251,8 +261,8 @@ augroup AutoCommands
   autocmd FileType markdown         autocmd! BufWritePost <buffer> :only | :term ++rows=10 sh -c "cat % | vale --ext .md"
   autocmd FileType raku             autocmd! BufWritePost <buffer> exe 'Notify(''raku -c ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType scheme           autocmd! BufWritePost <buffer> exe 'Notify(''guile -s ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser css ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --write --parser html ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser css ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser html ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''ruff --no-cache ' . expand('%') . ' 2>&1 && black ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType nim              autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
   autocmd FileType rust             autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
@@ -285,9 +295,13 @@ augroup AutoCommands
   autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Desktop File OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.service                          exe 'Notify(''systemd-analyze verify --user ' . expand('%') . ' 2>&1 && printf "Systemd Service File OK: ' . expand('%') . '"'')'
 
-  " File type function under cursor lookups.
+  " Word under cursor lookups.
   autocmd FileType go     noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
   autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
+
+  " Quick fix mappings.
+  autocmd FileType qf nmap <buffer> j j:cnext<cr><C-w>w
+  autocmd FileType qf nmap <buffer> k k:cprev<cr><C-w>w
 
   " REPL commands.
   autocmd FileType bash       noremap <buffer> <leader>cc :REPL bash -x<cr>
@@ -304,6 +318,7 @@ augroup AutoCommands
   autocmd FileType scheme     noremap <buffer> <leader>cc :REPL guile<cr>
   autocmd FileType sh         noremap <buffer> <leader>cc :REPL dash -x<cr>
   autocmd FileType typescript noremap <buffer> <leader>cc :REPL deno<cr>
+  autocmd FileType vim        noremap <buffer> <leader>cc yVy:<C-R>*<bs><cr>
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " Format using visual select + gq.
@@ -318,13 +333,13 @@ augroup AutoCommands
   autocmd FileType python          set formatprg=black\ --quiet\ -
   autocmd FileType lisp            set formatprg=emacs-batch-indent\ scheme
   autocmd FileType scheme          set formatprg=emacs-batch-indent\ scheme
-  autocmd FileType css             set formatprg=prettier\ --parser\ css\ --stdin-filepath\ %
   autocmd FileType sql             set formatprg=pg_format\ --config\ ~/.config/pg_format.conf
-  autocmd FileType html            set formatprg=prettier\ --parser\ html\ --stdin-filepath\ %
   autocmd FileType xml             set formatprg=xmllint\ --pretty\ 1\ -\ \|\ tail\ --lines\ +2
-  autocmd FileType markdown        set formatprg=prettier\ --parser\ markdown\ --stdin-filepath\ %
   autocmd FileType javascript      set formatprg=swc\ compile\ --filename\ %\ \|\ tail\ --lines\ +2
+  autocmd FileType css             set formatprg=prettier\ --ignore-path\ --parser\ css\ --stdin-filepath\ %
+  autocmd FileType html            set formatprg=prettier\ --ignore-path\ --parser\ html\ --stdin-filepath\ %
   autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
+  autocmd FileType markdown        set formatprg=prettier\ --ignore-path\ --parser\ markdown\ --stdin-filepath\ %
 
   " Format by extension using visual select + gq
   autocmd BufRead,BufNewFile *.mathml.xml set formatprg=latexmlmath\ -
