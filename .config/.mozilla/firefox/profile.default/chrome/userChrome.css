@@ -1,4 +1,12 @@
-/* Hide top tab bar in Firefox Quantum. */
+/* Disable animations. */
+* {
+  animation-delay: 0ms !important;
+  transition-delay: 0ms !important;
+  animation-duration: 0.00000001ms !important;
+  transition-duration: 0.00000001ms !important;
+}
+
+/* Hide top tab bar. */
 @-moz-document url("chrome://browser/content/browser.xhtml") {
   #TabsToolbar {
     visibility: collapse !important;
@@ -21,12 +29,17 @@
   display: none !important;
 }
 
+panel,
+menupopup {
+  border: 1px solid !important;
+}
+
 /*
  * Reduce expanding urlbar.
  * Source: https://github.com/WesleyBranton/Remove-Firefox-Megabar#readme
+ * Licence: MPL | https://www.mozilla.org/en-US/MPL/2.0/
  */
 
-/* Disable expanding urlbar (compact). */
 @-moz-document url(chrome://browser/content/browser.xhtml) {
   #urlbar[breakout][breakout-extend] > #urlbar-input-container,
   #urlbar-input-container {
@@ -52,3 +65,5 @@
     border-radius: var(--toolbarbutton-border-radius) var(--toolbarbutton-border-radius) 0 0 !important;
   }
 }
+
+/*************************************************************************/
