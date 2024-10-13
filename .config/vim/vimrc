@@ -46,7 +46,7 @@ set undofile                             " Enable undofile.
 set viminfo+=n~/.config/vim/viminfo      " Set viminfo file path.
 set undodir=~/.config/vim/undodir        " Set undofile directory.
 
-set completeopt=fuzzy                    " Disable ctrl+p popup menu
+set completeopt=                         " Disable <C-p> popup menu.
 set mouse=a                              " Enable mouse.
 set shortmess+=I                         " Disable startup message.
 set shortmess-=S                         " Count number of search result matches.
@@ -213,8 +213,8 @@ nmap     <C-h>      :vertical resize +5<cr>|  " Vertical split resize left
 nmap     <C-l>      :vertical resize -5<cr>|  " Vertical split resize right
 
 inoremap <S-Tab> <C-d>|     " Inverse Tabs
-imap     <C-o> <C-x><C-n>|  " Whole chunked line next completion
-imap     <C-y> <C-x><C-l>|  " Whole line next completion
+imap     <C-o> <C-x><C-n>|  " Keyword local completion
+imap     <C-y> <C-x><C-l>|  " Whole line completion
 imap     <C-t> <Esc>:term ++hidden ++close editor-thesaurus <cword><cr>:sleep 150m<cr>hea<C-x><C-t>| " Thesaurus insert completion
 vmap     <C-t> y:term ++hidden ++close editor-thesaurus <C-R>*<cr>:sleep 150m<cr>hea<C-x><C-t>|      " Thesaurus visual completion
 
