@@ -19,7 +19,7 @@ set showmatch                            " Briefly show matching tags.
 set nocompatible                         " Use Vim defaults.
 set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
-set cursorline                           " Set cursor line highlight.
+set nocursorline                         " Remove cursor line.
 set notimeout                            " Wait indefinitely for complete key combinations.
 set ttimeout                             " Prevent pressing <Esc> twice.
 set nostartofline                        " Do not move cursor to line start on buffer switch.
