@@ -1,19 +1,17 @@
 { lib, fetchgit, python38 }:
 
-with python38.pkgs;
-
-buildPythonApplication rec {
+python38.pkgs.buildPythonApplication rec {
 
   pname = "chromexup";
-  version = "8eae4e04a3d6fa4838bb8e782b84cdb2edc8540f";
+  version = "5a4e8ac0eec36b5865a40dfdeba0943e8623f412";
 
   src = fetchgit {
     rev = version;
     url = "https://github.com/xsmile/chromexup.git";
-    sha256 = "0kiqh5zc2rs73amrmj0hrpxccd2qpd3f9zwj7q9i6k7ii5mzw357";
+    sha256 = "sha256-HdSFZh1BRfcRURZpCt7AK0ABqd2YT00p15ssWwlue7o=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [ python38.pkgs.requests ];
 
   postInstall = ''
     cp config.ini.example $out
