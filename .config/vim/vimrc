@@ -68,11 +68,11 @@ set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
 set foldcolumn=2                         " Set fold column width to 2.
 
-set thesaurus=~/.config/vim/thesaurus-buffer                        " Set the location of thesaurus file.
-set grepprg=rg\ --no-heading\ --line-number\ --column\ --smart-case " Set grep program.
-set title titlestring=vim:\ %F titlelen=999999                      " Set parseable title.
-set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab         " Set spaces as default.
-set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣     " Set hidden character identifiers.
+set thesaurus=~/.config/vim/thesaurus-buffer                                               " Set the location of thesaurus file.
+set title titlestring=vim:\ %F titlelen=999999                                             " Set parseable title.
+set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab                                " Set spaces as default.
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣                            " Set hidden character identifiers.
+set grepprg=rg\ --no-heading\ --line-number\ --column\ --smart-case\ --multiline\ --regexp " Set grep program.
 
 
 "----------------Visuals----------------"
@@ -121,24 +121,24 @@ function s:notify(command)
   call popup_notification(systemlist(a:command), { 'pos': 'topright', 'col': 9999, 'time' : 600000, 'highlight': 'Normal' })
 endfunction
 
-function s:replace(this, that)
-   noautocmd exe 'silent cfdo %s/' . a:this . '/'. a:that . '/g' | exe 'silent grep ' . a:that ' | ' . ':copen' | call feedkeys("/" . a:that . "\<cr>")
+function s:replace(...)
+   noautocmd exe 'silent cfdo %s/' . a:1 . '/'. join(a:000[1:], ' ') . '/g' | exe 'silent grep ' . shellescape(join(a:000[1:], ' ')) . ' | ' . ':copen' | call feedkeys('/' . join(a:000[1:], ' ') . "\<cr>") | redraw!
 endfunction
 
 function s:find(that)
-   exe 'silent grep ' . a:that ' | ' . ':copen' | call feedkeys("/" . a:that . "\<cr>")
+   exe '%bd | silent grep ' . shellescape(escape(a:that, '#|[](){}+')) . ' | ' . ':copen' | call feedkeys('/' . trim(escape(a:that, '?/|'), '^') . "\<cr>") | redraw!
 endfunction
 
 
 "----------------Commands----------------"
 
-command! Term term ++noclose
 command! -nargs=? -range Jump    call s:jump(@*)
 command! -nargs=1 -range Notify  call s:notify(<args>)
-command! -nargs=+ -range Find    call s:find(<f-args>)
+command! -nargs=1 -range Find    call s:find(<f-args>)
 command! -nargs=+ -range Replace call s:replace(<f-args>)
 command! -nargs=? -range REPL    call s:repl(<line1>, <line2>, <f-args>)
 command! -bar BdReadOnly silent! exe 'bd '.join(filter(range(1, bufnr('$')), {i,v -> getbufvar(v, '&modifiable') == 0}))| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
+command! -bar BdUnloaded silent! exe 'bd '.join(filter(range(1, bufnr('$')), {i,v -> getbufinfo()[i]["loaded"]   == 0}))| " Delete unloaded buffers
 
 
 "---------------Shortcuts---------------"
@@ -300,8 +300,9 @@ augroup AutoCommands
   autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
 
   " Quick fix mappings.
-  autocmd FileType qf nmap <buffer> j j:cnext<cr><C-w>w
-  autocmd FileType qf nmap <buffer> k k:cprev<cr><C-w>w
+  autocmd FileType qf nmap <buffer> j j:cnext<cr>:autocmd! BufWritePost<cr><C-w>w
+  autocmd FileType qf nmap <buffer> k k:cprev<cr>:autocmd! BufWritePost<cr><C-w>w
+  autocmd FileType qf nmap <buffer> <cr> <cr><C-w>w
 
   " REPL commands.
   autocmd FileType bash       noremap <buffer> <leader>cc :REPL bash -x<cr>
