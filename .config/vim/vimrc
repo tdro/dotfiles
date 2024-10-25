@@ -57,7 +57,7 @@ set fillchars=                           " Set split window margin fill to none.
 set laststatus=0                         " Disable status bar.
 set linespace=3                          " Set line spaces.
 set guiheadroom=0                        " Disable headroom on window maximize.
-set history=50                           " Keep 50 lines of command line history.
+set history=10000                        " Lines of command line history to keep.
 set clipboard=unnamed                    " Use clipboard as default register.
 set backspace=indent,eol,start           " Enable backspacing.
 set formatoptions-=t                     " Do not auto wrap text when typing.
@@ -143,13 +143,8 @@ command! -bar BdUnloaded silent! exe 'bd '.join(filter(range(1, bufnr('$')), {i,
 
 "---------------Shortcuts---------------"
 
-nmap     <leader>ev :tabedit ~/.config/vim/vimrc<cr>|            " Edit configuration
-nmap     <leader>eh :tabedit ~/.config/vim/hooks/post-save<cr>|  " Edit hook script
-
-nmap     <leader>mn :nmap<cr>|     " Normal mappings
-nmap     <leader>mv :vmap<cr>|     " Visual mappings
-nmap     <leader>mi :imap<cr>|     " Insert mappings
-nmap     <leader>mc :command<cr>|  " List commands
+nmap     <leader>ev :tabedit ~/.config/vim/vimrc<cr>|                                        " Edit configuration
+nmap     <leader>eh :tabedit ~/.config/vim/viminfo<cr>/^# Command Line History<cr>:e<cr>n|   " Edit command history
 
 nmap     <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold --spaces --width 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>| " View function documentation
 vnoremap <leader>dt y:BdReadOnly \| :term dict -h localhost <C-R>*<cr>| " Send visual selection under cursor to dictionary
@@ -358,10 +353,13 @@ augroup AutoCommands
   " Clear notification on cursor movement.
   autocmd CursorMoved * silent! call popup_clear()
 
-  " Automatically remove trailing white space on save.
+  " Remove trailing white space on save.
   autocmd BufWritePre * %s/\s\+$//e
 
-  " Automatically save file on insert and idle.
+  " Persist command history.
+  autocmd CmdwinLeave * wviminfo
+
+  " Save file on insert and idle.
   autocmd InsertLeave,CursorHold * silent! write
     \| silent! exe "!~/.config/vim/hooks/post-save > /dev/null 2>&1 &"
     \| :echo expand('%:t') '[filetype=' . &filetype . ']'
