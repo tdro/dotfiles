@@ -81,11 +81,11 @@ command -v rsvg-convert > /dev/null 2>&1 && \
   export GDK_PIXBUF_MODULE_FILE
 
 export FZF_DEFAULT_OPTS="\
- --no-separator \
  --inline-info \
+ --no-separator \
  --color=fg:255,hl:203 \
  --color=fg+:81,bg+:237,hl+:203 \
- --color=info:188,prompt:69,pointer:199 \
+ --color=info:188,prompt:69,pointer:199,gutter:-1 \
  --color=marker:109,spinner:236,header:255"
 
 [ -z "$BASH_PROFILE" ] && . "$HOME/.bashrc"
