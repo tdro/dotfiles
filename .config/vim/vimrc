@@ -290,9 +290,15 @@ augroup AutoCommands
   autocmd BufWritePost *.desktop                          exe 'Notify(''desktop-file-validate ' . expand('%') . ' 2>&1 && printf "Desktop File OK: ' . expand('%') . '"'')'
   autocmd BufWritePost *.service                          exe 'Notify(''systemd-analyze verify --user ' . expand('%') . ' 2>&1 && printf "Systemd Service File OK: ' . expand('%') . '"'')'
 
-  " Word under cursor lookups.
-  autocmd FileType go     noremap <buffer> <leader>df :exe ':term ++rows=10 go doc ' . expand('<cexpr>')<cr>
-  autocmd FileType elixir noremap <buffer> <leader>df :exe ':term ++rows=10 sh -c "echo ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
+  " Keyword documentation lookups.
+  autocmd FileType go     noremap <buffer> K  :set modified<cr>:BdReadOnly<cr>:exe 'term ++rows=10 go doc' . ' ' . expand('<cexpr>')<cr>
+  autocmd FileType go     vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:term ++rows=10 go doc <C-R>*<cr>
+  autocmd FileType elixir noremap <buffer> K  :set modified<cr>:BdReadOnly<cr>:exe ':term ++rows=10 sh -c "printf ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
+  autocmd FileType elixir vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:term ++rows=10 sh -c "printf 'h(<C-R>*)' \| iex"<cr>
+  autocmd FileType php    noremap <buffer> K  :set modified<cr>:BdReadOnly<cr>:exe ':term ++rows=10 sh -c "echo doc' . ' ' . expand('<cexpr>') . ' ' . '\| psysh"'<cr>
+  autocmd FileType php    vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:term ++rows=10 sh -c "echo doc <C-R>* \| psysh"<cr>
+  autocmd FileType vim    noremap <buffer> K  :set modified<cr>:BdReadOnly<cr>:exe ':h' . ' ' . expand('<cexpr>')<cr>
+  autocmd FileType vim    vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:h<space><C-R>*<cr>
 
   " Quick fix mappings.
   autocmd FileType qf nmap <buffer> j j:cnext<cr>:autocmd! BufWritePost<cr><C-w>w
