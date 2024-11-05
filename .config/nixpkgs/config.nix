@@ -74,6 +74,7 @@ in
         (callPackage ./packages/emacs-batch-indent/package.nix { })
         (callPackage ./packages/pdf2htmlex/package.nix { })
         (callPackage ./packages/systemd2nix/package.nix { })
+        (callPackage ./packages/vim/package.nix { })
         (callPackage ./packages/w3m/package.nix { })
         (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         unstable.emacs
@@ -82,7 +83,6 @@ in
         unstable.libimobiledevice
         unstable.piper-tts
         unstable.validator-nu
-        unstable.vimHugeX
         unstable.yt-dlp
         aerc
         alacritty
