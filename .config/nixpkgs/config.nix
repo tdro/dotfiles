@@ -74,6 +74,7 @@ in
         (callPackage ./packages/emacs-batch-indent/package.nix { })
         (callPackage ./packages/pdf2htmlex/package.nix { })
         (callPackage ./packages/systemd2nix/package.nix { })
+        (callPackage ./packages/w3m/package.nix { })
         (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
         unstable.emacs
         unstable.hugo
@@ -169,7 +170,6 @@ in
         vcal
         ventoy-bin
         vnstat
-        w3m
         wavemon
         weechat
         woof

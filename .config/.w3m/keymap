@@ -1,0 +1,33 @@
+# w3m vim-like keymap file (C) sansa
+# https://github.com/sansna/keymap.w3m/blob/master/LICENSE
+# Licence: GPL | https://www.gnu.org/licenses/gpl-3.0.txt
+
+########## command ##########
+keymap :: COMMAND
+keymap :H HELP
+keymap :O OPTIONS
+keymap :d DOWNLOAD_LIST
+
+########## history navigation ##########
+keymap C-r NEXT
+keymap u   PREV
+keymap i   GOTO_LINK
+keymap :p  SELECT_MENU
+keymap :h  HISTORY
+
+########## cursor ##########
+keymap 0 LINE_BEGIN
+keymap $ LINE_END
+keymap w NEXT_WORD
+keymap b PREV_WORD
+
+########## quit ##########
+keymap ZZ EXIT
+keymap ZQ QUIT
+keymap :q QUIT
+
+########## search ##########
+keymap / ISEARCH
+keymap ? ISEARCH_BACK
+keymap n SEARCH_NEXT
+keymap N SEARCH_PREV
