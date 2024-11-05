@@ -301,8 +301,8 @@ augroup AutoCommands
   autocmd FileType vim    vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:h<space><C-R>*<cr>
 
   " Quick fix mappings.
-  autocmd FileType qf nmap <buffer> j j:cnext<cr>:autocmd! BufWritePost<cr><C-w>w
-  autocmd FileType qf nmap <buffer> k k:cprev<cr>:autocmd! BufWritePost<cr><C-w>w
+  autocmd FileType qf nmap <buffer> j j:call setreg('c', col('.'))<cr>:cnext<cr>:autocmd! BufWritePost<cr><C-w>w:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <buffer> k k:call setreg('c', col('.'))<cr>:cprev<cr>:autocmd! BufWritePost<cr><C-w>w:call cursor(0, getreg('c'))<cr>
   autocmd FileType qf nmap <buffer> <cr> <cr><C-w>w
 
   " REPL commands.
@@ -355,6 +355,9 @@ augroup AutoCommands
 
   " Allow switching between [No Name] buffers
   autocmd BufWinEnter * if &filetype == "" | set bh=hide | endif
+
+  " Open quick before jumping to the first location.
+  autocmd QuickFixCmdPost * copen
 
   " Clear notification on cursor movement.
   autocmd CursorMoved * silent! call popup_clear()
