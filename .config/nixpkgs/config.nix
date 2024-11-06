@@ -345,7 +345,7 @@ in
     Fonts = pkgs.buildEnv {
       name = "fonts";
       paths = [
-        (callPackage ./packages/nerdfonts-dejavu-sans-mono/package.nix { })
+        (nerdfonts.override { fonts = [ "DejaVuSansMono" ]; })
         cm_unicode
         cooper-hewitt
         corefonts
