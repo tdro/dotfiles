@@ -224,10 +224,9 @@ in stdenv.mkDerivation {
          ++ lib.optional tclSupport tcl ++ lib.optional rubySupport ruby
          ++ lib.optional sodiumSupport libsodium;
 
-  preBuild = ''
-    sed --in-place "s|#STRIP = /bin/true|STRIP = true|g" src/Makefile
-    cat src/Makefile
-  '';
+  # preBuild = ''
+  #   sed --in-place "s|#STRIP = /bin/true|STRIP = true|g" src/Makefile
+  # '';
 
   # dontStrip = true;   # TODO: Replace strip binary with true
 
