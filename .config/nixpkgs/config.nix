@@ -153,6 +153,7 @@ in
         ranger
         rclone
         ripgrep
+        rofi
         rxvt-unicode
         s-tui
         sfeed
@@ -185,7 +186,6 @@ in
       paths = [
         (callPackage ./packages/boomer/package.nix { })
         (callPackage ./packages/dmenu/package.nix { })
-        (callPackage ./packages/rofi/package.nix { })
         (callPackage ./packages/sowon/package.nix { })
         (mplayer.override { v4lSupport = true; })
         previous.code-server
