@@ -21,10 +21,10 @@ URxvt.transparent:         false
 URxvt.url-launcher:        /usr/bin/env xdg-open
 URxvt.url-select.launcher: /usr/bin/env xdg-open
 
-URxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.font:                xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
-URxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+URxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+URxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+URxvt.font:                xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+URxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
 
 ! -----------------
 ! UXTerm Settings
@@ -35,7 +35,7 @@ UXTerm.ttyModes: erase ^?
 
 UXTerm.vt100.backarrowKey:    false
 UXTerm.vt100.cursorBlink:     true
-UXTerm.vt100.faceName:        xft:monospace:size=10,xft:DejaVuSansMono Nerd Font Mono:size=10
+UXTerm.vt100.faceName:        xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
 UXTerm.vt100.fastScroll:      true
 UXTerm.vt100.geometry:        80x18
 UXTerm.vt100.internalBorder:  10
