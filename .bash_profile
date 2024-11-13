@@ -67,16 +67,17 @@ export LEIN_HOME="$XDG_DATA_HOME/lein"
 export LESSHISTFILE="$XDG_CACHE_HOME/less.history"
 export MANPAGER="vim -M +MANPAGER -"
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npmrc"
 export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/pass"
 export PROMPT_COMMAND='cd .; history -a; history -n; (bashhistory &)'
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export RECOLL_CONFDIR="$XDG_CONFIG_HOME/recoll"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 export TEXINPUTS=$XDG_DATA_HOME/tex:
 export URXVT_PERL_LIB="$XDG_CONFIG_HOME/urxvt/ext"
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
-export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 
 command -v rsvg-convert > /dev/null 2>&1 && \
   GDK_PIXBUF_MODULE_FILE=$(printf "%s" "$HOME"/.nix-profile/lib/gdk-pixbuf*/*/loaders.cache) && \
