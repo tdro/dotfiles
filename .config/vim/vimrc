@@ -38,6 +38,7 @@ set autowrite                            " Write if modified.
 set autowriteall                         " Write if modified on buffer change.
 set autoindent                           " Copy indent from current line to new line.
 set ignorecase                           " Ignore case on search.
+set fileignorecase                       " Ignore case on file and directories.
 set infercase                            " Infer the case on completion.
 set smartcase                            " Search by case smartly.
 set nolazyredraw                         " Disable lazy redraw on screen when using macros.
@@ -68,6 +69,7 @@ set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
 set foldcolumn=2                         " Set fold column width to 2.
 
+set dictionary=~/.config/vim/thesaurus                                                     " Set the location of dictionary file.
 set thesaurus=~/.config/vim/thesaurus-buffer                                               " Set the location of thesaurus file.
 set title titlestring=vim:\ %F titlelen=999999                                             " Set parseable title.
 set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab                                " Set spaces as default.
@@ -207,11 +209,13 @@ nmap     <C-k>      :resize -5<cr>|           " Horizontal split resize up
 nmap     <C-h>      :vertical resize +5<cr>|  " Vertical split resize left
 nmap     <C-l>      :vertical resize -5<cr>|  " Vertical split resize right
 
-inoremap <S-Tab> <C-d>|     " Inverse Tabs
-imap     <C-o> <C-x><C-n>|  " Keyword local completion
-imap     <C-y> <C-x><C-l>|  " Whole line completion
-imap     <C-t> <Esc>:term ++hidden ++close editor-thesaurus <cword><cr>:sleep 150m<cr>hea<C-x><C-t>| " Thesaurus insert completion
-vmap     <C-t> y:term ++hidden ++close editor-thesaurus <C-R>*<cr>:sleep 150m<cr>hea<C-x><C-t>|      " Thesaurus visual completion
+inoremap <S-Tab>    <C-d>|       " Inverse Tabs
+imap     <C-o>      <C-x><C-n>|  " Keyword local completion
+imap     <C-s>      <C-x><C-f>|  " File name completion
+imap     <C-y>      <C-x><C-l>|  " Whole line completion
+inoremap <silent> <C-x><C-s> <Esc>:set spell<cr>hea<C-x><C-s>|                                                     " Spelling Completion
+imap     <silent> <C-t>      <Esc>:term ++hidden ++close editor-thesaurus <cword><cr>:sleep 150m<cr>hea<C-x><C-t>| " Thesaurus insert completion
+vmap     <silent> <C-t>          y:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:sleep 150m<cr>hea<C-x><C-t>| " Thesaurus visual completion
 
 nmap     <Esc><Esc> :nohl<cr>|                       " Exit incremental search
 vnoremap < <gv|                                      " Retain visual selection when tabbing left
