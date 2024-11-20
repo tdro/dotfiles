@@ -150,10 +150,10 @@ nmap     <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psys
 vnoremap <leader>dt y:BdReadOnly \| :term dict -h localhost <C-R>*<cr>| " Send visual selection under cursor to dictionary
 vnoremap <leader>ds y:term ++hidden ++close recoll -q <C-R>*<cr>|       " Send visual selection under cursor to search engine
 
-vnoremap <leader>grep y/<C-R>*<cr> \| :grep <C-R>*<cr><cr>:copen<cr>|              " Cycle through files containing visual selection
-nmap     <leader>grep :Find<space>|                                                " Cycle through files containing search query
-vnoremap <leader>af y:BdReadOnly \| :exe ':term ' . &grepprg . ' ' . '<C-R>*'<cr>| " Show files containing visual selection in terminal
-nmap     <leader>af  :BdReadOnly \| :exe ':term ' . &grepprg . ' ' . ''<left>|     " Show files containing search query in terminal
+nmap     <leader>grep  :Find<space>|                                                                " Cycle through files containing search query
+vnoremap <leader>grep y/<C-R>*<cr> \| :exe 'grep' . ' ' . shellescape("<C-R>*")<cr><cr>:copen<cr>|  " Cycle through files containing visual selection
+vnoremap <leader>af   y:BdReadOnly \| :exe ':term ' . &grepprg . ' ' . '<C-R>*'<cr>|                " Show files containing visual selection in terminal
+nmap     <leader>af    :BdReadOnly \| :exe ':term ' . &grepprg . ' ' . ''<left>|                    " Show files containing search query in terminal
 
 nmap     <leader>jl :norm yaW<cr> \| :Jump<cr>| " Jump to line
 
