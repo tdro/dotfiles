@@ -14,12 +14,13 @@ set background=dark        " Try to use dark colors.
 
 let g:syntax_cmd = "skip"  " Don't define colors. We define the colors.
 
-let s:none         = 'NONE' | let s:under        = 'underline'
+let s:none         = 'NONE' | let s:under        = 'bold,underline'
 let s:t_background = s:none | let s:bold         = 'bold'
 let s:t_clear      = 0      | let s:g_background = '#2c303c'
 let s:t_white      = 255    | let s:g_white      = '#cdd3de'
 let s:t_black      = 232    | let s:g_black      = '#000000'
 let s:t_yellow     = 186    | let s:g_yellow     = '#ffdf23'
+let s:t_gold       = 220    | let s:g_gold       = '#ffd700'
 let s:t_red        = 197    | let s:g_red        = '#ff005f'
 let s:t_pink       = 203    | let s:g_pink       = '#fc3488'
 let s:t_blue       = 81     | let s:g_blue       = '#82b1ff'
@@ -44,6 +45,7 @@ exe 'hi Comment          guifg='.s:g_silver     . ' guibg='.s:none         . ' g
 exe 'hi Conceal          guifg='.s:g_white      . ' guibg='.s:g_grey4      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_white  . ' ctermbg='.s:t_grey4     . ' cterm='.s:none
 exe 'hi Conditional      guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Constant         guifg='.s:g_purple     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_purple . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi CurSearch        guifg='.s:g_black      . ' guibg='.s:g_gold     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_gold    . ' cterm='.s:bold
 exe 'hi CursorColumn     guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
 exe 'hi CursorLine       guifg='.s:none         . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:none     . ' ctermbg='.s:none        . ' cterm='.s:bold
 exe 'hi CursorLineNR     guifg='.s:g_white      . ' guibg='.s:g_background . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:bold
@@ -79,7 +81,7 @@ exe 'hi Number           guifg='.s:g_purple     . ' guibg='.s:none         . ' g
 exe 'hi Operator         guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Pmenu            guifg='.s:g_background . ' guibg='.s:g_coral      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_coral     . ' cterm='.s:none
 exe 'hi PmenuSbar        guifg='.s:g_background . ' guibg='.s:g_grey9      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_grey9     . ' cterm='.s:none
-exe 'hi PmenuSel         guifg='.s:g_grey9      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_grey9  . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi PmenuSel         guifg='.s:g_silver     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_silver . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi PmenuThumb       guifg='.s:g_background . ' guibg='.s:g_white      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_white     . ' cterm='.s:none
 exe 'hi PreCondit        guifg='.s:g_green      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_green  . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi PreProc          guifg='.s:g_green      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_green  . ' ctermbg='.s:none        . ' cterm='.s:none
@@ -103,7 +105,8 @@ exe 'hi StatusLineTermNC guifg='.s:g_background . ' guibg='.s:g_green      . ' g
 exe 'hi StorageClass     guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi String           guifg='.s:g_yellow     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_yellow . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Structure        guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi TabLine          guifg='.s:g_white      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:under . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:under
+exe 'hi TabLine          guifg='.s:g_white      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi TabLineSel       guifg='.s:g_white      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:under . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:under
 exe 'hi Tag              guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Todo             guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi ToolBarButton    guifg='.s:g_background . ' guibg='.s:g_white      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_white     . ' cterm='.s:none
@@ -114,3 +117,4 @@ exe 'hi Underlined       guifg='.s:g_green      . ' guibg='.s:none         . ' g
 exe 'hi VertSplit        guifg='.s:none         . ' guibg='.s:g_grey4      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:none     . ' ctermbg='.s:t_grey4     . ' cterm='.s:none
 exe 'hi Visual           guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
 exe 'hi WarningMsg       guifg='.s:g_black      . ' guibg='.s:g_yellow     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_yellow    . ' cterm='.s:bold
+exe 'hi WildMenu         guifg='.s:g_black      . ' guibg='.s:g_orange     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_orange    . ' cterm='.s:bold
