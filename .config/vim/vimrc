@@ -305,8 +305,8 @@ augroup AutoCommands
   autocmd FileType vim    vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:h<space><C-R>*<cr>
 
   " Quick fix mappings.
-  autocmd FileType qf nmap <silent> <buffer> j j:call setreg('c', col('.'))<cr>:cnext<cr>:autocmd! BufWritePost<cr><C-w>w:call cursor(0, getreg('c'))<cr>
-  autocmd FileType qf nmap <silent> <buffer> k k:call setreg('c', col('.'))<cr>:cprev<cr>:autocmd! BufWritePost<cr><C-w>w:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> j j:call setreg('c', col('.'))<cr>:cnext<cr>:autocmd! BufWritePost<cr><C-w>w0n$N:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> k k:call setreg('c', col('.'))<cr>:cprev<cr>:autocmd! BufWritePost<cr><C-w>w0n$N:call cursor(0, getreg('c'))<cr>
   autocmd FileType qf nmap <silent> <buffer> <cr> <cr><C-w>w
 
   " REPL commands.
