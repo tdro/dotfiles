@@ -181,41 +181,50 @@ end)
 
 -- Global Key bindings
 globalkeys = gears.table.join(
-  awful.key({ modkey,           }, "Escape", awful.tag.history.restore),                                                                 -- Show last visited tag
-  awful.key({ modkey,           }, "u",      awful.client.urgent.jumpto),                                                                -- Jump to urgent client
+  awful.key({ modkey,           }, "u",       awful.client.urgent.jumpto),                                                                -- Jump to urgent client
+  awful.key({ modkey,           }, "s",       awful.client.floating.toggle),                                                              -- Toggle floating mode
+  awful.key({ modkey,           }, "b",       function () mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible end),         -- Show hide wibar
 
-  awful.key({ modkey,           }, "j",      function () awful.client.focus.byidx( 1) end),                                              -- Show next window
-  awful.key({ modkey,           }, "k",      function () awful.client.focus.byidx(-1) end),                                              -- Show previous window
-  awful.key({ modkey,           }, "h",      awful.tag.viewprev),                                                                        -- Show previous tag
-  awful.key({ modkey,           }, "l",      awful.tag.viewnext),                                                                        -- Show next tag
+  awful.key({ modkey,           }, "j",       function () awful.client.focus.byidx( 1) end),                                              -- Show next window
+  awful.key({ modkey,           }, "k",       function () awful.client.focus.byidx(-1) end),                                              -- Show previous window
+  awful.key({ modkey,           }, "h",       awful.tag.viewprev),                                                                        -- Show previous tag
+  awful.key({ modkey,           }, "l",       awful.tag.viewnext),                                                                        -- Show next tag
 
-  awful.key({ modkey, "Shift"   }, "j",      function () awful.screen.focus_relative( 1) end),                                           -- Focus next screen
-  awful.key({ modkey, "Shift"   }, "k",      function () awful.screen.focus_relative(-1) end),                                           -- Focus previous screen
-  awful.key({ modkey, "Shift"   }, "h",      function () awful.layout.inc(-1) end),                                                      -- Switch layout previous
-  awful.key({ modkey, "Shift"   }, "l",      function () awful.layout.inc( 1) end),                                                      -- Switch layout next
+  awful.key({ modkey, "Shift"   }, "j",       function () awful.screen.focus_relative( 1) end),                                           -- Focus next screen
+  awful.key({ modkey, "Shift"   }, "k",       function () awful.screen.focus_relative(-1) end),                                           -- Focus previous screen
+  awful.key({ modkey, "Shift"   }, "h",       function () awful.layout.inc(-1) end),                                                      -- Switch layout previous
+  awful.key({ modkey, "Shift"   }, "l",       function () awful.layout.inc( 1) end),                                                      -- Switch layout next
 
-  awful.key({ modkey, "Mod1"    }, "h",      function () awful.tag.incmwfact(-0.05) end),                                                -- Increase tiling window size left
-  awful.key({ modkey, "Mod1"    }, "l",      function () awful.tag.incmwfact( 0.05) end),                                                -- Increase tiling window size right
-  awful.key({ modkey,           }, "b",      function () mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible end),         -- Show hide wibar
-  awful.key({ modkey, "Control" }, "n",      function () local c = awful.client.restore() if c then client.focus = c c:raise() end end)  -- Restore minimized group
+  awful.key({ modkey, "Mod1"    }, "[",       function () awful.tag.incmwfact(-0.05) end),                                                -- Increase tiling window size left
+  awful.key({ modkey, "Mod1"    }, "]",       function () awful.tag.incmwfact( 0.05) end),                                                -- Increase tiling window size right
+  awful.key({ modkey, "Mod1"    }, "n",       function () local c = awful.client.restore() if c then client.focus = c c:raise() end end)  -- Restore minimized group
 )
 
 -- Client Key bindings
 clientkeys = gears.table.join(
-  awful.key({ modkey,           }, "s",       awful.client.floating.toggle),                                -- Toggle floating mode
-  awful.key({ modkey, "Control" }, "Return",  function (c) c:swap(awful.client.getmaster()) end),           -- Move to master
   awful.key({ modkey,           }, "o",       function (c) c:move_to_screen() end),                         -- Move to screen
   awful.key({ modkey,           }, "m",       function (c) c.maximized = not c.maximized c:raise() end),    -- Maximize window
 
-  awful.key({ modkey, "Control" }, "k",       function(c) c.y = c.y - 1 end),                               -- Move focused window up one pixel.
-  awful.key({ modkey, "Control" }, "j",       function(c) c.y = c.y + 1 end),                               -- Move focused window down one pixel.
-  awful.key({ modkey, "Control" }, "h",       function(c) c.x = c.x - 1 end),                               -- Move focused window left one pixel.
-  awful.key({ modkey, "Control" }, "l",       function(c) c.x = c.x + 1 end),                               -- Move focused window right one pixel.
+  awful.key({ modkey, "Control" }, "Return",  function (c) c:swap(awful.client.getmaster()) end),           -- Move to master
+  awful.key({ modkey, "Control" }, "k",       function (c) c.y = c.y - 1 end),                              -- Move focused window up one pixel.
+  awful.key({ modkey, "Control" }, "j",       function (c) c.y = c.y + 1 end),                              -- Move focused window down one pixel.
+  awful.key({ modkey, "Control" }, "h",       function (c) c.x = c.x - 1 end),                              -- Move focused window left one pixel.
+  awful.key({ modkey, "Control" }, "l",       function (c) c.x = c.x + 1 end),                              -- Move focused window right one pixel.
 
-  awful.key({ modkey, "#49"     }, "k",       function(c) c.y = c.y - 10 end),                              -- Move focused window up fast.
-  awful.key({ modkey, "#49"     }, "j",       function(c) c.y = c.y + 10 end),                              -- Move focused window down fast.
-  awful.key({ modkey, "#49"     }, "h",       function(c) c.x = c.x - 10 end),                              -- Move focused window left fast.
-  awful.key({ modkey, "#49"     }, "l",       function(c) c.x = c.x + 10 end)                               -- Move focused window right fast.
+  awful.key({ modkey, "Control" }, ",",       function (c) c.y = c.y - 10 end),                             -- Move focused window up fast.
+  awful.key({ modkey, "Control" }, "m",       function (c) c.y = c.y + 10 end),                             -- Move focused window down fast.
+  awful.key({ modkey, "Control" }, "n",       function (c) c.x = c.x - 10 end),                             -- Move focused window left fast.
+  awful.key({ modkey, "Control" }, ".",       function (c) c.x = c.x + 10 end),                             -- Move focused window right fast.
+
+  awful.key({ modkey, "Mod1"    }, "k",       function (c) c:relative_move(0, 0,  0, -1) end),              -- Resize focused window up one pixel.
+  awful.key({ modkey, "Mod1"    }, "j",       function (c) c:relative_move(0, 0,  0,  1) end),              -- Resize focused window down one pixel.
+  awful.key({ modkey, "Mod1"    }, "h",       function (c) c:relative_move(0, 0, -1,  0) end),              -- Resize focused window left one pixel.
+  awful.key({ modkey, "Mod1"    }, "l",       function (c) c:relative_move(0, 0,  1,  0) end),              -- Resize focused window right one pixel.
+
+  awful.key({ modkey, "Mod1"    }, "o",       function (c) c:relative_move(0, 0,   0, -10) end),            -- Resize focused window up fast.
+  awful.key({ modkey, "Mod1"    }, "i",       function (c) c:relative_move(0, 0,   0,  10) end),            -- Resize focused window down fast.
+  awful.key({ modkey, "Mod1"    }, "u",       function (c) c:relative_move(0, 0, -10,   0) end),            -- Resize focused window left fast.
+  awful.key({ modkey, "Mod1"    }, "p",       function (c) c:relative_move(0, 0,  10,   0) end)             -- Resize focused window right fast.
 )
 
 -- Bind all key numbers to tags
@@ -288,5 +297,5 @@ awful.util.spawn = function (s) oldspawn(s, false) end
 client.connect_signal("property::maximized", function(c) c.border_width = c.maximized and 0 or beautiful.border_width end)
 
 -- Focus and unfocus borders
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
+client.connect_signal("focus",   function(c) c.border_color = beautiful.border_focus  end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
