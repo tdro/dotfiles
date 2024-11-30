@@ -217,13 +217,13 @@ inoremap <silent> <C-x><C-s> <Esc>:set spell<cr>hea<C-x><C-s>|                  
 imap     <silent> <C-t>      <Esc>:term ++hidden ++close editor-thesaurus <cword><cr>:sleep 150m<cr>hea<C-x><C-t>| " Thesaurus insert completion
 vmap     <silent> <C-t>          y:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:sleep 150m<cr>hea<C-x><C-t>| " Thesaurus visual completion
 
-nmap     <Esc><Esc> :nohl<cr>|                       " Exit incremental search
-vnoremap < <gv|                                      " Retain visual selection when tabbing left
-vnoremap > >gv|                                      " Retain visual selection when tabbing right
-nnoremap Q <Nop>|                                    " Disable Ex Mode
-nnoremap <S-v> :call setreg('c', col('.'))<cr><S-v>| " Prevent cursor from jumping in visual context https://ddrscott.github.io/blog/2016/yank-without-jank/
-nnoremap yy yy:call setreg('c', col('.'))<cr>|       " Prevent cursor from jumping in yanking context
-nnoremap p p:call cursor(0, getreg('c'))<cr>|        " Prevent cursor from jumping in pasting context
+nmap     <Esc><Esc> :nohl<cr>|                           " Exit incremental search
+vnoremap < <gv|                                          " Retain visual selection when tabbing left
+vnoremap > >gv|                                          " Retain visual selection when tabbing right
+nnoremap Q <Nop>|                                        " Disable Ex Mode
+nnoremap <S-v> :call setreg('c', col('.'))<cr><S-v>|     " Prevent cursor from jumping in visual context https://ddrscott.github.io/blog/2016/yank-without-jank/
+nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|  " Prevent cursor from jumping in yanking context
+nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>| " Prevent cursor from jumping in pasting context
 
 
 "------------------Snippets-------------------"
@@ -305,9 +305,9 @@ augroup AutoCommands
   autocmd FileType vim    vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:h<space><C-R>*<cr>
 
   " Quick fix mappings.
-  autocmd FileType qf nmap <buffer> j j:call setreg('c', col('.'))<cr>:cnext<cr>:autocmd! BufWritePost<cr><C-w>w:call cursor(0, getreg('c'))<cr>
-  autocmd FileType qf nmap <buffer> k k:call setreg('c', col('.'))<cr>:cprev<cr>:autocmd! BufWritePost<cr><C-w>w:call cursor(0, getreg('c'))<cr>
-  autocmd FileType qf nmap <buffer> <cr> <cr><C-w>w
+  autocmd FileType qf nmap <silent> <buffer> j j:call setreg('c', col('.'))<cr>:cnext<cr>:autocmd! BufWritePost<cr><C-w>w:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> k k:call setreg('c', col('.'))<cr>:cprev<cr>:autocmd! BufWritePost<cr><C-w>w:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> <cr> <cr><C-w>w
 
   " REPL commands.
   autocmd FileType bash       noremap <buffer> <leader>cc :REPL bash -x<cr>
