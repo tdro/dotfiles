@@ -263,6 +263,7 @@ augroup AutoCommands
   autocmd FileType scheme           autocmd! BufWritePost <buffer> exe 'Notify(''guile -s ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser css ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser html ' . expand('%') . ' 2>&1'')' | :e
+  autocmd FileType toml             autocmd! BufWritePost <buffer> exe 'Notify(''tomll ' . expand('%') . ' 2>&1 && printf "TOML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''ruff --no-cache ' . expand('%') . ' 2>&1 && black ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType nim              autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
   autocmd FileType rust             autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
@@ -311,7 +312,8 @@ augroup AutoCommands
   autocmd FileType qf nmap <silent> <buffer> <cr> <cr><C-w>w
 
   " REPL commands.
-  autocmd FileType bash       noremap <buffer> <leader>cc :REPL bash -x<cr>
+  autocmd FileType bash       noremap <buffer> <leader>cc :REPL bash<cr>
+  autocmd FileType raku       noremap <buffer> <leader>cc :REPL raku<cr>
   autocmd FileType sql        noremap <buffer> <leader>cc :REPL sqlite3<cr>
   autocmd FileType elixir     noremap <buffer> <leader>cc :REPL iex<cr>
   autocmd FileType go         noremap <buffer> <leader>cc :REPL gore<cr>
@@ -323,26 +325,25 @@ augroup AutoCommands
   autocmd FileType python     noremap <buffer> <leader>cc :REPL python<cr>
   autocmd FileType rust       noremap <buffer> <leader>cc :REPL evcxr<cr>
   autocmd FileType scheme     noremap <buffer> <leader>cc :REPL guile<cr>
-  autocmd FileType sh         noremap <buffer> <leader>cc :REPL dash -x<cr>
+  autocmd FileType sh         noremap <buffer> <leader>cc :REPL dash<cr>
   autocmd FileType typescript noremap <buffer> <leader>cc :REPL deno<cr>
   autocmd FileType vim        noremap <buffer> <leader>cc yVy:<C-R>*<bs><cr>
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " Format using visual select + gq.
-  autocmd FileType nix             set formatprg=nixfmt
+  autocmd FileType toml            set formatprg=yj\ -tt
   autocmd FileType sh              set formatprg=shfmt\ -
   autocmd FileType lua             set formatprg=lua-format
   autocmd FileType perl            set formatprg=perltidy\ -
-  autocmd FileType typescriptreact set formatprg=deno\ fmt\ -
-  autocmd FileType typescript      set formatprg=deno\ fmt\ -
+  autocmd FileType nix             set formatprg=nix-formatprg
   autocmd FileType elixir          set formatprg=mix\ format\ -
   autocmd FileType c               set formatprg=clang-format\ -
   autocmd FileType python          set formatprg=black\ --quiet\ -
-  autocmd FileType lisp            set formatprg=emacs-batch-indent\ scheme
-  autocmd FileType scheme          set formatprg=emacs-batch-indent\ scheme
+  autocmd FileType *script         set formatprg=deno\ fmt\ --ext\ ts\ -
+  autocmd FileType *react          set formatprg=deno\ fmt\ --ext\ tsx\ -
+  autocmd FileType lisp,scheme     set formatprg=emacs-batch-indent\ scheme
   autocmd FileType sql             set formatprg=pg_format\ --config\ ~/.config/pg_format.conf
   autocmd FileType xml             set formatprg=xmllint\ --pretty\ 1\ -\ \|\ tail\ --lines\ +2
-  autocmd FileType javascript      set formatprg=swc\ compile\ --filename\ %\ \|\ tail\ --lines\ +2
   autocmd FileType css             set formatprg=prettier\ --ignore-path\ --parser\ css\ --stdin-filepath\ %
   autocmd FileType html            set formatprg=prettier\ --ignore-path\ --parser\ html\ --stdin-filepath\ %
   autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
