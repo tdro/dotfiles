@@ -1,6 +1,6 @@
-{ lib, fetchgit, python38 }:
+{ lib, fetchgit, python3 }:
 
-python38.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication rec {
 
   pname = "systemd2nix";
   url = "https://github.com/DavHau/systemd2nix";
@@ -20,7 +20,7 @@ python38.pkgs.buildPythonApplication rec {
     runHook preInstall
     mkdir --parents $out/bin $out/share/${pname}
     cp ${src}/${pname}.py $out/share/${pname}
-    makeWrapper ${python38}/bin/python $out/bin/${pname} --add-flags $out/share/${pname}/${pname}.py
+    makeWrapper ${python3}/bin/python $out/bin/${pname} --add-flags $out/share/${pname}/${pname}.py
     runHook postInstall
   '';
 

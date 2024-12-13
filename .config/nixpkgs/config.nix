@@ -9,12 +9,12 @@ let
     sha256 = "1367bad5zz0mfm4czb6p0s0ni38f0x1ffh02z76rx4nranipqbgg"; }) { inherit system; };
 
   stable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/23.11/nixos-23.11.6510.a5e4bbcb4780/nixexprs.tar.xz";
-    sha256 = "0f73pbh4j89wgk7rn9xp0q8ybw15zkhw0prjz5r37aaryjs8hnbd"; }) { inherit system; };
+    url = "https://releases.nixos.org/nixos/24.11/nixos-24.11.710905.a0f3e10d9435/nixexprs.tar.xz";
+    sha256 = "01j4fa581yj276fyzsplizr82gckzwn3j6qlwk5phz4idz689v0y"; }) { inherit system; };
 
   unstable = import (builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixos/unstable/nixos-24.11pre690827.5633bcff0c61/nixexprs.tar.xz";
-    sha256 = "09vghfcvmics34y6n2m7adn41y423i40ir4y63bq8jn7i5g70fwy"; }) { inherit system; };
+    url = "https://releases.nixos.org/nixos/unstable/nixos-25.05beta718224.22c3f2cf41a0/nixexprs.tar.xz";
+    sha256 = "0w8426zrj58rj3y2w65l079j0gdzwhzkhnw7hgnldym5gddzhsxa"; }) { inherit system; };
 
 in
 
@@ -33,7 +33,7 @@ in
       paths = [
         Terminal Graphical Xorg Wayland Awesome Fonts Audio LaTeX Dictionary Android
         JavaScript Python PHP Lua Elixir HTML Shell Haskell Perl Nix C Golang Rust CSS
-        SQL YAML HTTP Ruby Nim Themes Emulators Clojure Lisp
+        SQL YAML TOML HTTP Ruby Nim Themes Emulators Clojure Lisp
       ];
     };
 
@@ -73,23 +73,20 @@ in
         (callPackage ./packages/chromexup/package.nix { })
         (callPackage ./packages/emacs-batch-indent/package.nix { })
         (callPackage ./packages/pdf2htmlex/package.nix { })
+        (callPackage ./packages/skippy-xd/package.nix { })
         (callPackage ./packages/systemd2nix/package.nix { })
         (callPackage ./packages/vim/package.nix { })
         (callPackage ./packages/w3m/package.nix { })
         (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
-        unstable.emacs
         unstable.hugo
-        unstable.ios-webkit-debug-proxy
-        unstable.libimobiledevice
-        unstable.piper-tts
-        unstable.validator-nu
         unstable.yt-dlp
         aerc
         alacritty
-        alsaUtils
+        alsa-utils
         amfora
         ansi2html
         ansible
+        ast-grep
         atftp
         atool
         bat
@@ -106,6 +103,7 @@ in
         docker-compose
         dtrx
         electrum
+        emacs
         encfs
         entr
         expect
@@ -124,10 +122,12 @@ in
         ideviceinstaller
         imagemagick
         img2pdf
+        ios-webkit-debug-proxy
         jpegoptim
         jq
         keychain
         kjv
+        libimobiledevice
         libqalculate
         lynx
         mdcat
@@ -143,6 +143,7 @@ in
         ocrmypdf
         pandoc
         pdsh
+        piper-tts
         pipes
         plantuml
         pngnq
@@ -152,6 +153,7 @@ in
         quickemu
         ranger
         rclone
+        readability-cli
         ripgrep
         rofi
         rxvt-unicode
@@ -168,6 +170,7 @@ in
         trash-cli
         units
         vale
+        validator-nu
         vcal
         ventoy-bin
         vnstat
@@ -188,17 +191,16 @@ in
         (callPackage ./packages/dmenu/package.nix { })
         (callPackage ./packages/sowon/package.nix { })
         (mplayer.override { v4lSupport = true; })
-        previous.code-server
-        previous.qownnotes
-        previous.recoll
-        unstable.scrcpy
+        (pkgs.writeScriptBin "keepassxc" ''unshare -c -n ${pkgs.keepassxc}/bin/keepassxc "$@"'')
         unstable.firefox
         unstable.google-chrome
         unstable.ungoogled-chromium
+        previous.mypaint
         aegisub
         anki
         blender
         claws-mail
+        code-server
         corrscope
         dconf
         diffpdf
@@ -210,7 +212,7 @@ in
         freerdp
         fsearch
         gImageReader
-        gcolor2
+        gcolor3
         gimp
         gnaural
         gparted
@@ -220,31 +222,30 @@ in
         gst_all_1.gstreamer
         i3lock-fancy
         kcharselect
-        keepassxc
         krop
         libnotify
         libreoffice
         liferea
         mate.engrampa
         meld
-        mupdf_1_17
-        mypaint
+        mupdf
         opensnitch-ui
         pavucontrol
         peek
         qrencode
+        recoll
         redshift
+        scrcpy
         screenkey
         sent
         sigil
-        skippy-xd
         spaceFM
         stalonetray
         sublime3
         sxiv
         syncthing
         tigervnc
-        transmission-gtk
+        transmission_3-gtk
         treesheets
         virt-manager
         vlc
@@ -270,11 +271,11 @@ in
     Xorg = pkgs.buildEnv {
       name = "xorg";
       paths = [
-        previous.x11vnc
         autocutsel
         glxinfo
         unclutter-xfixes
         wmctrl
+        x11vnc
         xbindkeys
         xdotool
         xorg.libxcvt
@@ -304,8 +305,8 @@ in
     Wayland = pkgs.buildEnv {
       name = "wayland";
       paths = [
-        (callPackage ./packages/wf-shell/package.nix { })
         wayfire
+        wayfirePlugins.wf-shell
         weston
         wev
         wofi
@@ -358,7 +359,7 @@ in
         ibm-plex
         inter
         noto-fonts
-        noto-fonts-cjk
+        noto-fonts-cjk-sans
         noto-fonts-emoji
         source-code-pro
         source-sans-pro
@@ -371,15 +372,15 @@ in
       name = "themes";
       paths = [
         glib
-        gnome.dconf-editor
-        gnome.gnome-themes-extra
         gtk-engine-murrine
         gtk3.dev
         librsvg
+        libsForQt5.qt5ct
         lxappearance
+        nwg-look
         papirus-icon-theme
-        qt5ct
-        unstable.nwg-look
+        pkgs.dconf-editor
+        pkgs.gnome-themes-extra
         vanilla-dmz
       ];
     };
@@ -428,23 +429,24 @@ in
         edl
         abootimg
       ];
+      pathsToLink = [ "/etc" "/share" "/bin" ];
     };
 
     LaTeX = pkgs.buildEnv {
       name = "latex";
-      paths = [ gummi texlive.combined.scheme-full previous.texworks ];
+      paths = [ gummi texlive.combined.scheme-full texworks ];
     };
 
     JavaScript = pkgs.buildEnv {
       name = "javascript";
       paths = [
-        unstable.deno
-        unstable.swc
+        deno
         esbuild
         nodePackages.eslint
         nodePackages.jsonlint
         nodePackages.prettier
         nodejs
+        swc
       ];
       pathsToLink = [ "/bin" ];
     };
@@ -479,7 +481,7 @@ in
         graphviz
         kcachegrind
         phpPackages.composer
-        phpPackages.phpcbf
+        phpPackages.php-codesniffer
         phpPackages.phpstan
         phpPackages.psalm
         phpPackages.psysh
@@ -504,6 +506,7 @@ in
     HTML = pkgs.buildEnv {
       name = "html";
       paths = [
+        cmark
         html-tidy
         html-xml-utils
         libxml2
@@ -534,7 +537,7 @@ in
 
     Nix = pkgs.buildEnv {
       name = "nix";
-      paths = [ nix-index previous.nix-linter nixfmt nixpkgs-fmt nixpkgs-lint ];
+      paths = [ previous.nix-linter nix-index alejandra nixfmt-classic nixpkgs-fmt nixpkgs-lint ];
     };
 
     Ruby = pkgs.buildEnv {
@@ -544,7 +547,7 @@ in
 
     C = pkgs.buildEnv {
       name = "c";
-      paths = [ astyle clang-tools gcc gdb gnumake meson ninja ];
+      paths = [ asmfmt astyle clang-tools gcc gdb gnumake meson ninja ];
     };
 
     Golang = pkgs.buildEnv {
@@ -567,10 +570,10 @@ in
       paths = [
         (pkgs.writeScriptBin "guile" ''
           export GUILE_LOAD_PATH="${pkgs.lib.concatStrings [
-            "${unstable.guile-gnutls}/share/guile/site/3.0:"
+            "${guile-gnutls}/share/guile/site/3.0:"
             "$GUILE_LOAD_PATH"
           ]}"
-          ${unstable.guile_3_0}/bin/guile "$@"
+          ${guile}/bin/guile "$@"
         '')
         sbcl
       ];
@@ -596,21 +599,29 @@ in
       paths = [
         pgformatter
         skeema
+        sqldef
         sqlfluff
         sqlint
         sqlite-interactive
         sqlitebrowser
-        unstable.sqldef
       ];
     };
 
     YAML = pkgs.buildEnv {
       name = "yaml";
       paths = [
-        (previous.callPackage ./packages/yaml2nix/package.nix { })
+        # (callPackage ./packages/yaml2nix/package.nix { })
         (callPackage ./packages/ruamel.yaml.cmd/package.nix { })
-        python39Packages.yamllint
+        python3Packages.yamllint
         yj
+      ];
+    };
+
+    TOML = pkgs.buildEnv {
+      name = "toml";
+      paths = [
+        (callPackage ./packages/ini2toml/package.nix { })
+        go-toml
       ];
     };
 
@@ -685,15 +696,15 @@ in
     Terminal-Aarch64 = pkgs.buildEnv {
       name = "terminal-aarch64";
       paths = [
-        unstable.vimHugeX
-        alsaUtils
+        (callPackage ./packages/skippy-xd/package.nix { })
+        alsa-utils
         fzf
         libnotify
         redshift
         rofi
         rxvt-unicode
-        skippy-xd
         tigervnc
+        vimHugeX
       ];
     };
   };

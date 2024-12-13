@@ -1,4 +1,4 @@
-{ lib, pkgs, python39 }:
+{ lib, pkgs, python3 }:
 
 let
 
@@ -8,10 +8,10 @@ let
     homepage = "https://sourceforge.net/p/ruamel-yaml-cmd/code/ci/default/tree";
   };
 
-  ruamel.std.argparse = python39.pkgs.buildPythonPackage rec {
+  ruamel.std.argparse = python3.pkgs.buildPythonPackage rec {
     pname = "ruamel.std.argparse";
     version = "0.8.3";
-    src = python39.pkgs.fetchPypi {
+    src = python3.pkgs.fetchPypi {
       inherit pname version;
       sha256 = "0srv4g6jryyaz26csx315pbmfhm4rw8jhfsl7rq7krrglgqwjryi";
     };
@@ -19,26 +19,26 @@ let
     inherit meta;
   };
 
-  ruamel.std.convert = python39.pkgs.buildPythonPackage rec {
+  ruamel.std.convert = python3.pkgs.buildPythonPackage rec {
     pname = "ruamel.yaml.convert";
     version = "0.3.2";
-    src = python39.pkgs.fetchPypi {
+    src = python3.pkgs.fetchPypi {
       inherit pname version;
       sha256 = "1i6919b5f5ygj7y7c4x0wi91n8y0mw4nf9f0bcfjk29i594xjph6";
     };
-    propagatedBuildInputs = [ python39.pkgs.python-dateutil python39.pkgs.ruamel_yaml ];
+    propagatedBuildInputs = [ python3.pkgs.python-dateutil python3.pkgs.ruamel_yaml ];
     doCheck = false;
     inherit meta;
   };
 
-  ruamel.yaml.cmd = python39.pkgs.buildPythonPackage rec {
+  ruamel.yaml.cmd = python3.pkgs.buildPythonPackage rec {
     pname = "ruamel.yaml.cmd";
     version = "0.5.7";
-    src = python39.pkgs.fetchPypi {
+    src = python3.pkgs.fetchPypi {
       inherit pname version;
       sha256 = "0w6ralskvjhswqsgxyqm5wpn0an7kj3v2mzf46ipp7b8xirjrc6r";
     };
-    propagatedBuildInputs = [ python39.pkgs.configobj ruamel.std.argparse ruamel.std.convert ];
+    propagatedBuildInputs = [ python3.pkgs.configobj ruamel.std.argparse ruamel.std.convert ];
     patches = [
       (pkgs.writeTextFile {
         name = "disable-backup-files.patch";
@@ -62,12 +62,12 @@ let
     inherit meta;
   };
 
-in python39.pkgs.buildPythonApplication rec {
+in python3.pkgs.buildPythonApplication rec {
 
   pname = ruamel.yaml.cmd.pname;
   version = ruamel.yaml.cmd.version;
   propagatedBuildInputs = [ ruamel.yaml.cmd ];
-  pythonEnvironment = python39.withPackages (_: propagatedBuildInputs);
+  pythonEnvironment = python3.withPackages (_: propagatedBuildInputs);
 
   installPhase = ''
     runHook preInstall

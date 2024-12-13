@@ -1,6 +1,6 @@
-{ lib, fetchgit, python38 }:
+{ lib, fetchgit, python3 }:
 
-python38.pkgs.buildPythonApplication rec {
+python3.pkgs.buildPythonApplication rec {
 
   pname = "chromexup";
   version = "5a4e8ac0eec36b5865a40dfdeba0943e8623f412";
@@ -11,7 +11,7 @@ python38.pkgs.buildPythonApplication rec {
     sha256 = "sha256-HdSFZh1BRfcRURZpCt7AK0ABqd2YT00p15ssWwlue7o=";
   };
 
-  propagatedBuildInputs = [ python38.pkgs.requests ];
+  propagatedBuildInputs = [ python3.pkgs.requests ];
 
   postInstall = ''
     cp config.ini.example $out

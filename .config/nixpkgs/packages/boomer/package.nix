@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchgit, makeWrapper, nim, libX11, libXrandr, libGL }:
+{ lib, stdenv, fetchgit, makeWrapper, nim-1_0, libX11, libXrandr, libGL }:
 
 let
 
@@ -25,7 +25,7 @@ in stdenv.mkDerivation rec {
     sha256 = "sha256-3yg0nuJE0Rrw13VEQ/CjjjPN5G4ytssgiesdXwlHaF8=";
   };
 
-  buildInputs = [ nim libX11 libXrandr libGL makeWrapper ];
+  buildInputs = [ nim-1_0 libX11 libXrandr libGL makeWrapper ];
 
   buildPhase = ''
     runHook preBuild

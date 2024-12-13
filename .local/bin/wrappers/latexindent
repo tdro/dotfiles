@@ -5,4 +5,4 @@ $(which latexindent --all | grep --invert-match "local/bin" | head -n 1) \
   --silent \
   --cruft=/tmp \
   --local="$HOME/.config/latexindent/settings.yaml" \
-  "$@";
+  "$@" > /dev/null 2>&1;
