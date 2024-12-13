@@ -1,0 +1,10 @@
+[font]
+size = 10
+
+[window.dimensions]
+columns = 79
+lines = 18
+
+[window.padding]
+x = 15
+y = 15
