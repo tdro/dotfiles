@@ -165,7 +165,7 @@ nmap     <leader>ss :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mks
 nmap     <leader>sp  :set spell!<cr>|                                                     " Toggle spell check
 nmap     <leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>|    " Switch to spaces
 nmap     <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab<cr>|  " Switch to tabs
-vnoremap <leader>sn  <Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>| " Sort lines by length
+vnoremap <silent>    <leader>sn  <Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>| " Sort lines by length
 
 nmap     <leader>qq :bd<cr>|                       " Close buffer
 nmap     <leader>qa :silent! %bd<cr><C-o>:bd#<cr>| " Close all buffers
@@ -329,6 +329,9 @@ augroup AutoCommands
   autocmd FileType typescript noremap <buffer> <leader>cc :REPL deno<cr>
   autocmd FileType vim        noremap <buffer> <leader>cc yVy:<C-R>*<bs><cr>
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
+
+  " REPL output.
+  autocmd FileType * noremap <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
 
   " Format using visual select + gq.
   autocmd FileType toml            set formatprg=yj\ -tt
