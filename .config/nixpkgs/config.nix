@@ -610,7 +610,6 @@ in
     YAML = pkgs.buildEnv {
       name = "yaml";
       paths = [
-        # (callPackage ./packages/yaml2nix/package.nix { })
         (callPackage ./packages/ruamel.yaml.cmd/package.nix { })
         python3Packages.yamllint
         yj
