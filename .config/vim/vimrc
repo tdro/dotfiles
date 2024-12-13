@@ -189,6 +189,7 @@ vnoremap <leader>ct !column -t -o' '<cr>|                                       
 vnoremap <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
 noremap  <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\<space><space>$HOME/.cache/scratchpad<C-left><left>|      " Scratchpad of specified filetype
 
+vmap     .          :<up><cr>|        " Repeat last command in visual selection
 nmap     <Tab>      :Buffers<cr>|     " List buffers
 nmap     <leader>ov :Lines<cr>|       " List lines in loaded buffers
 nmap     <leader>ob :BLines<cr>|      " List lines in loaded buffer
