@@ -440,6 +440,8 @@ in
     JavaScript = pkgs.buildEnv {
       name = "javascript";
       paths = [
+        biome
+        bun
         deno
         esbuild
         nodePackages.eslint

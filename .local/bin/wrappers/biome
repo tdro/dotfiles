@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+[ "${1:-}" = "lint" ] && $(which biome --all | grep --invert-match "local/bin" | head -n 1) "$@" --config-path="$HOME/.config/biome";
+                         $(which biome --all | grep --invert-match "local/bin" | head -n 1) "$@";
