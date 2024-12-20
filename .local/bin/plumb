@@ -1,0 +1,206 @@
+#! /usr/bin/env elixir
+
+# TODO: Fix Lorem Words https://metacpan.org/dist/Text-Lorem/source/lib/Text/Lorem.pm
+
+defmodule Settings do
+  def terminal do
+    System.get_env("TERMINAL")
+  end
+end
+
+defmodule ArgParser do
+  def parse do
+    {opts, _} =
+      System.argv()
+      |> OptionParser.parse!(strict: [option: :string, text: :string])
+
+    options = [
+      camelize:        "text->camelize",
+      case_lower:      "case->lower",
+      case_title:      "case->title",
+      case_titleize:   "case->titleize",
+      case_upper:      "case->upper",
+      date8601:        "text->date8601",
+      dictionary:      "word->dictionary",
+      jumbleize:       "text->jumbleize",
+      kjv:             "verse->kjv",
+      letterize:       "text->letterize",
+      lorem_paragraph: "lorem->paragraph",
+      lorem_title:     "lorem->title",
+      reverse_letters: "reverse->letters",
+      reverse_words:   "reverse->words",
+      singleline:      "text->singleline",
+      slugize:         "text->slugize",
+      urlize:          "text->urlize",
+    ]
+
+    cond do
+      opts[:option] == options[:letterize] ->
+        TextPlumber.firstLetterOfWordsIn(opts[:text]) |> IO.puts()
+
+      opts[:option] == options[:urlize] ->
+        URI.encode(opts[:text]) |> IO.puts()
+
+      opts[:option] == options[:slugize] ->
+        opts[:text]
+        |> String.normalize(:nfd)
+        |> String.replace(~r/[[:space:]]+/, " ")
+        |> String.replace(~r/[[:punct:]]+/, " ")
+        |> Macro.underscore()
+        |> String.replace(~r/[[:space:]]+/, "-")
+        |> String.replace(~r/[[:punct:]]+/, "-")
+        |> String.trim("-")
+        |> IO.puts()
+
+      opts[:option] == options[:camelize] ->
+        opts[:text]
+        |> String.normalize(:nfd)
+        |> String.replace(~r/[[:space:]]+/, "_")
+        |> String.replace(~r/[[:punct:]]+/, "_")
+        |> Macro.camelize()
+        |> String.replace(~r/[[:space:]]+/, "")
+        |> String.replace(~r/[[:punct:]]+/, "")
+        |> IO.puts()
+
+      opts[:option] == options[:singleline] ->
+        TextPlumber.singleLineOf(opts[:text]) |> IO.puts()
+
+      opts[:option] == options[:jumbleize] ->
+        String.split(opts[:text] |> String.replace(~r/[[:punct:]]+/, ""))
+          |> Enum.map(&String.codepoints/1)
+          |> Enum.map(&TextPlumber.jumble/1)
+          |> Enum.map(&Enum.join/1)
+          |> Enum.join(" ")
+          |> IO.puts()
+
+      opts[:option] == options[:reverse_words] ->
+        TextPlumber.reverse(opts[:text]) |> IO.puts()
+
+      opts[:option] == options[:reverse_letters] ->
+        String.split(opts[:text])
+          |> Enum.map(&String.codepoints/1)
+          |> Enum.map(&Enum.reverse/1)
+          |> Enum.join(" ")
+          |> IO.puts()
+
+      opts[:option] == options[:dictionary] ->
+        TextPlumber.dictionOfFirstWordIn(opts[:text])
+        TextPlumber.firstWordOf(opts[:text]) |> IO.puts()
+
+      opts[:option] == options[:case_title] ->
+        opts[:text] |> to_string |> TextPlumber.titleCaseOf() |> IO.puts()
+
+      opts[:option] == options[:case_titleize] ->
+        String.downcase(opts[:text]) |> TextPlumber.titleCaseOf() |> IO.puts()
+
+      opts[:option] == options[:case_lower] ->
+        String.downcase(opts[:text]) |> IO.puts()
+
+      opts[:option] == options[:case_upper] ->
+        String.upcase(opts[:text]) |> IO.puts()
+
+      opts[:option] == options[:lorem_title] ->
+        TextPlumber.loremTitle()
+
+      opts[:option] == options[:lorem_paragraph] ->
+        TextPlumber.loremParagraph()
+
+      opts[:option] == options[:date8601] ->
+        TextPlumber.date8601()
+
+      opts[:option] == options[:kjv] ->
+        System.cmd(Settings.terminal(), [
+          "-e",
+          "sh",
+          "-c",
+          "kjv #{TextPlumber.singleLineOf(opts[:text])}"
+        ])
+
+        TextPlumber.singleLineOf(opts[:text]) |> IO.puts()
+
+      true ->
+        Enum.each(options, fn {_, value} -> IO.puts(value) end)
+    end
+  end
+end
+
+defmodule TextPlumber do
+  def firstLetterOfWordsIn(text) do
+    String.replace(text, ~r/(\w)\w*/u, "\\1", global: true)
+    |> String.replace(~r/\s\s+/u, " ", global: true)
+  end
+
+  def singleLineOf(text) do
+    String.replace(text, "\n", " ")
+    |> String.replace(~r/\s\s+/, " ", global: true)
+  end
+
+  def firstWordOf(text) do
+    String.split(text) |> List.first()
+  end
+
+  def reverse(text) do
+    String.split(text) |> Enum.reverse |> Enum.join(" ")
+  end
+
+  def titleCaseOf(text) do
+    text |> String.split() |> Enum.map(fn word -> :string.titlecase(word) end) |> Enum.join(" ")
+  end
+
+  def loremParagraph() do
+    {string, _return} =
+      System.cmd("sh", [
+        "-c",
+        "perl -e 'use Text::Lorem; use Text::Wrap; $Text::Wrap::columns = 80; print wrap(\"\", \"\", Text::Lorem->new()->sentences(5));'"
+      ])
+
+    IO.puts(string)
+  end
+
+  def loremTitle() do
+    {string, _return} =
+      System.cmd("sh", [
+        "-c",
+        "perl -e 'use Text::Lorem; print Text::Lorem->new()->words(4)';"
+      ])
+
+    IO.puts(string)
+  end
+
+  def dictionOfFirstWordIn(text) do
+    System.cmd(Settings.terminal(), [
+      "-e",
+      "sh",
+      "-c",
+      "dict -h localhost #{TextPlumber.firstWordOf(text)} 2>&1 | vim -"
+    ])
+  end
+
+  def jumble(list) do
+    if length(list) == 1 do
+      list
+    else
+      head = Enum.take(list, 1)
+      tail = Enum.take(list, -1)
+      list = list |> Enum.drop(-1) |> Enum.drop(1)
+
+      if length(list) == 2 do
+        head ++ (list |> Enum.reverse()) ++ tail
+      else
+        head ++ (list |> Enum.shuffle()) ++ tail
+      end
+    end
+  end
+
+  def date8601() do
+    {string, _return} =
+      System.cmd("date", [
+        "--universal",
+        "--iso-8601=seconds"
+      ])
+
+    IO.puts(string)
+  end
+end
+
+ArgParser.parse()

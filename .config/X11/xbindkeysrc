@@ -25,7 +25,7 @@
 "clipboard" # clipboard toggle
     Mod4 + z
 
-"plumber-dmenu" # text plumber
+"plumber" # text plumber
     Mod4 + i
 
 "pass-menu" # pass menu
