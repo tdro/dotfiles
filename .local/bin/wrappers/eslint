@@ -1,2 +1,2 @@
 #!/bin/sh -eu
-$(which eslint --all | grep --invert-match "local/bin" | head -n 1) --no-ignore --config "$HOME/.config/eslint/config.yaml" "$@";
+$(which eslint --all | grep --invert-match "local/bin" | head -n 1) --no-ignore --config "$HOME/.config/eslint/config.js" "$@";
