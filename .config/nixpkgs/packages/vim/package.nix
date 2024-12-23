@@ -136,32 +136,34 @@ in stdenv.mkDerivation {
       name = "terminal-gap.patch";
       text = ''
         diff --git a/src/terminal.c b/src/terminal.c
-        index 6edc21a11..991acea4b 100644
+        index 6edc21a11..367253a3d 100644
         --- a/src/terminal.c
         +++ b/src/terminal.c
-        @@ -1318,7 +1318,7 @@ term_write_job_output(term_T *term, char_u *msg_arg, size_t len_arg)
-         position_cursor(win_T *wp, VTermPos *pos)
-         {
+        @@ -1320,6 +1320,7 @@ position_cursor(win_T *wp, VTermPos *pos)
              wp->w_wrow = MIN(pos->row, MAX(0, wp->w_height - 1));
-        -    wp->w_wcol = MIN(pos->col, MAX(0, wp->w_width - 1));
-        +    wp->w_wcol = MIN(pos->col + 2, MAX(0, wp->w_width - 1));
+             wp->w_wcol = MIN(pos->col, MAX(0, wp->w_width - 1));
          #ifdef FEAT_PROP_POPUP
+        +    if (!popup_is_popup(wp)) wp->w_wcol = MIN(pos->col + 2, MAX(0, wp->w_width - 1));
              if (popup_is_popup(wp))
              {
-        @@ -3854,7 +3854,12 @@ term_line2screenline(
+          wp->w_wrow += popup_top_extra(wp);
+        @@ -3854,6 +3855,16 @@ term_line2screenline(
          {
              int off = screen_get_current_line_off();
          
-        -    for (pos->col = 0; pos->col < max_col; )
-        +    for (int i = 0; i < 2; ++i) {
-        +      ScreenLines[off] = ' ';
-        +      ++off;
+        +    #ifdef FEAT_PROP_POPUP
+        +    if (!popup_is_popup(wp)) {
+        +      for (int i = 0; i < 2; ++i) {
+        +        ScreenLines[off] = ' ';
+        +        ++off;
+        +      }
+        +      max_col -= 2;
         +    }
+        +    #endif
         +
-        +    for (pos->col = 0; pos->col < max_col - 2; )
+             for (pos->col = 0; pos->col < max_col; )
              {
           VTermScreenCell cell;
-          int		c;
       '';
     })
   ];
