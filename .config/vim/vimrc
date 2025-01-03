@@ -175,7 +175,7 @@ nmap     <leader>ra :set all& \| :source ~/.config/vim/vimrc \| :packloadall \|:
 nmap     <leader>re gg=G<C-o><C-o>|                 " Re-indent entire file
 nmap     <leader>rs :%s/\s\+$//e|                   " Remove trailing whitespace
 nmap     <leader>rr :enew \| .!<space>|             " Dump output of command to new buffer
-vnoremap <leader>rd !awk '\!visited[$0]++'<cr>|     " Remove duplicate lines
+vnoremap <leader>rd !awk '\!dedup[$0]++'<cr>|       " Remove duplicate lines
 
 nmap     <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>|                                         " Toggle color column
 nmap     <leader>cx :set cursorcolumn!<cr>|                                                                                 " Toggle cursor column
@@ -189,7 +189,11 @@ vnoremap <leader>ct !column -t -o' '<cr>|                                       
 vnoremap <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
 noremap  <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\<space><space>$HOME/.cache/scratchpad<C-left><left>|      " Scratchpad of specified filetype
 
-vmap     .          :<up><cr>|        " Repeat last command in visual selection
+nmap     q.  Vgv:<up>|                   " Go to last command in visual selection from normal
+vmap     .q     :<up>|                   " Go to last command in visual selection
+vmap     .f     :!editor-filter<space>|  " Run filter in visual selection
+vmap     ..     :<up><cr>|               " Repeat last command in visual selection
+
 nmap     <Tab>      :Buffers<cr>|     " List buffers
 nmap     <leader>ov :Lines<cr>|       " List lines in loaded buffers
 nmap     <leader>ob :BLines<cr>|      " List lines in loaded buffer
@@ -264,10 +268,10 @@ augroup AutoCommands
   autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser css ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser html ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType toml             autocmd! BufWritePost <buffer> exe 'Notify(''tomll ' . expand('%') . ' 2>&1 && printf "TOML OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''ruff --no-cache ' . expand('%') . ' 2>&1 && black ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType nim              autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
   autocmd FileType rust             autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType json             autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType json,jsonc       autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''ruff check --no-cache ' . expand('%') . ' 2>&1 && black ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType ruby             autocmd! BufWritePost <buffer> exe 'Notify(''rubocop --fix-layout ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType javascript       autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
   autocmd FileType elixir           autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
@@ -279,6 +283,7 @@ augroup AutoCommands
   autocmd FileType php              autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1 && phpstan --no-progress --no-ansi --no-interaction analyze --level max ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType tex              autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
   autocmd FileType bindzone         autocmd! BufWritePost <buffer> exe 'Notify(''file="' . expand('%') . '" && named-checkzone "$(head --lines=1 "$file" | cut --delimiter=" " --fields=2 | perl -ple "chop")" $file'')' | :e
+  autocmd FileType *react           autocmd! BufWritePost <buffer> exe 'Notify(''export DENO_DIR=/dev/null && deno fmt --ext=tsx ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint --ext=tsx ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType awk              autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
   autocmd FileType yaml             autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --allow-all --location https://example.com/ %
@@ -319,7 +324,7 @@ augroup AutoCommands
   autocmd FileType go         noremap <buffer> <leader>cc :REPL gore<cr>
   autocmd FileType javascript noremap <buffer> <leader>cc :REPL node<cr>
   autocmd FileType lua        noremap <buffer> <leader>cc :REPL lua<cr>
-  autocmd FileType nix        noremap <buffer> <leader>cc :REPL nix repl<cr>
+  autocmd FileType nix        noremap <buffer> <leader>cc :REPL nix repl --expr 'import <nixpkgs> {}'<cr>
   autocmd FileType perl       noremap <buffer> <leader>cc :REPL perl -de0<cr>
   autocmd FileType php        noremap <buffer> <leader>cc :REPL psysh<cr>
   autocmd FileType python     noremap <buffer> <leader>cc :REPL python<cr>
@@ -332,6 +337,7 @@ augroup AutoCommands
 
   " REPL output.
   autocmd FileType * noremap <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
+  autocmd FileType vim       noremap  <buffer> <leader>co yVy:<C-R>*<bs><cr>
 
   " Format using visual select + gq.
   autocmd FileType toml            set formatprg=yj\ -tt
@@ -339,12 +345,13 @@ augroup AutoCommands
   autocmd FileType lua             set formatprg=lua-format
   autocmd FileType perl            set formatprg=perltidy\ -
   autocmd FileType nix             set formatprg=nix-formatprg
+  autocmd FileType php             set formatprg=php-formatprg
   autocmd FileType elixir          set formatprg=mix\ format\ -
   autocmd FileType c               set formatprg=clang-format\ -
   autocmd FileType python          set formatprg=black\ --quiet\ -
-  autocmd FileType *script         set formatprg=deno\ fmt\ --ext\ ts\ -
-  autocmd FileType *react          set formatprg=deno\ fmt\ --ext\ tsx\ -
   autocmd FileType lisp,scheme     set formatprg=emacs-batch-indent\ scheme
+  autocmd FileType *script         set formatprg=NO_COLOR=true\ deno\ fmt\ --ext\ ts\ -
+  autocmd FileType *react          set formatprg=NO_COLOR=true\ deno\ fmt\ --ext\ tsx\ -
   autocmd FileType sql             set formatprg=pg_format\ --config\ ~/.config/pg_format.conf
   autocmd FileType xml             set formatprg=xmllint\ --pretty\ 1\ -\ \|\ tail\ --lines\ +2
   autocmd FileType css             set formatprg=prettier\ --ignore-path\ --parser\ css\ --stdin-filepath\ %
