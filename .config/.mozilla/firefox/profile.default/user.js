@@ -115,7 +115,9 @@ user_pref("dom.event.clipboardevents.enabled", false);
 user_pref("dom.event.contextmenu.enabled", false);
 user_pref("dom.maxHardwareConcurrency", 2);
 user_pref("dom.popup_allowed_events", "");
-user_pref("dom.webnotifications.enabled", false);
+user_pref("dom.push.connection.enabled", false);                           // Disable web push notifications
+user_pref("dom.push.enabled", false);                                      // Disable web push notifications
+user_pref("dom.webnotifications.enabled", false);                          // Disable web push notifications
 
 user_pref("extensions.getAddons.cache.enabled", false);
 user_pref("extensions.getAddons.showPane", false);                         // Disable recommendations pane
