@@ -72,20 +72,19 @@ in
       paths = [
         (callPackage ./packages/chromexup/package.nix { })
         (callPackage ./packages/emacs-batch-indent/package.nix { })
-        (callPackage ./packages/pdf2htmlex/package.nix { })
         (callPackage ./packages/skippy-xd/package.nix { })
         (callPackage ./packages/systemd2nix/package.nix { })
         (callPackage ./packages/vim/package.nix { })
         (callPackage ./packages/w3m/package.nix { })
         (pass.withExtensions (ext: with ext; [ pass-import pass-audit pass-otp ]))
-        unstable.hugo
         unstable.yt-dlp
+        previous.tmux
         aerc
         alacritty
         alsa-utils
         amfora
-        ansi2html
         ansible
+        ansifilter
         ast-grep
         atftp
         atool
@@ -165,7 +164,6 @@ in
         surfraw
         tcl
         tesseract
-        tmux
         toipe
         trash-cli
         units
@@ -508,6 +506,9 @@ in
     HTML = pkgs.buildEnv {
       name = "html";
       paths = [
+        (callPackage ./packages/pdf2htmlex/package.nix { })
+        unstable.hugo
+        ansi2html
         cmark
         html-tidy
         html-xml-utils
