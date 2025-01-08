@@ -1,6 +1,7 @@
 let
 
   # nix-shell -E 'import (builtins.fetchurl "$url")'
+  # NIX_CONFIG="sandbox = false"   nix-shell --option builders '' shell.nix
   # NIX_CONFIG="sandbox = relaxed" nix-shell --option builders '' shell.nix
 
   name = "nix-shell.cake";
