@@ -1,0 +1,79 @@
+/*
+ * Hide Comments Everywhere
+ * https://github.com/grantwinney/hide-comments-everywhere?tab=readme-ov-file#hide-comments-everywhere
+ * https://github.com/grantwinney/hide-comments-everywhere?tab=MIT-1-ov-file#readme
+ * LICENCE: MIT | https://opensource.org/license/mit
+ */
+
+* { }
+
+head:has(link[rel="manifest"][href^="https://www.redditstatic.com"]) + body #left-sidebar-container,
+head:has(link[rel="manifest"][href^="https://www.redditstatic.com"]) + body #right-sidebar-container,
+#Comment,
+#Comments,
+#add_comment,
+#comment,
+#comment-form,
+#comment-thread,
+#comment-tree,
+#comment-wrapper,
+#commentarea,
+#commentform,
+#commenting,
+#comments,
+#comments-section,
+#discourse-comments,
+#discussion_bucket,
+#disqus_thread > iframe,
+#disqus_thread,
+#guestbook,
+#hyvor-talk-view,
+#postcomment,
+#replybox,
+#respond,
+#spotIm-conversations-module-wrapper,
+#spotim-specific,
+#vuukle-comments,
+.Comment,
+.Comments,
+.comment,
+.comment-area,
+.comment-form,
+.comment-thread,
+.comment-tree,
+.comment_area,
+.commenting,
+.commentlist,
+.comments,
+.comments-area,
+.comments-link,
+.comments-section,
+.comments-title,
+.comments_area,
+.comments_label,
+.fb-comments,
+.feedback,
+.guestbook,
+.o2-display-comments-toggle,
+.o2-post-comment-controls,
+.o2-post-comments,
+.respond,
+ytd-comments,
+.responsesStreamWrapper,
+.spot-im-comments,
+.subtext .subline .score,
+.subtext .subline a:last-child,
+[data-spotim-module="conversation"],
+[href$="hyvor-talk-view"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+pre .comment,
+code .comment,
+textarea.comments,
+.comment:has(.commtext),
+.commentarea:has(div.infobar) .comment {
+  display: unset !important;
+  visibility: unset !important;
+}
