@@ -1,34 +1,34 @@
 #!/bin/sh -eu
 
-# nix-shell -i dash -p dash gawk moreutils nixos-rebuild nixfmt
+program=$(basename "$0")
 
-{ [ "${1:-}" = "-h" ] ||
-	[ "${1:-}" = "--help" ] ||
-	[ "$#" = 0 ]; } &&
-	printf "nixos-test [FILE]...\n" &&
-	exit
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } \
+  && printf "%s ./file.nix\n" "$program" \
+  && exit
 
 for configuration in "$@"; do
 
   [ -f "$configuration" ] || { printf "Error: File '%s' not found\n" "$configuration" && exit; }
 
+  NIXOS_CONFIG=$(realpath "$configuration")
+
   cp "$configuration" "$configuration.bak"
 
   trap 'for configuration in "$@"; do mv "$configuration.bak" "$configuration"; done; trap - EXIT; exit' EXIT INT HUP
 
-  nixfmt "$configuration"
+  nix-instantiate --eval --strict --expr "$(printf 'with import <nixpkgs> {}; import %s // {
+    boot.isContainer        = lib.mkForce true;
+    fonts.fontconfig.enable = lib.mkForce false;
+    nix.enable              = lib.mkForce false;
+    security.sudo.enable    = lib.mkForce false;
+    services.nscd.enable    = lib.mkForce false;
+    system.nssModules       = lib.mkForce [];
+    system.stateVersion     = lib.mkForce "24.11";
+  }' "$NIXOS_CONFIG")" | sponge "$configuration"
 
-  awk '!s {s=sub("^{$","{ boot.isContainer = true;")}{ print $0 }'       "$configuration" | sponge "$configuration"
-  awk '!s {s=sub("}: {","}: { boot.isContainer = true;")}{ print $0 }'   "$configuration" | sponge "$configuration"
-  awk '!s {s=sub("^in {$","in { boot.isContainer = true;")}{ print $0 }' "$configuration" | sponge "$configuration"
+  printf '{ lib, ... }: %s ' "$(cat "$configuration")" | sponge "$configuration"
 
-  printf '%s ' "$configuration";
-
-  NIXOS_CONFIG=$(realpath "$configuration")
-
-  export  NIXOS_CONFIG \
-  NIXPKGS_ALLOW_UNFREE=1 \
-  NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
+  export NIXOS_CONFIG NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
 
   nixos-rebuild --fast --option substituters 'https://cache.nixos.org' --option builders '' dry-build
 

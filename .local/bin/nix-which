@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -eu
+
+program=$(basename "$0")
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } \
+  && printf "%s ./file\n%s program\n" "$program" "$program" \
+  && exit
+
+link=$(readlink --canonicalize "$(type -P "${1:-}")" || readlink --canonicalize "${1:-}")
+
+[ -e "$link" ] && printf "%s\n" "$link"
