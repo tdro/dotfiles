@@ -2,91 +2,93 @@
 ! URxvt Settings
 ! -----------------
 
-URxvt.cursorBlink:         1
-URxvt.cursorUnderline:     0
-URxvt.geometry:            80x18
-URxvt.internalBorder:      10
-URxvt.keysym.C-0:          perl:font-size:reset
-URxvt.keysym.C-Down:       perl:font-size:decrease
-URxvt.keysym.C-Up:         perl:font-size:increase
-URxvt.keysym.M-Escape:     perl:keyboard-select:activate
-URxvt.matcher.button:      1
-URxvt.perl-ext-common:     default,matcher,font-size,vtwheel,url-select,keyboard-select,-confirm-paste
-URxvt.scrollBar:           false
-URxvt.scrollTtyKeypress:   true
-URxvt.scrollTtyOutput:     false
-URxvt.scrollWithBuffer:    true
-URxvt.shading:             20
-URxvt.transparent:         false
-URxvt.url-launcher:        /usr/bin/env xdg-open
-URxvt.url-select.launcher: /usr/bin/env xdg-open
+urxvt.cursorBlink:         1
+urxvt.cursorUnderline:     0
+urxvt.geometry:            80x18
+urxvt.internalBorder:      10
+urxvt.keysym.C-0:          perl:font-size:reset
+urxvt.keysym.C-Down:       perl:font-size:decrease
+urxvt.keysym.C-Up:         perl:font-size:increase
+urxvt.keysym.M-Escape:     perl:keyboard-select:activate
+urxvt.matcher.button:      1
+urxvt.perl-ext-common:     default,matcher,font-size,vtwheel,url-select,keyboard-select,-confirm-paste
+urxvt.scrollBar:           false
+urxvt.scrollTtyKeypress:   true
+urxvt.scrollTtyOutput:     false
+urxvt.scrollWithBuffer:    true
+urxvt.shading:             20
+urxvt.transparent:         false
+urxvt.url-launcher:        /usr/bin/env xdg-open
+urxvt.url-select.launcher: /usr/bin/env xdg-open
 
-URxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
-URxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
-URxvt.font:                xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
-URxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+urxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+urxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+urxvt.font:                xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+urxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
 
 ! -----------------
 ! UXTerm Settings
 ! -----------------
 
-UXTerm.termName: xterm-256color
-UXTerm.ttyModes: erase ^?
+*xterm.termName: xterm-256color
+*xterm.ttyModes: erase ^?
 
-UXTerm.vt100.backarrowKey:    false
-UXTerm.vt100.cursorBlink:     true
-UXTerm.vt100.faceName:        xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
-UXTerm.vt100.fastScroll:      true
-UXTerm.vt100.geometry:        80x18
-UXTerm.vt100.internalBorder:  10
-UXTerm.vt100.jumpScroll:      true
-UXTerm.vt100.locale:          false
-UXTerm.vt100.metaSendsEscape: true
-UXTerm.vt100.multiScroll:     true
-UXTerm.vt100.saveLines:       4096
-UXTerm.vt100.utf8:            true
+*xterm.vt100.backarrowKey:    false
+*xterm.vt100.cursorBlink:     true
+*xterm.vt100.faceName:        xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+*xterm.vt100.fastScroll:      true
+*xterm.vt100.geometry:        80x18
+*xterm.vt100.internalBorder:  10
+*xterm.vt100.jumpScroll:      true
+*xterm.vt100.locale:          false
+*xterm.vt100.metaSendsEscape: true
+*xterm.vt100.multiScroll:     true
+*xterm.vt100.saveLines:       4096
+*xterm.vt100.utf8:            true
 
 ! -----------------
 ! Terminal Colors
 ! -----------------
 
+!cursor
 *colorUL:     #8fc1ff
 *cursorColor: #69aeff
 
-*foreground: #ffffff
-*background: #2c303c
+!text
+*foreground:  #ffffff
+*background:  #2c303c
 
 !black
-*color0:  #2c303c
-*color8:  #999999
+*color0:      #2c303c
+*color8:      #999999
 
 !red
-*color1:  #ed7373
-*color9:  #ff6666
+*color1:      #ed7373
+*color9:      #ff6666
 
 !green
-*color2:  #beff3e
-*color10: #cfff72
+*color2:      #beff3e
+*color10:     #cfff72
 
 !yellow
-*color3:  #feac48
-*color11: #ffdf23
+*color3:      #feac48
+*color11:     #ffdf23
 
 !blue
-*color4:  #80c6ff
-*color12: #5aa5ff
+*color4:      #80c6ff
+*color12:     #5aa5ff
 
 !magenta
-*color5:  #b7416e
-*color13: #e16a98
+*color5:      #b7416e
+*color13:     #e16a98
 
 !cyan
-*color6:  #69aeff
-*color14: #9fc1dd
+*color6:      #69aeff
+*color14:     #9fc1dd
 
 !white
-*color7:  #aaaaaa
-*color15: #ffffff
+*color7:      #aaaaaa
+*color15:     #ffffff
 
 ! -----------------
 ! Font Settings
