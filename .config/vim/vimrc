@@ -193,6 +193,7 @@ nmap     q.  Vgv:<up>|                   " Go to last command in visual selectio
 vmap     .q     :<up>|                   " Go to last command in visual selection
 vmap     .f     :!editor-filter<space>|  " Run filter in visual selection
 vmap     ..     :<up><cr>|               " Repeat last command in visual selection
+vmap     /      y/<C-R>*<cr>N|           " Auto search from visual selection
 
 nmap     <Tab>      :Buffers<cr>|     " List buffers
 nmap     <leader>ov :Lines<cr>|       " List lines in loaded buffers
@@ -201,7 +202,7 @@ nmap     <leader>ol :Locate<space>|   " List files containing search term
 nmap     <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>
 nmap     <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap     <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
-nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n"', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
+nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n" 2> /dev/null', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap     <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $HOME -type d -maxdepth 6", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 
 nmap     <leader>nm :NnnPicker<cr>|           " Open file manager
@@ -286,6 +287,7 @@ augroup AutoCommands
   autocmd FileType *react           autocmd! BufWritePost <buffer> exe 'Notify(''export DENO_DIR=/dev/null && deno fmt --ext=tsx ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint --ext=tsx ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType awk              autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
   autocmd FileType yaml             autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType nginx            autocmd! BufWritePost <buffer> exe 'Notify(''crossplane format ' . expand('%') . ' > /dev/null && crossplane format ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "nginx OK: ' . expand('%') . '"'')' | :e
   autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --allow-all --location https://example.com/ %
   autocmd FileType c                autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '\n"' . ' && gcc -Wall -Wpedantic -Werror -fsyntax-only ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType sql              autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --config ~/.config/pg_format.conf --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016,LT09 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
