@@ -60,11 +60,21 @@ Combine () {
   realpath "bookmarks-$date.html";
 }
 
+Window() {
+  rofi -font 'sans 12' -matching regex -padding 20 -dmenu -i -p 'Bookmarks'
+}
+
 Show () {
+  url=$(awk 'BEGIN { RS=""; FS="\n" } { printf "%s — %s\n", $2, $1 }' "${1:-}" | Window | awk '{ print $1 }')
+  [ -z "$url" ] && exit
+  firefox "$url"
+}
+
+Parse () {
   $hxnormalize "${1:-}" | hxselect -c -i -s '\n' 'a::attr(href)' > "$anchors"
   $hxnormalize "${1:-}" | hxselect -c -i -s '\n' 'a' > "$titles"
   xdg-open "$(paste -d' ' "$anchors" "$titles" \
-  | rofi -font "sans 12" -matching regex -padding 20 -dmenu -i -p 'Bookmarks' \
+  | Window \
   | awk '{ print $1 }')";
 }
 

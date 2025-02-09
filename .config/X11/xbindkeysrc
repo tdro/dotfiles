@@ -19,7 +19,7 @@
 "wmctrl -r :ACTIVE: -b toggle,above" # toggle ontop active window
     Mod4 + t
 
-"bookmarks show $HOME/Shares/Projects/bookmarks/archives/bookmarks-old.html" # show bookmarks
+"bookmarks show $HOME/Shares/Projects/bookmarks/bookmarks.txt" # show bookmarks
     Mod4 + g
 
 "clipboard" # clipboard toggle
