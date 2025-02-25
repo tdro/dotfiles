@@ -154,6 +154,7 @@ in
         rclone
         readability-cli
         ripgrep
+        rlwrap
         rofi
         rxvt-unicode
         s-tui
@@ -462,6 +463,7 @@ in
           pyflakes
           pygments
           pylint
+          sqlglot
         ]))
         ruff
       ];
@@ -485,6 +487,7 @@ in
         phpPackages.phpstan
         phpPackages.psalm
         phpPackages.psysh
+        phpPackages.box
       ];
     };
 
@@ -540,7 +543,7 @@ in
 
     Nix = pkgs.buildEnv {
       name = "nix";
-      paths = [ previous.nix-linter nix-index alejandra nixfmt-classic nixpkgs-fmt nixpkgs-lint ];
+      paths = [ previous.nix-linter nix-index alejandra nixfmt-classic nixpkgs-fmt nixpkgs-lint nix-tree ];
     };
 
     Ruby = pkgs.buildEnv {
@@ -584,15 +587,17 @@ in
 
     HTTP = pkgs.buildEnv {
       name = "http";
-      paths = [ caddy apacheHttpd httpie ];
+      paths = [ apacheHttpd caddy crossplane httpie nginx ];
+      pathsToLink = [ "/etc" "/share" "/bin" ];
     };
 
     CSS = pkgs.buildEnv {
       name = "css";
       paths = [
         (previous.callPackage ./packages/csstidy/package.nix { })
-        nodePackages.stylelint
         csslint
+        lessc
+        nodePackages.stylelint
         sassc
       ];
     };
