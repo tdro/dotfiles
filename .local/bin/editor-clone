@@ -1,10 +1,67 @@
 #!/bin/sh -eu
 
-repo=$1
+program=$(basename "$0")
+editor=${EDITOR:-vim}
 temp="$(mktemp --directory)"
-
 trap 'rm --recursive --force "$temp"; trap - EXIT; exit' EXIT INT HUP
 
-git clone --depth=1 "$repo" "$temp"
-cd "$temp" || exit 1
-vim --cmd "cd $temp"
+Help() {
+printf \
+"
+Usage: %s [FLAGS]... [ARGUMENT]...
+
+The program $program copies a git repository
+into a temporary directory and opens it in an
+editor.
+
+  Command List:
+
+   $program https://repo.test      Enter upstream repository.
+
+ . $program https://repo.test      Change directory too.
+
+     -c -commit --commit 000000...     Enter specific version.
+
+   $program help -h -help --help   Show this help menu.
+
+" "$program";
+}
+
+Clone() {
+  repo=$1
+  git clone --depth=1 "$repo" "$temp" || exit 1
+  cd "$temp" || exit 1
+  $editor --cmd "cd $temp"
+}
+
+Error() {
+  printf "\n" && printf "Error: Parsing argument '%s'.\n" "$@" && printf "\n" && $program help | awk '/Command List:/,0' | grep --ignore-case "$program $(printf '%s' "${1:-}" | cut --characters 1)" && printf "\n" && exit 1;
+  Help && printf "\n" && printf "Error: Parsing argument '%s'.\n" "$@" && printf "\n" && exit 1;
+}
+
+{ [ "${1:-}" = "help" ] || [ "${1:-}" = "-h" ] || [ "${1:-}" = "-help" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && exit;
+
+Fetch() {
+  hash=
+  repo=
+
+  for i in $(seq $#); do
+    arg=$(eval  "printf -- '%s' \"\$$i\"")
+    next=$(eval "printf -- '%s' \"\${$((i+1)):-}\"")
+    prev=$(eval "printf -- '%s' \"\${$((i-1)):-}\"")
+    { { [ "${arg:-}" = "-c" ] || [ "${arg:-}" = "-commit" ] || [ "${arg:-}" = "--commit" ]; } && hash=$next; }
+    [ "$arg" != "$hash" ] && repo=$prev
+    [ "$repo" = "$hash" ] && repo=$arg
+  done
+
+  [ -z "$hash" ] && { Clone "$1" && return 0 || return 1; }
+
+  cd "$temp" || exit 1
+  git init
+  git remote add origin "$repo"
+  git fetch --depth 1 origin "$hash" || exit 1
+  git checkout FETCH_HEAD
+  $editor --cmd "cd $temp"
+}
+
+Fetch "$@" && exit
