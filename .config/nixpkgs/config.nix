@@ -137,7 +137,6 @@ in
         netcat-openbsd
         nethogs
         newsboat
-        nnn
         nodePackages.mermaid-cli
         ocrmypdf
         pandoc

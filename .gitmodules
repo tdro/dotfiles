@@ -4,9 +4,6 @@
 [submodule ".vim/pack/plugins/start/gundo.vim"]
 	path = .config/vim/pack/plugins/start/gundo.vim
 	url = https://github.com/sjl/gundo.vim
-[submodule ".vim/pack/plugins/start/nnn.vim"]
-	path = .config/vim/pack/plugins/start/nnn.vim
-	url = https://github.com/mcchrish/nnn.vim
 [submodule ".vim/pack/plugins/start/vim-elixir"]
 	path = .config/vim/pack/plugins/start/vim-elixir
 	url = https://github.com/elixir-editors/vim-elixir

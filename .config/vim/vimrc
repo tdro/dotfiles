@@ -205,8 +205,7 @@ nmap     <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': 
 nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n" 2> /dev/null', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap     <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $HOME -type d -maxdepth 6", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 
-nmap     <leader>nm :NnnPicker<cr>|           " Open file manager
-nmap     <leader>nn :NnnPicker '%:p:h'<cr>|   " Open file manager at current file path
+nmap     <silent>   <leader>nn :term ++rows=10 ++close emacs -nw --eval "(vim-evil-dired)"<cr>| " Open file manager at current file path
 
 nmap     <Bslash>   :vsplit<cr>|              " Vertical split
 nmap     <C-Bslash> :split<cr>|               " Horizontal split
@@ -245,10 +244,7 @@ nnoremap ,html        :-1read $HOME/.config/vim/snippets/skeleton.html<cr>3jwf>a
 
 let g:gundo_prefer_python3=1                                                                " Use python3 to restore gundo functionality.
 let g:netrw_banner=0                                                                        " Disable netrw banner.
-let g:nnn#command = 'nnn -H'                                                                " Override default command.
-let g:nnn#set_default_mappings = 0                                                          " Disable default mappings.
-let g:nnn#layout = 'new'                                                                    " Opens the nnn window in a split.
-let g:nnn#layout = { 'left': '~20%' }                                                       " Left 20% of the window.
+let g:netrw_winsize = 15                                                                    " Set file explorer initial window size.
 let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } }  " Set fzf window layout.
 
 
