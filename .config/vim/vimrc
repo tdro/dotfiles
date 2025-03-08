@@ -17,6 +17,7 @@ set hlsearch                             " Enable search.
 set incsearch                            " Set incremental search.
 set showmatch                            " Briefly show matching tags.
 set nocompatible                         " Use Vim defaults.
+set nofoldenable                         " Disable folds initially.
 set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
 set nocursorline                         " Remove cursor line.
@@ -229,6 +230,9 @@ nnoremap Q <Nop>|                                        " Disable Ex Mode
 nnoremap <S-v> :call setreg('c', col('.'))<cr><S-v>|     " Prevent cursor from jumping in visual context https://ddrscott.github.io/blog/2016/yank-without-jank/
 nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|  " Prevent cursor from jumping in yanking context
 nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>| " Prevent cursor from jumping in pasting context
+
+nmap <silent> j j:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds up
+nmap <silent> k k:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds down
 
 
 "------------------Snippets-------------------"
