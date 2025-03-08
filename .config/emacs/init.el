@@ -5,7 +5,7 @@
 (use-package slime :ensure t)
 
 (custom-set-variables
- '(package-selected-packages '(orderless consult marginalia vertico evil slime))
+ '(package-selected-packages '(orderless consult marginalia vertico evil slime org))
  '(slime-repl-history-file "~/.cache/slime-history.eld")) ; Set slime history file location.
 
 
@@ -37,7 +37,9 @@
 (setq backup-directory-alist
       '(("." . "~/.config/emacs/backups")))
 
-(use-package evil :ensure t :config
+(use-package evil
+             :ensure t
+             :config
              (evil-mode 0)) ; Disable evil mode.
 
 ;;; Source: https://protesilaos.com/codelog/2024-02-17-emacs-modern-minibuffer-packages/
@@ -67,35 +69,43 @@
                     ("M-s M-l" . consult-line)
                     ("M-s M-b" . consult-buffer)))
 
-(setq dired-listing-switches "-ahl --group-directories-first") ; Pass options to `ls` command.
+(use-package dired
+             :ensure nil
+             :commands (dired)
+             :config
+             (setq dired-recursive-copies 'always)
+             (setq dired-recursive-deletes 'always)
+             (setq delete-by-moving-to-trash t)
+             (setq dired-dwim-target t)
+             (setq dired-listing-switches "-ahl --group-directories-first") ; Pass options to `ls` command.
 
-(defun dired-find-directory ()
-  "Traverse directories only"
-  (interactive)
-  (if (dired-get-file-for-visit)
-      (let ((file (dired-get-file-for-visit)))
-        (if (file-directory-p file)
-            (dired-find-file)))))
+             (defun dired-find-directory ()
+               "Traverse directories only"
+               (interactive)
+               (if (dired-get-file-for-visit)
+                   (let ((file (dired-get-file-for-visit)))
+                     (if (file-directory-p file)
+                         (dired-find-file)))))
 
-(defun dired-duplicate-file ()
-  "Duplicate files in one action"
-  (interactive)
-  (let* ((file (dired-get-file-for-visit))
-         (timestamp (string-replace "." "" (number-to-string (float-time))))
-         (copy (concat (file-name-sans-extension file) "." timestamp)))
-    (copy-file file copy)
-    (dired-add-file copy)))
+             (defun dired-duplicate-file ()
+               "Duplicate files in one action"
+               (interactive)
+               (let* ((file (dired-get-file-for-visit))
+                      (timestamp (string-replace "." "" (number-to-string (float-time))))
+                      (copy (concat (file-name-sans-extension file) "." timestamp)))
+                 (copy-file file copy)
+                 (dired-add-file copy)))
 
-(defun dired-toggle-editable ()
-  "Move to the end of line before toggling"
-  (interactive)
-  (end-of-line)
-  (dired-toggle-read-only))
+             (defun dired-toggle-editable ()
+               "Move to the end of line before toggling"
+               (interactive)
+               (end-of-line)
+               (dired-toggle-read-only))
 
-(defun vim-evil-dired () ; Vim directory integration
-  (define-key dired-mode-map "i" 'dired-toggle-editable)
-  (define-key dired-mode-map "p" 'dired-duplicate-file)
-  (define-key dired-mode-map "h" 'dired-up-directory)
-  (define-key dired-mode-map "j" 'dired-next-line)
-  (define-key dired-mode-map "k" 'dired-previous-line)
-  (define-key dired-mode-map "l" 'dired-find-directory))
+             (defun vim-evil-dired () ; Vim directory integration
+               (define-key dired-mode-map "i" 'dired-toggle-editable)
+               (define-key dired-mode-map "p" 'dired-duplicate-file)
+               (define-key dired-mode-map "h" 'dired-up-directory)
+               (define-key dired-mode-map "j" 'dired-next-line)
+               (define-key dired-mode-map "k" 'dired-previous-line)
+               (define-key dired-mode-map "l" 'dired-find-directory)))
