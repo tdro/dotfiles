@@ -1,4 +1,6 @@
 #!/bin/sh -eu
 
-pgrep --full "scratchpad.md" && pkill --oldest --full "scratchpad.md" && exit
-$TERMINAL -e vim ~/Documents/notes/scratchpad.md
+directory=~/Documents/notes/
+file=scratchpad.md
+pgrep --full "$file" && pkill --oldest --full "$file" && exit
+$TERMINAL -e vim --cmd "cd $directory" "$directory/$file"
