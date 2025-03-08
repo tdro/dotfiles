@@ -40,7 +40,7 @@
 (use-package evil :ensure t :config
              (evil-mode 0)) ; Disable evil mode.
 
-; Source: https://protesilaos.com/codelog/2024-02-17-emacs-modern-minibuffer-packages/
+;;; Source: https://protesilaos.com/codelog/2024-02-17-emacs-modern-minibuffer-packages/
 
 (use-package vertico
              :ensure t
@@ -93,7 +93,6 @@
   (dired-toggle-read-only))
 
 (defun vim-evil-dired () ; Vim directory integration
-  (dired ".")
   (define-key dired-mode-map "i" 'dired-toggle-editable)
   (define-key dired-mode-map "p" 'dired-duplicate-file)
   (define-key dired-mode-map "h" 'dired-up-directory)
