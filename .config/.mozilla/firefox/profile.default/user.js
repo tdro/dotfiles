@@ -1,4 +1,4 @@
-//
+// User configuration
 
 user_pref("accessibility.typeaheadfind.flashBar", 0);
 
@@ -49,6 +49,9 @@ user_pref("browser.newtabpage.activity-stream.section.highlights.includePocket",
 user_pref("browser.newtabpage.activity-stream.section.highlights.includeVisited", false);
 user_pref("browser.newtabpage.activity-stream.section.highlights.includeBookmarks", false);
 user_pref("browser.newtabpage.activity-stream.section.highlights.includeDownloads", false);
+
+user_pref("browser.urlbar.merino.endpointURL", "");                                            // Disable firefox suggest endpoint
+user_pref("browser.newtabpage.activity-stream.discoverystream.merino-provider.endpoint", "");  // Disable firefox suggest activity stream endpoint
 
 user_pref("browser.safebrowsing.appRepURL", "");
 user_pref("browser.safebrowsing.blockedURIs.enabled", false);
@@ -122,7 +125,7 @@ user_pref("dom.webnotifications.enabled", false);                          // Di
 user_pref("extensions.getAddons.cache.enabled", false);
 user_pref("extensions.getAddons.showPane", false);                         // Disable recommendations pane
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);    // Disable addons recommendations
-user_pref("extensions.pocket.enabled", false);
+user_pref("extensions.pocket.enabled", false);                             // Disable read it later service
 user_pref("extensions.screenshots.upload-disabled", true);
 user_pref("extensions.shield-recipe-client.api_url", "");
 user_pref("extensions.shield-recipe-client.enabled", false);
@@ -190,8 +193,7 @@ user_pref("signon.firefoxRelay.feature", "disabled");                      // Di
 user_pref("extensions.formautofill.addresses.enabled", false);
 user_pref("extensions.formautofill.creditCards.enabled", false);
 
-user_pref("privacy.donottrackheader.enabled", true);
-user_pref("privacy.donottrackheader.value", 1);
+user_pref("privacy.donottrackheader.enabled", false);                      // Do not ask nicely not to track
 user_pref("privacy.trackingprotection.cryptomining.enabled", true);
 user_pref("privacy.trackingprotection.enabled", true);
 user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
