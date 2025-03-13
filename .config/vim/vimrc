@@ -288,6 +288,7 @@ augroup AutoCommands
   autocmd FileType awk              autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
   autocmd FileType yaml             autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType nginx            autocmd! BufWritePost <buffer> exe 'Notify(''crossplane format ' . expand('%') . ' > /dev/null && crossplane format ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "nginx OK: ' . expand('%') . '"'')' | :e
+" autocmd FileType nginx            autocmd! BufWritePost <buffer> exe 'Notify(''crossplane format ' . expand('%') . ' > /dev/null && crossplane format ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "nginx OK: ' . expand('%') . '"' . ' && nginx -t -c "$(realpath ' . expand('%') . ')"'')' | :e
   autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --allow-all --location https://example.com/ %
   autocmd FileType c                autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '\n"' . ' && gcc -Wall -Wpedantic -Werror -fsyntax-only ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType sql              autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --config ~/.config/pg_format.conf --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016,LT09 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
@@ -360,6 +361,9 @@ augroup AutoCommands
   autocmd FileType html            set formatprg=prettier\ --ignore-path\ --parser\ html\ --stdin-filepath\ %
   autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
   autocmd FileType markdown        set formatprg=prettier\ --ignore-path\ --parser\ markdown\ --stdin-filepath\ %
+
+  " Guess filetype from extension when missing
+  autocmd BufRead,BufNewFile * if &filetype == '' | let &filetype = expand('%:e') | endif
 
   " Format by extension using visual select + gq
   autocmd BufRead,BufNewFile *.mathml.xml set formatprg=latexmlmath\ -
