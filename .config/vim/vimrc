@@ -90,14 +90,6 @@ function! AnsibleCheck()
   :exe 'Notify(''ansible-playbook --syntax-check ' . expand('%') . ' 2>&1'')' | :e
 endfunction
 
-function! TypographyFormat()
-  :silent! %s/\(^\|\s\|\w\)\zs--\ze\($\|\s\|\w\)/–/g | silent! %s/\(^\|\s\|\w\)\zs---\ze\($\|\s\|\w\)/—/g
-  :silent! %s/ '/ ‘/g | silent! %s/' /’ /g | :silent! %s/^'/‘/g | silent! %s/'$/’/g
-  :silent! %s/ "/ “/g | silent! %s/" /” /g | :silent! %s/^"/“/g | silent! %s/"$/”/g
-  :silent! %s/\S\@='\S@!/’/g | :silent! %s/\S\@<='\S\@=/’/g
-  :silent! %s/\S\@="\S@!/”/g | :silent! %s/\S\@<="\S\@=/”/g
-endfunction
-
 function s:repl(start, end, language) " REPL https://vi.stackexchange.com/a/19875
   let g:terminal_buffer = get(g:, 'terminal_buffer', -1)
   if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer)
@@ -181,7 +173,6 @@ vnoremap <leader>rd !awk '\!dedup[$0]++'<cr>|       " Remove duplicate lines
 nmap     <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>|                                         " Toggle color column
 nmap     <leader>cx :set cursorcolumn!<cr>|                                                                                 " Toggle cursor column
 nmap     <leader>ce :silent! %s/–/--/g<cr> \| :silent! %s/—/---/g<cr> \| my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y|  " Transliterate special characters to ascii
-nmap     <leader>cl :call TypographyFormat()<cr>|                                                                           " Use typographic characters
 nmap     <leader>cn :set number!<cr>|                                                                                       " Toggle line numbers
 nmap     <leader>cr :set relativenumber!<cr>|                                                                               " Toggle relative line numbers
 nmap     <leader>ck ddkkpk<cr>|                                                                                             " Move line up
