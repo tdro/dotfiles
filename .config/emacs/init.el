@@ -77,7 +77,7 @@
              (setq dired-recursive-deletes 'always)
              (setq delete-by-moving-to-trash t)
              (setq dired-dwim-target t)
-             (setq dired-listing-switches "-ahl --group-directories-first") ; Pass options to `ls` command.
+             (setq dired-listing-switches "-Sahl --group-directories-first") ; Pass options to `ls` command.
 
              (defun dired-find-directory ()
                "Traverse directories only"
