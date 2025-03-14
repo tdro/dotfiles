@@ -132,7 +132,7 @@ command! -nargs=1 -range Notify  call s:notify(<args>)
 command! -nargs=1 -range Find    call s:find(<f-args>)
 command! -nargs=+ -range Replace call s:replace(<f-args>)
 command! -nargs=? -range REPL    call s:repl(<line1>, <line2>, <f-args>)
-command! -bar BdReadOnly silent! exe 'bd '.join(filter(range(1, bufnr('$')), {i,v -> getbufvar(v, '&modifiable') == 0}))| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
+command! -bar BdReadOnly silent! if len(getbufinfo()) > 1 | exe 'bd '.join(filter(range(1, bufnr('$')), {i,v -> getbufvar(v, '&modifiable') == 0})) | endif| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
 command! -bar BdUnloaded silent! exe 'bd '.join(filter(range(1, bufnr('$')), {i,v -> getbufinfo()[i]["loaded"]   == 0}))| " Delete unloaded buffers
 
 
@@ -142,13 +142,14 @@ nmap     <leader>ev :tabedit ~/.config/vim/vimrc<cr>|                           
 nmap     <leader>eh :tabedit ~/.config/vim/viminfo<cr>/^# Command Line History<cr>:e<cr>n|   " Edit command history
 
 nmap     <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold --spaces --width 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>| " View function documentation
-vnoremap <leader>dt y:BdReadOnly \| :term dict -h localhost <C-R>*<cr>| " Send visual selection under cursor to dictionary
-vnoremap <leader>ds y:term ++hidden ++close recoll -q <C-R>*<cr>|       " Send visual selection under cursor to search engine
+vnoremap <leader>dt y:term dict -h localhost <C-R>*<cr>|          " Send visual selection under cursor to dictionary
+vnoremap <leader>ds y:term ++hidden ++close recoll -q <C-R>*<cr>| " Send visual selection under cursor to search engine
 
+nmap     <leader>term  :term sh -c ""<left>|                                                        " Run terminal command in shell
 nmap     <leader>grep  :Find<space>|                                                                " Cycle through files containing search query
 vnoremap <leader>grep y/<C-R>*<cr> \| :exe 'grep' . ' ' . shellescape("<C-R>*")<cr><cr>:copen<cr>|  " Cycle through files containing visual selection
-vnoremap <leader>af   y:BdReadOnly \| :exe ':term ' . &grepprg . ' ' . '<C-R>*'<cr>|                " Show files containing visual selection in terminal
-nmap     <leader>af    :BdReadOnly \| :exe ':term ' . &grepprg . ' ' . ''<left>|                    " Show files containing search query in terminal
+vnoremap <leader>af   y:exe ':term ' . &grepprg . ' ' . '<C-R>*'<cr>|                               " Show files containing visual selection in terminal
+nmap     <leader>af    :exe ':term ' . &grepprg . ' ' . ''<left>|                                   " Show files containing search query in terminal
 
 nmap     <leader>jl :norm yaW<cr> \| :Jump<cr>| " Jump to line
 
@@ -296,14 +297,14 @@ augroup AutoCommands
   autocmd BufWritePost *.service                          exe 'Notify(''systemd-analyze verify --user ' . expand('%') . ' 2>&1 && printf "Systemd Service File OK: ' . expand('%') . '"'')'
 
   " Keyword documentation lookups.
-  autocmd FileType go     noremap <buffer> K  :set modified<cr>:BdReadOnly<cr>:exe 'term ++rows=10 go doc' . ' ' . expand('<cexpr>')<cr>
-  autocmd FileType go     vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:term ++rows=10 go doc <C-R>*<cr>
-  autocmd FileType elixir noremap <buffer> K  :set modified<cr>:BdReadOnly<cr>:exe ':term ++rows=10 sh -c "printf ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
-  autocmd FileType elixir vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:term ++rows=10 sh -c "printf 'h(<C-R>*)' \| iex"<cr>
-  autocmd FileType php    noremap <buffer> K  :set modified<cr>:BdReadOnly<cr>:exe ':term ++rows=10 sh -c "echo doc' . ' ' . expand('<cexpr>') . ' ' . '\| psysh"'<cr>
-  autocmd FileType php    vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:term ++rows=10 sh -c "echo doc <C-R>* \| psysh"<cr>
-  autocmd FileType vim    noremap <buffer> K  :set modified<cr>:BdReadOnly<cr>:exe ':h' . ' ' . expand('<cexpr>')<cr>
-  autocmd FileType vim    vmap    <buffer> K y:set modified<cr>:BdReadOnly<cr>:h<space><C-R>*<cr>
+  autocmd FileType go     noremap <buffer> K  :set modified<cr>:exe 'term ++rows=10 go doc' . ' ' . expand('<cexpr>')<cr>
+  autocmd FileType go     vmap    <buffer> K y:set modified<cr>:term ++rows=10 go doc <C-R>*<cr>
+  autocmd FileType elixir noremap <buffer> K  :set modified<cr>:exe ':term ++rows=10 sh -c "printf ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
+  autocmd FileType elixir vmap    <buffer> K y:set modified<cr>:term ++rows=10 sh -c "printf 'h(<C-R>*)' \| iex"<cr>
+  autocmd FileType php    noremap <buffer> K  :set modified<cr>:exe ':term ++rows=10 sh -c "echo doc' . ' ' . expand('<cexpr>') . ' ' . '\| psysh"'<cr>
+  autocmd FileType php    vmap    <buffer> K y:set modified<cr>:term ++rows=10 sh -c "echo doc <C-R>* \| psysh"<cr>
+  autocmd FileType vim    noremap <buffer> K  :set modified<cr>:exe ':h' . ' ' . expand('<cexpr>')<cr>
+  autocmd FileType vim    vmap    <buffer> K y:set modified<cr>:h<space><C-R>*<cr>
 
   " Quick fix mappings.
   autocmd FileType qf nmap <silent> <buffer> j j:call setreg('c', col('.'))<cr>:cnext<cr>:autocmd! BufWritePost<cr><C-w>w0n$N<cr>:call cursor(0, getreg('c'))<cr>
@@ -380,6 +381,9 @@ augroup AutoCommands
 
   " Persist command history.
   autocmd CmdwinLeave * wviminfo
+
+  " Keep only one terminal window open
+  autocmd TerminalWinOpen * silent! :BdReadOnly
 
   " Save file on insert and idle.
   autocmd InsertLeave,CursorHold * silent! write
