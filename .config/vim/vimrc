@@ -298,14 +298,18 @@ augroup AutoCommands
   autocmd BufWritePost *.service                          exe 'Notify(''systemd-analyze verify --user ' . expand('%') . ' 2>&1 && printf "Systemd Service File OK: ' . expand('%') . '"'')'
 
   " Keyword documentation lookups.
-  autocmd FileType go     noremap <buffer> K  :set modified<cr>:exe 'term ++rows=10 go doc' . ' ' . expand('<cexpr>')<cr>
-  autocmd FileType go     vmap    <buffer> K y:set modified<cr>:term ++rows=10 go doc <C-R>*<cr>
-  autocmd FileType elixir noremap <buffer> K  :set modified<cr>:exe ':term ++rows=10 sh -c "printf ''h(' . expand('<cexpr>') . ')'' \| iex"'<cr>
-  autocmd FileType elixir vmap    <buffer> K y:set modified<cr>:term ++rows=10 sh -c "printf 'h(<C-R>*)' \| iex"<cr>
-  autocmd FileType php    noremap <buffer> K  :set modified<cr>:exe ':term ++rows=10 sh -c "echo doc' . ' ' . expand('<cexpr>') . ' ' . '\| psysh"'<cr>
-  autocmd FileType php    vmap    <buffer> K y:set modified<cr>:term ++rows=10 sh -c "echo doc <C-R>* \| psysh"<cr>
-  autocmd FileType vim    noremap <buffer> K  :set modified<cr>:exe ':h' . ' ' . expand('<cexpr>')<cr>
-  autocmd FileType vim    vmap    <buffer> K y:set modified<cr>:h<space><C-R>*<cr>
+  autocmd FileType *      noremap <silent> <buffer> <C-@>  viwy/<C-R>*<cr>N:set modified<cr>:only<cr>:exe 'term ++close ++rows=10 sh -c "w3m ' . shellescape(expand('https://lite.duckduckgo.com/lite?q=<cexpr>')) . '"'<cr><C-w>w
+  autocmd FileType *      vmap    <silent> <buffer> <C-@>     y/<C-R>*<cr>N:set modified<cr>:only<cr>:exe 'term ++close ++rows=10 sh -c "w3m ' . shellescape(expand('https://lite.duckduckgo.com/lite?q=<C-R>*')) . '"'<cr><C-w>w
+  autocmd FileType *      noremap <silent> <buffer> K      viwy/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "MANPAGER= man' . ' ' . shellescape(expand('<cexpr>')) . '"' \| set ft=man<cr><C-w>w
+  autocmd FileType *      vmap    <silent> <buffer> K         y/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "MANPAGER= man' . ' ' . shellescape('<C-R>*') . '"' \| set ft=man<cr><C-w>w
+  autocmd FileType vim    noremap <silent> <buffer> K      viwy/<C-R>*<cr>N:set modified<cr>:exe ':h' . ' ' . expand('<cexpr>')<cr><C-w>w
+  autocmd FileType vim    vmap    <silent> <buffer> K         y/<C-R>*<cr>N:set modified<cr>:h<space><C-R>*<cr><C-w>w
+  autocmd FileType go     noremap <silent> <buffer> K      viwy/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "go doc' . ' ' . shellescape(expand('<cexpr>')) . '"' \| set ft=go<cr><C-w>w
+  autocmd FileType go     vmap    <silent> <buffer> K         y/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "go doc' . ' ' . shellescape('<C-R>*') . '"' \| set ft=go<cr><C-w>w
+  autocmd FileType elixir noremap <silent> <buffer> K      viwy/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "printf' . ' ' . shellescape(expand('h(<cexpr>)')) . ' ' . '\| iex"' \| set ft=elixir<cr><C-w>w
+  autocmd FileType elixir vmap    <silent> <buffer> K         y/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "printf' . ' ' . shellescape(expand('h(<C-R>*)')) . ' ' . '\| iex"' \| set ft=elixir<cr><C-w>w
+  autocmd FileType php    noremap <silent> <buffer> K      viwy/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "PAGER= echo doc' . ' ' . shellescape(expand('<cexpr>')) . ' ' . '\| psysh"'<cr><C-w>w
+  autocmd FileType php    vmap    <silent> <buffer> K         y/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "PAGER= echo doc' . ' ' . shellescape('<C-R>*') \| psysh"'<cr><C-w>w
 
   " Quick fix mappings.
   autocmd FileType qf nmap <silent> <buffer> j j:call setreg('c', col('.'))<cr>:cnext<cr>:autocmd! BufWritePost<cr><C-w>w0n$N<cr>:call cursor(0, getreg('c'))<cr>
