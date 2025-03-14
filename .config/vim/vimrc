@@ -132,8 +132,8 @@ command! -nargs=1 -range Notify  call s:notify(<args>)
 command! -nargs=1 -range Find    call s:find(<f-args>)
 command! -nargs=+ -range Replace call s:replace(<f-args>)
 command! -nargs=? -range REPL    call s:repl(<line1>, <line2>, <f-args>)
-command! -bar BdReadOnly silent! if len(getbufinfo()) > 1 | exe 'bd '.join(filter(range(1, bufnr('$')), {i,v -> getbufvar(v, '&modifiable') == 0})) | endif| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
-command! -bar BdUnloaded silent! exe 'bd '.join(filter(range(1, bufnr('$')), {i,v -> getbufinfo()[i]["loaded"]   == 0}))| " Delete unloaded buffers
+command! -bar BdReadOnly silent! if len(getbufinfo()) > 1 | exe 'bd '.join(filter(range(1, bufnr('$')), {_,v -> getbufvar(v, '&modifiable') == 0})) | endif| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
+command! -bar BdNoName silent! if len(getbufinfo()) > 1 && len(getwininfo()) > 2 && len(filter(getbufinfo(), {_,b -> b.name =~ '^!'})) == 0 && len(filter(getwininfo(), {_,w -> w.quickfix == 1})) == 0 && len(filter(getwininfo(), {_,w -> w.terminal == 1})) == 0 | exe 'bd '.join(filter(filter(range(1, bufnr('$')), 'bufexists(v:val)'), 'bufname(v:val)==""')) | endif| " Delete [No Name] buffers
 
 
 "---------------Shortcuts---------------"
@@ -368,7 +368,8 @@ augroup AutoCommands
   autocmd BufRead,BufNewFile *.blade.php  set filetype=php
 
   " Allow switching between [No Name] buffers
-  autocmd BufWinEnter * if &filetype == "" | set bh=hide | endif
+  autocmd BufLeave,BufWinEnter * if &filetype == "" | set bh=hide | endif
+  autocmd BufWinLeave,QuickFixCmdPost * silent! :BdNoName
 
   " Open quick before jumping to the first location.
   autocmd QuickFixCmdPost * copen
