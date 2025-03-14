@@ -171,6 +171,7 @@ nmap     <leader>rs :%s/\s\+$//e|                   " Remove trailing whitespace
 nmap     <leader>rr :enew \| .!<space>|             " Dump output of command to new buffer
 vnoremap <leader>rd !awk '\!dedup[$0]++'<cr>|       " Remove duplicate lines
 
+nmap     <leader>cd :cd %:h \| :pwd<cr>|                                                                                    " Change directory to the current file
 nmap     <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>|                                         " Toggle color column
 nmap     <leader>cx :set cursorcolumn!<cr>|                                                                                 " Toggle cursor column
 nmap     <leader>ce :silent! %s/–/--/g<cr> \| :silent! %s/—/---/g<cr> \| my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y|  " Transliterate special characters to ascii
@@ -331,8 +332,15 @@ augroup AutoCommands
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " REPL output.
-  autocmd FileType * noremap <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
-  autocmd FileType vim       noremap  <buffer> <leader>co yVy:<C-R>*<bs><cr>
+  autocmd FileType *          noremap <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
+  autocmd FileType vim        noremap <buffer> <leader>co yVy:<C-R>*<bs><cr>
+
+  " Netrw mappings
+  autocmd FileType netrw      nmap  <buffer> l     <cr>cd
+  autocmd FileType netrw      nmap  <buffer> h     -cd
+  autocmd FileType netrw      nmap  <buffer> i     mfR
+  autocmd FileType netrw      nmap  <buffer> p     mtmc
+  autocmd FileType netrw      nmap  <buffer> <cr> <Plug>NetrwLocalBrowseCheck
 
   " Format using visual select + gq.
   autocmd FileType toml            set formatprg=yj\ -tt
