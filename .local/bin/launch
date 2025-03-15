@@ -4,17 +4,17 @@
 
 [ "$1" = "privilege" ] &&
 	export prefix='rofi-askpass ' &&
-	export args='-nhf #ff7070 -sf #ff7070 -p ⠀:::⠀privilege⠀:::' &&
+	export args='-theme dmenu-privilege -p :::⠀privilege⠀:::⠀' &&
 	shift 1
 
 [ "$1" = "terminal" ] &&
 	export prefix='urxvt -hold -e ' &&
-	export args='-nhf #9e9e9e -sf #9e9e9e -p ⠀:::⠀terminal⠀:::' &&
+	export args='-theme dmenu-terminal -p :::⠀terminal⠀:::⠀' &&
 	shift 1
 
 [ "$1" = "offline" ] &&
 	export prefix='unshare -c -n ' &&
-	export args='-nhf #9e9e9e -sf #c985ff -p ⠀:::⠀offline⠀:::' &&
+	export args='-theme dmenu-offline -p :::⠀offline⠀:::⠀' &&
 	shift 1
 
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}
@@ -24,7 +24,7 @@ mkdir --parents "$cachedir"
 
 Update() {
 	IFS=:
-	stest -flx $PATH | sort -u >"$cache"
+	stest -flx $PATH | sort -u > "$cache"
 	unset IFS
 }
 
@@ -38,7 +38,7 @@ awk -v histfile="$historyfile" '
 			x[$0]=1
 		}
 	} !x[$0]++ ' "$cache" \
-	| dmenu -i -b ${args:--p ⠀:::⠀execute⠀:::} "$@" \
+	| rofi -dmenu -i ${args:--p :::⠀launch⠀:::⠀} -theme dmenu-launch "$@" \
 	| awk -v histfile="$historyfile" '
 		BEGIN {
 			FS=OFS="\t"

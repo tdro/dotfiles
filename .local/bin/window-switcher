@@ -14,7 +14,7 @@ windows=$(printf "%s" "$windows" |
 		'{cur=length($1); printf $1; for(i=0; i < list - cur + 1; i++) printf " "; $1 = ""; printf "%s\n", $0}' 2> /dev/null)
 
 selection=$(
-	printf "%s" "$windows" | dmenu -nhf '#cf71e0' -sf '#cf71e0' -f -i -b -p ⠀:::⠀windows⠀:::
+	printf "%s" "$windows" | rofi -theme dmenu-window -dmenu -i -p :::⠀windows⠀:::⠀
 	[ "$?" = 127 ] && kill -15 "$$" && "$0"
 )
 

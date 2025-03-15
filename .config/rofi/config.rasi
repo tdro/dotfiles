@@ -2,6 +2,7 @@ configuration {
   kb-remove-to-eol:       "";
   refilter-timeout-limit: 50000;
   disable-history:        false;
+  matching:               "fuzzy";
   kb-row-up:              "Up,Control+k";
   kb-row-down:            "Down,Control+j";
   kb-accept-entry:        "Control+m,Return,KP_Enter";

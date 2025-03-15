@@ -1,0 +1,22 @@
+@theme "dmenu"
+
+* {
+  text-color: #9e9e9e;
+}
+
+element-text,
+element-icon {
+  highlight: underline #fff;
+}
+
+element selected {
+  background-color: #9e9e9e;
+}
+
+element selected.normal {
+  text-color: #000;
+}
+
+element-text selected.normal {
+  highlight: none #000;
+}

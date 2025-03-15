@@ -1,0 +1,54 @@
+/*
+ * Rofi dmenu color theme
+ * User: Qball
+ * Copyright: Dave Davenport
+ * Licence: MIT | https://github.com/davatorium/rofi/blob/b5861f8626d519dca83267e5e5cba05474019110/COPYING
+ */
+
+configuration {
+  kb-move-char-back: "";
+  kb-move-char-forward: "";
+  kb-row-down: "Right";
+  kb-row-up: "Left";
+}
+
+* {
+  background-color: #000;
+  border-color: #eee;
+  text-color: #eee;
+  font: "Sans Bold 10";
+}
+
+entry {
+  enabled: false;
+}
+
+element {
+  padding: 2px;
+}
+
+horibox {
+  orientation: horizontal;
+  children: [prompt, entry, listview];
+}
+
+window {
+  anchor: south;
+  location: south;
+  width: 100%;
+  children: [horibox];
+  padding: 0 10px;
+}
+
+listview {
+  layout: horizontal;
+  spacing: 5px;
+  lines: 100;
+}
+
+element-text,
+element-icon {
+  highlight: underline red;
+  background-color: inherit;
+  text-color: inherit;
+}
