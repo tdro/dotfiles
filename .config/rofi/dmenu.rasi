@@ -6,10 +6,12 @@
  */
 
 configuration {
+  kb-mode-complete: "";
   kb-move-char-back: "";
   kb-move-char-forward: "";
-  kb-row-down: "Right";
-  kb-row-up: "Left";
+  kb-row-up: "Left,Control+h";
+  kb-row-down: "Right,Control+l";
+  kb-remove-char-back: "BackSpace,Shift+BackSpace";
 }
 
 * {

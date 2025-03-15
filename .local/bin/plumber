@@ -21,7 +21,7 @@ word->dictionary
 "
 
 selection=$(
-  printf "%s" "$options" | dmenu -i -b -p ⠀:::⠀plumber⠀::: ||
+  printf "%s" "$options" | rofi -theme dmenu-plumber -dmenu -p :::⠀plumber⠀::: ||
     { [ "$?" = 127 ] && kill -15 "$$" && "$0"; }
 )
 
