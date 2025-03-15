@@ -161,7 +161,7 @@ defmodule TextPlumber do
     {string, _return} =
       System.cmd("sh", [
         "-c",
-        "perl -e 'use Text::Lorem; print Text::Lorem->new()->words(4)';"
+        "perl -e 'use Text::Lorem; print join(\" \", (split(/\s+/, Text::Lorem->new()->paragraphs(1)))[0..3])';"
       ])
 
     IO.puts(string)
