@@ -177,11 +177,12 @@ nmap     <leader>cx :set cursorcolumn!<cr>|                                     
 nmap     <leader>ce :silent! %s/–/--/g<cr> \| :silent! %s/—/---/g<cr> \| my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y|  " Transliterate special characters to ascii
 nmap     <leader>cn :set number!<cr>|                                                                                       " Toggle line numbers
 nmap     <leader>cr :set relativenumber!<cr>|                                                                               " Toggle relative line numbers
-nmap     <leader>ck ddkkpk<cr>|                                                                                             " Move line up
-nmap     <leader>cj ddpk<cr>|                                                                                               " Move line down
 vnoremap <leader>ct !column -t -o' '<cr>|                                                                                   " Justify columns
 vnoremap <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
 noremap  <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\<space><space>$HOME/.cache/scratchpad<C-left><left>|      " Scratchpad of specified filetype
+
+vmap     <C-j>  dpk<cr>V|                " Move line down
+vmap     <C-k>  dkkpk<cr>V|              " Move line up
 
 nmap     q.  Vgv:<up>|                   " Go to last command in visual selection from normal
 vmap     .q     :<up>|                   " Go to last command in visual selection
@@ -198,8 +199,8 @@ nmap     <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': 
 nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n" 2> /dev/null', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap     <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $HOME -type d -maxdepth 4 2> /dev/null", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 
-nmap     <silent>   <leader>ne :if &filetype == "netrw" \| Lexplore \| else \| exe 'Lexplore' . ' ' . expand("%:p:h") \| endif<cr>| " Open native file manager at current file path
-nmap     <silent>   <leader>nn :exe 'term ++rows=10 ++close emacs -nw --eval' . ' ' .  '"(dired \"' . expand('%:p:h') . '\")"' . ' ' . '--eval "(vim-evil-dired)"'<cr>| " Open file manager at current file path
+nmap     <silent>   <leader>nn :if &filetype == "netrw" \| Lexplore \| else \| exe 'Lexplore' . ' ' . expand("%:p:h") \| endif<cr>| " Open native file manager at current file path
+nmap     <silent>   <leader>ne :exe 'term ++rows=10 ++close emacs -nw --eval' . ' ' .  '"(dired \"' . expand('%:p:h') . '\")"' . ' ' . '--eval "(vim-evil-dired)"'<cr>| " Open file manager at current file path
 
 nmap     <Bslash>   :vsplit<cr>|              " Vertical split
 nmap     <C-Bslash> :split<cr>|               " Horizontal split
@@ -264,7 +265,6 @@ augroup AutoCommands
   autocmd FileType toml             autocmd! BufWritePost <buffer> exe 'Notify(''tomll ' . expand('%') . ' 2>&1 && printf "TOML OK: ' . expand('%') . '"'')' | :e
   autocmd FileType nim              autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
   autocmd FileType rust             autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType json,jsonc       autocmd! BufWritePost <buffer> exe 'Notify(''jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
   autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''ruff check --no-cache ' . expand('%') . ' 2>&1 && black ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType ruby             autocmd! BufWritePost <buffer> exe 'Notify(''rubocop --fix-layout ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType javascript       autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
@@ -277,6 +277,7 @@ augroup AutoCommands
   autocmd FileType php              autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1 && phpstan --no-progress --no-ansi --no-interaction analyze --level max ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType tex              autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
   autocmd FileType bindzone         autocmd! BufWritePost <buffer> exe 'Notify(''file="' . expand('%') . '" && named-checkzone "$(head --lines=1 "$file" | cut --delimiter=" " --fields=2 | perl -ple "chop")" $file'')' | :e
+  autocmd FileType json,jsonc       autocmd! BufWritePost <buffer> exe 'Notify(''json5 ' . expand('%') . ' -o ' . expand('%') . ' && ' . 'jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
   autocmd FileType *react           autocmd! BufWritePost <buffer> exe 'Notify(''export DENO_DIR=/dev/null && deno fmt --ext=tsx ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint --ext=tsx ' . expand('%') . ' 2>&1'')' | :e
   autocmd FileType awk              autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
   autocmd FileType yaml             autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
@@ -340,10 +341,12 @@ augroup AutoCommands
   autocmd FileType vim        noremap <buffer> <leader>co yVy:<C-R>*<bs><cr>
 
   " Netrw mappings
-  autocmd FileType netrw      nmap  <buffer> l     <cr>cd
-  autocmd FileType netrw      nmap  <buffer> h     -cd
-  autocmd FileType netrw      nmap  <buffer> i     mfR
-  autocmd FileType netrw      nmap  <buffer> p     mtmc
+  autocmd FileType netrw      nmap  <buffer> l    <cr>cd
+  autocmd FileType netrw      nmap  <buffer> h    -cd
+  autocmd FileType netrw      nmap  <buffer> i    mfR
+  autocmd FileType netrw      nmap  <buffer> p    mtmc
+  autocmd FileType netrw      nmap  <buffer> v    mfj
+  autocmd FileType netrw      nmap  <buffer> u    mF
   autocmd FileType netrw      nmap  <buffer> <cr> <Plug>NetrwLocalBrowseCheck
 
   " Format using visual select + gq.
