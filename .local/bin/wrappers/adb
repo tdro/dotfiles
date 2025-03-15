@@ -1,3 +1,4 @@
 #!/bin/sh -eu
+
+{ [ "$1" = "connect" ] || [ "$1" = "shell" ]; } && kill "$(pgrep --full "adb -L")"
 HOME=$HOME/.config && $(which adb --all | grep --invert-match "local/bin" | head -n 1) "$@"
-killall --quiet adb
