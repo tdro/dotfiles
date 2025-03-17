@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Video Player
 Type=Application
-Exec=mplayer %F
+Exec=vlc %F
 Terminal=false
 NoDisplay=true

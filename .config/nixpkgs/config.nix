@@ -188,7 +188,6 @@ in
         (callPackage ./packages/boomer/package.nix { })
         (callPackage ./packages/dmenu/package.nix { })
         (callPackage ./packages/sowon/package.nix { })
-        (mplayer.override { v4lSupport = true; })
         (pkgs.writeScriptBin "keepassxc" ''unshare -c -n ${pkgs.keepassxc}/bin/keepassxc "$@"'')
         unstable.firefox
         unstable.google-chrome
@@ -226,6 +225,7 @@ in
         liferea
         mate.engrampa
         meld
+        mplayer
         mupdf
         opensnitch-ui
         pavucontrol
