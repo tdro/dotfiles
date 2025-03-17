@@ -64,5 +64,5 @@ let
 
 in pkgs.mkShell {
   inherit name package;
-  shellHook = "exec ${shell}/bin/${shell.name}";
+  shellHook = "${shell}/bin/${shell.name}; exit";
 }

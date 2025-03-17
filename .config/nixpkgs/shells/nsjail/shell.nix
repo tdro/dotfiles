@@ -47,6 +47,6 @@ in pkgs.mkShell {
   inherit name;
   shellHook = ''
     printf '%s\n' "${jail}/bin/${jail.name}"
-    exec "${jail}/bin/${jail.name}"
+    ${jail}/bin/${jail.name}; exit
   '';
 }

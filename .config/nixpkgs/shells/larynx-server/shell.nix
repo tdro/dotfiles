@@ -50,5 +50,5 @@ let
 in pkgs.mkShell {
   inherit fhs;
   inherit name;
-  shellHook = "exec ${fhs}/bin/${fhs.name}";
+  shellHook = "${fhs}/bin/${fhs.name}; exit";
 }
