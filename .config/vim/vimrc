@@ -181,8 +181,8 @@ vnoremap <leader>ct !column -t -o' '<cr>|                                       
 vnoremap <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
 noremap  <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\<space><space>$HOME/.cache/scratchpad<C-left><left>|      " Scratchpad of specified filetype
 
-vmap     <C-j>  dpk<cr>V|                " Move line down
-vmap     <C-k>  dkkpk<cr>V|              " Move line up
+vmap <C-j> :m'>+<cr>gv| " Move line down
+vmap <C-k> :m -2<cr>gv| " Move line up
 
 nmap     q.  Vgv:<up>|                   " Go to last command in visual selection from normal
 vmap     .q     :<up>|                   " Go to last command in visual selection
