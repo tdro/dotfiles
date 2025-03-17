@@ -69,6 +69,7 @@ set scrolloff=3                          " Set vertical scroll headroom.
 set sidescroll=3                         " Set horizontal column scroll.
 set sidescrolloff=10                     " Set horizontal scroll headroom.
 set foldcolumn=2                         " Set fold column width to 2.
+set makeprg=                             " Unset make program
 
 set dictionary=~/.config/vim/thesaurus                                                     " Set the location of dictionary file.
 set thesaurus=~/.config/vim/thesaurus-buffer                                               " Set the location of thesaurus file.
@@ -124,9 +125,14 @@ function s:find(that)
    exe '%bd | silent grep ' . shellescape(escape(a:that, '#|[](){}+')) . ' | ' . ':copen' | call feedkeys('/' . trim(escape(a:that, '?/|'), '^') . "\<cr>") | redraw!
 endfunction
 
+function s:make()
+  if len(&makeprg) > 0  | silent! exe 'only | term ++rows=10 sh -c ' . '"' . &makeprg . '"' | endif
+endfunction
+
 
 "----------------Commands----------------"
 
+command! -nargs=? -range Make    call s:make()
 command! -nargs=? -range Jump    call s:jump(@*)
 command! -nargs=1 -range Notify  call s:notify(<args>)
 command! -nargs=1 -range Find    call s:find(<f-args>)
@@ -257,35 +263,36 @@ augroup AutoCommands
   autocmd BufWritePost .vimrc,vimrc source % | Notify('printf "Configuration sourced."')
 
   " Linting file type post write commands.
+  autocmd FileType *                autocmd! BufWritePost <buffer> :Make
   autocmd FileType markdown         autocmd! BufWritePost <buffer> :only | :term ++rows=10 sh -c "cat % | vale --ext .md"
-  autocmd FileType raku             autocmd! BufWritePost <buffer> exe 'Notify(''raku -c ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType scheme           autocmd! BufWritePost <buffer> exe 'Notify(''guile -s ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser css ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser html ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType toml             autocmd! BufWritePost <buffer> exe 'Notify(''tomll ' . expand('%') . ' 2>&1 && printf "TOML OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType nim              autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType rust             autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''ruff check --no-cache ' . expand('%') . ' 2>&1 && black ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType ruby             autocmd! BufWritePost <buffer> exe 'Notify(''rubocop --fix-layout ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType javascript       autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e
-  autocmd FileType elixir           autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType haskell          autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType bash,sh          autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')'
-  autocmd FileType xml,xslt,rng,xsd autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' --output ' . expand('%') . ' 2>&1 && printf "XML OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType go               autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType nix              autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e
-  autocmd FileType php              autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1 && phpstan --no-progress --no-ansi --no-interaction analyze --level max ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType tex              autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile %
-  autocmd FileType bindzone         autocmd! BufWritePost <buffer> exe 'Notify(''file="' . expand('%') . '" && named-checkzone "$(head --lines=1 "$file" | cut --delimiter=" " --fields=2 | perl -ple "chop")" $file'')' | :e
-  autocmd FileType json,jsonc       autocmd! BufWritePost <buffer> exe 'Notify(''json5 ' . expand('%') . ' -o ' . expand('%') . ' && ' . 'jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType *react           autocmd! BufWritePost <buffer> exe 'Notify(''export DENO_DIR=/dev/null && deno fmt --ext=tsx ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint --ext=tsx ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType awk              autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType yaml             autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e
-  autocmd FileType nginx            autocmd! BufWritePost <buffer> exe 'Notify(''crossplane format ' . expand('%') . ' > /dev/null && crossplane format ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "nginx OK: ' . expand('%') . '"'')' | :e
-" autocmd FileType nginx            autocmd! BufWritePost <buffer> exe 'Notify(''crossplane format ' . expand('%') . ' > /dev/null && crossplane format ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "nginx OK: ' . expand('%') . '"' . ' && nginx -t -c "$(realpath ' . expand('%') . ')"'')' | :e
-  autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | :only | :term ++rows=10 deno run --allow-all --location https://example.com/ %
-  autocmd FileType c                autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '\n"' . ' && gcc -Wall -Wpedantic -Werror -fsyntax-only ' . expand('%') . ' 2>&1'')' | :e
-  autocmd FileType sql              autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --config ~/.config/pg_format.conf --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016,LT09 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e
+  autocmd FileType raku             autocmd! BufWritePost <buffer> exe 'Notify(''raku -c ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType scheme           autocmd! BufWritePost <buffer> exe 'Notify(''guile -s ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser css ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType html             autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser html ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType toml             autocmd! BufWritePost <buffer> exe 'Notify(''tomll ' . expand('%') . ' 2>&1 && printf "TOML OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType nim              autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType rust             autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''ruff check --no-cache ' . expand('%') . ' 2>&1 && black ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType ruby             autocmd! BufWritePost <buffer> exe 'Notify(''rubocop --fix-layout ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType javascript       autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e | Make
+  autocmd FileType elixir           autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType haskell          autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType bash,sh          autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')' | Make
+  autocmd FileType xml,xslt,rng,xsd autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' --output ' . expand('%') . ' 2>&1 && printf "XML OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType go               autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType nix              autocmd! BufWritePost <buffer> exe 'Notify(''nix-linter ' . expand('%') . ' 2>&1 && printf "Nix Lint OK: ' . expand('%') . '"' . ' && nixfmt ' . expand('%') . ' 2>&1' . ''')' | :e | Make
+  autocmd FileType php              autocmd! BufWritePost <buffer> exe 'Notify(''phpcbf ' . expand('%') . ' 2>&1 && phpstan --no-progress --no-ansi --no-interaction analyze --level max ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType tex              autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | :only | :term ++close ++rows=10 latex-compile % | Make
+  autocmd FileType bindzone         autocmd! BufWritePost <buffer> exe 'Notify(''file="' . expand('%') . '" && named-checkzone "$(head --lines=1 "$file" | cut --delimiter=" " --fields=2 | perl -ple "chop")" $file'')' | :e | Make
+  autocmd FileType json,jsonc       autocmd! BufWritePost <buffer> exe 'Notify(''json5 ' . expand('%') . ' -o ' . expand('%') . ' && ' . 'jsonlint -i ' . expand('%') . ' 2>&1 && printf "JSON OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType *react           autocmd! BufWritePost <buffer> exe 'Notify(''export DENO_DIR=/dev/null && deno fmt --ext=tsx ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint --ext=tsx ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType awk              autocmd! BufWritePost <buffer> exe 'Notify(''awk -g -f ' . expand('%') . ' 2>&1 && awk -o- -f ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "AWK OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType yaml             autocmd! BufWritePost <buffer> exe 'Notify(''yaml round-trip --indent 2 --save ' . expand('%') . ' 2>&1 && yamllint -s ' . expand('%') . ' 2>&1 && printf "YAML OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType nginx            autocmd! BufWritePost <buffer> exe 'Notify(''crossplane format ' . expand('%') . ' > /dev/null && crossplane format ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "nginx OK: ' . expand('%') . '"'')' | :e | Make
+  autocmd FileType c                autocmd! BufWritePost <buffer> exe 'Notify(''clang-format -i ' . expand('%') . ' 2>&1 && printf "Clang Format OK: ' . expand('%') . '\n"' . ' && gcc -Wall -Wpedantic -Werror -fsyntax-only ' . expand('%') . ' 2>&1'')' | :e | Make
+" autocmd FileType nginx            autocmd! BufWritePost <buffer> exe 'Notify(''crossplane format ' . expand('%') . ' > /dev/null && crossplane format ' . expand('%') . ' | sponge ' . expand('%') . ' && printf "nginx OK: ' . expand('%') . '"' . ' && nginx -t -c "$(realpath ' . expand('%') . ')"'')' | :e | Make
+  autocmd FileType sql              autocmd! BufWritePost <buffer> exe 'Notify(''sqlint ' . expand('%') . ' 2>&1 && pg_format --config ~/.config/pg_format.conf --inplace ' . expand('%') . ' 2>&1 && sqlfluff lint --exclude-rules L003,L016,LT09 --dialect postgres ' . expand('%') . ' 2>&1 && printf "SQL OK: ' . expand('%') . '"'')' | :e | Make
 
   " Linting extension post write commands.
   autocmd BufWritePost $HOME/.config/chromexup/config.ini exe 'Notify(''chromexup 2>&1'')'
