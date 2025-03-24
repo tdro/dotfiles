@@ -27,12 +27,6 @@ stty start ''
 stty -ixon
 stty -ixoff
 
-# fzf bindings
-fzfcompletion="$HOME/.config/fzf/completion.bash"
-fzfkeybindings="$HOME/.config/fzf/key-bindings.bash"
-[ -f "$fzfcompletion" ] && . "$fzfcompletion"
-[ -f "$fzfkeybindings" ] && . "$fzfkeybindings"
-
 # set virtual console colors
 if [ "$TERM" = "linux" ]; then
   echo -en "\e]P0111111" # black [background]
@@ -111,7 +105,8 @@ lxc-start() { for container in "$@"; do $(type -P lxc-start) --name "$container"
 lxc-stop() { for container in "$@"; do $(type -P lxc-stop) --kill --name "$container"; done }
 lxc-destroy() { for container in "$@"; do $(type -P lxc-destroy) --name "$container"; done }
 
-# source fzf markers
+# fuzzy finder
+[ -f "$HOME/.config/fzf/key-bindings.bash" ] && . "$HOME/.config/fzf/key-bindings.bash"
 [ -f "$HOME/.config/fzf/marks.plugin.bash" ] && . "$HOME/.config/fzf/marks.plugin.bash"
 
 # extract docker container as rootfs
