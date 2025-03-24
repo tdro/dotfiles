@@ -1,8 +1,3 @@
 #!/bin/sh -eu
 
-if ! {
-  pdflatex -shell-escape -halt-on-error "$1" ||
-  xelatex -shell-escape -halt-on-error "$1"
-}; then
-  cat
-fi
+pdflatex -shell-escape -halt-on-error "$1" || xelatex -shell-escape -halt-on-error "$1"
