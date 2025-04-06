@@ -5,7 +5,7 @@ voices=$HOME/.local/share/piper/voices
 
 identifier=jfgOUcZdWu
 audio=/tmp/say-$identifier.wav
-default=${1:-Nothing to say.}
+message=${1:-Nothing to say.}
 
 trap 'rm $audio $audio.mp3 > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
 
@@ -17,7 +17,12 @@ Usage: %s [FLAGS]... [ARGUMENT]...
 The program $program shall use TTS (Text to Speech)
 to convert a given text input into speech.
 
+Voices: $voices
+
   Command List:
+
+   printf 'text' | $program -     Read piped text.
+   $program - < ./file            Read contents of file.
 
    $program 'text'                Say given text.
    $program echo 'text'           Say given text with echo effect.
@@ -43,7 +48,7 @@ Say() {
 
 Piper() {
  [ ! -e "$voices/en_GB-jenny_dioco-medium.onnx" ] && Download
-  printf '%s' "$default" |
+  printf '%s' "$message" |
     piper \
       --model "$voices/en_GB-jenny_dioco-medium.onnx" \
       --output_file $audio > /dev/null 2>&1
@@ -62,6 +67,8 @@ Download() {
 }
 
 { [ "${1:-}" = "-h" ] || [ "${1:-}" = "-help" ]|| [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && Say && exit
+
+[ "${1:-}" = "-" ] && message=$(cat -) Say && exit
 
 [ "${1:-}" = "help" ] && Help && Say && exit
 
