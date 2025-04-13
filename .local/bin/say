@@ -47,7 +47,8 @@ Say() {
 }
 
 Piper() {
- [ ! -e "$voices/en_GB-jenny_dioco-medium.onnx" ] && Download
+ [ ! -s "$voices/en_GB-jenny_dioco-medium.onnx" ] && Download
+ [ ! -s "$voices/en_GB-jenny_dioco-medium.onnx" ] && printf "ERROR: Unable to download model\n" && exit 1
   printf '%s' "$message" |
     piper \
       --model "$voices/en_GB-jenny_dioco-medium.onnx" \
@@ -60,13 +61,13 @@ Wget() {
 
 Download() {
   mkdir --parents "$voices"
-  Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx.json?download=true.json" \
+  [ -s "$voices/en_GB-jenny_dioco-medium.onnx.json" ] || Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx.json?download=true.json" \
     -O "$voices/en_GB-jenny_dioco-medium.onnx.json"
-  Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx?download=true" \
+  [ -s "$voices/en_GB-jenny_dioco-medium.onnx" ]      || Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx?download=true" \
     -O "$voices/en_GB-jenny_dioco-medium.onnx"
 }
 
-{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "-help" ]|| [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && Say && exit
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "-help" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && Say && exit
 
 [ "${1:-}" = "-" ] && message=$(cat -) Say && exit
 
