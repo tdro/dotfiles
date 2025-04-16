@@ -409,8 +409,6 @@ augroup AutoCommands
   autocmd TerminalWinOpen * silent! :BdReadOnly
 
   " Save file on insert and idle.
-  autocmd InsertLeave,CursorHold * silent! write
-    \| silent! exe "!~/.config/vim/hooks/post-save > /dev/null 2>&1 &"
-    \| :echo expand('%:t') '[filetype=' . &filetype . ']'
+  autocmd InsertLeave,CursorHold * silent! write | silent! exe "!~/.config/vim/hooks/post-save > /dev/null 2>&1 &" | if len(expand('%:t')) > 20  | echo strpart(expand('%:t'), 0, 20) . '...' '[filetype=' . &filetype . ']' | else | echo expand('%:t') '[filetype=' . &filetype . ']' | endif
 
 augroup END
