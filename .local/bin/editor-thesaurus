@@ -9,4 +9,4 @@ term=$(printf "%s" "$term" | tr --delete '\r') # Trim carriage return
 LC_ALL=C grep --max-count 1 --ignore-case --extended-regexp "^$term" "$path" \
   | fold --width 50 --spaces - \
   | sed "2,\$s/^/$term /" \
-  > "$buffer"
+  | sponge "$buffer"

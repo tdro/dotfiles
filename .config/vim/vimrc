@@ -219,9 +219,9 @@ inoremap <S-Tab>    <C-d>|       " Inverse Tabs
 imap     <C-o>      <C-x><C-n>|  " Keyword local completion
 imap     <C-s>      <C-x><C-f>|  " File name completion
 imap     <C-y>      <C-x><C-l>|  " Whole line completion
-inoremap <silent> <C-x><C-s> <Esc>:set spell<cr>hea<C-x><C-s>|                                                     " Spelling Completion
-imap     <silent> <C-t>      <Esc>:term ++hidden ++close editor-thesaurus <cword><cr>:sleep 150m<cr>hea<C-x><C-t>| " Thesaurus insert completion
-vmap     <silent> <C-t>          y:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:sleep 150m<cr>hea<C-x><C-t>| " Thesaurus visual completion
+inoremap <silent>   <C-x><C-s> <Esc>:set spell<cr>hea<C-x><C-s>| " Spelling Completion
+imap     <silent>   <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:while 1 \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| sleep 100m \| endwhile<cr>hea<C-x><C-t>| " Thesaurus insert completion
+vmap     <silent>   <C-t>          y:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:while 1 \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| sleep 100m \| endwhile<cr>hea<C-x><C-t>| " Thesaurus visual completion
 
 nmap     <Esc><Esc> :nohl<cr>|                           " Exit incremental search
 vnoremap < <gv|                                          " Retain visual selection when tabbing left
