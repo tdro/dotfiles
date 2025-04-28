@@ -20,6 +20,7 @@ verbatimEnvironments:                      # Disable indentation for named \begi
   filecontents*: 1
 
 noAdditionalIndentGlobal:
+  optionalArguments: 1                     # Don't indent arguments of \command[arguments] across multiple lines
   mandatoryArguments: 1                    # Don't indent arguments of \command{arguments} across multiple lines
 
 logFilePreferences:                        # Options for /tmp/indent.log
