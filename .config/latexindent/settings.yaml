@@ -1,27 +1,28 @@
 ---
+
 # Default: https://raw.githubusercontent.com/cmhughes/latexindent.pl/main/defaultSettings.yaml
-onlyOneBackUp: 1
-backupExtension: .backup.tex
+
+onlyOneBackUp: 1                           # Number of backup files in /tmp/
+backupExtension: .backup.tex               # File ending for /tmp/???.backup.tex
+defaultIndent: "\t"                        # Default indentation
 
 modifyLineBreaks:
   preserveBlankLines: 1
   condenseMultipleBlankLinesInto: 1
   oneSentencePerLine:
-    manipulateSentences: 0
-    textWrapSentences: 1
+    textWrapSentences: 1                   # Disable sentence text wrapping
   textWrapOptions:
-    all: 1
     columns: 80
-    perCodeBlockBasis: 1
 
-verbatimEnvironments:
+verbatimEnvironments:                      # Disable indentation for named \begin{named} \end{named} environments
   pre: 1
+  filecontents: 1
   filecontents*: 1
 
 noAdditionalIndentGlobal:
-  filecontents: 1
+  mandatoryArguments: 1                    # Don't indent arguments of \command{arguments} across multiple lines
 
-logFilePreferences:
+logFilePreferences:                        # Options for /tmp/indent.log
   endLogFileWith: '--------------'
   showAmalgamatedSettings: 0
   showDecorationFinishCodeBlockTrace: 0

@@ -1,8 +1,6 @@
 #!/bin/sh -eu
 $(which latexindent --all | grep --invert-match "local/bin" | head -n 1) \
   --modifylinebreaks \
-  --overwrite \
-  --silent \
   --cruft=/tmp \
   --local="$HOME/.config/latexindent/settings.yaml" \
-  "$@" > /dev/null 2>&1;
+  "$@" 2> /dev/null;

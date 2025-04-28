@@ -272,13 +272,13 @@ augroup AutoCommands
   autocmd FileType toml             autocmd! BufWritePost <buffer> exe 'Notify(''tomll ' . expand('%') . ' 2>&1 && printf "TOML OK: ' . expand('%') . '"'')' | :e | Make
   autocmd FileType nim              autocmd! BufWritePost <buffer> exe 'Notify(''nimpretty ' . expand('%') . ' 2>&1 && printf "Nim OK: ' . expand('%') . '"'')' | :e | Make
   autocmd FileType rust             autocmd! BufWritePost <buffer> exe 'Notify(''rustfmt ' . expand('%') . ' 2>&1 && printf "rustfmt OK: ' . expand('%') . '"'')' | :e | Make
-  autocmd FileType tex              autocmd! BufWritePost <buffer> exe 'Notify(''latexindent ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | Make
   autocmd FileType python           autocmd! BufWritePost <buffer> exe 'Notify(''ruff check --no-cache ' . expand('%') . ' 2>&1 && black ' . expand('%') . ' 2>&1'')' | :e | Make
   autocmd FileType ruby             autocmd! BufWritePost <buffer> exe 'Notify(''rubocop --fix-layout ' . expand('%') . ' 2>&1 && rubocop ' . expand('%') . ' 2>&1'')' | :e | Make
   autocmd FileType javascript       autocmd! BufWritePost <buffer> exe 'Notify(''eslint --fix ' . expand('%') . ' 2>&1 && printf "JavaScript OK: '. expand('%') . '"'')' | :e | Make
   autocmd FileType elixir           autocmd! BufWritePost <buffer> exe 'Notify(''mix format ' . expand('%') . ' 2>&1 && printf "Elixir Format OK: ' . expand('%') . '"'')' | :e | Make
   autocmd FileType typescript       autocmd! BufWritePost <buffer> exe 'Notify(''deno fmt ' . expand('%') . ' 2>&1 && NO_COLOR=true deno lint ' . expand('%') . ' 2>&1'')' | :e | Make
   autocmd FileType haskell          autocmd! BufWritePost <buffer> exe 'Notify(''hlint ' . expand('%') . ' 2>&1 && brittany --write-mode inplace ' . expand('%') . ' 2>&1'')' | :e | Make
+  autocmd FileType tex              autocmd! BufWritePost <buffer> exe 'Notify(''latexindent --silent --overwrite ' . expand('%') . ' 2>&1 && printf "LaTeX OK: ' . expand('%') . '"'')' | :e | Make
   autocmd FileType bash,sh          autocmd! BufWritePost <buffer> exe 'Notify(''shellcheck -x --exclude=SC1090,SC1091 ' . expand('%') . ' 2>&1 && printf "Shellcheck OK: ' . expand('%') . '"'')' | Make
   autocmd FileType xml,xslt,rng,xsd autocmd! BufWritePost <buffer> exe 'Notify(''xmllint --pretty 1 ' . expand('%') . ' --output ' . expand('%') . ' 2>&1 && printf "XML OK: ' . expand('%') . '"'')' | :e | Make
   autocmd FileType go               autocmd! BufWritePost <buffer> exe 'Notify(''gofmt -w -s -e ' . expand('%') . ' 2>&1 && go vet ' . expand('%') . ' 2>&1 && printf "Go Format OK: ' . expand('%') . '"'')' | :e | Make
@@ -375,6 +375,7 @@ augroup AutoCommands
   autocmd FileType html            set formatprg=prettier\ --ignore-path\ --parser\ html\ --stdin-filepath\ %
   autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
   autocmd FileType markdown        set formatprg=prettier\ --ignore-path\ --parser\ markdown\ --stdin-filepath\ %
+  autocmd FileType tex             set formatprg=latexindent\ --yaml\ 'modifyLineBreaks:oneSentencePerLine:textWrapSentences:0'\ -
 
   " Guess filetype from extension when missing
   autocmd BufRead,BufNewFile * if &filetype == '' | let &filetype = expand('%:e') | endif
