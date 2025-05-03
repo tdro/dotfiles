@@ -4,7 +4,7 @@
 
 onlyOneBackUp: 1                           # Number of backup files in /tmp/
 backupExtension: .backup.tex               # File ending for /tmp/???.backup.tex
-defaultIndent: "\t"                        # Default indentation
+defaultIndent: '  '                        # Default indentation
 
 modifyLineBreaks:
   preserveBlankLines: 1

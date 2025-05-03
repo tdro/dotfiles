@@ -1,6 +1,14 @@
 #!/bin/sh -eu
+
+prefix=
+
+for final; do :; done;
+
+[ "${final##*.}" = "sty" ] && prefix='--yaml noAdditionalIndentGlobal:optionalArguments:0,noAdditionalIndentGlobal:mandatoryArguments:0'
+[ "${final##*.}" = "-"   ] && prefix='--yaml modifyLineBreaks:oneSentencePerLine:textWrapSentences:0'
+
 $(which latexindent --all | grep --invert-match "local/bin" | head -n 1) \
   --modifylinebreaks \
   --cruft=/tmp \
   --local="$HOME/.config/latexindent/settings.yaml" \
-  "$@" 2> /dev/null;
+  $prefix "$@" 2> /dev/null;
