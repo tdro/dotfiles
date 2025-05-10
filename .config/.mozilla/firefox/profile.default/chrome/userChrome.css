@@ -14,21 +14,15 @@
   }
 }
 
-/* Hide autocomplete results dropdown. */
-.urlbarView {
+.urlbarView,                              /* Autocomplete results dropdown. */
+#sidebar-header,                          /* Sidebar heading. */
+#sidebar-splitter,                        /* Sidebar split. */
+#sidebarRevampSeparator,                  /* Vertical tabs context menu separator. */
+#toolbar-context-toggle-vertical-tabs {   /* Vertical tabs context menu button. */
   display: none !important;
 }
 
-/* Hide sidebar header. */
-#sidebar-header {
-  display: none !important;
-}
-
-/* Hide sidebar splitter. */
-#sidebar-splitter {
-  display: none !important;
-}
-
+/* Add border width to context menus */
 panel,
 menupopup {
   border: 1px solid !important;
