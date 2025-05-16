@@ -45,7 +45,7 @@ exe 'hi Comment          guifg='.s:g_silver     . ' guibg='.s:none         . ' g
 exe 'hi Conceal          guifg='.s:g_white      . ' guibg='.s:g_grey4      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_white  . ' ctermbg='.s:t_grey4     . ' cterm='.s:none
 exe 'hi Conditional      guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Constant         guifg='.s:g_purple     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_purple . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi CurSearch        guifg='.s:g_black      . ' guibg='.s:g_gold     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_gold    . ' cterm='.s:bold
+exe 'hi CurSearch        guifg='.s:g_black      . ' guibg='.s:g_gold       . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_gold      . ' cterm='.s:bold
 exe 'hi CursorColumn     guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
 exe 'hi CursorLine       guifg='.s:none         . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:none     . ' ctermbg='.s:none        . ' cterm='.s:bold
 exe 'hi CursorLineNR     guifg='.s:g_white      . ' guibg='.s:g_background . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:bold
