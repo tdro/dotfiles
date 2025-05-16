@@ -146,6 +146,7 @@ command! -bar BdNoName silent! if len(getbufinfo()) > 1 && len(getwininfo()) > 2
 
 nmap     <leader>ev :tabedit ~/.config/vim/vimrc<cr>|                                        " Edit configuration
 nmap     <leader>eh :tabedit ~/.config/vim/viminfo<cr>/^# Command Line History<cr>:e<cr>n|   " Edit command history
+nmap     <leader>es :tabedit ~/.config/vim/viminfo<cr>/^# Search String History<cr>:e<cr>n|  " Edit search history
 
 nmap     <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold --spaces --width 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>| " View function documentation
 vnoremap <leader>dt y:term dict -h localhost <C-R>*<cr>|          " Send visual selection under cursor to dictionary
@@ -177,6 +178,7 @@ nmap     <leader>rs :%s/\s\+$//e|                   " Remove trailing whitespace
 nmap     <leader>rr :enew \| .!<space>|             " Dump output of command to new buffer
 vnoremap <leader>rd !awk '\!dedup[$0]++'<cr>|       " Remove duplicate lines
 
+nmap     <silent>   <leader>ca :/[^\x00-\x7F]<cr>|                                                                          " Check non ascii characters
 nmap     <leader>cd :cd %:h \| :pwd<cr>|                                                                                    " Change directory to the current file
 nmap     <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>|                                         " Toggle color column
 nmap     <leader>cx :set cursorcolumn!<cr>|                                                                                 " Toggle cursor column
@@ -195,6 +197,7 @@ vmap     .q     :<up>|                   " Go to last command in visual selectio
 vmap     .f     :!editor-filter<space>|  " Run filter in visual selection
 vmap     ..     :<up><cr>|               " Repeat last command in visual selection
 vmap     /      y/<C-R>*<cr>N|           " Auto search from visual selection
+vmap     ?      y/\%V|                   " Search within last visual selection
 
 nmap     <Tab>      :Buffers<cr>|     " List buffers
 nmap     <leader>ov :Lines<cr>|       " List lines in loaded buffers
@@ -202,8 +205,8 @@ nmap     <leader>ob :BLines<cr>|      " List lines in loaded buffer
 nmap     <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>| " Open terminal window in current directory
 nmap     <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap     <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
-nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --files --hidden \|\| find . -type f -printf "%P\n" 2> /dev/null', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
-nmap     <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $HOME -type d -maxdepth 4 2> /dev/null", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
+nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --follow --files --hidden \|\| find . -type f -printf "%P\n" 2> /dev/null', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
+nmap     <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $PWD -type d -maxdepth 4 2> /dev/null", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 
 nmap     <silent>   <leader>nn :if &filetype == "netrw" \| Lexplore \| else \| exe 'Lexplore' . ' ' . expand("%:p:h") \| endif<cr>| " Open native file manager at current file path
 nmap     <silent>   <leader>ne :exe 'term ++rows=10 ++close emacs -nw --eval' . ' ' .  '"(dired \"' . expand('%:p:h') . '\")"' . ' ' . '--eval "(vim-evil-dired)"'<cr>| " Open file manager at current file path
