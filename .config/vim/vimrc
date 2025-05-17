@@ -144,9 +144,9 @@ command! -bar BdNoName silent! if len(getbufinfo()) > 1 && len(getwininfo()) > 2
 
 "---------------Shortcuts---------------"
 
-nmap     <leader>ev :tabedit ~/.config/vim/vimrc<cr>|                                        " Edit configuration
-nmap     <leader>eh :tabedit ~/.config/vim/viminfo<cr>/^# Command Line History<cr>:e<cr>n|   " Edit command history
-nmap     <leader>es :tabedit ~/.config/vim/viminfo<cr>/^# Search String History<cr>:e<cr>n|  " Edit search history
+nmap     <leader>ev :tab drop ~/.config/vim/vimrc<cr>|                                        " Edit configuration
+nmap     <leader>eh :tab drop ~/.config/vim/viminfo<cr>/^# Command Line History<cr>:e<cr>n|   " Edit command history
+nmap     <leader>es :tab drop ~/.config/vim/viminfo<cr>/^# Search String History<cr>:e<cr>n|  " Edit search history
 
 nmap     <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psysh \| fold --spaces --width 80'], 'source': "psysh-doc", 'sink': ':term psysh-doc', 'down': '50%'})<cr>| " View function documentation
 vnoremap <leader>dt y:term dict -h localhost <C-R>*<cr>|          " Send visual selection under cursor to dictionary
@@ -196,8 +196,8 @@ nmap     q.  Vgv:<up>|                   " Go to last command in visual selectio
 vmap     .q     :<up>|                   " Go to last command in visual selection
 vmap     .f     :!editor-filter<space>|  " Run filter in visual selection
 vmap     ..     :<up><cr>|               " Repeat last command in visual selection
-vmap     /      y/<C-R>*<cr>N|           " Auto search from visual selection
-vmap     ?      y/\%V|                   " Search within last visual selection
+vmap     //      y/<C-R>*<cr>N|          " Auto search from visual selection
+vmap     ??      y/\%V|                  " Search within last visual selection
 
 nmap     <Tab>      :Buffers<cr>|     " List buffers
 nmap     <leader>ov :Lines<cr>|       " List lines in loaded buffers
