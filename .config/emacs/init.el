@@ -1,13 +1,18 @@
+;;; Garbage collection threshold
+
+(defun restore-gc-cons-threshold ()
+  (setq gc-cons-threshold (* 16 1024 1024)
+    gc-cons-percentage 0.1))
+
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6)
+(add-hook 'emacs-startup-hook #'restore-gc-cons-threshold 105)
+
+;;; -----------------------------------------------------------
+
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/")) ; Set up package.el to work with melpa.
-
-(use-package slime :ensure t)
-
-(custom-set-variables
- '(package-selected-packages '(orderless consult marginalia vertico evil slime org))
- '(slime-repl-history-file "~/.cache/slime-history.eld")) ; Set slime history file location.
-
 
 (set-face-attribute 'menu nil ; Set context menu colors.
                     :background "black"
@@ -36,6 +41,13 @@
 
 (setq backup-directory-alist
       '(("." . "~/.config/emacs/backups")))
+
+(use-package slime :ensure t)
+
+(use-package org :ensure t
+             :config
+             (custom-set-variables
+              '(slime-repl-history-file "~/.cache/slime-history.eld"))) ; Set slime history file location.
 
 (use-package evil
              :ensure t
