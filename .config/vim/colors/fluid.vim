@@ -38,6 +38,15 @@ let s:t_grey9      = 247    | let s:g_grey9      = '#9e9e9e'
 let s:t_silver     = 250    | let s:g_silver     = '#c0c0c0'
 let s:t_coral      = 210    | let s:g_coral      = '#ff8787'
 
+hi link PmenuMatch     Pmenu
+hi link PmenuMatchSel  PmenuSel
+hi link PmenuKind      Pmenu
+hi link PmenuKindSel   PmenuSel
+hi link PmenuExtra     Pmenu
+hi link PmenuExtraSel  PmenuSel
+hi link CursorLineSign SignColumn
+hi link CursorLineFold FoldColumn
+
 exe 'hi Boolean          guifg='.s:g_purple     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_purple . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Character        guifg='.s:g_yellow     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_yellow . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi ColorColumn      guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
