@@ -65,6 +65,7 @@ export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 export LEIN_HOME="$XDG_DATA_HOME/lein"
 export LESSHISTFILE="$XDG_CACHE_HOME/less.history"
+export MANWIDTH=80
 export MANPAGER="vim -M +MANPAGER -"
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
 export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"

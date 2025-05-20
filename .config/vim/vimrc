@@ -27,7 +27,7 @@ set nostartofline                        " Do not move cursor to line start on b
 set showcmd                              " Show key presses in status line.
 set wildmenu                             " Show tab completions menu.
 set nojoinspaces                         " Insert one space after a '.', '?' and '!' with a join command.
-set path+=**                             " Search subfolders.
+set path=**                              " Search subfolders.
 set display=lastline                     " @@@ which indicates remaining line is not displayed.
 
 set nohidden                             " Unload read only buffers when abandoned.
@@ -349,6 +349,9 @@ augroup AutoCommands
   " REPL output.
   autocmd FileType *          noremap <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
   autocmd FileType vim        noremap <buffer> <leader>co yVy:<C-R>*<bs><cr>
+
+  " Manpage mappings
+  autocmd FileType man        nmap  <silent> <buffer> gf viWF(<left>y:silent! exe ':setlocal modifiable \| :%d \| :r !man' expand('<C-R>*') '2> /dev/null' '\| ansifilter'<cr>ggdd
 
   " Netrw mappings
   autocmd FileType netrw      nmap  <buffer> l    <cr>cd
