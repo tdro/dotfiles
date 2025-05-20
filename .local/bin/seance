@@ -39,7 +39,9 @@ Config:  $spirits
    $program restart desktop 1  Restart specific desktop.
 
    $program check              Check runtime dependencies.
-   $program help -h --help     Show this help menu.
+   $program help               Show this help menu.
+
+      -h -help --help        Other help menu flags.
 
 " "$program";
 }
@@ -181,6 +183,6 @@ touch "$spirits"
 
 [ "${1:-}" = "edit" ]     && [ "${2:-}" = "config" ]  && [ $# = 2 ] && $EDITOR "$spirits" && exit;
 
-printf "\n" && printf "Error: Parsing argument '%s'.\n" "$@" && printf "\n" && $program help | awk '/Command List:/,0' | grep --ignore-case "$program $(printf '%s' "$1" | cut --characters 1)" && printf "\n" && exit 1;
+printf "\n" && printf "Error: Parsing argument '%s'.\n" "$@" && printf "\n" && $program help | awk '/Command List:/,0' | grep --ignore-case "$program $(printf '%s' "${1:-}" | cut --characters 1)" && printf "\n" && exit 1;
 
 Help && printf "\n" && printf "Error: Parsing argument '%s'.\n" "$@" && printf "\n" && exit 1;
