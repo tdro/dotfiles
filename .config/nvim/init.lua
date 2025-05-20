@@ -1,4 +1,8 @@
+vim.cmd('mapclear')                 -- Clear all mappings
+vim.cmd('colorscheme druid')        -- Set color scheme
+
 vim.g.mapleader = ' '               -- Set global leader key
+vim.g.netrw_banner = 0              -- Disable file manager top banner
 
 vim.opt.ignorecase     = true       -- Ignore case on search
 vim.opt.infercase      = true       -- Infer the case on completion
@@ -9,6 +13,14 @@ vim.opt.laststatus     =  0         -- Disable status bar
 vim.opt.foldcolumn     =  "2"       -- Set fold column width
 vim.opt.showtabline    =  0         -- Disable top tab bar
 vim.opt.undofile       =  true      -- Enable undo files
+vim.opt.splitbelow     =  true      -- Open horizontal splits below
+vim.opt.splitright     =  true      -- Open vertical splits to the right
+vim.opt.path           = "**"       -- Search subfolders
+vim.opt.wrap           = false      -- Disable line wrapping
+vim.opt.tabstop        = 2          -- Number of spaces per tab
+vim.opt.shiftwidth     = 2          -- Number of spaces per tab using shift
+vim.opt.expandtab      = true       -- Set spaces over tabs
+vim.opt.completeopt    = ""         -- Disable <C-p> completion popup
 
 vim.opt.shortmess:append("I")       -- Disable startup message
 vim.opt.fillchars:append("eob: ")   -- Disable end of buffer ~ character indicator
@@ -19,16 +31,41 @@ vim.opt.listchars = {               -- Set hidden character identifiers when `:s
   precedes = "<", space   = '␣'
 }
 
-vim.keymap.set('n', '<leader>ev', ':tab drop ~/.config/nvim/init.lua<cr>') -- Edit configuration
+vim.keymap.set('n', '<leader>ev', ':tab drop ~/.config/nvim/init.lua<cr>')  -- Edit configuration
+vim.keymap.set('n', '<leader>rs', ':%s/\\s\\+$')                            -- Remove trailing whitespace
 
-vim.keymap.set('n', '<Esc>', ':nohl<cr>')     -- Exit incremental search
+vim.keymap.set('n', '<leader>grep', ':silent grep ')
 
-vim.keymap.set('v', '<C-j>', ":m'>+<cr>gv")   -- Move visual selection down
-vim.keymap.set('v', '<C-k>', ":m -2<cr>gv")   -- Move visual selection up
-vim.keymap.set('v', '//', "y/<C-R>*<cr>N")    -- Search visual selection
-vim.keymap.set('v', '??', 'y/\\%V')           -- Search within last visual selection
+vim.keymap.set('n', '<Esc>', 'v<Esc>:nohl<cr>', { silent = true })          -- Exit incremental search
+vim.keymap.set('n', '<Tab><Tab>', ':redir @a | :silent ls   | :redir END | :10split buffers | :%d | :set ft=vim | :put a<cr>')
+vim.keymap.set('n', '<Tab>t',     ':redir @a | :silent tabs | :redir END | :10split buffers | :%d | :set ft=vim | :put a<cr>')
 
+vim.keymap.set('v', '<C-j>', ":m'>+<cr>gv", { silent = true })   -- Move visual selection down
+vim.keymap.set('v', '<C-k>', ":m -2<cr>gv", { silent = true })   -- Move visual selection up
+vim.keymap.set('v', '//', "y/<C-R>*<cr>N")                       -- Search visual selection
+vim.keymap.set('v', '??', 'y/\\%V')                              -- Search within last visual selection
+
+vim.keymap.set('n', '<C-L>', '<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>')
+vim.keymap.set('n', 'Y', 'y$', { desc = 'Mimics the behavior of D and C' })
+
+vim.keymap.set({ 'x' }, 'gc',  function() return require('vim._comment').operator() end,        { expr = true,  desc = 'Toggle comment' })
+vim.keymap.set({ 'n' }, 'gc',  function() return require('vim._comment').operator() .. '_' end, { expr = true,  desc = 'Toggle comment line' })
+
+-- Auto commands
 autocommands = vim.api.nvim_create_augroup('default', { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, { group = autocommands, pattern = { "init.lua" }, command = ":source %", })   -- Auto reload configuration
-vim.api.nvim_create_autocmd({ "TextYankPost" }, { group = autocommands, callback = function() vim.highlight.on_yank() end, }) -- Highlight yanked text
+-- Source reloads
+vim.api.nvim_create_autocmd({"BufWritePost"}, { group = autocommands, pattern = {"init.lua"}, callback = function()
+  vim.cmd = (':source %')             -- Auto reload configuration
+  vim.bo.filetype = vim.bo.filetype   -- Retrigger FileType events
+end, })
+
+--  Format using visual select + gq
+vim.api.nvim_create_autocmd({"FileType"}, { group = autocommands, pattern = "lua", callback = function() vim.opt_local.formatprg = "lua-format" end, })
+
+-- Keyword documentation lookups
+vim.api.nvim_create_autocmd({"FileType"}, { group = autocommands, pattern = {"lua"}, callback = function() vim.keymap.set('n', 'K', 'viwy/<C-R>*<cr>N:h <C-R>*<cr><C-w>w') end })
+vim.api.nvim_create_autocmd({"FileType"}, { group = autocommands, pattern = {"lua"}, callback = function() vim.keymap.set('v', 'K',    'y/<C-R>*<cr>N:h <C-R>*<cr><C-w>w') end })
+
+-- Quick fix commands
+vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, { group = autocommands, pattern = {"*"}, command = ":copen" })
