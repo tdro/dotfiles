@@ -1,6 +1,6 @@
 "------------Setup-------------"
 
-mapclear!                                " Clear all mappings.
+mapclear                                 " Clear all mappings.
 packadd! matchit                         " Add match tag pairs package.
 let skip_defaults_vim=1                  " Do not load defaults if vimrc is missing.
 
@@ -263,11 +263,10 @@ augroup AutoCommands
   autocmd!
 
   " Source reloads.
-  autocmd BufWritePost .vimrc,vimrc source % | Notify('printf "Configuration sourced."')
+  autocmd BufWritePost .vimrc,vimrc source % | set ft=vim | Notify('printf "Configuration sourced."')
 
   " Linting file type post write commands.
   autocmd FileType *                autocmd! BufWritePost <buffer> :Make
-  autocmd FileType markdown         autocmd! BufWritePost <buffer> :only | :term ++rows=10 sh -c "cat % | vale --ext .md"
   autocmd FileType raku             autocmd! BufWritePost <buffer> exe 'Notify(''raku -c ' . expand('%') . ' 2>&1'')' | :e | Make
   autocmd FileType scheme           autocmd! BufWritePost <buffer> exe 'Notify(''guile -s ' . expand('%') . ' 2>&1'')' | :e | Make
   autocmd FileType css              autocmd! BufWritePost <buffer> exe 'Notify(''prettier --ignore-path --write --parser css ' . expand('%') . ' 2>&1'')' | :e | Make
@@ -347,8 +346,9 @@ augroup AutoCommands
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " REPL output.
-  autocmd FileType *          noremap <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
-  autocmd FileType vim        noremap <buffer> <leader>co yVy:<C-R>*<bs><cr>
+  autocmd FileType *          noremap  <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
+  autocmd FileType vim        noremap           <buffer> <leader>co   yVy:<C-R>*<bs><cr>
+  autocmd FileType vim        vnoremap <silent> <buffer> <leader>co     y:redir @a \| silent! exe substitute('<C-R>*', '\r', '', 'g') \| redir END \| put a<cr>
 
   " Manpage mappings
   autocmd FileType man        nmap  <silent> <buffer> gf viWF(<left>y:silent! exe ':setlocal modifiable \| :%d \| :r !man' expand('<C-R>*') '2> /dev/null' '\| ansifilter'<cr>ggdd
