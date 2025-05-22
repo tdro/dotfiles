@@ -98,7 +98,7 @@ exe 'hi Question         guifg='.s:g_yellow     . ' guibg='.s:none         . ' g
 exe 'hi QuickFixLine     guifg='.s:g_coral      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_coral  . ' ctermbg='.s:none        . ' cterm='.s:bold
 exe 'hi Repeat           guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Search           guifg='.s:g_black      . ' guibg='.s:g_yellow     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_yellow    . ' cterm='.s:bold
-exe 'hi SignColumn       guifg='.s:g_cyan       . ' guibg='.s:g_grey3      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_cyan   . ' ctermbg='.s:t_grey3     . ' cterm='.s:none
+exe 'hi SignColumn       guifg='.s:g_cyan       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_cyan   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Special          guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi SpecialChar      guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi SpecialComment   guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
