@@ -230,9 +230,13 @@ nmap     <Esc><Esc> :nohl<cr>|                           " Exit incremental sear
 vnoremap < <gv|                                          " Retain visual selection when tabbing left
 vnoremap > >gv|                                          " Retain visual selection when tabbing right
 nnoremap Q <Nop>|                                        " Disable Ex Mode
+vnoremap y ygv<Esc>|                                     " Retain cursor position after visual block yank
 nnoremap <S-v> :call setreg('c', col('.'))<cr><S-v>|     " Prevent cursor from jumping in visual context https://ddrscott.github.io/blog/2016/yank-without-jank/
-nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|  " Prevent cursor from jumping in yanking context
-nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>| " Prevent cursor from jumping in pasting context
+
+nnoremap <silent> j j:call setreg('c', col('.'))<cr>|    " Persist cursor column
+nnoremap <silent> h h:call setreg('c', col('.'))<cr>|    " Persist cursor column
+nnoremap <silent> k k:call setreg('c', col('.'))<cr>|    " Persist cursor column
+nnoremap <silent> l l:call setreg('c', col('.'))<cr>|    " Persist cursor column
 
 nmap <silent> j j:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds up
 nmap <silent> k k:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds down
@@ -322,8 +326,8 @@ augroup AutoCommands
   autocmd FileType php    vmap    <silent> <buffer> K         y/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "PAGER= echo doc' . ' ' . shellescape('<C-R>*') \| psysh"'<cr><C-w>w
 
   " Quick fix mappings.
-  autocmd FileType qf nmap <silent> <buffer> j j:call setreg('c', col('.'))<cr>:cnext<cr>:autocmd! BufWritePost<cr><C-w>w0n$N<cr>:call cursor(0, getreg('c'))<cr>
-  autocmd FileType qf nmap <silent> <buffer> k k:call setreg('c', col('.'))<cr>:cprev<cr>:autocmd! BufWritePost<cr><C-w>w$N0n<cr>:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> j j:cnext<cr>:autocmd! BufWritePost<cr><C-w>w0n$N<cr>:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> k k:cprev<cr>:autocmd! BufWritePost<cr><C-w>w$N0n<cr>:call cursor(0, getreg('c'))<cr>
   autocmd FileType qf nmap <silent> <buffer> <cr> <cr><C-w>w
 
   " REPL commands.
@@ -411,6 +415,10 @@ augroup AutoCommands
 
   " Persist command history.
   autocmd CmdwinLeave * wviminfo
+
+  " Call cursor position
+  autocmd TextChangedI             * call setreg('c', col('.'))
+  autocmd TextYankPost,TextChanged * call cursor(0, getreg('c'))
 
   " Keep only one terminal window open
   autocmd TerminalWinOpen * silent! :BdReadOnly
