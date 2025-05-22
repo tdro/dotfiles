@@ -21,6 +21,9 @@ vim.opt.tabstop        = 2          -- Number of spaces per tab
 vim.opt.shiftwidth     = 2          -- Number of spaces per tab using shift
 vim.opt.expandtab      = true       -- Set spaces over tabs
 vim.opt.completeopt    = ""         -- Disable <C-p> completion popup
+vim.opt.wildmenu       = false      -- Disable short command completion popup
+vim.opt.scrolloff      = 5          -- Set vertical scroll headroom
+vim.opt.sidescrolloff  = 10         -- Set horizontal scroll headroom
 
 vim.opt.shortmess:append("I")       -- Disable startup message
 vim.opt.fillchars:append("eob: ")   -- Disable end of buffer ~ character indicator
@@ -33,12 +36,12 @@ vim.opt.listchars = {               -- Set hidden character identifiers when `:s
 
 vim.keymap.set('n', '<leader>ev', ':tab drop ~/.config/nvim/init.lua<cr>')  -- Edit configuration
 vim.keymap.set('n', '<leader>rs', ':%s/\\s\\+$')                            -- Remove trailing whitespace
-
-vim.keymap.set('n', '<leader>grep', ':silent grep ')
-
+vim.keymap.set('n', '<leader>grep', ':silent grep ')                        -- Run search functions
 vim.keymap.set('n', '<Esc>', 'v<Esc>:nohl<cr>', { silent = true })          -- Exit incremental search
-vim.keymap.set('n', '<Tab><Tab>', ':redir @a | :silent ls   | :redir END | :10split buffers | :%d | :set ft=vim | :put a<cr>')
-vim.keymap.set('n', '<Tab>t',     ':redir @a | :silent tabs | :redir END | :10split buffers | :%d | :set ft=vim | :put a<cr>')
+
+vim.keymap.set('n', '<Tab><Tab>', ':redir @a | silent ls   | redir END | 10split buffers | setlocal modifiable | %d | set ft=vim | put a | setlocal nomodifiable<cr>')
+vim.keymap.set('n', '<Tab>t',     ':redir @a | silent tabs | redir END | 10split tabs    | setlocal modifiable | %d | set ft=vim | put a | setlocal nomodifiable<cr>')
+vim.keymap.set('n', '<Tab>m',     ':redir @a | silent map  | redir END | 10split maps    | setlocal modifiable | %d | set ft=vim | put a | call feedkeys("gg") | setlocal nomodifiable<cr>')
 
 vim.keymap.set('v', '<C-j>', ":m'>+<cr>gv", { silent = true })   -- Move visual selection down
 vim.keymap.set('v', '<C-k>', ":m -2<cr>gv", { silent = true })   -- Move visual selection up
@@ -48,15 +51,22 @@ vim.keymap.set('v', '??', 'y/\\%V')                              -- Search withi
 vim.keymap.set('n', '<C-L>', '<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>')
 vim.keymap.set('n', 'Y', 'y$', { desc = 'Mimics the behavior of D and C' })
 
-vim.keymap.set({ 'x' }, 'gc',  function() return require('vim._comment').operator() end,        { expr = true,  desc = 'Toggle comment' })
-vim.keymap.set({ 'n' }, 'gc',  function() return require('vim._comment').operator() .. '_' end, { expr = true,  desc = 'Toggle comment line' })
+vim.keymap.set({'v'}, 'gc', function() return require('vim._comment').operator() end,        { expr = true, desc = 'Toggle comment' })
+vim.keymap.set({'n'}, 'gc', function() return require('vim._comment').operator() .. '_' end, { expr = true, desc = 'Toggle comment line' })
+
+vim.keymap.set('n', 'h', "h:call setreg('c', col('.'))<cr>", { silent = true }) -- Persist cursor column
+vim.keymap.set('n', 'j', "j:call setreg('c', col('.'))<cr>", { silent = true }) -- Persist cursor column
+vim.keymap.set('n', 'l', "l:call setreg('c', col('.'))<cr>", { silent = true }) -- Persist cursor column
+vim.keymap.set('n', 'k', "k:call setreg('c', col('.'))<cr>", { silent = true }) -- Persist cursor column
+
+vim.keymap.set('v', 'y', "ygv<Esc>", { silent = true, desc = "Retain cursor position after visual block yank" })
 
 -- Auto commands
-autocommands = vim.api.nvim_create_augroup('default', { clear = true })
+autocommands = vim.api.nvim_create_augroup('', { clear = true })
 
 -- Source reloads
 vim.api.nvim_create_autocmd({"BufWritePost"}, { group = autocommands, pattern = {"init.lua"}, callback = function()
-  vim.cmd = (':source %')             -- Auto reload configuration
+  vim.cmd(':source %')                -- Auto reload configuration
   vim.bo.filetype = vim.bo.filetype   -- Retrigger FileType events
 end, })
 
@@ -67,5 +77,39 @@ vim.api.nvim_create_autocmd({"FileType"}, { group = autocommands, pattern = "lua
 vim.api.nvim_create_autocmd({"FileType"}, { group = autocommands, pattern = {"lua"}, callback = function() vim.keymap.set('n', 'K', 'viwy/<C-R>*<cr>N:h <C-R>*<cr><C-w>w') end })
 vim.api.nvim_create_autocmd({"FileType"}, { group = autocommands, pattern = {"lua"}, callback = function() vim.keymap.set('v', 'K',    'y/<C-R>*<cr>N:h <C-R>*<cr><C-w>w') end })
 
+-- REPL Commands
+vim.api.nvim_create_autocmd({"FileType"}, { group = autocommands, pattern = {"lua"},
+callback = function()
+  vim.keymap.set('n', 'cc', 'Vy:lua <C-R>*<cr>', { buffer = true })
+  vim.keymap.set('v', 'cc',  'y:lua <C-R>*<cr>', { buffer = true })
+  vim.keymap.set('n', 'co', "Vy:redir @a      | silent! exe 'lua' '<C-R>*' | redir END | put a<cr>", { buffer = true, silent = true })
+  vim.keymap.set('v', 'co',  "y:<C-w>redir @a | silent! exe 'lua' '<C-R>*' | redir END | put a<cr>", { buffer = true, silent = true })
+end
+})
+
 -- Quick fix commands
+vim.api.nvim_create_autocmd({"FileType"}, {
+    group = autocommands,
+    pattern = {"qf"},
+    callback = function()
+      vim.keymap.set('n', '<cr>', "<cr><C-w>w", { silent = true, buffer = true })
+      vim.keymap.set('n', 'j',    "j:call setreg('c', col('.')) | cnext<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
+      vim.keymap.set('n', 'k',    "k:call setreg('c', col('.')) | cprev<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
+      switch = vim.api.nvim_create_augroup('', { clear = true })
+      vim.api.nvim_create_autocmd({"BufRead"}, { group = switch, pattern = {"*"},
+      callback = function()
+        vim.cmd('wincmd p | call feedkeys("gg")')
+        vim.api.nvim_clear_autocmds({ group = switch })
+      end
+      })
+    end
+})
+
 vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, { group = autocommands, pattern = {"*"}, command = ":copen" })
+
+-- Call cursor position
+vim.api.nvim_create_autocmd({"TextChangedI"},                { group = autocommands, pattern = {"*"}, command = ":call setreg('c', col('.'))"  })
+vim.api.nvim_create_autocmd({"TextChanged", "TextYankPost"}, { group = autocommands, pattern = {"*"}, command = ":call cursor(0, getreg('c'))" })
+
+-- Auto save
+vim.api.nvim_create_autocmd({"InsertLeave", "CursorHold"}, { group = autocommands, pattern = {"*"}, command = ":silent! write | echo '[filetype=' . &filetype . ']'" })
