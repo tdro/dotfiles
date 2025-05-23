@@ -54,12 +54,14 @@ vim.keymap.set('n', 'Y', 'y$', { desc = 'Mimics the behavior of D and C' })
 vim.keymap.set({'v'}, 'gc', function() return require('vim._comment').operator() end,        { expr = true, desc = 'Toggle comment' })
 vim.keymap.set({'n'}, 'gc', function() return require('vim._comment').operator() .. '_' end, { expr = true, desc = 'Toggle comment line' })
 
-vim.keymap.set('n', 'h', "h:call setreg('c', col('.'))<cr>", { silent = true }) -- Persist cursor column
-vim.keymap.set('n', 'j', "j:call setreg('c', col('.'))<cr>", { silent = true }) -- Persist cursor column
-vim.keymap.set('n', 'l', "l:call setreg('c', col('.'))<cr>", { silent = true }) -- Persist cursor column
-vim.keymap.set('n', 'k', "k:call setreg('c', col('.'))<cr>", { silent = true }) -- Persist cursor column
+vim.keymap.set('v', 'y',  "ygv<Esc>",                           { silent = true, desc = "Prevent cursor from jumping in visual block yanking context" })
+vim.keymap.set('n', 'yy', "yy:call setreg('c', col('.'))<cr>",  { silent = true, desc = "Prevent cursor from jumping in yanking context" })
+vim.keymap.set('n', 'p',   "p:call cursor(0, getreg('c'))<cr>", { silent = true, desc = "Prevent cursor from jumping in pasting context" })
 
-vim.keymap.set('v', 'y', "ygv<Esc>", { silent = true, desc = "Retain cursor position after visual block yank" })
+vim.keymap.set('n', 'h', "h:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
+vim.keymap.set('n', 'j', "j:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
+vim.keymap.set('n', 'k', "k:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
+vim.keymap.set('n', 'l', "l:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
 
 -- Auto commands
 autocommands = vim.api.nvim_create_augroup('', { clear = true })
@@ -93,8 +95,8 @@ vim.api.nvim_create_autocmd({"FileType"}, {
     pattern = {"qf"},
     callback = function()
       vim.keymap.set('n', '<cr>', "<cr><C-w>w", { silent = true, buffer = true })
-      vim.keymap.set('n', 'j',    "j:call setreg('c', col('.')) | cnext<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
-      vim.keymap.set('n', 'k',    "k:call setreg('c', col('.')) | cprev<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
+      vim.keymap.set('n', 'j',    "j:cnext<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
+      vim.keymap.set('n', 'k',    "k:cprev<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
       switch = vim.api.nvim_create_augroup('', { clear = true })
       vim.api.nvim_create_autocmd({"BufRead"}, { group = switch, pattern = {"*"},
       callback = function()
@@ -106,10 +108,6 @@ vim.api.nvim_create_autocmd({"FileType"}, {
 })
 
 vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, { group = autocommands, pattern = {"*"}, command = ":copen" })
-
--- Call cursor position
-vim.api.nvim_create_autocmd({"TextChangedI"},                { group = autocommands, pattern = {"*"}, command = ":call setreg('c', col('.'))"  })
-vim.api.nvim_create_autocmd({"TextChanged", "TextYankPost"}, { group = autocommands, pattern = {"*"}, command = ":call cursor(0, getreg('c'))" })
 
 -- Auto save
 vim.api.nvim_create_autocmd({"InsertLeave", "CursorHold"}, { group = autocommands, pattern = {"*"}, command = ":silent! write | echo '[filetype=' . &filetype . ']'" })

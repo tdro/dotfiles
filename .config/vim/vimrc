@@ -230,11 +230,12 @@ nmap     <Esc><Esc> :nohl<cr>|                           " Exit incremental sear
 vnoremap < <gv|                                          " Retain visual selection when tabbing left
 vnoremap > >gv|                                          " Retain visual selection when tabbing right
 nnoremap Q <Nop>|                                        " Disable Ex Mode
-vnoremap y ygv<Esc>|                                     " Retain cursor position after visual block yank
-nnoremap <S-v> :call setreg('c', col('.'))<cr><S-v>|     " Prevent cursor from jumping in visual context https://ddrscott.github.io/blog/2016/yank-without-jank/
+vnoremap y ygv<Esc>|                                     " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
+nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|  " Prevent cursor from jumping in yanking context
+nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>| " Prevent cursor from jumping in pasting context
 
-nnoremap <silent> j j:call setreg('c', col('.'))<cr>|    " Persist cursor column
 nnoremap <silent> h h:call setreg('c', col('.'))<cr>|    " Persist cursor column
+nnoremap <silent> j j:call setreg('c', col('.'))<cr>|    " Persist cursor column
 nnoremap <silent> k k:call setreg('c', col('.'))<cr>|    " Persist cursor column
 nnoremap <silent> l l:call setreg('c', col('.'))<cr>|    " Persist cursor column
 
@@ -352,7 +353,7 @@ augroup AutoCommands
   " REPL output.
   autocmd FileType *          noremap  <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
   autocmd FileType vim        noremap           <buffer> <leader>co   yVy:<C-R>*<bs><cr>
-  autocmd FileType vim        vnoremap <silent> <buffer> <leader>co     y:redir @a \| silent! exe substitute('<C-R>*', '\r', '', 'g') \| redir END \| put a<cr>
+  autocmd FileType vim        vnoremap <silent> <buffer> <leader>co     y:redir @a \| silent! exe substitute('<C-R>*', '\r', '', 'g') \| redir END \| call feedkeys('gvy$"ap')<cr>
 
   " Manpage mappings
   autocmd FileType man        nmap  <silent> <buffer> gf viWF(<left>y:silent! exe ':setlocal modifiable \| :%d \| :r !man' expand('<C-R>*') '2> /dev/null' '\| ansifilter'<cr>ggdd
@@ -415,10 +416,6 @@ augroup AutoCommands
 
   " Persist command history.
   autocmd CmdwinLeave * wviminfo
-
-  " Call cursor position
-  autocmd TextChangedI             * call setreg('c', col('.'))
-  autocmd TextYankPost,TextChanged * call cursor(0, getreg('c'))
 
   " Keep only one terminal window open
   autocmd TerminalWinOpen * silent! :BdReadOnly
