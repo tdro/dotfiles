@@ -39,9 +39,11 @@ vim.keymap.set('n', '<leader>rs', ':%s/\\s\\+$')                            -- R
 vim.keymap.set('n', '<leader>grep', ':silent grep ')                        -- Run search functions
 vim.keymap.set('n', '<Esc>', 'v<Esc>:nohl<cr>', { silent = true })          -- Exit incremental search
 
-vim.keymap.set('n', '<Tab><Tab>', ':redir @a | silent ls   | redir END | 10split buffers | setlocal modifiable | %d | set ft=vim | put a | setlocal nomodifiable<cr>')
-vim.keymap.set('n', '<Tab>t',     ':redir @a | silent tabs | redir END | 10split tabs    | setlocal modifiable | %d | set ft=vim | put a | setlocal nomodifiable<cr>')
-vim.keymap.set('n', '<Tab>m',     ':redir @a | silent map  | redir END | 10split maps    | setlocal modifiable | %d | set ft=vim | put a | call feedkeys("gg") | setlocal nomodifiable<cr>')
+vim.keymap.set('n', '<Tab><Tab>', ':redir @a | silent ls   | redir END | 10split [buffers] | %d | set ft=vim | put a | setlocal readonly | call feedkeys("")<cr>')
+vim.keymap.set('n', '<Tab>s',     ':redir @a | silent echo | redir END | 10split [scratch]      | set ft=vim | put a | setlocal readonly | call feedkeys("")<cr>')
+vim.keymap.set('n', '<Tab>t',     ':redir @a | silent tabs | redir END | 10split [tabs]    | %d | set ft=vim | put a | setlocal readonly | call feedkeys("gg3dd")<cr>')
+vim.keymap.set('n', '<Tab>m',     ':redir @a | silent map  | redir END | 10split [maps]    | %d | set ft=vim | put a | setlocal readonly | call feedkeys("gg3dd")<cr>')
+vim.keymap.set('n', '<Tab>c',     ':redir @a | silent hi   | redir END | 10split [colors]  | %d | set ft=vim | put a | setlocal readonly | call feedkeys("gg2dd")<cr>')
 
 vim.keymap.set('v', '<C-j>', ":m'>+<cr>gv", { silent = true })   -- Move visual selection down
 vim.keymap.set('v', '<C-k>', ":m -2<cr>gv", { silent = true })   -- Move visual selection up
@@ -50,6 +52,9 @@ vim.keymap.set('v', '??', 'y/\\%V')                              -- Search withi
 
 vim.keymap.set('n', '<C-L>', '<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>')
 vim.keymap.set('n', 'Y', 'y$', { desc = 'Mimics the behavior of D and C' })
+
+vim.keymap.set('n', '<leader>qq', ':bd<cr>', { desc = 'Close buffer' })
+vim.keymap.set('n', '<leader>qw', '<C-w>c',  { desc = 'Close window' })
 
 vim.keymap.set({'v'}, 'gc', function() return require('vim._comment').operator() end,        { expr = true, desc = 'Toggle comment' })
 vim.keymap.set({'n'}, 'gc', function() return require('vim._comment').operator() .. '_' end, { expr = true, desc = 'Toggle comment line' })
@@ -62,6 +67,8 @@ vim.keymap.set('n', 'h', "h:call setreg('c', col('.'))<cr>", { silent = true }) 
 vim.keymap.set('n', 'j', "j:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
 vim.keymap.set('n', 'k', "k:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
 vim.keymap.set('n', 'l', "l:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
+
+vim.keymap.set('v', '<leader>sn', "<Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>", { silent = true, desc = 'Sort lines by length' })
 
 -- Auto commands
 autocommands = vim.api.nvim_create_augroup('', { clear = true })
@@ -82,10 +89,10 @@ vim.api.nvim_create_autocmd({"FileType"}, { group = autocommands, pattern = {"lu
 -- REPL Commands
 vim.api.nvim_create_autocmd({"FileType"}, { group = autocommands, pattern = {"lua"},
 callback = function()
-  vim.keymap.set('n', 'cc', 'Vy:lua <C-R>*<cr>', { buffer = true })
-  vim.keymap.set('v', 'cc',  'y:lua <C-R>*<cr>', { buffer = true })
-  vim.keymap.set('n', 'co', "Vy:redir @a      | silent! exe 'lua' '<C-R>*' | redir END | put a<cr>", { buffer = true, silent = true })
-  vim.keymap.set('v', 'co',  "y:<C-w>redir @a | silent! exe 'lua' '<C-R>*' | redir END | put a<cr>", { buffer = true, silent = true })
+  vim.keymap.set('n', '<leader>cc', 'Vy:lua <C-R>*<cr>', { buffer = true })
+  vim.keymap.set('v', '<leader>cc',  'y:lua <C-R>*<cr>', { buffer = true })
+  vim.keymap.set('n', '<leader>co', "Vy:redir @a      | silent! exe 'lua' '<C-R>*' | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true, silent = true })
+  vim.keymap.set('v', '<leader>co',  "y:<C-w>redir @a | silent! exe 'lua' '<C-R>*' | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true, silent = true })
 end
 })
 
