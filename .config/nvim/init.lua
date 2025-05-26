@@ -27,6 +27,7 @@ vim.opt.sidescrolloff  = 10         -- Set horizontal scroll headroom
 vim.opt.signcolumn     = "no"       -- Disable diagnostics column left
 
 vim.opt.grepprg = "rg --no-heading --line-number --column --smart-case --multiline --regexp" -- Set search program
+vim.opt.grepformat = "%f:%l:%m,%f:%l%m,%f  %l%m" -- Set string format
 
 vim.opt.shortmess:append("I")       -- Disable startup message
 vim.opt.fillchars:append("eob: ")   -- Disable end of buffer ~ character indicator
@@ -37,9 +38,17 @@ vim.opt.listchars = {               -- Set hidden character identifiers when `:s
   precedes = "<", space   = '␣'
 }
 
+-- Functions
+local function grep(pattern)
+  vim.cmd(string.format("silent grep '%s'", string.gsub (pattern, "[#|(){}+%[%]]", "\\%1"))) -- Choose magic characters
+  vim.cmd(string.format("silent! /%s",      string.gsub (pattern, "[/|]",          "\\%1")))
+end
+
+vim.api.nvim_create_user_command('Find', function(opts) grep(opts.args) end, { nargs = 1 })
+
 vim.keymap.set('n', '<leader>ev', ':tab drop ~/.config/nvim/init.lua<cr>')  -- Edit configuration
 vim.keymap.set('n', '<leader>rs', ':%s/\\s\\+$')                            -- Remove trailing whitespace
-vim.keymap.set('n', '<leader>grep', ':silent grep ')                        -- Run search functions
+vim.keymap.set('n', '<leader>grep', ':Find ')                               -- Run search functions
 vim.keymap.set('v', '<leader>grep', 'y/<C-R>*<cr>:silent grep <C-R>*<cr>')  -- Run search functions for symbol under cursor
 
 vim.keymap.set('n', '<Esc>', 'v<Esc>:nohl<cr>', { silent = true })          -- Exit incremental search
@@ -133,19 +142,19 @@ vim.api.nvim_create_autocmd({"FileType"}, {
     pattern = {"qf"},
     callback = function()
       vim.keymap.set('n', '<cr>', "<cr><C-w>w", { silent = true, buffer = true })
-      vim.keymap.set('n', 'j',    "j:silent!cnext|silent!lnext<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
-      vim.keymap.set('n', 'k',    "k:silent!cprev|silent!lprev<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
+      vim.keymap.set('n', 'j',    "<cr>j:silent!cnext|silent!lnext<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
+      vim.keymap.set('n', 'k',    "<cr>k:silent!cprev|silent!lprev<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
       vim.api.nvim_create_augroup('switch', { clear = true })
       vim.api.nvim_create_autocmd({"BufRead"}, { group = 'switch', pattern = {"*"},
       callback = function()
-        vim.cmd(':silent! wincmd p | call feedkeys("gg")')
+        vim.cmd(':silent! wincmd p | call feedkeys("ggjk")')
         vim.api.nvim_clear_autocmds({ group = 'switch' })
       end
       })
     end
 })
 
-vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, { group = 'autocommands', pattern = {"*"}, command = ":cclose | bufdo bd! |:copen" })
+vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, { group = 'autocommands', pattern = {"*"}, command = "silent! bufdo bd! | :cclose | :only | :copen" })
 
 -- Auto save
 vim.api.nvim_create_autocmd({"InsertLeave", "CursorHold"}, { group = 'autocommands', pattern = {"*"}, command = ":silent! write | echo '[filetype=' . &filetype . ']'" })
