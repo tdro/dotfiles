@@ -1,8 +1,9 @@
 vim.cmd('mapclear')                 -- Clear all mappings
 vim.cmd('colorscheme druid')        -- Set color scheme
 
-vim.g.mapleader = ' '               -- Set global leader key
-vim.g.netrw_banner = 0              -- Disable file manager top banner
+vim.g.mapleader     = ' '           -- Set global leader key
+vim.g.netrw_banner  = 0             -- Disable file manager top banner
+vim.g.netrw_winsize = 15            -- Set file manager default window size
 
 vim.opt.ignorecase     = true       -- Ignore case on search
 vim.opt.infercase      = true       -- Infer the case on completion
@@ -46,10 +47,12 @@ end
 
 vim.api.nvim_create_user_command('Find', function(opts) grep(opts.args) end, { nargs = 1 })
 
-vim.keymap.set('n', '<leader>ev', ':tab drop ~/.config/nvim/init.lua<cr>')  -- Edit configuration
-vim.keymap.set('n', '<leader>rs', ':%s/\\s\\+$')                            -- Remove trailing whitespace
-vim.keymap.set('n', '<leader>grep', ':Find ')                               -- Run search functions
-vim.keymap.set('v', '<leader>grep', 'y/<C-R>*<cr>:silent grep <C-R>*<cr>')  -- Run search functions for symbol under cursor
+vim.keymap.set('n', '<leader>ev',   ':tab drop ~/.config/nvim/init.lua<cr>')  -- Edit configuration
+vim.keymap.set('n', '<leader>rs',   ':%s/\\s\\+$')                            -- Remove trailing whitespace
+vim.keymap.set('n', '<leader>grep', ':Find ')                                 -- Run search functions
+vim.keymap.set('v', '<leader>grep', 'y/<C-R>*<cr>:silent grep <C-R>*<cr>')    -- Run search functions for symbol under cursor
+vim.keymap.set('n', '<leader>vrep', ':vimgrep //g *<left><left><left><left>') -- Run internal search functions
+vim.keymap.set('n', '<leader>nn',   ":exe 'Lexplore' expand('%:p:h')<cr>")    -- Open file manager at current file path
 
 vim.keymap.set('n', '<Esc>', 'v<Esc>:nohl<cr>', { silent = true })          -- Exit incremental search
 
@@ -120,38 +123,51 @@ vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"
 
 -- REPL Commands
 vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"lua"},
-callback = function()
-  vim.keymap.set('n', '<leader>cc', 'Vy:lua <C-R>*<cr>', { buffer = true })
-  vim.keymap.set('v', '<leader>cc',  'y:lua <C-R>*<cr>', { buffer = true })
-  vim.keymap.set('n', '<leader>co', "Vy:redir @a      | silent! exe 'lua' '<C-R>*' | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true, silent = true })
-  vim.keymap.set('v', '<leader>co',  "y:<C-w>redir @a | silent! exe 'lua' '<C-R>*' | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true, silent = true })
-end
+  callback = function()
+    vim.keymap.set('n', '<leader>cc', 'Vy:lua <C-R>*<cr>', { buffer = true })
+    vim.keymap.set('v', '<leader>cc',  'y:lua <C-R>*<cr>', { buffer = true })
+    vim.keymap.set('n', '<leader>co', "Vy:redir @a      | silent! exe 'lua' '<C-R>*' | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true, silent = true })
+    vim.keymap.set('v', '<leader>co',  "y:<C-w>redir @a | silent! exe 'lua' '<C-R>*' | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true, silent = true })
+  end
 })
 
 vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"vim"},
-callback = function()
-  vim.keymap.set('n', '<leader>cc', 'yVy:<C-R>*<cr>',   { buffer = true })
-  vim.keymap.set('n', '<leader>co', 'yVy:<C-R>*<cr>',   { buffer = true })
-  vim.keymap.set('v', '<leader>co',   "y:<C-w>redir @a | silent! exe substitute('<C-R>*', '\\r', '', 'g') | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true })
-end
+  callback = function()
+    vim.keymap.set('n', '<leader>cc', 'yVy:<C-R>*<cr>',   { buffer = true })
+    vim.keymap.set('n', '<leader>co', 'yVy:<C-R>*<cr>',   { buffer = true })
+    vim.keymap.set('v', '<leader>co',   "y:<C-w>redir @a | silent! exe substitute('<C-R>*', '\\r', '', 'g') | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true })
+  end
+})
+
+-- File manager bindings
+vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"netrw"},
+  callback = function()
+    vim.keymap.set('n', 'l',    '<cr>cd',                      { remap = true, buffer = true, desc = "Browse directory under cursor" })
+    vim.keymap.set('n', 'h',    '-cd',                         { remap = true, buffer = true, desc = "Browse up a directory"         })
+    vim.keymap.set('n', 'i',    'mfR',                         { remap = true, buffer = true, desc = "Rename file under cursor"      })
+    vim.keymap.set('n', 'p',    'mtmc',                        { remap = true, buffer = true, desc = "Paste marked files here"       })
+    vim.keymap.set('n', 'v',    'mfj',                         { remap = true, buffer = true, desc = "Mark files incrementally"      })
+    vim.keymap.set('n', 'u',    'mF',                          { remap = true, buffer = true, desc = "Unmark marked files"           })
+    vim.keymap.set('n', 'a',    'd',                           { remap = true, buffer = true, desc = "Add new directory"             })
+    vim.keymap.set('n', 'dd',   'vD',                          { remap = true, buffer = true, desc = "Delete file under cursor"      })
+    vim.keymap.set('n', '<cr>', '<Plug>NetrwLocalBrowseCheck', { remap = true, buffer = true, desc = "Select file"                   })
+  end
 })
 
 -- Quick fix commands
-vim.api.nvim_create_autocmd({"FileType"}, {
-    group = 'autocommands',
-    pattern = {"qf"},
-    callback = function()
-      vim.keymap.set('n', '<cr>', "<cr><C-w>w", { silent = true, buffer = true })
-      vim.keymap.set('n', 'j',    "<cr>j:silent!cnext|silent!lnext<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
-      vim.keymap.set('n', 'k',    "<cr>k:silent!cprev|silent!lprev<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
-      vim.api.nvim_create_augroup('switch', { clear = true })
-      vim.api.nvim_create_autocmd({"BufRead"}, { group = 'switch', pattern = {"*"},
+vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"qf"},
+  callback = function()
+    vim.keymap.set('n', '<cr>', "<cr><C-w>w", { silent = true, buffer = true })
+    vim.keymap.set('n', 'j',    "<cr>j:silent!cnext|silent!lnext<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
+    vim.keymap.set('n', 'k',    "<cr>k:silent!cprev|silent!lprev<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
+    vim.api.nvim_create_augroup('switch', { clear = true })
+    vim.api.nvim_create_autocmd({"BufRead"}, { group = 'switch', pattern = {"*"},
       callback = function()
         vim.cmd(':silent! wincmd p | call feedkeys("ggjk")')
         vim.api.nvim_clear_autocmds({ group = 'switch' })
       end
-      })
-    end
+    })
+  end
 })
 
 vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, { group = 'autocommands', pattern = {"*"}, command = "silent! bufdo bd! | :cclose | :only | :copen" })

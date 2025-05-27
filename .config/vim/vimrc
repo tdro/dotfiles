@@ -155,6 +155,7 @@ vnoremap <leader>ds y:term ++hidden ++close recoll -q <C-R>*<cr>| " Send visual 
 nmap     <leader>term  :term sh -c ""<left>|                                                        " Run terminal command in shell
 nmap     <leader>grep  :Find<space>|                                                                " Cycle through files containing search query
 vnoremap <leader>grep y/<C-R>*<cr> \| :exe 'grep' . ' ' . shellescape("<C-R>*")<cr><cr>:copen<cr>|  " Cycle through files containing visual selection
+nmap     <leader>vrep  :vimgrep //jg *<left><left><left><left><left>|                               " Cycle through files containing internal search query
 vnoremap <leader>af   y:exe ':term ' . &grepprg . ' ' . '<C-R>*'<cr>|                               " Show files containing visual selection in terminal
 nmap     <leader>af    :exe ':term ' . &grepprg . ' ' . ''<left>|                                   " Show files containing search query in terminal
 
@@ -208,7 +209,7 @@ nmap     <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': 
 nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --follow --files --hidden \|\| find . -type f -printf "%P\n" 2> /dev/null', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap     <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $PWD -type d -maxdepth 4 2> /dev/null", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 
-nmap     <silent>   <leader>nn :if &filetype == "netrw" \| Lexplore \| else \| exe 'Lexplore' . ' ' . expand("%:p:h") \| endif<cr>| " Open native file manager at current file path
+nmap     <silent>   <leader>nn :if &filetype == "netrw" \| Lexplore \| else \| exe 'Lexplore' expand("%:p:h") \| endif<cr>| " Open native file manager at current file path
 nmap     <silent>   <leader>ne :exe 'term ++rows=10 ++close emacs -nw --eval' . ' ' .  '"(dired \"' . expand('%:p:h') . '\")"' . ' ' . '--eval "(vim-evil-dired)"'<cr>| " Open file manager at current file path
 
 nmap     <Bslash>   :vsplit<cr>|              " Vertical split
@@ -256,7 +257,7 @@ nnoremap ,html        :-1read $HOME/.config/vim/snippets/skeleton.html<cr>3jwf>a
 
 let g:gundo_prefer_python3=1                                                                " Use python3 to restore gundo functionality.
 let g:netrw_banner=0                                                                        " Disable netrw banner.
-let g:netrw_winsize = 15                                                                    " Set file explorer initial window size.
+let g:netrw_winsize=15                                                                      " Set file explorer initial window size.
 let g:fzf_layout = { 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 } }  " Set fzf window layout.
 
 
@@ -359,13 +360,15 @@ augroup AutoCommands
   autocmd FileType man        nmap  <silent> <buffer> gf viWF(<left>y:silent! exe ':setlocal modifiable \| :%d \| :r !man' expand('<C-R>*') '2> /dev/null' '\| ansifilter'<cr>ggdd
 
   " Netrw mappings
-  autocmd FileType netrw      nmap  <buffer> l    <cr>cd
-  autocmd FileType netrw      nmap  <buffer> h    -cd
-  autocmd FileType netrw      nmap  <buffer> i    mfR
-  autocmd FileType netrw      nmap  <buffer> p    mtmc
-  autocmd FileType netrw      nmap  <buffer> v    mfj
-  autocmd FileType netrw      nmap  <buffer> u    mF
-  autocmd FileType netrw      nmap  <buffer> <cr> <Plug>NetrwLocalBrowseCheck
+  autocmd FileType netrw      nmap  <buffer> l    <cr>cd|                      " Browse directory under cursor
+  autocmd FileType netrw      nmap  <buffer> h    -cd|                         " Browse up a directory
+  autocmd FileType netrw      nmap  <buffer> i    mfR|                         " Rename file under cursor
+  autocmd FileType netrw      nmap  <buffer> p    mtmc|                        " Paste marked files here
+  autocmd FileType netrw      nmap  <buffer> v    mfj|                         " Mark files incrementally
+  autocmd FileType netrw      nmap  <buffer> u    mF|                          " Unmark marked files
+  autocmd FileType netrw      nmap  <buffer> a    d<Esc>|                      " Add new directory
+  autocmd FileType netrw      nmap  <buffer> dd   vD|                          " Delete file under cursor
+  autocmd FileType netrw      nmap  <buffer> <cr> <Plug>NetrwLocalBrowseCheck| " Select file
 
   " Format using visual select + gq.
   autocmd FileType toml            set formatprg=yj\ -tt
