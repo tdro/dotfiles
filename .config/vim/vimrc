@@ -353,7 +353,7 @@ augroup AutoCommands
 
   " REPL output.
   autocmd FileType *          noremap  <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
-  autocmd FileType vim        noremap           <buffer> <leader>co   yVy:<C-R>*<bs><cr>
+  autocmd FileType vim        noremap           <buffer> <leader>co    Vy:redir @a \| silent! exe substitute('<C-R>*', '\r', '', 'g') \| redir END \| call feedkeys('gvy$"ap')<cr>
   autocmd FileType vim        vnoremap <silent> <buffer> <leader>co     y:redir @a \| silent! exe substitute('<C-R>*', '\r', '', 'g') \| redir END \| call feedkeys('gvy$"ap')<cr>
 
   " Manpage mappings
