@@ -134,7 +134,7 @@ vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"
 vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"vim"},
   callback = function()
     vim.keymap.set('n', '<leader>cc', 'yVy:<C-R>*<cr>',   { buffer = true })
-    vim.keymap.set('n', '<leader>co', 'yVy:<C-R>*<cr>',   { buffer = true })
+    vim.keymap.set('n', '<leader>co',  "Vy:<C-w>redir @a | silent! exe substitute('<C-R>*', '\\r', '', 'g') | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true })
     vim.keymap.set('v', '<leader>co',   "y:<C-w>redir @a | silent! exe substitute('<C-R>*', '\\r', '', 'g') | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true })
   end
 })
