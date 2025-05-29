@@ -190,14 +190,16 @@ vnoremap <leader>ct !column -t -o' '<cr>|                                       
 vnoremap <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
 noremap  <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\<space><space>$HOME/.cache/scratchpad<C-left><left>|      " Scratchpad of specified filetype
 
-vmap <C-j> :m'>+<cr>gv| " Move line down
-vmap <C-k> :m -2<cr>gv| " Move line up
+vmap <C-j> :m'>+<cr>gv|         " Move visual selection down
+vmap <C-k> :m -2<cr>gv|         " Move visual selection up
+imap <C-j> <Esc>:m .+1<CR>==gi| " Move insert line down
+imap <C-k> <Esc>:m .-2<CR>==gi| " Move insert line up
 
 nmap     q.  Vgv:<up>|                   " Go to last command in visual selection from normal
 vmap     .q     :<up>|                   " Go to last command in visual selection
 vmap     .f     :!editor-filter<space>|  " Run filter in visual selection
 vmap     ..     :<up><cr>|               " Repeat last command in visual selection
-vmap     //      y/<C-R>*<cr>N|          " Auto search from visual selection
+vmap     //      y/<C-R>*<cr>N|          " Search visual selection
 vmap     ??      y/\%V|                  " Search within last visual selection
 
 nmap     <Tab>      :Buffers<cr>|     " List buffers
@@ -212,17 +214,17 @@ nmap     <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': 
 nmap     <silent>   <leader>nn :if &filetype == "netrw" \| Lexplore \| else \| exe 'Lexplore' expand("%:p:h") \| endif<cr>| " Open native file manager at current file path
 nmap     <silent>   <leader>ne :exe 'term ++rows=10 ++close emacs -nw --eval' . ' ' .  '"(dired \"' . expand('%:p:h') . '\")"' . ' ' . '--eval "(vim-evil-dired)"'<cr>| " Open file manager at current file path
 
-nmap     <Bslash>   :vsplit<cr>|              " Vertical split
-nmap     <C-Bslash> :split<cr>|               " Horizontal split
-nmap     <C-j>      :resize +5<cr>|           " Horizontal split resize down
-nmap     <C-k>      :resize -5<cr>|           " Horizontal split resize up
-nmap     <C-h>      :vertical resize +5<cr>|  " Vertical split resize left
-nmap     <C-l>      :vertical resize -5<cr>|  " Vertical split resize right
+nmap              <Bslash>   :vsplit<cr>|              " Vertical split
+nmap              <C-Bslash> :split<cr>|               " Horizontal split
+nmap              <C-h>      :vertical resize +5<cr>|  " Vertical split resize left
+nmap     <silent> <C-j>      :if winnr('$') > 1 \| resize +5 \| else \| :m.+1 \| end<cr>| " Horizontal split resize or move line down
+nmap     <silent> <C-k>      :if winnr('$') > 1 \| resize -5 \| else \| :m.-2 \| end<cr>| " Horizontal split resize or move line up
+nmap     <silent> <C-l>      :if winnr('$') > 1 \| vertical resize -5 \| else \| exe 'nohlsearch\|diffupdate\|normal! <C-l>' \| end<cr>|  " Vertical split resize right or clear terminal
 
-inoremap <S-Tab>    <C-d>|       " Inverse Tabs
 imap     <C-o>      <C-x><C-n>|  " Keyword local completion
 imap     <C-s>      <C-x><C-f>|  " File name completion
 imap     <C-y>      <C-x><C-l>|  " Whole line completion
+inoremap <S-Tab>    <C-d>|       " Inverse Tabs
 inoremap <silent>   <C-x><C-s> <Esc>:set spell<cr>hea<C-x><C-s>| " Spelling Completion
 imap     <silent>   <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:while 1 \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| sleep 100m \| endwhile<cr>hea<C-x><C-t>| " Thesaurus insert completion
 vmap     <silent>   <C-t>          y:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:while 1 \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| sleep 100m \| endwhile<cr>hea<C-x><C-t>| " Thesaurus visual completion

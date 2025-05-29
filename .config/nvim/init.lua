@@ -61,14 +61,18 @@ vim.keymap.set('n', '<Tab>s',     ':redir @a | silent echo | redir END | 10split
 vim.keymap.set('n', '<Tab>t',     ':redir @a | silent tabs | redir END | 10split [tabs]    | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("gg3dd")<cr>')
 vim.keymap.set('n', '<Tab>m',     ':redir @a | silent map  | redir END | 10split [maps]    | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("gg3dd")<cr>')
 vim.keymap.set('n', '<Tab>c',     ':redir @a | silent hi   | redir END | 10split [colors]  | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
+vim.keymap.set('n', '<Tab>r',     ':redir @a | silent reg  | redir END | 10split [reg]     | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
 
-vim.keymap.set('v', '<C-j>', ":m'>+<cr>gv", { silent = true })   -- Move visual selection down
-vim.keymap.set('v', '<C-k>', ":m -2<cr>gv", { silent = true })   -- Move visual selection up
-vim.keymap.set('v', '//', "y/<C-R>*<cr>N")                       -- Search visual selection
-vim.keymap.set('v', '??', 'y/\\%V')                              -- Search within last visual selection
+vim.keymap.set('v', '<C-j>', ":m'>+<cr>gv",         { silent = true })  -- Move visual selection down
+vim.keymap.set('v', '<C-k>', ":m -2<cr>gv",         { silent = true })  -- Move visual selection up
+vim.keymap.set('i', '<C-j>', "<Esc>:m .+1<CR>==gi", { silent = true })  -- Move insert line down
+vim.keymap.set('i', '<C-k>', "<Esc>:m .-2<CR>==gi", { silent = true })  -- Move insert line up
+vim.keymap.set('v', '//', "y/<C-R>*<cr>N")                              -- Search visual selection
+vim.keymap.set('v', '??', 'y/\\%V')                                     -- Search within last visual selection
 
-vim.keymap.set('n', '<C-L>', '<Cmd>nohlsearch|diffupdate|normal! <C-L><CR>')
-vim.keymap.set('n', 'Y', 'y$', { desc = 'Mimics the behavior of D and C' })
+vim.keymap.set('n', 'Y', 'y$',  { desc = 'Mimics the behavior of D and C'             })
+vim.keymap.set('v', '<', "<gv", { desc = 'Retain visual selection when tabbing left'  })
+vim.keymap.set('v', '>', ">gv", { desc = 'Retain visual selection when tabbing right' })
 
 vim.keymap.set('n', '<leader>qq', ':bd<cr>', { desc = 'Close buffer' })
 vim.keymap.set('n', '<leader>qw', '<C-w>c',  { desc = 'Close window' })
@@ -85,21 +89,25 @@ vim.keymap.set('n', 'j', "j:call setreg('c', col('.'))<cr>", { silent = true }) 
 vim.keymap.set('n', 'k', "k:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
 vim.keymap.set('n', 'l', "l:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
 
+vim.keymap.set('i', '<C-o>', "<C-x><C-n>", { desc = "Keyword local completion" })
+vim.keymap.set('i', '<C-s>', "<C-x><C-f>", { desc = "File name completion"     })
+vim.keymap.set('i', '<C-y>', "<C-x><C-l>", { desc = "Whole line completion"    })
+
 vim.keymap.set('n', '<Bslash>',   ":vsplit<cr>",             { desc = "Vertical split"               })
 vim.keymap.set('n', '<C-Bslash>', ":split<cr>",              { desc = "Horizontal split"             })
-vim.keymap.set('n', '<C-j>',      ":resize +5<cr>",          { desc = "Horizontal split resize down" })
-vim.keymap.set('n', '<C-k>',      ":resize -5<cr>",          { desc = "Horizontal split resize up"   })
 vim.keymap.set('n', '<C-h>',      ":vertical resize +5<cr>", { desc = "Vertical split resize left"   })
-vim.keymap.set('n', '<C-l>',      ":vertical resize -5<cr>", { desc = "Vertical split resize right"  })
+vim.keymap.set('n', '<C-j>',      ":if winnr('$') > 1 | resize +5 | else | :m.+1 | end<cr>",                                              { silent = true, desc = "Horizontal split resize or move line down"     })
+vim.keymap.set('n', '<C-k>',      ":if winnr('$') > 1 | resize -5 | else | :m.-2 | end<cr>",                                              { silent = true, desc = "Horizontal split resize or move line up"       })
+vim.keymap.set('n', '<C-l>',      ":if winnr('$') > 1 | vertical resize -5 | else | exe 'nohlsearch|diffupdate|normal! <C-l>' | end<cr>", { silent = true, desc = "Vertical split resize right or clear terminal" })
 
 vim.keymap.set('n',       'grn', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.rename()<cr>',               { desc = 'Renames symbol under cursor'             })
-vim.keymap.set('n',       'gtd', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.definition()<cr>',           { desc = 'Jumps to definition under cursor'        })
+vim.keymap.set('n',       'gdd', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.definition()<cr>',           { desc = 'Jumps to definition under cursor'        })
 vim.keymap.set('n',       'grr', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.references()<cr>',           { desc = 'References to symbol under cursor'       })
 vim.keymap.set('n',       'gri', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.implementation()<cr>',       { desc = 'Implementations for symbol under cursor' })
 vim.keymap.set('n',       'gro', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.document_symbol()<cr>',      { desc = 'List symbols in current buffer'          })
 vim.keymap.set('n',       'gtt', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.type_definition()<cr>',      { desc = 'Jumps to type definition under cursor'   })
-vim.keymap.set('n',       'gdd', ':lua vim.diagnostic.setloclist()<cr>:lopen<cr>',              { desc = 'Open diagnostics in a location list'     })
-vim.keymap.set({'n','x'}, 'gra', function() vim.lsp.buf.code_action() end,                      { desc = 'vim.lsp.buf.code_action()'               })
+vim.keymap.set('n',       'gee', ':lua vim.diagnostic.setloclist()<cr>:lopen<cr>',              { desc = 'Open diagnostics in a location list'     })
+vim.keymap.set({'n','x'}, 'gra', function() vim.lsp.buf.code_action() end,                      { desc = 'Run code actions'                        })
 
 vim.keymap.set('v', '<leader>sn', "<Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>", { silent = true, desc = 'Sort lines by length' })
 
