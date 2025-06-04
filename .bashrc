@@ -60,9 +60,6 @@ man() {
   man "$@"
 }
 
-# ssh agent with keychain
-alias ssh='eval "$(keychain --dir ~/.cache/keychain --eval --agents ssh -Q --quiet ~/.ssh/mobile ~/.ssh/primary)" && ssh'
-
 # parenting
 alias mv='mv -i'
 alias cp='cp -i'
