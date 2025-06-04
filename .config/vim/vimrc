@@ -1,9 +1,9 @@
 "------------Setup-------------"
 
-mapclear                                 " Clear all mappings.
-packadd! matchit                         " Add match tag pairs package.
-let skip_defaults_vim=1                  " Do not load defaults if vimrc is missing.
-
+mapclear                                              " Clear all mappings.
+packadd! matchit                                      " Add match tag pairs package.
+let skip_defaults_vim=1                               " Do not load defaults if vimrc is missing.
+silent exe '!mkdir -p' fnamemodify(tempname(), ':h')| " Ensure temporary directory exists.
 
 "------------General------------"
 
@@ -226,8 +226,9 @@ imap     <C-s>      <C-x><C-f>|  " File name completion
 imap     <C-y>      <C-x><C-l>|  " Whole line completion
 inoremap <S-Tab>    <C-d>|       " Inverse Tabs
 inoremap <silent>   <C-x><C-s> <Esc>:set spell<cr>hea<C-x><C-s>| " Spelling Completion
-imap     <silent>   <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:while 1 \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| sleep 100m \| endwhile<cr>hea<C-x><C-t>| " Thesaurus insert completion
-vmap     <silent>   <C-t>          y:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:while 1 \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| sleep 100m \| endwhile<cr>hea<C-x><C-t>| " Thesaurus visual completion
+nmap     <silent>   <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus normal completion
+imap     <silent>   <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus insert completion
+vmap     <silent>   <C-t>          y:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus visual completion
 
 nmap     <Esc><Esc> :nohl<cr>|                           " Exit incremental search
 vnoremap < <gv|                                          " Retain visual selection when tabbing left
@@ -351,6 +352,7 @@ augroup AutoCommands
   autocmd FileType sh         noremap <buffer> <leader>cc :REPL dash<cr>
   autocmd FileType typescript noremap <buffer> <leader>cc :REPL deno<cr>
   autocmd FileType vim        noremap <buffer> <leader>cc yVy:<C-R>*<bs><cr>
+  autocmd FileType vim       vnoremap <buffer> <leader>cc y:exe substitute('<C-R>*', '\r', '', 'g') \|<cr>
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " REPL output.

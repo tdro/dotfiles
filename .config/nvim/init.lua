@@ -100,14 +100,14 @@ vim.keymap.set('n', '<C-j>',      ":if winnr('$') > 1 | resize +5 | else | :m.+1
 vim.keymap.set('n', '<C-k>',      ":if winnr('$') > 1 | resize -5 | else | :m.-2 | end<cr>",                                              { silent = true, desc = "Horizontal split resize or move line up"       })
 vim.keymap.set('n', '<C-l>',      ":if winnr('$') > 1 | vertical resize -5 | else | exe 'nohlsearch|diffupdate|normal! <C-l>' | end<cr>", { silent = true, desc = "Vertical split resize right or clear terminal" })
 
-vim.keymap.set('n',       'grn', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.rename()<cr>',               { desc = 'Renames symbol under cursor'             })
-vim.keymap.set('n',       'gdd', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.definition()<cr>',           { desc = 'Jumps to definition under cursor'        })
-vim.keymap.set('n',       'grr', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.references()<cr>',           { desc = 'References to symbol under cursor'       })
-vim.keymap.set('n',       'gri', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.implementation()<cr>',       { desc = 'Implementations for symbol under cursor' })
-vim.keymap.set('n',       'gro', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.document_symbol()<cr>',      { desc = 'List symbols in current buffer'          })
-vim.keymap.set('n',       'gtt', 'viwy/<C-R>*<cr>N:lua vim.lsp.buf.type_definition()<cr>',      { desc = 'Jumps to type definition under cursor'   })
-vim.keymap.set('n',       'gee', ':lua vim.diagnostic.setloclist()<cr>:lopen<cr>',              { desc = 'Open diagnostics in a location list'     })
-vim.keymap.set({'n','x'}, 'gra', function() vim.lsp.buf.code_action() end,                      { desc = 'Run code actions'                        })
+vim.keymap.set('n',       'grn', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp.buf.rename()<cr>',          { desc = 'Renames symbol under cursor'             })
+vim.keymap.set('n',       'gdd', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp.buf.definition()<cr>',      { desc = 'Jumps to definition under cursor'        })
+vim.keymap.set('n',       'gtt', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp.buf.type_definition()<cr>', { desc = 'Jumps to type definition under cursor'   })
+vim.keymap.set('n',       'grr', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp.buf.references()<cr>',      { desc = 'References to symbol under cursor'       })
+vim.keymap.set('n',       'gro', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp.buf.document_symbol()<cr>', { desc = 'Symbols in current buffer'               })
+vim.keymap.set('n',       'gri', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp.buf.implementation()<cr>',  { desc = 'Implementations for symbol under cursor' })
+vim.keymap.set('n',       'gee', ':cclose|lclose<cr>:lua vim.diagnostic.setloclist()<cr>:lopen<cr>',         { desc = 'Open diagnostics in a location list'     })
+vim.keymap.set({'n','x'}, 'gra', function() vim.lsp.buf.code_action() end,                                   { desc = 'Run code actions'                        })
 
 vim.keymap.set('v', '<leader>sn', "<Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>", { silent = true, desc = 'Sort lines by length' })
 
@@ -165,9 +165,9 @@ vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"
 -- Quick fix commands
 vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"qf"},
   callback = function()
-    vim.keymap.set('n', '<cr>', "<cr><C-w>w", { silent = true, buffer = true })
-    vim.keymap.set('n', 'j',    "<cr>j:silent!cnext|silent!lnext<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
-    vim.keymap.set('n', 'k',    "<cr>k:silent!cprev|silent!lprev<cr><C-w>w:call cursor(0, getreg('c'))<cr>", { silent = true, buffer = true })
+    vim.keymap.set('n', '<cr>', "<cr><C-w>w",                            { remap = false, silent = true, buffer = true })
+    vim.keymap.set('n', 'j',    "j<cr>:call cursor(0, getreg('c'))<cr>", { remap = true,  silent = true, buffer = true })
+    vim.keymap.set('n', 'k',    "k<cr>:call cursor(0, getreg('c'))<cr>", { remap = true,  silent = true, buffer = true })
     vim.api.nvim_create_augroup('switch', { clear = true })
     vim.api.nvim_create_autocmd({"BufRead"}, { group = 'switch', pattern = {"*"},
       callback = function()
