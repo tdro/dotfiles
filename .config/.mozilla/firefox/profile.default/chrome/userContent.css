@@ -77,3 +77,10 @@ textarea.comments,
   display: unset !important;
   visibility: unset !important;
 }
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+.Tab .fav { visibility: hidden; }        /* Sidebery hide favicons */
+.Tab .t-box { padding-right: 2.5rem; }   /* Sidebery tab padding */
+
+/* ---------------------------------------------------------------------------------------------------- */

@@ -22,11 +22,7 @@
   display: none !important;
 }
 
-/* Add border width to context menus */
-panel,
-menupopup {
-  border: 1px solid !important;
-}
+panel, menupopup { border: 1px solid !important; }  /* Add border width to context menus */
 
 /*
  * Reduce expanding urlbar.

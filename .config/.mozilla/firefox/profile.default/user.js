@@ -40,6 +40,8 @@ user_pref("browser.cache.memory.capacity", 25600);
 user_pref("browser.cache.offline.capacity", 0);
 user_pref("browser.cache.offline.enable", false);
 
+user_pref("browser.chrome.site_icons", false);
+
 user_pref("browser.bookmarks.defaultLocation", "unfiled");
 user_pref("browser.bookmarks.restore_default_bookmarks", false);
 
