@@ -10,7 +10,7 @@ element-icon {
 }
 
 element selected {
-  background-color: #ffdea3;
+  background-color: #ffa500;
 }
 
 element selected.normal {
@@ -18,5 +18,5 @@ element selected.normal {
 }
 
 element-text selected.normal {
-  highlight: underline #500;
+  highlight: none #000;
 }

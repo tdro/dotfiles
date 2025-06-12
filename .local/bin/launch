@@ -2,24 +2,15 @@
 
 # https://tools.suckless.org/dmenu/scripts/
 
-[ "$1" = "privilege" ] &&
-	export prefix='rofi-askpass ' &&
-	export args='-theme dmenu-privilege -p :::⠀privilege⠀:::⠀' &&
-	shift 1
-
-[ "$1" = "terminal" ] &&
-	export prefix='urxvt -hold -e ' &&
-	export args='-theme dmenu-terminal -p :::⠀terminal⠀:::⠀' &&
-	shift 1
-
-[ "$1" = "offline" ] &&
-	export prefix='unshare -c -n ' &&
-	export args='-theme dmenu-offline -p :::⠀offline⠀:::⠀' &&
-	shift 1
+[ "$1" = "online" ]    && export prefix=''               && export args='-theme dmenu-online -p :::⠀online⠀:::⠀'
+[ "$1" = "terminal" ]  && export prefix='urxvt -hold -e' && export args='-theme dmenu-terminal -p :::⠀terminal⠀:::⠀'
+[ "$1" = "privilege" ] && export prefix='rofi-askpass'   && export args='-theme dmenu-privilege -p :::⠀privilege⠀:::⠀'
+[ "$1" = "offline" ]   && export prefix='unshare -c -n'  && export args=''
 
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}
 cache=$cachedir/dmenu_run
 historyfile=$XDG_DATA_HOME/dmenu_history
+
 mkdir --parents "$cachedir"
 
 Update() {

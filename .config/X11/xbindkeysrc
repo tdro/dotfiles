@@ -1,7 +1,7 @@
 "dropdown-terminal" # quake terminal
     Mod4 + q
 
-"launch" # program launcher
+"launch offline" # program launcher
     Mod4 + r
 
 "launch privilege" # privilege launcher
@@ -9,6 +9,9 @@
 
 "launch terminal" # terminal launcher
     Mod4 + w
+
+"launch online" # online launcher
+    Mod4 + n
 
 "sh -c 'notify-send Zoom && boomer'" # zoom application
     Mod4 + x
@@ -31,7 +34,7 @@
 "pass-menu" # pass menu
     Mod4 + d
 
-"file-search" # file search
+"unshare -c -n file-search" # file search
     Mod4 + p
 
 "window-switcher" # window switcher
@@ -70,7 +73,7 @@
 "urxvt -hold -e xbindkeys --multikey -f $HOME/.config/X11/xbindkeysrc" # shortcut key check
     Shift + Mod4 + b
 
-"urxvt" # terminal
+"unshare -c -n urxvt" # terminal
     Mod4 + Return
 
 "urxvt -pe tabbed" # terminal tabbed
