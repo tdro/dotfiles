@@ -47,12 +47,19 @@ end
 
 vim.api.nvim_create_user_command('Find', function(opts) grep(opts.args) end, { nargs = 1 })
 
-vim.keymap.set('n', '<leader>ev',   ':tab drop ~/.config/nvim/init.lua<cr>')  -- Edit configuration
-vim.keymap.set('n', '<leader>rs',   ':%s/\\s\\+$')                            -- Remove trailing whitespace
+vim.keymap.set('n', '<leader>ev', ':tab drop ~/.config/nvim/init.lua<cr>')  -- Edit configuration
+vim.keymap.set('n', '<leader>rs', ':%s/\\s\\+$')                            -- Remove trailing whitespace
+vim.keymap.set('n', '<leader>nn', ":exe 'Lexplore' expand('%:p:h')<cr>")    -- Open file manager at current file path
+vim.keymap.set('n', '<leader>cd', ':cd %:h | :pwd<cr>',                                                               { desc = 'Change directory to current file' })
+vim.keymap.set('n', '<leader>ot', ":exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>",         { desc = 'Open terminal window in current directory' })
+vim.keymap.set('v', '<leader>ct', '!perl -pe \'s/^(\\s+)/"␣" x length($1)/e\' | column -t -o" " | sed "s/␣/ /g"<cr>', { desc = 'Justify columns' })
+
 vim.keymap.set('n', '<leader>grep', ':Find ')                                 -- Run search functions
 vim.keymap.set('v', '<leader>grep', 'y/<C-R>*<cr>:silent grep <C-R>*<cr>')    -- Run search functions for symbol under cursor
 vim.keymap.set('n', '<leader>vrep', ':vimgrep //g *<left><left><left><left>') -- Run internal search functions
-vim.keymap.set('n', '<leader>nn',   ":exe 'Lexplore' expand('%:p:h')<cr>")    -- Open file manager at current file path
+
+vim.keymap.set('n', '<leader>qq', ':bd<cr>', { desc = 'Close buffer' })
+vim.keymap.set('n', '<leader>qw', '<C-w>c',  { desc = 'Close window' })
 
 vim.keymap.set('n', '<Esc>', 'v<Esc>:nohl<cr>', { silent = true })          -- Exit incremental search
 
@@ -73,9 +80,6 @@ vim.keymap.set('v', '??', 'y/\\%V')                                     -- Searc
 vim.keymap.set('n', 'Y', 'y$',  { desc = 'Mimics the behavior of D and C'             })
 vim.keymap.set('v', '<', "<gv", { desc = 'Retain visual selection when tabbing left'  })
 vim.keymap.set('v', '>', ">gv", { desc = 'Retain visual selection when tabbing right' })
-
-vim.keymap.set('n', '<leader>qq', ':bd<cr>', { desc = 'Close buffer' })
-vim.keymap.set('n', '<leader>qw', '<C-w>c',  { desc = 'Close window' })
 
 vim.keymap.set({'v'}, 'gc', function() return require('vim._comment').operator() end,        { expr = true, desc = 'Toggle comment' })
 vim.keymap.set({'n'}, 'gc', function() return require('vim._comment').operator() .. '_' end, { expr = true, desc = 'Toggle comment line' })
@@ -108,6 +112,8 @@ vim.keymap.set('n',       'gro', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp
 vim.keymap.set('n',       'gri', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp.buf.implementation()<cr>',  { desc = 'Implementations for symbol under cursor' })
 vim.keymap.set('n',       'gee', ':cclose|lclose<cr>:lua vim.diagnostic.setloclist()<cr>:lopen<cr>',         { desc = 'Open diagnostics in a location list'     })
 vim.keymap.set({'n','x'}, 'gra', function() vim.lsp.buf.code_action() end,                                   { desc = 'Run code actions'                        })
+
+vim.keymap.set('t', '<C-w>N', '<C-\\><C-n>', { desc = 'Switch to normal mode in terminal mode' })
 
 vim.keymap.set('v', '<leader>sn', "<Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>", { silent = true, desc = 'Sort lines by length' })
 
@@ -180,11 +186,24 @@ vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"
 
 vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, { group = 'autocommands', pattern = {"*"}, command = "silent! bufdo bd! | :cclose | :only | :copen" })
 
+vim.api.nvim_create_autocmd({"CursorMoved", "ModeChanged"}, { group = 'autocommands', desc = 'Emulate clipboard autoselect', -- https://github.com/neovim/neovim/issues/27675#issuecomment-1971008065
+  callback = function()
+    local mode = vim.fn.mode(false)
+    if mode == 'v' or mode == 'V' or mode == '\22' then
+      vim.fn.setreg('*', vim.fn.getregion(vim.fn.getpos('.'), vim.fn.getpos('v'), { type = mode }))
+    end
+  end,
+})
+
+-- Auto insert on terminal open
+vim.api.nvim_create_autocmd({"TermOpen"}, { group = 'autocommands', command = ":set nosplitbelow | split # | set splitbelow | startinsert" })
+
 -- Auto save
 vim.api.nvim_create_autocmd({"InsertLeave", "CursorHold"}, { group = 'autocommands', pattern = {"*"}, command = ":silent! write | echo '[filetype=' . &filetype . ']'" })
 
 -- Language server protocol (LSP) configuration
-vim.lsp.config['clangd'] = { cmd = {'clangd'}, filetypes = {"c", "cpp", "objc", "objcpp", "cuda", "proto"} }
+vim.lsp.config['clangd'] = { cmd = {'clangd'}, filetypes = {'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto'} }
+vim.lsp.config['gopls']  = { cmd = {'gopls'},  filetypes = {'go', 'gomod', 'gowork', 'gotmpl' } }
 
 -- Language server protocol (LSP) enable
-vim.lsp.enable({'clangd'})
+vim.lsp.enable({'clangd', 'gopls'})

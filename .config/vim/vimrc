@@ -1,9 +1,8 @@
 "------------Setup-------------"
 
-mapclear                                              " Clear all mappings.
-packadd! matchit                                      " Add match tag pairs package.
-let skip_defaults_vim=1                               " Do not load defaults if vimrc is missing.
-silent exe '!mkdir -p' fnamemodify(tempname(), ':h')| " Ensure temporary directory exists.
+mapclear                                 " Clear all mappings.
+packadd! matchit                         " Add match tag pairs package.
+let skip_defaults_vim=1                  " Do not load defaults if vimrc is missing.
 
 "------------General------------"
 
@@ -60,7 +59,7 @@ set laststatus=0                         " Disable status bar.
 set linespace=3                          " Set line spaces.
 set guiheadroom=0                        " Disable headroom on window maximize.
 set history=10000                        " Lines of command line history to keep.
-set clipboard=unnamed                    " Use clipboard as default register.
+set clipboard=unnamed,autoselect         " Use auto clipboard as default register.
 set backspace=indent,eol,start           " Enable backspacing.
 set formatoptions-=t                     " Do not auto wrap text when typing.
 set complete=.,w,b,u,i                   " Set our desired autocompletion match pattern.
@@ -93,10 +92,8 @@ endfunction
 
 function s:repl(start, end, language) " REPL https://vi.stackexchange.com/a/19875
   let g:terminal_buffer = get(g:, 'terminal_buffer', -1)
-  if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer)
-    terminal ++rows=10
-    let g:terminal_buffer = bufnr('')
-    call term_sendkeys(g:terminal_buffer, a:language . "; exit" . "\<cr>") | wincmd p
+  if g:terminal_buffer == -1 || !bufexists(g:terminal_buffer) | terminal ++rows=10
+    let g:terminal_buffer = bufnr('') | call term_sendkeys(g:terminal_buffer, a:language . "; exit" . "\<cr>") | wincmd p
   elseif bufwinnr(g:terminal_buffer) == -1
     exe 'sbuffer ' . g:terminal_buffer | wincmd p
   endif
@@ -104,13 +101,7 @@ function s:repl(start, end, language) " REPL https://vi.stackexchange.com/a/1987
 endfunction
 
 function s:jump(selection) " Jump to line and column under cursor in the format 123:13
-  wincmd p
-  let g:segment = split(a:selection, ":")
-  call cursor(g:segment[0], g:segment[1])
-  if filereadable(g:segment[0])
-    exe ':edit ' . g:segment[0]
-    call cursor(g:segment[1], g:segment[2])
-  endif
+  wincmd p | let l:segment = split(a:selection, ":") | call cursor(l:segment[0], l:segment[1]) | if filereadable(l:segment[0]) | exe ':edit ' . l:segment[0] | call cursor(l:segment[1], l:segment[2]) | endif
 endfunction
 
 function s:notify(command)
@@ -126,7 +117,11 @@ function s:find(that)
 endfunction
 
 function s:make()
-  if len(&makeprg) > 0  | silent! exe 'only | term ++rows=10 sh -c ' . '"' . &makeprg . '"' | endif
+  if len(&makeprg) > 0 | silent! exe 'only | term ++rows=10 sh -c ' . '"' . &makeprg . '"' | endif
+endfunction
+
+function s:wrap(that)
+  let l:input = split(a:that, '\.\.\.') | if len(l:input) == 1 | let l:input = split(a:that) | endif | if len(l:input) == 1 | let @a = l:input[0] . @* . l:input[0] | else | let @a = l:input[0] . @* . l:input[1] | endif | norm gv"ap
 endfunction
 
 
@@ -138,8 +133,9 @@ command! -nargs=1 -range Notify  call s:notify(<args>)
 command! -nargs=1 -range Find    call s:find(<f-args>)
 command! -nargs=+ -range Replace call s:replace(<f-args>)
 command! -nargs=? -range REPL    call s:repl(<line1>, <line2>, <f-args>)
+command! -nargs=? -range Wrap    call s:wrap(<q-args>)
 command! -bar BdReadOnly silent! if len(getbufinfo()) > 1 | exe 'bd '.join(filter(range(1, bufnr('$')), {_,v -> getbufvar(v, '&modifiable') == 0})) | endif| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
-command! -bar BdNoName silent! if len(getbufinfo()) > 1 && len(getwininfo()) > 2 && len(filter(getbufinfo(), {_,b -> b.name =~ '^!'})) == 0 && len(filter(getwininfo(), {_,w -> w.quickfix == 1})) == 0 && len(filter(getwininfo(), {_,w -> w.terminal == 1})) == 0 | exe 'bd '.join(filter(filter(range(1, bufnr('$')), 'bufexists(v:val)'), 'bufname(v:val)==""')) | endif| " Delete [No Name] buffers
+command! -bar BdNoName   silent! if len(getbufinfo()) > 1 && len(getwininfo()) > 2 && len(filter(getbufinfo(), {_,b -> b.name =~ '^!'})) == 0 && len(filter(getwininfo(), {_,w -> w.quickfix == 1})) == 0 && len(filter(getwininfo(), {_,w -> w.terminal == 1})) == 0 | exe 'bd '.join(filter(filter(range(1, bufnr('$')), 'bufexists(v:val)'), 'bufname(v:val)==""')) | endif| " Delete [No Name] buffers
 
 
 "---------------Shortcuts---------------"
@@ -159,36 +155,37 @@ nmap     <leader>vrep  :vimgrep //jg *<left><left><left><left><left>|           
 vnoremap <leader>af   y:exe ':term ' . &grepprg . ' ' . '<C-R>*'<cr>|                               " Show files containing visual selection in terminal
 nmap     <leader>af    :exe ':term ' . &grepprg . ' ' . ''<left>|                                   " Show files containing search query in terminal
 
-nmap     <leader>jl :norm yaW<cr> \| :Jump<cr>| " Jump to line
+nmap     <leader>jl       :norm yaW<cr> \| :Jump<cr>| " Jump to line
+vmap     <leader>wrap     :Wrap<space>|               " Surround visual selection with suffix and prefix
+nmap     <leader>wrap viwy:Wrap<space>|               " Surround word under cursor selection with suffix and prefix
 
-nmap     <leader>sl :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
-nmap     <leader>ss :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
-
-nmap     <leader>sp  :set spell!<cr>|                                                     " Toggle spell check
-nmap     <leader>ses :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>|    " Switch to spaces
-nmap     <leader>set :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab<cr>|  " Switch to tabs
-vnoremap <silent>    <leader>sn  <Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>| " Sort lines by length
+nmap              <leader>sl       :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
+nmap              <leader>ss       :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
+nmap              <leader>sp       :set spell!<cr>|                                                     " Toggle spell check
+vnoremap <silent> <leader>sn  <Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>| " Sort lines by length
+nmap              <leader>ses      :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>|    " Switch to spaces
+nmap              <leader>set      :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab<cr>|  " Switch to tabs
 
 nmap     <leader>qq :bd<cr>|                       " Close buffer
 nmap     <leader>qa :silent! %bd<cr><C-o>:bd#<cr>| " Close all buffers
 nmap     <leader>qw <C-w>c<cr>|                    " Close window
 
-nmap     <leader>ra :set all& \| :source ~/.config/vim/vimrc \| :packloadall \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>| " Reset all settings and source configuration.
-nmap     <leader>re gg=G<C-o><C-o>|                 " Re-indent entire file
-nmap     <leader>rs :%s/\s\+$//e|                   " Remove trailing whitespace
-nmap     <leader>rr :enew \| .!<space>|             " Dump output of command to new buffer
-vnoremap <leader>rd !awk '\!dedup[$0]++'<cr>|       " Remove duplicate lines
+nmap     <silent> <leader>ra :set all& \| :source ~/.config/vim/vimrc \| :packloadall \| silent! exe '!mkdir -p' fnamemodify(tempname(), ':h') \|:e<cr>:Notify('printf "Settings cleared and reloaded."')<cr>| " Reset all settings and source configuration.
+nmap              <leader>re gg=G<C-o><C-o>|                 " Re-indent entire file
+nmap              <leader>rs :%s/\s\+$//e|                   " Remove trailing whitespace
+nmap              <leader>rr :enew \| .!<space>|             " Dump output of command to new buffer
+vnoremap          <leader>rd !awk '\!dedup[$0]++'<cr>|       " Remove duplicate lines
 
-nmap     <silent>   <leader>ca :/[^\x00-\x7F]<cr>|                                                                          " Check non ascii characters
-nmap     <leader>cd :cd %:h \| :pwd<cr>|                                                                                    " Change directory to the current file
-nmap     <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>|                                         " Toggle color column
-nmap     <leader>cx :set cursorcolumn!<cr>|                                                                                 " Toggle cursor column
-nmap     <leader>ce :silent! %s/–/--/g<cr> \| :silent! %s/—/---/g<cr> \| my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y|  " Transliterate special characters to ascii
-nmap     <leader>cn :set number!<cr>|                                                                                       " Toggle line numbers
-nmap     <leader>cr :set relativenumber!<cr>|                                                                               " Toggle relative line numbers
-vnoremap <leader>ct !column -t -o' '<cr>|                                                                                   " Justify columns
-vnoremap <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
-noremap  <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\<space><space>$HOME/.cache/scratchpad<C-left><left>|      " Scratchpad of specified filetype
+nmap     <silent> <leader>ca :/[^\x00-\x7F]<cr>|                                                                                     " Check non ascii characters
+nmap              <leader>cd :cd %:h \| :pwd<cr>|                                                                                    " Change directory to the current file
+nmap              <leader>cv :exe "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<cr>|                                         " Toggle color column
+nmap              <leader>cx :set cursorcolumn!<cr>|                                                                                 " Toggle cursor column
+nmap              <leader>ce :silent! %s/–/--/g<cr> \| :silent! %s/—/---/g<cr> \| my \| :%!iconv -f utf-8 -t ascii//translit<cr>'y|  " Transliterate special characters to ascii
+nmap              <leader>cn :set number!<cr>|                                                                                       " Toggle line numbers
+nmap              <leader>cr :set relativenumber!<cr>|                                                                               " Toggle relative line numbers
+vnoremap          <leader>ct !perl -pe 's/^(\s+)/"␣" x length($1)/e' \| column -t -o' ' \| sed 's/␣/ /g'<cr>|                        " Justify columns
+vnoremap          <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
+noremap           <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\<space><space>$HOME/.cache/scratchpad<C-left><left>|      " Scratchpad of specified filetype
 
 vmap <C-j> :m'>+<cr>gv|         " Move visual selection down
 vmap <C-k> :m -2<cr>gv|         " Move visual selection up
@@ -208,7 +205,7 @@ nmap     <leader>ob :BLines<cr>|      " List lines in loaded buffer
 nmap     <leader>ot :exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>| " Open terminal window in current directory
 nmap     <leader>of :call fzf#run({'options': [], 'source': "cat $FZF_FILE_MARKS", 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap     <leader>od :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "cut -d' ' -f3 $FZF_DIRECTORY_MARKS", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
-nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --follow --files --hidden \|\| find . -type f -printf "%P\n" 2> /dev/null', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
+nmap     <leader>oo :call fzf#run({'options': ['--preview', 'highlight -O ansi --force {}'], 'source': 'rg --follow --files --hidden 2> /dev/null \|\| find . -type f -printf "%P\n" 2> /dev/null', 'sink': 'e', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 nmap     <leader>oa :call fzf#run({'options': ['--preview', 'ls {}'], 'source': "find $PWD -type d -maxdepth 4 2> /dev/null", 'sink': 'cd', 'window': { 'xoffset': 0, 'yoffset': 1, 'width': 1, 'height': 0.5 }})<cr><down>
 
 nmap     <silent>   <leader>nn :if &filetype == "netrw" \| Lexplore \| else \| exe 'Lexplore' expand("%:p:h") \| endif<cr>| " Open native file manager at current file path
@@ -221,20 +218,20 @@ nmap     <silent> <C-j>      :if winnr('$') > 1 \| resize +5 \| else \| :m.+1 \|
 nmap     <silent> <C-k>      :if winnr('$') > 1 \| resize -5 \| else \| :m.-2 \| end<cr>| " Horizontal split resize or move line up
 nmap     <silent> <C-l>      :if winnr('$') > 1 \| vertical resize -5 \| else \| exe 'nohlsearch\|diffupdate\|normal! <C-l>' \| end<cr>|  " Vertical split resize right or clear terminal
 
-imap     <C-o>      <C-x><C-n>|  " Keyword local completion
-imap     <C-s>      <C-x><C-f>|  " File name completion
-imap     <C-y>      <C-x><C-l>|  " Whole line completion
-inoremap <S-Tab>    <C-d>|       " Inverse Tabs
-inoremap <silent>   <C-x><C-s> <Esc>:set spell<cr>hea<C-x><C-s>| " Spelling Completion
-nmap     <silent>   <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus normal completion
-imap     <silent>   <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus insert completion
-vmap     <silent>   <C-t>          y:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus visual completion
+imap              <C-o>      <C-x><C-n>|  " Keyword local completion
+imap              <C-s>      <C-x><C-f>|  " File name completion
+imap              <C-y>      <C-x><C-l>|  " Whole line completion
+inoremap          <S-Tab>    <C-d>|       " Inverse Tabs
+inoremap <silent> <C-x><C-s> <Esc>:set spell<cr>hea<C-x><C-s>| " Spelling Completion
+nmap     <silent> <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus normal completion
+imap     <silent> <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus insert completion
+vmap     <silent> <C-t>          y:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus visual completion
 
-nmap     <Esc><Esc> :nohl<cr>|                           " Exit incremental search
-vnoremap < <gv|                                          " Retain visual selection when tabbing left
-vnoremap > >gv|                                          " Retain visual selection when tabbing right
-nnoremap Q <Nop>|                                        " Disable Ex Mode
-vnoremap y ygv<Esc>|                                     " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
+nmap               <Esc><Esc> :nohl<cr>|                 " Exit incremental search
+vnoremap           < <gv|                                " Retain visual selection when tabbing left
+vnoremap           > >gv|                                " Retain visual selection when tabbing right
+nnoremap           Q <Nop>|                              " Disable Ex Mode
+vnoremap           y ygv<Esc>|                           " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
 nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|  " Prevent cursor from jumping in yanking context
 nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>| " Prevent cursor from jumping in pasting context
 
@@ -243,8 +240,8 @@ nnoremap <silent> j j:call setreg('c', col('.'))<cr>|    " Persist cursor column
 nnoremap <silent> k k:call setreg('c', col('.'))<cr>|    " Persist cursor column
 nnoremap <silent> l l:call setreg('c', col('.'))<cr>|    " Persist cursor column
 
-nmap <silent> j j:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds up
-nmap <silent> k k:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds down
+nmap     <silent> j j:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds up
+nmap     <silent> k k:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds down
 
 
 "------------------Snippets-------------------"
