@@ -38,6 +38,8 @@ let s:t_grey9      = 247    | let s:g_grey9      = '#9e9e9e'
 let s:t_silver     = 250    | let s:g_silver     = '#c0c0c0'
 let s:t_coral      = 210    | let s:g_coral      = '#ff8787'
 
+let g:terminal_ansi_colors = [ '#2c303c', '#ff6666', '#cfff72', '#ffdf23', '#5aa5ff', '#e16a98', '#9fc1dd', '#ffdf23', '#80c6ff', '#5aa5ff', '#beff3e', '#feac48', '#5aa5ff', '#b7416e', '#69aeff', '#ffffff' ]
+
 hi link PmenuMatch     Pmenu
 hi link PmenuMatchSel  PmenuSel
 hi link PmenuKind      Pmenu
@@ -55,16 +57,17 @@ exe 'hi Conceal          guifg='.s:g_white      . ' guibg='.s:g_grey4      . ' g
 exe 'hi Conditional      guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Constant         guifg='.s:g_purple     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_purple . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi CurSearch        guifg='.s:g_black      . ' guibg='.s:g_gold       . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_gold      . ' cterm='.s:bold
-exe 'hi CursorColumn     guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
+exe 'hi Cursor           guifg='.s:g_black      . ' guibg='.s:g_blue       . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
+exe 'hi CursorColumn     guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
 exe 'hi CursorLine       guifg='.s:none         . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:none     . ' ctermbg='.s:none        . ' cterm='.s:bold
 exe 'hi CursorLineNR     guifg='.s:g_white      . ' guibg='.s:g_background . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:bold
 exe 'hi Debug            guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Define           guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Delimiter        guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi DiffAdd          guifg='.s:none         . ' guibg='.s:g_darkgreen  . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:none     . ' ctermbg='.s:t_darkgreen . ' cterm='.s:none
-exe 'hi DiffChange       guifg='.s:none         . ' guibg='.s:g_darkblue   . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:none     . ' ctermbg='.s:t_darkblue  . ' cterm='.s:none
-exe 'hi DiffDelete       guifg='.s:g_black      . ' guibg='.s:g_pink       . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_pink      . ' cterm='.s:none
-exe 'hi DiffText         guifg='.s:g_red        . ' guibg='.s:g_grey4      . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_red    . ' ctermbg='.s:t_grey4     . ' cterm='.s:none
+exe 'hi DiffAdd          guifg='.s:g_green      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_green  . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi DiffChange       guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi DiffDelete       guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi DiffText         guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi EndOfBuffer      guifg='.s:g_background . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_clear  . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Error            guifg='.s:g_red        . ' guibg='.s:g_grey3      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_red    . ' ctermbg='.s:t_grey3     . ' cterm='.s:none
 exe 'hi ErrorMsg         guifg='.s:g_black      . ' guibg='.s:g_red        . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_red       . ' cterm='.s:bold
@@ -79,7 +82,7 @@ exe 'hi IncSearch        guifg='.s:g_black      . ' guibg='.s:g_yellow     . ' g
 exe 'hi Include          guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Keyword          guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Label            guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi LineNR           guifg='.s:g_grey9      . ' guibg='.s:g_background . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_grey9  . ' ctermbg='.s:none        . ' cterm='.s:bold
+exe 'hi LineNR           guifg='.s:g_grey9      . ' guibg='.s:g_background . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_grey9  . ' ctermbg='.s:none        . ' cterm='.s:bold
 exe 'hi Macro            guifg='.s:g_green      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_green  . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi MatchParen       guifg='.s:g_black      . ' guibg='.s:g_purple     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_purple    . ' cterm='.s:bold
 exe 'hi ModeMsg          guifg='.s:g_yellow     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_yellow . ' ctermbg='.s:none        . ' cterm='.s:none
@@ -90,7 +93,7 @@ exe 'hi Number           guifg='.s:g_purple     . ' guibg='.s:none         . ' g
 exe 'hi Operator         guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Pmenu            guifg='.s:g_background . ' guibg='.s:g_coral      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_coral     . ' cterm='.s:none
 exe 'hi PmenuSbar        guifg='.s:g_background . ' guibg='.s:g_grey9      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_grey9     . ' cterm='.s:none
-exe 'hi PmenuSel         guifg='.s:g_silver     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_silver . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi PmenuSel         guifg='.s:g_background . ' guibg='.s:g_coral      . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_coral     . ' cterm='.s:bold
 exe 'hi PmenuThumb       guifg='.s:g_background . ' guibg='.s:g_white      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_white     . ' cterm='.s:none
 exe 'hi PreCondit        guifg='.s:g_green      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_green  . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi PreProc          guifg='.s:g_green      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_green  . ' ctermbg='.s:none        . ' cterm='.s:none
@@ -114,9 +117,11 @@ exe 'hi StatusLineTermNC guifg='.s:g_background . ' guibg='.s:g_green      . ' g
 exe 'hi StorageClass     guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi String           guifg='.s:g_yellow     . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_yellow . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Structure        guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi TabLine          guifg='.s:g_white      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi TabLineSel       guifg='.s:g_white      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:under . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:under
+exe 'hi TabLine          guifg='.s:none         . ' guibg='.s:g_grey4      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:none     . ' ctermbg='.s:t_grey4     . ' cterm='.s:none
+exe 'hi TabLineFill      guifg='.s:none         . ' guibg='.s:g_grey4      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:none     . ' ctermbg='.s:t_grey4     . ' cterm='.s:none
+exe 'hi TabLineSel       guifg='.s:none         . ' guibg='.s:g_grey4      . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:none     . ' ctermbg='.s:t_grey4     . ' cterm='.s:bold
 exe 'hi Tag              guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi Terminal         guifg='.s:g_white      . ' guibg='.s:g_background . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_white  . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Todo             guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi ToolBarButton    guifg='.s:g_background . ' guibg='.s:g_white      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_white     . ' cterm='.s:none
 exe 'hi ToolBarLine      guifg='.s:g_white      . ' guibg='.s:g_grey4      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_white  . ' ctermbg='.s:t_grey4     . ' cterm='.s:none
@@ -125,5 +130,6 @@ exe 'hi Typedef          guifg='.s:g_blue       . ' guibg='.s:none         . ' g
 exe 'hi Underlined       guifg='.s:g_green      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_green  . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi VertSplit        guifg='.s:none         . ' guibg='.s:g_grey4      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:none     . ' ctermbg='.s:t_grey4     . ' cterm='.s:none
 exe 'hi Visual           guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
+exe 'hi VisualNOS        guifg='.s:g_black      . ' guibg='.s:g_silver     . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_silver    . ' cterm='.s:bold
 exe 'hi WarningMsg       guifg='.s:g_black      . ' guibg='.s:g_yellow     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_yellow    . ' cterm='.s:bold
 exe 'hi WildMenu         guifg='.s:g_black      . ' guibg='.s:g_orange     . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_orange    . ' cterm='.s:bold
