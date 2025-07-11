@@ -227,11 +227,11 @@ nmap     <silent> <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidde
 imap     <silent> <C-t>      <Esc>:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus <cword><cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus insert completion
 vmap     <silent> <C-t>          y:let a = getftime(&thesaurus)<cr>:term ++hidden ++close editor-thesaurus  <C-R>*<cr>:for i in range(20) \| sleep 50m \| let b = getftime(&thesaurus) \| if b > a \| break \| endif \| endfor<cr>hea<C-x><C-t>| " Thesaurus visual completion
 
-nmap               <Esc><Esc> :nohl<cr>|                 " Exit incremental search
+nmap     <silent>  <Esc><Esc> :nohl<cr>|                 " Exit incremental search
 vnoremap           < <gv|                                " Retain visual selection when tabbing left
 vnoremap           > >gv|                                " Retain visual selection when tabbing right
 nnoremap           Q <Nop>|                              " Disable Ex Mode
-vnoremap           y ygv<Esc>|                           " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
+vnoremap <silent>  y ygv<Esc>|                           " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
 nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|  " Prevent cursor from jumping in yanking context
 nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>| " Prevent cursor from jumping in pasting context
 
@@ -414,6 +414,12 @@ augroup AutoCommands
 
   " Clear notification on cursor movement.
   autocmd CursorMoved * silent! call popup_clear()
+
+  " Show full visual selection on :command using match on VisualEnter
+  autocmd ModeChanged *:[vV\x16]*   match Cursor /\%#/
+
+  " Reset visual selection match on VisualLeave
+  autocmd Modechanged   [vV\x16]*:* match
 
   " Auto select clipboard for wrap register.
   autocmd CursorMoved,ModeChanged * if mode() == 'v' || mode() == 'V' || mode() == '\22' | call setreg('w', join(getregion(getpos('.'), getpos('v'), #{ type: mode() }), "\n")) | endif

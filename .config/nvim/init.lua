@@ -196,6 +196,10 @@ vim.api.nvim_create_autocmd({"CursorMoved", "ModeChanged"}, { group = 'autocomma
   end,
 })
 
+-- Show visual selection including cursor on :command
+vim.api.nvim_create_autocmd({"ModeChanged"}, { group = 'autocommands', pattern = {"*:[vV\\x16]*"}, command = "match Cursor /\\%#/",   desc = "Show full visual selection on :command using match on VisualEnter"})
+vim.api.nvim_create_autocmd({"ModeChanged"}, { group = 'autocommands', pattern = {"[vV\\x16]*:*"}, command = "match",                 desc = "Reset match on VisualLeave"  })
+
 -- Auto insert on terminal open
 vim.api.nvim_create_autocmd({"TermOpen"}, { group = 'autocommands', command = ":set nosplitbelow | split # | set splitbelow | startinsert" })
 
