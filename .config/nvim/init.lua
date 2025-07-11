@@ -1,21 +1,22 @@
+
 vim.cmd('mapclear')                 -- Clear all mappings
 vim.cmd('colorscheme druid')        -- Set color scheme
 
-vim.g.mapleader     = ' '           -- Set global leader key
-vim.g.netrw_banner  = 0             -- Disable file manager top banner
-vim.g.netrw_winsize = 15            -- Set file manager default window size
+vim.g.mapleader        = ' '        -- Set global leader key
+vim.g.netrw_banner     = 0          -- Disable file manager top banner
+vim.g.netrw_winsize    = 15         -- Set file manager default window size
 
 vim.opt.ignorecase     = true       -- Ignore case on search
 vim.opt.infercase      = true       -- Infer the case on completion
 vim.opt.smartcase      = true       -- Search by case smartly
 vim.opt.fileignorecase = true       -- Ignore case for file and directories
 vim.opt.clipboard      = "unnamed"  -- Use clipboard as default register
-vim.opt.laststatus     =  0         -- Disable status bar
-vim.opt.foldcolumn     =  "2"       -- Set fold column width
-vim.opt.showtabline    =  0         -- Disable top tab bar
-vim.opt.undofile       =  true      -- Enable undo files
-vim.opt.splitbelow     =  true      -- Open horizontal splits below
-vim.opt.splitright     =  true      -- Open vertical splits to the right
+vim.opt.laststatus     = 0          -- Disable status bar
+vim.opt.foldcolumn     = "2"        -- Set fold column width
+vim.opt.showtabline    = 0          -- Disable top tab bar
+vim.opt.undofile       = true       -- Enable undo files
+vim.opt.splitbelow     = true       -- Open horizontal splits below
+vim.opt.splitright     = true       -- Open vertical splits to the right
 vim.opt.path           = "**"       -- Search subfolders
 vim.opt.wrap           = false      -- Disable line wrapping
 vim.opt.tabstop        = 2          -- Number of spaces per tab
@@ -189,9 +190,8 @@ vim.api.nvim_create_autocmd({"QuickFixCmdPost"}, { group = 'autocommands', patte
 
 vim.api.nvim_create_autocmd({"CursorMoved", "ModeChanged"}, { group = 'autocommands', desc = 'Emulate clipboard autoselect', -- https://github.com/neovim/neovim/issues/27675#issuecomment-1971008065
   callback = function()
-    local mode = vim.fn.mode(false)
-    if mode == 'v' or mode == 'V' or mode == '\22' then
-      vim.fn.setreg('*', vim.fn.getregion(vim.fn.getpos('.'), vim.fn.getpos('v'), { type = mode }))
+    if vim.fn.mode() == 'v' or vim.fn.mode() == 'V' or vim.fn.mode() == '\22' then
+      vim.fn.setreg('w', vim.fn.getregion(vim.fn.getpos('.'), vim.fn.getpos('v'), { type = vim.fn.mode() }))
     end
   end,
 })

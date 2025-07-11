@@ -59,7 +59,7 @@ set laststatus=0                         " Disable status bar.
 set linespace=3                          " Set line spaces.
 set guiheadroom=0                        " Disable headroom on window maximize.
 set history=10000                        " Lines of command line history to keep.
-set clipboard=unnamed,autoselect         " Use auto clipboard as default register.
+set clipboard=unnamed                    " Use clipboard as default register.
 set backspace=indent,eol,start           " Enable backspacing.
 set formatoptions-=t                     " Do not auto wrap text when typing.
 set complete=.,w,b,u,i                   " Set our desired autocompletion match pattern.
@@ -121,7 +121,7 @@ function s:make()
 endfunction
 
 function s:wrap(that)
-  let l:input = split(a:that, '\.\.\.') | if len(l:input) == 1 | let l:input = split(a:that) | endif | if len(l:input) == 1 | let @a = l:input[0] . @* . l:input[0] | else | let @a = l:input[0] . @* . l:input[1] | endif | norm gv"ap
+  let l:input = split(a:that, '\.\.\.') | if len(l:input) == 0 | let l:input = ["( )"] | endif | if len(l:input) == 1 | let l:input = split(l:input[0]) | endif | if len(l:input) > 1 | let @a = l:input[0] . @w . l:input[1] | else | let @a = l:input[0] . @w . l:input[0] | endif | norm gv"ap
 endfunction
 
 
@@ -157,7 +157,7 @@ nmap     <leader>af    :exe ':term ' . &grepprg . ' ' . ''<left>|               
 
 nmap     <leader>jl       :norm yaW<cr> \| :Jump<cr>| " Jump to line
 vmap     <leader>wrap     :Wrap<space>|               " Surround visual selection with suffix and prefix
-nmap     <leader>wrap viwy:Wrap<space>|               " Surround word under cursor selection with suffix and prefix
+nmap     <leader>wrap  viw:Wrap<space>|               " Surround word under cursor selection with suffix and prefix
 
 nmap              <leader>sl       :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
 nmap              <leader>ss       :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
@@ -414,6 +414,9 @@ augroup AutoCommands
 
   " Clear notification on cursor movement.
   autocmd CursorMoved * silent! call popup_clear()
+
+  " Auto select clipboard for wrap register.
+  autocmd CursorMoved,ModeChanged * if mode() == 'v' || mode() == 'V' || mode() == '\22' | call setreg('w', join(getregion(getpos('.'), getpos('v'), #{ type: mode() }), "\n")) | endif
 
   " Remove trailing white space on save.
   autocmd BufWritePre * %s/\s\+$//e
