@@ -25,6 +25,8 @@ PS1_SSHD='$(E=$? && [ "$E" = 0 ] || echo "$E ")\[\e[0;32m\]\W\[\e[0m\] \[\e[0;32
 
 [ -n "$SSH_CLIENT" ] && [ "$EUID" != 0 ] && export PS1="$PS1_SSHD"
 
+[ "$TERM_PROGRAM" = "vscode" ] && . "$(codium --locate-shell-integration-path bash)"
+
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -33,7 +35,6 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export BROWSER=browser
 export EDITOR=vim
 export TERMINAL=urxvt
-
 export DESKTOP_SESSION=gnome
 export XDG_CURRENT_DESKTOP=gnome
 
