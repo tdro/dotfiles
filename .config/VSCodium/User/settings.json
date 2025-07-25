@@ -47,13 +47,33 @@
   "files.autoSave": "afterDelay",
   "terminal.integrated.allowChords": false,
   "terminal.integrated.shellIntegration.enabled": false,
-  "terminal.integrated.env.linux": {
-    "HOME": "/home/${env:USER}"
-  },
   "update.mode": "none",
   "update.showReleaseNotes": false,
   "window.menuBarVisibility": "toggle",
   "workbench.activityBar.location": "hidden",
   "workbench.editor.showTabs": "none",
-  "workbench.startupEditor": "none"
+  "workbench.startupEditor": "none",
+  "terminal.integrated.env.linux": {
+    "HOME": "/home/${env:USER}"
+  },
+  "workbench.colorCustomizations": {
+    "terminal.foreground": "#ffffff",
+    "terminal.background": "#2c303c",
+    "terminal.ansiBlack": "#2c303c",
+    "terminal.ansiBrightBlack": "#999999",
+    "terminal.ansiRed": "#ed7373",
+    "terminal.ansiBrightRed": "#ff6666",
+    "terminal.ansiGreen": "#beff3e",
+    "terminal.ansiBrightGreen": "#cfff72",
+    "terminal.ansiYellow": "#feac48",
+    "terminal.ansiBrightYellow": "#ffdf23",
+    "terminal.ansiBlue": "#80c6ff",
+    "terminal.ansiBrightBlue": "#5aa5ff",
+    "terminal.ansiMagenta": "#b7416e",
+    "terminal.ansiBrightMagenta": "#e16a98",
+    "terminal.ansiCyan": "#69aeff",
+    "terminal.ansiBrightCyan": "#9fc1dd",
+    "terminal.ansiWhite": "#aaaaaa",
+    "terminal.ansiBrightWhite": "#ffffff"
+  }
 }
