@@ -36,12 +36,12 @@ Config:  $spirits
 
    $program desktops           List saved desktop numbers.
    $program desktop 1          List desktop commands.
-   $program restart desktop 1  Restart specific desktop.
+   $program desktop restart 1  Restart specific desktop.
 
    $program check              Check runtime dependencies.
    $program help               Show this help menu.
 
-      -h -help --help        Other help menu flags.
+   %${#program}s -h -help --help    Other help menu flags.
 
 " "$program";
 }
@@ -167,17 +167,17 @@ touch "$spirits"
 
 [ "${1:-}" = "config" ]   && [ $# = 1 ] && cat "$spirits" && exit;
 
-[ "${1:-}" = "desktop" ]  && [ $# = 2 ] && Desktop "$2" && exit;
-
-[ "${1:-}" = "desktops" ] && [ $# = 1 ] && Desktops && exit;
-
 [ "${1:-}" = "windows" ]  && [ $# = 1 ] && wmctrl -Glp && exit;
 
 [ "${1:-}" = "search" ]   && [ $# = 2 ] && wmctrl -Glp | grep --ignore-case -- "$2" && exit;
 
 [ "${1:-}" = "start" ]    && [ $# = 1 ] && sh "$session" && exit;
 
-[ "${1:-}" = "restart" ]  && [ "${2:-}" = "desktop" ] && [ $# = 3 ] && Restart "$3" && exit;
+[ "${1:-}" = "desktops" ] && [ $# = 1 ] && Desktops && exit;
+
+[ "${1:-}" = "desktop" ]  && [ $# = 2 ] && Desktop "$2" && exit;
+
+[ "${1:-}" = "desktop" ]  && [ "${2:-}" = "restart" ] && [ $# = 3 ] && Restart "$3" && exit;
 
 [ "${1:-}" = "edit" ]     && [ "${2:-}" = "session" ] && [ $# = 2 ] && $EDITOR "$session" && exit;
 
