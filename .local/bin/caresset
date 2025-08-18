@@ -40,7 +40,7 @@ Scan() {
   trap 'rm "$image" > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
   text=$(tesseract "$image" -)
   [ -z "$text" ] && notify-send "Selection is empty" && exit
-  notify-send "$text"
+  notify-send -- "$text"
   printf "%s" "$text" | xsel -ib
 }
 
@@ -49,7 +49,7 @@ QR() {
   trap 'rm "$image" > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
   text=$(zbarimg --raw --quiet "$image")
   [ -z "$text" ] && notify-send "QR selection is empty" && exit
-  notify-send "$text"
+  notify-send -- "$text"
   printf "%s" "$text" | xsel -ib
 }
 
