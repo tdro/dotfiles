@@ -78,15 +78,17 @@ in pkgs.mkShell {
     sed -i 's|$(OBJCOPY) --strip-$(STRIP) $< $@|$(OBJCOPY) --strip-debug $< $@|g' payloads/libpayload/Makefile.payload
 
     printf '
-    flashrom --programmer internal                                      # read BIOS chipset internally if possible
-    flashrom --programmer internal   --read backup.rom  --chip $chipset # read BIOS internally if possible with selected chipset
-    flashrom --programmer internal   --read backup1.rom --chip $chipset
+    flashrom --programmer ch341a_spi                                          # list detected chips from external programmer
+    flashrom --programmer ch341a_spi --read backup1.rom  --chip $chipset      # read BIOS from external programmer
+    flashrom --programmer ch341a_spi --read backup2.rom  --chip $chipset      # read BIOS from external programmer
+    flashrom --programmer ch341a_spi --read backup3.rom  --chip $chipset      # read BIOS from external programmer
+    flashrom --programmer internal                                            # list detected chips internally
+    flashrom --programmer internal   --read backup1.rom --chip $chipset       # read BIOS internally if possible with selected chipset
     flashrom --programmer internal   --read backup2.rom --chip $chipset
     flashrom --programmer internal   --read backup3.rom --chip $chipset
-    flashrom --programmer ch341a_spi --read backup.rom  --chip $chipset # use an external programmer if internal does not work
-    sha256sum *.rom                                                     # check BIOS hashes for exactness
-    me_cleaner.py --soft-disable backup.rom                             # clean management engine and overwrite bios inplace
-    ifdtool --extract backup.rom                                        # split regions of cleaned bios
+    sha256sum *.rom                                                           # check BIOS hashes for exactness
+    me_cleaner.py --soft-disable backup.rom                                   # clean management engine and overwrite bios inplace
+    ifdtool --extract backup.rom                                              # split regions of cleaned bios
 
     # Rename and move descriptor.bin, gbe.bin, me.bin into 3rdparty/blobs/mainboard/$vendor/$model where
     # $vendor and $model are variable (for example lenovo/t420). Create folders if they do not exist.
@@ -96,12 +98,12 @@ in pkgs.mkShell {
     flashrom --programmer internal --read  bios.rom --chip $chipset --ifd --image bios
     flashrom --programmer internal --write bios.rom --chip $chipset --ifd --image bios
 
-    make distclean                                                      # clear old configuration
-    make clean                                                          # clear old compilation and keep configuration
-    make nconfig                                                        # setup configurtion
-    cat .config                                                         # check configuration
-    make                                                                # build coreboot
-    qemu-system-x86_64 -bios build/coreboot.rom -serial stdio           # test image in qemu
+    make distclean                                                           # clear old configuration
+    make clean                                                               # clear old compilation and keep configuration
+    make nconfig                                                             # setup configurtion
+    cat .config                                                              # check configuration
+    make                                                                     # build coreboot
+    qemu-system-x86_64 -bios build/coreboot.rom -serial stdio                # test image in qemu
 
     '
   '';
