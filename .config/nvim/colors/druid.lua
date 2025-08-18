@@ -33,6 +33,7 @@ local theme = {
   WinSeparator   = { fg = colors.teal.bg,     bg = colors.teal.bg,        ctermfg = colors.teal.ctermbg,     ctermbg = colors.teal.ctermbg,        cterm = { bold = false } },
   qfError        = { fg = colors.lightred.bg, bg = colors.lightred.fg,    ctermfg = colors.lightred.ctermbg, ctermbg = colors.lightred.ctermfg,    cterm = { bold = true  } },
 
+  Normal     = { fg = colors.white.bg, bg = "", ctermfg = colors.white.ctermbg, ctermbg = "" },
   Comment    = { fg = colors.black.fg, bg = "", ctermfg = colors.black.ctermfg, ctermbg = "" },
   Function   = { fg = colors.teal.bg,  bg = "", ctermfg = colors.teal.ctermbg,  ctermbg = "" },
   Identifier = { fg = colors.white.bg, bg = "", ctermfg = colors.white.ctermbg, ctermbg = "" },

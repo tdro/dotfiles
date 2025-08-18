@@ -22,6 +22,7 @@ set splitright                           " Open vertical splits to the right.
 set nocursorline                         " Remove cursor line.
 set notimeout                            " Wait indefinitely for complete key combinations.
 set ttimeout                             " Prevent pressing <Esc> twice.
+set timeoutlen=100                       " Set <Key-Code> timeout in milliseconds.
 set nostartofline                        " Do not move cursor to line start on buffer switch.
 set showcmd                              " Show key presses in status line.
 set wildmenu                             " Show tab completions menu.
@@ -192,8 +193,8 @@ vmap <C-k> :m -2<cr>gv|         " Move visual selection up
 imap <C-j> <Esc>:m .+1<CR>==gi| " Move insert line down
 imap <C-k> <Esc>:m .-2<CR>==gi| " Move insert line up
 
-nmap     q.  Vgv:<up>|                   " Go to last command in visual selection from normal
-vmap     .q     :<up>|                   " Go to last command in visual selection
+nmap     q.     Vy<Esc>:<up>|            " Go to last command in normal
+vmap     .q     :<up>|                   " Go to last command in visual
 vmap     .f     :!editor-filter<space>|  " Run filter in visual selection
 vmap     ..     :<up><cr>|               " Repeat last command in visual selection
 vmap     //      y/<C-R>*<cr>N|          " Search visual selection
@@ -217,6 +218,7 @@ nmap              <C-h>      :vertical resize +5<cr>|  " Vertical split resize l
 nmap     <silent> <C-j>      :if winnr('$') > 1 \| resize +5 \| else \| :m.+1 \| end<cr>| " Horizontal split resize or move line down
 nmap     <silent> <C-k>      :if winnr('$') > 1 \| resize -5 \| else \| :m.-2 \| end<cr>| " Horizontal split resize or move line up
 nmap     <silent> <C-l>      :if winnr('$') > 1 \| vertical resize -5 \| else \| exe 'nohlsearch\|diffupdate\|normal! <C-l>' \| end<cr>|  " Vertical split resize right or clear terminal
+imap     <silent> <C-l> <Esc>:redraw! \| startinsert<cr>|       " Insert mode force redraw
 
 imap              <C-o>      <C-x><C-n>|  " Keyword local completion
 imap              <C-s>      <C-x><C-f>|  " File name completion
@@ -231,9 +233,10 @@ nmap     <silent>  <Esc><Esc> :nohl<cr>|                 " Exit incremental sear
 vnoremap           < <gv|                                " Retain visual selection when tabbing left
 vnoremap           > >gv|                                " Retain visual selection when tabbing right
 nnoremap           Q <Nop>|                              " Disable Ex Mode
-vnoremap <silent>  y ygv<Esc>|                           " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
-nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|  " Prevent cursor from jumping in yanking context
-nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>| " Prevent cursor from jumping in pasting context
+vnoremap <silent>  y ygv<Esc>|                                                            " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
+nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|                                   " Prevent cursor from jumping in yanking context
+nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>|                                  " Prevent cursor from jumping in pasting context
+cnoremap <silent> <expr> <Esc> getcmdtype() !=# ':' ? '<C-c>' : '<C-u>:norm gv<cr><C-c>'| " Prevent cursor from jumping in command context
 
 nnoremap <silent> h h:call setreg('c', col('.'))<cr>|    " Persist cursor column
 nnoremap <silent> j j:call setreg('c', col('.'))<cr>|    " Persist cursor column
@@ -334,7 +337,7 @@ augroup AutoCommands
 
   " REPL commands.
   autocmd FileType bash       noremap <buffer> <leader>cc :REPL bash<cr>
-  autocmd FileType raku       noremap <buffer> <leader>cc :REPL raku<cr>
+  autocmd FileType raku       noremap <buffer> <leader>cc :REPL raku --repl-mode interactive<cr>
   autocmd FileType sql        noremap <buffer> <leader>cc :REPL sqlite3<cr>
   autocmd FileType elixir     noremap <buffer> <leader>cc :REPL iex<cr>
   autocmd FileType go         noremap <buffer> <leader>cc :REPL gore<cr>
@@ -342,20 +345,23 @@ augroup AutoCommands
   autocmd FileType lua        noremap <buffer> <leader>cc :REPL lua<cr>
   autocmd FileType nix        noremap <buffer> <leader>cc :REPL nix repl --expr 'import <nixpkgs> {}'<cr>
   autocmd FileType perl       noremap <buffer> <leader>cc :REPL perl -de0<cr>
-  autocmd FileType php        noremap <buffer> <leader>cc :REPL psysh<cr>
+  autocmd FileType php        noremap <buffer> <leader>cc :REPL php -a<cr>
   autocmd FileType python     noremap <buffer> <leader>cc :REPL python<cr>
+  autocmd FileType ruby       noremap <buffer> <leader>cc :REPL irb<cr>
   autocmd FileType rust       noremap <buffer> <leader>cc :REPL evcxr<cr>
   autocmd FileType scheme     noremap <buffer> <leader>cc :REPL guile<cr>
   autocmd FileType sh         noremap <buffer> <leader>cc :REPL dash<cr>
+  autocmd FileType haskell    noremap <buffer> <leader>cc :REPL ghci<cr>
+  autocmd FileType lisp       noremap <buffer> <leader>cc :REPL sbcl<cr>
   autocmd FileType typescript noremap <buffer> <leader>cc :REPL deno<cr>
   autocmd FileType vim        noremap <buffer> <leader>cc yVy:<C-R>*<bs><cr>
-  autocmd FileType vim       vnoremap <buffer> <leader>cc y:exe substitute('<C-R>*', '\r', '', 'g') \|<cr>
+  autocmd FileType vim       vnoremap <buffer> <leader>cc y:exe substitute(@*, '\r', '', 'g') \|<cr>
   autocmd FileType awk        noremap <buffer> <leader>cc :term ++rows=10 ++close awk -f %<cr>
 
   " REPL output.
   autocmd FileType *          noremap  <silent> <buffer> <leader>co <C-v>:exe ":'<,'>" . '!editor-repl' . ' ' . &filetype<Home><C-Right><C-U>exe<cr>
-  autocmd FileType vim        noremap           <buffer> <leader>co    Vy:redir @a \| silent! exe substitute('<C-R>*', '\r', '', 'g') \| redir END \| call feedkeys('gvy$"ap')<cr>
-  autocmd FileType vim        vnoremap <silent> <buffer> <leader>co     y:redir @a \| silent! exe substitute('<C-R>*', '\r', '', 'g') \| redir END \| call feedkeys('gvy$"ap')<cr>
+  autocmd FileType vim        noremap           <buffer> <leader>co    Vy:redir @a \| silent! exe substitute(@*, '\r', '', 'g') \| redir END \| call feedkeys('gvy$"ap')<cr>
+  autocmd FileType vim        vnoremap <silent> <buffer> <leader>co     y:redir @a \| silent! exe substitute(@*, '\r', '', 'g') \| redir END \| call feedkeys('gvy$"ap')<cr>
 
   " Manpage mappings
   autocmd FileType man        nmap  <silent> <buffer> gf viWF(<left>y:silent! exe ':setlocal modifiable \| :%d \| :r !man' expand('<C-R>*') '2> /dev/null' '\| ansifilter'<cr>ggdd

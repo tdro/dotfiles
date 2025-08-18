@@ -55,6 +55,7 @@ vim.keymap.set('n', '<leader>ra', ':set all& | source ~/.config/nvim/init.lua | 
 vim.keymap.set('n', '<leader>cd', ':cd %:h | :pwd<cr>',                                                               { desc = 'Change directory to current file' })
 vim.keymap.set('n', '<leader>ot', ":exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>",         { desc = 'Open terminal window in current directory' })
 vim.keymap.set('v', '<leader>ct', '!perl -pe \'s/^(\\s+)/"␣" x length($1)/e\' | column -t -o" " | sed "s/␣/ /g"<cr>', { desc = 'Justify columns' })
+vim.keymap.set('n', '<leader>sp',  ':set spell!<cr>',                                                                 { desc = 'Toggle spell check' })
 
 vim.keymap.set('n', '<leader>grep', ':Find ')                                 -- Run search functions
 vim.keymap.set('v', '<leader>grep', 'y/<C-R>*<cr>:silent grep <C-R>*<cr>')    -- Run search functions for symbol under cursor
@@ -63,7 +64,7 @@ vim.keymap.set('n', '<leader>vrep', ':vimgrep //g *<left><left><left><left>') --
 vim.keymap.set('n', '<leader>qq', ':bd<cr>', { desc = 'Close buffer' })
 vim.keymap.set('n', '<leader>qw', '<C-w>c',  { desc = 'Close window' })
 
-vim.keymap.set('n', '<Esc>', 'v<Esc>:nohl<cr>', { silent = true })          -- Exit incremental search
+vim.keymap.set('n', '<Esc><Esc>', 'v<Esc>:nohl<cr>', { silent = true })     -- Exit incremental search
 
 vim.keymap.set('n', '<Tab><Tab>', ':redir @a | silent ls   | redir END | 10split [buffers] | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("")<cr>')
 vim.keymap.set('n', '<Tab>s',     ':redir @a | silent echo | redir END | 10split [scratch]      | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("")<cr>')
@@ -86,9 +87,10 @@ vim.keymap.set('v', '>', ">gv", { desc = 'Retain visual selection when tabbing r
 vim.keymap.set({'v'}, 'gc', function() return require('vim._comment').operator() end,        { expr = true, desc = 'Toggle comment' })
 vim.keymap.set({'n'}, 'gc', function() return require('vim._comment').operator() .. '_' end, { expr = true, desc = 'Toggle comment line' })
 
-vim.keymap.set('v', 'y',  "ygv<Esc>",                           { silent = true, desc = "Prevent cursor from jumping in visual block yanking context" })
-vim.keymap.set('n', 'yy', "yy:call setreg('c', col('.'))<cr>",  { silent = true, desc = "Prevent cursor from jumping in yanking context" })
-vim.keymap.set('n', 'p',   "p:call cursor(0, getreg('c'))<cr>", { silent = true, desc = "Prevent cursor from jumping in pasting context" })
+vim.keymap.set('v', 'y',  "ygv<Esc>",                                                     { silent = true, desc = "Prevent cursor from jumping in visual block yanking context" })
+vim.keymap.set('n', 'yy', "yy:call setreg('c', col('.'))<cr>",                            { silent = true, desc = "Prevent cursor from jumping in yanking context" })
+vim.keymap.set('n', 'p',   "p:call cursor(0, getreg('c'))<cr>",                           { silent = true, desc = "Prevent cursor from jumping in pasting context" })
+vim.keymap.set('c', '<Esc>', "getcmdtype() !=# ':' ? '<C-c>' : '<C-u>:norm gv<cr><C-c>'", { silent = true, desc = "Prevent cursor from jumping in command context", expr = true })
 
 vim.keymap.set('n', 'h', "h:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
 vim.keymap.set('n', 'j', "j:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
@@ -105,6 +107,7 @@ vim.keymap.set('n', '<C-h>',      ":vertical resize +5<cr>", { desc = "Vertical 
 vim.keymap.set('n', '<C-j>',      ":if winnr('$') > 1 | resize +5 | else | :m.+1 | end<cr>",                                              { silent = true, desc = "Horizontal split resize or move line down"     })
 vim.keymap.set('n', '<C-k>',      ":if winnr('$') > 1 | resize -5 | else | :m.-2 | end<cr>",                                              { silent = true, desc = "Horizontal split resize or move line up"       })
 vim.keymap.set('n', '<C-l>',      ":if winnr('$') > 1 | vertical resize -5 | else | exe 'nohlsearch|diffupdate|normal! <C-l>' | end<cr>", { silent = true, desc = "Vertical split resize right or clear terminal" })
+vim.keymap.set('i', '<C-l>', "<Esc>:redraw!|startinsert<cr>",                                                                             { silent = true, desc = "Force redraw from insert mode"                 })
 
 vim.keymap.set('n',       'grn', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp.buf.rename()<cr>',          { desc = 'Renames symbol under cursor'             })
 vim.keymap.set('n',       'gdd', 'viwy:cclose|lclose<cr>/<C-R>*<cr>N:lua vim.lsp.buf.definition()<cr>',      { desc = 'Jumps to definition under cursor'        })
@@ -150,8 +153,8 @@ vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"
 vim.api.nvim_create_autocmd({"FileType"}, { group = 'autocommands', pattern = {"vim"},
   callback = function()
     vim.keymap.set('n', '<leader>cc', 'yVy:<C-R>*<cr>',   { buffer = true })
-    vim.keymap.set('n', '<leader>co',  "Vy:<C-w>redir @a | silent! exe substitute('<C-R>*', '\\r', '', 'g') | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true })
-    vim.keymap.set('v', '<leader>co',   "y:<C-w>redir @a | silent! exe substitute('<C-R>*', '\\r', '', 'g') | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true })
+    vim.keymap.set('n', '<leader>co',  "Vy:<C-w>redir @a | silent! exe substitute(@*, '\\r', '', 'g') | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true })
+    vim.keymap.set('v', '<leader>co',   "y:<C-w>redir @a | silent! exe substitute(@*, '\\r', '', 'g') | redir END | call feedkeys('gvy$\"ap')<cr>", { buffer = true })
   end
 })
 
