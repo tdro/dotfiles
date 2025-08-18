@@ -1,9 +1,9 @@
 #!/bin/sh -eu
 
 options="\
+case->heading
 case->lower
 case->title
-case->titleize
 case->upper
 lorem->paragraph
 lorem->title
@@ -13,7 +13,8 @@ text->camelize
 text->date8601
 text->jumbleize
 text->letterize
-text->singleline
+text->oneline
+text->qrcodize
 text->slugize
 text->urlize
 verse->kjv

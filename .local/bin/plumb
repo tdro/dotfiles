@@ -16,9 +16,9 @@ defmodule ArgParser do
 
     options = [
       camelize:        "text->camelize",
+      case_heading:    "case->heading",
       case_lower:      "case->lower",
       case_title:      "case->title",
-      case_titleize:   "case->titleize",
       case_upper:      "case->upper",
       date8601:        "text->date8601",
       dictionary:      "word->dictionary",
@@ -27,9 +27,10 @@ defmodule ArgParser do
       letterize:       "text->letterize",
       lorem_paragraph: "lorem->paragraph",
       lorem_title:     "lorem->title",
+      oneline:         "text->oneline",
+      qrcodize:        "text->qrcodize",
       reverse_letters: "reverse->letters",
       reverse_words:   "reverse->words",
-      singleline:      "text->singleline",
       slugize:         "text->slugize",
       urlize:          "text->urlize",
     ]
@@ -62,7 +63,7 @@ defmodule ArgParser do
         |> String.replace(~r/[[:punct:]]+/, "")
         |> IO.puts()
 
-      opts[:option] == options[:singleline] ->
+      opts[:option] == options[:oneline] ->
         TextPlumber.singleLineOf(opts[:text]) |> IO.puts()
 
       opts[:option] == options[:jumbleize] ->
@@ -87,10 +88,10 @@ defmodule ArgParser do
         TextPlumber.dictionOfFirstWordIn(opts[:text])
         TextPlumber.firstWordOf(opts[:text]) |> IO.puts()
 
-      opts[:option] == options[:case_title] ->
+      opts[:option] == options[:case_heading] ->
         opts[:text] |> to_string |> TextPlumber.titleCaseOf() |> IO.puts()
 
-      opts[:option] == options[:case_titleize] ->
+      opts[:option] == options[:case_title] ->
         String.downcase(opts[:text]) |> TextPlumber.titleCaseOf() |> IO.puts()
 
       opts[:option] == options[:case_lower] ->
@@ -101,6 +102,9 @@ defmodule ArgParser do
 
       opts[:option] == options[:lorem_title] ->
         TextPlumber.loremTitle()
+
+      opts[:option] == options[:qrcodize] ->
+        TextPlumber.qrCode()
 
       opts[:option] == options[:lorem_paragraph] ->
         TextPlumber.loremParagraph()
@@ -162,6 +166,16 @@ defmodule TextPlumber do
       System.cmd("sh", [
         "-c",
         "perl -e 'use Text::Lorem; print join(\" \", (split(/\s+/, Text::Lorem->new()->paragraphs(1)))[0..3])';"
+      ])
+
+    IO.puts(string)
+  end
+
+  def qrCode() do
+    {string, _return} =
+      System.cmd("sh", [
+        "-c",
+        "xsel -o | qrencode -o - | feh -"
       ])
 
     IO.puts(string)
