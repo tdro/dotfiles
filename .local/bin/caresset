@@ -2,7 +2,7 @@
 
 program=$(basename "$0")
 identifier=ok4out6I
-path="/tmp/$program-$identifier.png"
+image="/tmp/$program-$identifier.png"
 
 Help() {
 printf \
@@ -14,10 +14,12 @@ text from the selected part of the screen.
 
   Command List:
 
-   $program select          Select text on screen.
-   $program select qr       Select quick response code on screen.
-   $program check           Checks dependencies.
-   $program help -h --help  Show this help menu.
+   $program select              Select text on screen.
+   $program select qr           Select quick response code on screen.
+   $program check               Checks dependencies.
+   $program help                Show this help menu.
+
+   %${#program}s -h -help --help     Other help menu flags.
 
 " "$program";
 }
@@ -33,19 +35,19 @@ Check() {
 }
 
 Scan() {
-  escrotum -s "$path" > /dev/null
-  magick "$path" -normalize -sharpen 10x1000 -colorspace Gray -gamma 3 -level 25%,100% "$path"
-  trap 'rm "$path" > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
-  text=$(tesseract "$path" -)
+  escrotum -s "$image" > /dev/null
+  magick "$image" -normalize -sharpen 10x1000 -colorspace Gray -gamma 3 -level 25%,100% "$image"
+  trap 'rm "$image" > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
+  text=$(tesseract "$image" -)
   [ -z "$text" ] && notify-send "Selection is empty" && exit
   notify-send "$text"
   printf "%s" "$text" | xsel -ib
 }
 
 QR() {
-  escrotum -s "$path" > /dev/null
-  trap 'rm "$path" > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
-  text=$(zbarimg "$path")
+  escrotum -s "$image" > /dev/null
+  trap 'rm "$image" > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
+  text=$(zbarimg --quiet "$image")
   [ -z "$text" ] && notify-send "QR selection is empty" && exit
   notify-send "$text"
   printf "%s" "$text" | xsel -ib
