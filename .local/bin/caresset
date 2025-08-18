@@ -47,7 +47,7 @@ Scan() {
 QR() {
   escrotum -s "$image" > /dev/null
   trap 'rm "$image" > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
-  text=$(zbarimg --quiet "$image")
+  text=$(zbarimg --raw --quiet "$image")
   [ -z "$text" ] && notify-send "QR selection is empty" && exit
   notify-send "$text"
   printf "%s" "$text" | xsel -ib
