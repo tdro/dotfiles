@@ -1,0 +1,15 @@
+/* Disable animations. */
+* {
+  animation-delay: 0ms !important;
+  transition-delay: 0ms !important;
+  animation-duration: 0.00000001ms !important;
+  transition-duration: 0.00000001ms !important;
+}
+
+/* Disable chrome */
+toolbox[id="navigator-toolbox"] {
+  visibility: hidden !important;
+  min-height: 0 !important;
+  height: 0 !important;
+  border: none !important;
+}

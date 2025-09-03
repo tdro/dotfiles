@@ -197,12 +197,12 @@ user_pref("devtools.webconsole.timestampMessages", true);                  // Pe
 
 user_pref("devtools.inspector.activeSidebar", "ruleview");
 user_pref("devtools.inspector.selectedSidebar", "ruleview");
-user_pref("devtools.inspector.show-three-pane-tooltip" false);
-user_pref("devtools.inspector.showAllAnonymousContent" true);
-user_pref("devtools.inspector.showUserAgentStyles" true);
-user_pref("devtools.inspector.show_pseudo_elements" true);
-user_pref("devtools.inspector.three-pane-enabled" false);
-user_pref("devtools.inspector.three-pane-first-run" false);
+user_pref("devtools.inspector.show-three-pane-tooltip", false);
+user_pref("devtools.inspector.showAllAnonymousContent", true);
+user_pref("devtools.inspector.showUserAgentStyles", true);
+user_pref("devtools.inspector.show_pseudo_elements", true);
+user_pref("devtools.inspector.three-pane-enabled", false);
+user_pref("devtools.inspector.three-pane-first-run", false);
 
 user_pref("dom.allow_cut_copy", false);
 user_pref("dom.battery.enabled", false);
@@ -350,5 +350,3 @@ user_pref("webgl.disable-extensions", true);
 user_pref("webgl.disabled", true);
 user_pref("webgl.renderer-string-override", "");
 user_pref("webgl.vendor-string-override", "");
-
-user_perf("widget.gtk.overlay-scrollbars.enabled", false);                 // Disable GTK overlay scrollbars
