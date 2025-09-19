@@ -87,15 +87,16 @@ vim.keymap.set('v', '>', ">gv", { desc = 'Retain visual selection when tabbing r
 vim.keymap.set({'v'}, 'gc', function() return require('vim._comment').operator() end,        { expr = true, desc = 'Toggle comment' })
 vim.keymap.set({'n'}, 'gc', function() return require('vim._comment').operator() .. '_' end, { expr = true, desc = 'Toggle comment line' })
 
-vim.keymap.set('v', 'y',  "ygv<Esc>",                                                     { silent = true, desc = "Prevent cursor from jumping in visual block yanking context" })
-vim.keymap.set('n', 'yy', "yy:call setreg('c', col('.'))<cr>",                            { silent = true, desc = "Prevent cursor from jumping in yanking context" })
-vim.keymap.set('n', 'p',   "p:call cursor(0, getreg('c'))<cr>",                           { silent = true, desc = "Prevent cursor from jumping in pasting context" })
-vim.keymap.set('c', '<Esc>', "getcmdtype() !=# ':' ? '<C-c>' : '<C-u>:norm gv<cr><C-c>'", { silent = true, desc = "Prevent cursor from jumping in command context", expr = true })
+vim.keymap.set('v', 'y',  "ygv<Esc>",                                                      { silent = true, desc = "Prevent cursor from jumping in visual block yanking context" })
+vim.keymap.set('n', 'yy', "yy:call setreg('c', col('.'))<cr>",                             { silent = true, desc = "Prevent cursor from jumping in yanking context" })
+vim.keymap.set('n', 'p',   "p:call cursor(0, getreg('c'))<cr>",                            { silent = true, desc = "Prevent cursor from jumping in pasting context" })
+vim.keymap.set('c', '<Esc>', "getcmdtype() !=# ':' ? '<C-c>' : '<C-u><bs><leader>cursor'", { silent = true, desc = "Prevent cursor from jumping in command context", expr = true, replace_keycodes = false, remap = true })
+vim.keymap.set('n', '<leader>cursor', ":call cursor(getreg('l'), getreg('c'))<cr>",        { silent = true, desc = "Prevent cursor from jumping persistence mapping" })
 
-vim.keymap.set('n', 'h', "h:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
-vim.keymap.set('n', 'j', "j:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
-vim.keymap.set('n', 'k', "k:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
-vim.keymap.set('n', 'l', "l:call setreg('c', col('.'))<cr>", { silent = true })  -- Persist cursor column
+vim.keymap.set('n', 'h', "h:call setreg('c', col('.')) | call setreg('l', line('.'))<cr>", { silent = true })  -- Persist cursor
+vim.keymap.set('n', 'j', "j:call setreg('c', col('.')) | call setreg('l', line('.'))<cr>", { silent = true })  -- Persist cursor
+vim.keymap.set('n', 'k', "k:call setreg('c', col('.')) | call setreg('l', line('.'))<cr>", { silent = true })  -- Persist cursor
+vim.keymap.set('n', 'l', "l:call setreg('c', col('.')) | call setreg('l', line('.'))<cr>", { silent = true })  -- Persist cursor
 
 vim.keymap.set('i', '<C-o>', "<C-x><C-n>", { desc = "Keyword local completion" })
 vim.keymap.set('i', '<C-s>', "<C-x><C-f>", { desc = "File name completion"     })
@@ -120,7 +121,7 @@ vim.keymap.set({'n','x'}, 'gra', function() vim.lsp.buf.code_action() end,      
 
 vim.keymap.set('t', '<C-w>N', '<C-\\><C-n>', { desc = 'Switch to normal mode in terminal mode' })
 
-vim.keymap.set('v', '<leader>sn', "<Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>", { silent = true, desc = 'Sort lines by length' })
+vim.keymap.set('v', '<leader>sn', "<Esc>:call setreg('c', col('.')) | call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>", { silent = true, desc = 'Sort lines by length' })
 
 -- Auto commands
 vim.api.nvim_create_augroup('autocommands', { clear = true })
@@ -195,6 +196,8 @@ vim.api.nvim_create_autocmd({"CursorMoved", "ModeChanged"}, { group = 'autocomma
   callback = function()
     if vim.fn.mode() == 'v' or vim.fn.mode() == 'V' or vim.fn.mode() == '\22' then
       vim.fn.setreg('w', vim.fn.getregion(vim.fn.getpos('.'), vim.fn.getpos('v'), { type = vim.fn.mode() }))
+      vim.fn.setreg('c', vim.fn.col('.'))
+      vim.fn.setreg('l', vim.fn.line('.'))
     end
   end,
 })

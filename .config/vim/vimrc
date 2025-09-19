@@ -163,7 +163,7 @@ nmap     <leader>wrap  viw:Wrap<space>|               " Surround word under curs
 nmap              <leader>sl       :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
 nmap              <leader>ss       :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
 nmap              <leader>sp       :set spell!<cr>|                                                     " Toggle spell check
-vnoremap <silent> <leader>sn  <Esc>:call setreg('c', col('.'))<cr>:call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>| " Sort lines by length
+vnoremap <silent> <leader>sn  <Esc>:call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>| " Sort lines by length
 nmap              <leader>ses      :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>|    " Switch to spaces
 nmap              <leader>set      :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab noexpandtab<cr>|  " Switch to tabs
 
@@ -233,18 +233,16 @@ nmap     <silent>  <Esc><Esc> :nohl<cr>|                 " Exit incremental sear
 vnoremap           < <gv|                                " Retain visual selection when tabbing left
 vnoremap           > >gv|                                " Retain visual selection when tabbing right
 nnoremap           Q <Nop>|                              " Disable Ex Mode
-vnoremap <silent>  y ygv<Esc>|                                                            " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
-nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|                                   " Prevent cursor from jumping in yanking context
-nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>|                                  " Prevent cursor from jumping in pasting context
-cnoremap <silent> <expr> <Esc> getcmdtype() !=# ':' ? '<C-c>' : '<C-u>:norm gv<cr><C-c>'| " Prevent cursor from jumping in command context
+vnoremap <silent>  y ygv<Esc>|                                                             " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
+nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|                                    " Prevent cursor from jumping in yanking context
+nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>|                                   " Prevent cursor from jumping in pasting context
+cmap     <silent> <expr> <Esc> getcmdtype() !=# ':' ? '<C-c>' : '<C-u><bs><leader>cursor'| " Prevent cursor from jumping in command context
+nnoremap <silent> <leader>cursor :call cursor(getreg('l'), getreg('c'))<cr>|               " Prevent cursor from jumping persistence mapping
 
-nnoremap <silent> h h:call setreg('c', col('.'))<cr>|    " Persist cursor column
-nnoremap <silent> j j:call setreg('c', col('.'))<cr>|    " Persist cursor column
-nnoremap <silent> k k:call setreg('c', col('.'))<cr>|    " Persist cursor column
-nnoremap <silent> l l:call setreg('c', col('.'))<cr>|    " Persist cursor column
-
-nmap     <silent> j j:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds up
-nmap     <silent> k k:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif<cr>| " Automatically open and close folds down
+nnoremap <silent> h h:call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Persist cursor
+nnoremap <silent> l l:call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Persist cursor
+nnoremap <silent> j j:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif \| call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Automatically open and close folds up
+nnoremap <silent> k k:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif \| call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Automatically open and close folds down
 
 
 "------------------Snippets-------------------"
@@ -428,7 +426,7 @@ augroup AutoCommands
   autocmd Modechanged   [vV\x16]*:* match
 
   " Auto select clipboard for wrap register.
-  autocmd CursorMoved,ModeChanged * if mode() == 'v' || mode() == 'V' || mode() == '\22' | call setreg('w', join(getregion(getpos('.'), getpos('v'), #{ type: mode() }), "\n")) | endif
+  autocmd CursorMoved,ModeChanged * if mode() == 'v' || mode() == 'V' || mode() == '\22' | call setreg('w', join(getregion(getpos('.'), getpos('v'), #{ type: mode() }), "\n")) | call setreg('c', col('.')) | call setreg('l', line('.')) | endif
 
   " Remove trailing white space on save.
   autocmd BufWritePre * %s/\s\+$//e
