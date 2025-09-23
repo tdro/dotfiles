@@ -1,7 +1,7 @@
 #!/bin/bash -eu
 # shellcheck disable=SC2016
 
-prefixPath() {
+Prefix() {
   case ":$PATH:" in
     *":$1:"*) true ;;
     *) PATH="$1:$PATH" ;;
@@ -9,8 +9,8 @@ prefixPath() {
   export PATH
 }
 
-prefixPath "$HOME/.local/bin"
-prefixPath "$HOME/.local/bin/wrappers"
+Prefix "$HOME/.local/bin"
+Prefix "$HOME/.local/bin/wrappers"
 
 umask 0022
 
@@ -52,8 +52,6 @@ export ELECTRUMDIR="$XDG_DATA_HOME/electrum"
 export FZF_DIRECTORY_MARKS=$XDG_CONFIG_HOME/fzf/marks/directories
 export FZF_FILE_MARKS=$XDG_CONFIG_HOME/fzf/marks/files
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
-export GOPATH="$XDG_DATA_HOME/go"
-export GOPROXY=direct
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export GTK_OVERLAY_SCROLLING=0
 export HISTCONTROL=ignoreboth:erasedups
@@ -72,7 +70,6 @@ export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"
 export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npmrc"
 export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/pass"
-export PROMPT_COMMAND='cd .; history -a; history -n; (bashhistory &)'
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export RECOLL_CONFDIR="$XDG_CONFIG_HOME/recoll"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
@@ -80,6 +77,14 @@ export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 export TEXINPUTS=$XDG_DATA_HOME/tex:
 export URXVT_PERL_LIB="$XDG_CONFIG_HOME/urxvt/ext"
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
+
+Prompt() {
+  export GOPROXY=direct
+  export GOPATH="$PWD/gocache/pkgs/go"
+  export GOCACHE="$PWD/gocache/builds"
+}
+
+export PROMPT_COMMAND='cd .; Prompt; history -a; history -n; (bashhistory &)'
 
 command -v rsvg-convert > /dev/null 2>&1 && \
   GDK_PIXBUF_MODULE_FILE=$(printf "%s" "$HOME"/.nix-profile/lib/gdk-pixbuf*/*/loaders.cache) && \
