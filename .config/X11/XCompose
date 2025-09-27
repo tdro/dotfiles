@@ -1,0 +1,4 @@
+
+<Multi_key> <minus> <minus> <minus>   : "–" U2013  # EN DASH
+<Multi_key> <minus> <minus> <space>   : "—" U2014  # EM DASH
+<Multi_key> <period> <period>         : "…" U2026  # HORIZONTAL ELLIPSIS

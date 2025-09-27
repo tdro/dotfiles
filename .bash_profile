@@ -77,6 +77,7 @@ export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
 export TEXINPUTS=$XDG_DATA_HOME/tex:
 export URXVT_PERL_LIB="$XDG_CONFIG_HOME/urxvt/ext"
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
+export XCOMPOSEFILE="$XDG_CONFIG_HOME/X11/XCompose"
 
 Prompt() {
   export GOPROXY=direct

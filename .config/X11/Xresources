@@ -20,6 +20,8 @@ urxvt.shading:             20
 urxvt.transparent:         false
 urxvt.url-launcher:        /usr/bin/env xdg-open
 urxvt.url-select.launcher: /usr/bin/env xdg-open
+urxvt.iso14755:            false
+urxvt.iso14755_52:         false
 
 urxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
 urxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
