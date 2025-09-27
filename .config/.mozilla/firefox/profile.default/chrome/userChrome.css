@@ -16,6 +16,11 @@
 
 #urlbar-searchmode-switcher { visibility: hidden; width: 0; }
 
+#urlbar-input::selection { /* URL text selection contrast */
+  color: #000 !important;
+  background-color: #bce6ff !important;
+}
+
 .urlbarView,                              /* Autocomplete results dropdown. */
 #sidebar-header,                          /* Sidebar heading. */
 #sidebar-splitter,                        /* Sidebar split. */
