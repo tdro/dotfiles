@@ -6,6 +6,7 @@ StartLimitIntervalSec=0
 Type=simple
 RestartSec=3
 Restart=always
+LogLevelMax=err
 KillMode=process
 SyslogIdentifier=xbindkeys
 ExecStart=/usr/bin/env bash -l -c 'xbindkeys -f %h/.config/X11/xbindkeysrc -p -n'
