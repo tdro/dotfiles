@@ -3,6 +3,9 @@ highlight clear            " Reset all highlighting to the defaults. Run :hi to 
 syntax reset               " Reset syntax to defaults.
 
 set t_Co=256               " Set number of terminal colors to 256.
+set linespace=0            " Set GUI vertical line spacing.
+set background=dark        " Try to use dark colors.
+set guifont=Monospace\ 10  " Set GUI font.
 set guioptions-=l          " Remove left scrollbar in GUI.
 set guioptions-=L          " Remove left scrollbar in GUI vertical split.
 set guioptions-=r          " Remove right scrollbar in GUI.
@@ -10,20 +13,19 @@ set guioptions-=R          " Remove right scrollbar in GUI vertical split.
 set guioptions-=m          " Remove menu in GUI.
 set guioptions-=T          " Remove toolbar in GUI.
 set guioptions-=e          " Remove tab bar in GUI.
-set background=dark        " Try to use dark colors.
 
 let g:syntax_cmd = "skip"  " Don't define colors. We define the colors.
 
 let s:none         = 'NONE' | let s:under        = 'bold,underline'
 let s:t_background = s:none | let s:bold         = 'bold'
 let s:t_clear      = 0      | let s:g_background = '#2c303c'
-let s:t_white      = 255    | let s:g_white      = '#cdd3de'
+let s:t_white      = 255    | let s:g_white      = '#ffffff'
 let s:t_black      = 232    | let s:g_black      = '#000000'
-let s:t_yellow     = 186    | let s:g_yellow     = '#ffdf23'
+let s:t_yellow     = 186    | let s:g_yellow     = '#d7d787'
 let s:t_gold       = 220    | let s:g_gold       = '#ffd700'
 let s:t_red        = 197    | let s:g_red        = '#ff005f'
-let s:t_pink       = 203    | let s:g_pink       = '#fc3488'
-let s:t_blue       = 81     | let s:g_blue       = '#82b1ff'
+let s:t_pink       = 203    | let s:g_pink       = '#fa5e5e'
+let s:t_blue       = 81     | let s:g_blue       = '#5bcaf0'
 let s:t_cyan       = 159    | let s:g_cyan       = '#00ffff'
 let s:t_darkblue   = 25     | let s:g_darkblue   = '#005faf'
 let s:t_orange     = 208    | let s:g_orange     = '#e84f4f'
