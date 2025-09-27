@@ -2,12 +2,7 @@
 
 program=$(basename "$0")
 voices=$HOME/.local/share/piper/voices
-
-identifier=jfgOUcZdWu
-audio=/tmp/say-$identifier.wav
-message=${1:-Nothing to say.}
-
-trap 'rm $audio $audio.mp3 > /dev/null 2>&1 || true; trap - EXIT; exit' EXIT INT HUP
+message=${*:-Nothing to say.}
 
 Help() {
 printf \
@@ -21,38 +16,56 @@ Voices: $voices
 
   Command List:
 
-   printf 'text' | $program -     Read piped text.
-   $program - < ./file            Read contents of file.
+   printf 'text' | $program -     # Read piped text.
+   $program - < ~/.bashrc         # Read contents of file.
 
-   $program 'text'                Say given text.
-   $program echo 'text'           Say given text with echo effect.
-   $program check                 Checks dependencies.
-   $program download              Download default voice.
-   $program help -h -help --help  Show this help menu.
+   $program given text            # Say given text.
+   $program 'given text'
+   $program \"given text\"
+
+   $program echo given text       # With echo effect.
+   $program echo 'given text'
+   $program echo \"given text\"
+
+   $program check                 # Checks dependencies.
+   $program download              # Download default voice.
+   $program help                  # Show this help menu.
+
+   %${#program}s -h -help --help       # Other help flags.
 
 " "$program";
 }
 
 Check() {
-  mplayer
   ffmpeg -version
   wget   -version
   piper  --version
   mkdir  --version
   rm     --version
+  sox    --version
+  aplay  --version
 }
 
 Say() {
-  Piper && mplayer -really-quiet "$audio"
+  Piper | aplay -f S16_LE -r24000
+}
+
+Echo() {
+  Piper "${1:-$message}" \
+    | sox -t raw -r 22000 -e signed -b 16 - -t raw - echo 0.8 0.85 100 0.4 \
+    | aplay -f S16_LE -r24000 && exit
 }
 
 Piper() {
  [ ! -s "$voices/en_GB-jenny_dioco-medium.onnx" ] && Download
  [ ! -s "$voices/en_GB-jenny_dioco-medium.onnx" ] && printf "ERROR: Unable to download model\n" && exit 1
-  printf '%s' "$message" |
+  printf '%s' "${1:-$message}" |
     piper \
       --model "$voices/en_GB-jenny_dioco-medium.onnx" \
-      --output_file $audio > /dev/null 2>&1
+      --output_raw \
+      --noise_w 0.8 \
+      --length_scale 1 \
+      --sentence_silence 0.2
 }
 
 Wget() {
@@ -71,22 +84,14 @@ Download() {
 
 [ "${1:-}" = "-" ] && message=$(cat -) Say && exit
 
-[ "${1:-}" = "help" ] && Help && Say && exit
+[ "${1:-}" = "help" ] && [ "$#" = 1 ] && Help && Say && exit
 
-[ "${1:-}" = "check" ] && Check && exit
+[ "${1:-}" = "check" ] && [ "$#" = 1 ] && Check && exit
 
-[ "${1:-}" = "download" ] && Download && exit
+[ "${1:-}" = "download" ] && [ "$#" = 1 ] && Download && exit
 
-[ "${1-}" = "echo" ] && $0 "${2-}" "${1-}" && exit
+[ "${1-}" = "echo" ] && [ "${2-}" = "-" ] && shift 2 && message=$(cat -) Echo && exit;
 
-[ "${2-}" = "echo" ] &&
-  Piper && ffmpeg \
-    -y \
-    -i "$audio" \
-    -map 0 \
-    -c:v copy \
-    -af aecho=1:1:50:0.5,atempo=0.85 "$audio.mp3" > /dev/null 2>&1 \
-    && mplayer -really-quiet "$audio.mp3" \
-    && exit
+[ "${1-}" = "echo" ] && shift 1 && Echo "$*" && exit;
 
 Say
