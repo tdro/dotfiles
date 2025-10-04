@@ -27,6 +27,8 @@ Voices: $voices
    $program echo 'given text'
    $program echo \"given text\"
 
+   $program . echo                # Without effect.
+
    $program check                 # Checks dependencies.
    $program download              # Download default voice.
    $program help                  # Show this help menu.
@@ -37,12 +39,10 @@ Voices: $voices
 }
 
 Check() {
-  ffmpeg -version
-  wget   -version
-  piper  --version
-  mkdir  --version
-  rm     --version
-  sox    --version
+  wget   --version &&
+  piper  --version &&
+  mkdir  --version &&
+  sox    --version &&
   aplay  --version
 }
 
@@ -53,7 +53,7 @@ Say() {
 Echo() {
   Piper "${1:-$message}" \
     | sox -t raw -r 22000 -e signed -b 16 - -t raw - echo 0.8 0.85 100 0.4 \
-    | aplay -f S16_LE -r24000 && exit
+    | aplay -f S16_LE -r24000
 }
 
 Piper() {
@@ -74,9 +74,9 @@ Wget() {
 
 Download() {
   mkdir --parents "$voices"
-  [ -s "$voices/en_GB-jenny_dioco-medium.onnx.json" ] || Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx.json?download=true.json" \
+  [ -s "$voices/en_GB-jenny_dioco-medium.onnx.json" ] || Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx.json" \
     -O "$voices/en_GB-jenny_dioco-medium.onnx.json"
-  [ -s "$voices/en_GB-jenny_dioco-medium.onnx" ]      || Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx?download=true" \
+  [ -s "$voices/en_GB-jenny_dioco-medium.onnx" ]      || Wget "https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_GB/jenny_dioco/medium/en_GB-jenny_dioco-medium.onnx" \
     -O "$voices/en_GB-jenny_dioco-medium.onnx"
 }
 
@@ -86,9 +86,9 @@ Download() {
 
 [ "${1:-}" = "help" ] && [ "$#" = 1 ] && Help && Say && exit
 
-[ "${1:-}" = "check" ] && [ "$#" = 1 ] && Check && exit
+[ "${1:-}" = "check" ] && [ "$#" = 1 ] && { Check || exit 1; } && Say && exit
 
-[ "${1:-}" = "download" ] && [ "$#" = 1 ] && Download && exit
+[ "${1:-}" = "download" ] && [ "$#" = 1 ] && Download && Say && exit
 
 [ "${1-}" = "echo" ] && [ "${2-}" = "-" ] && shift 2 && message=$(cat -) Echo && exit;
 
