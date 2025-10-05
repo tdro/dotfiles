@@ -51,7 +51,7 @@ vim.api.nvim_create_user_command('Find', function(opts) grep(opts.args) end, { n
 vim.keymap.set('n', '<leader>ev', ':tab drop ~/.config/nvim/init.lua<cr>')  -- Edit configuration
 vim.keymap.set('n', '<leader>rs', ':%s/\\s\\+$')                            -- Remove trailing whitespace
 vim.keymap.set('n', '<leader>nn', ":exe 'Lexplore' expand('%:p:h')<cr>")    -- Open file manager at current file path
-vim.keymap.set('n', '<leader>ra', ':set all& | source ~/.config/nvim/init.lua | packloadall<cr>',                     { desc = 'Reset settings and reload configuration' })
+vim.keymap.set('n', '<leader>ra', ':set all& | source ~/.config/nvim/init.lua | packloadall | filetype detect<cr>',   { desc = 'Reset settings and reload configuration' })
 vim.keymap.set('n', '<leader>cd', ':cd %:h | :pwd<cr>',                                                               { desc = 'Change directory to current file' })
 vim.keymap.set('n', '<leader>ot', ":exe '!$TERMINAL -cd ' . expand('%:p:h') . ' > /dev/null 2>&1 &'<cr><cr>",         { desc = 'Open terminal window in current directory' })
 vim.keymap.set('v', '<leader>ct', '!perl -pe \'s/^(\\s+)/"␣" x length($1)/e\' | column -t -o" " | sed "s/␣/ /g"<cr>', { desc = 'Justify columns' })

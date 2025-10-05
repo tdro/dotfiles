@@ -25,7 +25,7 @@ set ttimeout                             " Prevent pressing <Esc> twice.
 set timeoutlen=100                       " Set <Key-Code> timeout in milliseconds.
 set nostartofline                        " Do not move cursor to line start on buffer switch.
 set showcmd                              " Show key presses in status line.
-set wildmenu                             " Show tab completions menu.
+set nowildmenu                           " Disable tab completions menu.
 set nojoinspaces                         " Insert one space after a '.', '?' and '!' with a join command.
 set path=**                              " Search subfolders.
 set display=lastline                     " @@@ which indicates remaining line is not displayed.

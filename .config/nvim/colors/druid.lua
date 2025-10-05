@@ -1,5 +1,7 @@
 vim.cmd('nohls | highlight clear | syntax reset')  -- Clear highlights and reset syntax
 
+vim.g.colors_name = 'druid'
+
 local colors = {
 
   black       = { fg = "#c0c0c0", bg = "#080808", ctermfg = 7,   ctermbg = 232 },

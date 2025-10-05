@@ -14,7 +14,8 @@ set guioptions-=m          " Remove menu in GUI.
 set guioptions-=T          " Remove toolbar in GUI.
 set guioptions-=e          " Remove tab bar in GUI.
 
-let g:syntax_cmd = "skip"  " Don't define colors. We define the colors.
+let g:colors_name = "fluid"  " Set color scheme name.
+let g:syntax_cmd  = "skip"   " Don't define colors. We define the colors.
 
 let s:none         = 'NONE' | let s:under        = 'bold,underline'
 let s:t_background = s:none | let s:bold         = 'bold'
