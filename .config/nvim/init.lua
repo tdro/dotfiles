@@ -27,6 +27,7 @@ vim.opt.wildmenu       = false      -- Disable short command completion popup
 vim.opt.scrolloff      = 5          -- Set vertical scroll headroom
 vim.opt.sidescrolloff  = 10         -- Set horizontal scroll headroom
 vim.opt.signcolumn     = "no"       -- Disable diagnostics column left
+vim.opt.splitkeep      = "screen"   -- Don't offset when splitting
 
 vim.opt.grepprg = "rg --no-heading --line-number --column --smart-case --multiline --regexp" -- Set search program
 vim.opt.grepformat = "%f:%l:%m,%f:%l%m,%f  %l%m" -- Set string format
@@ -66,12 +67,13 @@ vim.keymap.set('n', '<leader>qw', '<C-w>c',  { desc = 'Close window' })
 
 vim.keymap.set('n', '<Esc><Esc>', 'v<Esc>:nohl<cr>', { silent = true })     -- Exit incremental search
 
-vim.keymap.set('n', '<Tab><Tab>', ':redir @a | silent ls   | redir END | 10split [buffers] | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("")<cr>')
-vim.keymap.set('n', '<Tab>s',     ':redir @a | silent echo | redir END | 10split [scratch]      | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("")<cr>')
-vim.keymap.set('n', '<Tab>t',     ':redir @a | silent tabs | redir END | 10split [tabs]    | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("gg3dd")<cr>')
-vim.keymap.set('n', '<Tab>m',     ':redir @a | silent map  | redir END | 10split [maps]    | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("gg3dd")<cr>')
-vim.keymap.set('n', '<Tab>c',     ':redir @a | silent hi   | redir END | 10split [colors]  | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
-vim.keymap.set('n', '<Tab>r',     ':redir @a | silent reg  | redir END | 10split [reg]     | %d | set ft=vim | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
+vim.keymap.set('n', '<Tab><Tab>', "<C-w>t:silent only | redir @a | silent ls      | redir END | 10split [buffers] | %d | set ft=buffers | put a | setlocal buftype=nofile | g/^$/d | nohl | call feedkeys('')<cr>", { silent = true })
+vim.keymap.set('n', '<Tab>s',     '<C-w>t:silent only | redir @a | silent echo    | redir END | 10split [scratch]      | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("")<cr>')
+vim.keymap.set('n', '<Tab>t',     '<C-w>t:silent only | redir @a | silent tabs    | redir END | 10split [tabs]    | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg3dd")<cr>')
+vim.keymap.set('n', '<Tab>m',     '<C-w>t:silent only | redir @a | silent map     | redir END | 10split [maps]    | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg3dd")<cr>')
+vim.keymap.set('n', '<Tab>c',     '<C-w>t:silent only | redir @a | silent hi      | redir END | 10split [colors]  | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
+vim.keymap.set('n', '<Tab>r',     '<C-w>t:silent only | redir @a | silent reg     | redir END | 10split [reg]     | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
+vim.keymap.set('n', '<Tab>a',     '<C-w>t:silent only | redir @a | silent autocmd | redir END | 10split [autocmd] | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
 
 vim.keymap.set('v', '<C-j>', ":m'>+<cr>gv",         { silent = true })  -- Move visual selection down
 vim.keymap.set('v', '<C-k>', ":m -2<cr>gv",         { silent = true })  -- Move visual selection up
@@ -90,8 +92,11 @@ vim.keymap.set({'n'}, 'gc', function() return require('vim._comment').operator()
 vim.keymap.set('v', 'y',  "ygv<Esc>",                                                      { silent = true, desc = "Prevent cursor from jumping in visual block yanking context" })
 vim.keymap.set('n', 'yy', "yy:call setreg('c', col('.'))<cr>",                             { silent = true, desc = "Prevent cursor from jumping in yanking context" })
 vim.keymap.set('n', 'p',   "p:call cursor(0, getreg('c'))<cr>",                            { silent = true, desc = "Prevent cursor from jumping in pasting context" })
-vim.keymap.set('c', '<Esc>', "getcmdtype() !=# ':' ? '<C-c>' : '<C-u><bs><leader>cursor'", { silent = true, desc = "Prevent cursor from jumping in command context", expr = true, replace_keycodes = false, remap = true })
 vim.keymap.set('n', '<leader>cursor', ":call cursor(getreg('l'), getreg('c'))<cr>",        { silent = true, desc = "Prevent cursor from jumping persistence mapping" })
+vim.keymap.set('c', '<Esc>', "getcmdtype() !=# ':' ? '<C-c>' : '<C-u><bs><leader>cursor'", { silent = true, desc = "Prevent cursor from jumping in command context", expr = true, replace_keycodes = false, remap = true })
+
+vim.keymap.set('c', '<C-k>', "<Up>",   { desc = "Command context up"   })
+vim.keymap.set('c', '<C-j>', "<Down>", { desc = "Command context down" })
 
 vim.keymap.set('n', 'h', "h:call setreg('c', col('.')) | call setreg('l', line('.'))<cr>", { silent = true })  -- Persist cursor
 vim.keymap.set('n', 'j', "j:call setreg('c', col('.')) | call setreg('l', line('.'))<cr>", { silent = true })  -- Persist cursor
@@ -207,7 +212,7 @@ vim.api.nvim_create_autocmd({"ModeChanged"}, { group = 'autocommands', pattern =
 vim.api.nvim_create_autocmd({"ModeChanged"}, { group = 'autocommands', pattern = {"[vV\\x16]*:*"}, command = "match",                 desc = "Reset match on VisualLeave"  })
 
 -- Auto insert on terminal open
-vim.api.nvim_create_autocmd({"TermOpen"}, { group = 'autocommands', command = ":set nosplitbelow | split # | set splitbelow | startinsert" })
+vim.api.nvim_create_autocmd({"TermOpen"}, { group = 'autocommands', command = ":set nosplitbelow | silent! split # | set splitbelow | startinsert" })
 
 -- Auto save
 vim.api.nvim_create_autocmd({"InsertLeave", "CursorHold"}, { group = 'autocommands', pattern = {"*"}, command = ":silent! write | echo '[filetype=' . &filetype . ']'" })

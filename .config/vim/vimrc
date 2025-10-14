@@ -19,6 +19,7 @@ set nocompatible                         " Use Vim defaults.
 set nofoldenable                         " Disable folds initially.
 set splitbelow                           " Open horizontal splits below.
 set splitright                           " Open vertical splits to the right.
+set splitkeep=screen                     " Don't offset when splitting.
 set nocursorline                         " Remove cursor line.
 set notimeout                            " Wait indefinitely for complete key combinations.
 set ttimeout                             " Prevent pressing <Esc> twice.
@@ -236,8 +237,11 @@ nnoremap           Q <Nop>|                              " Disable Ex Mode
 vnoremap <silent>  y ygv<Esc>|                                                             " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
 nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|                                    " Prevent cursor from jumping in yanking context
 nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>|                                   " Prevent cursor from jumping in pasting context
-cmap     <silent> <expr> <Esc> getcmdtype() !=# ':' ? '<C-c>' : '<C-u><bs><leader>cursor'| " Prevent cursor from jumping in command context
 nnoremap <silent> <leader>cursor :call cursor(getreg('l'), getreg('c'))<cr>|               " Prevent cursor from jumping persistence mapping
+cmap     <silent> <expr> <Esc> getcmdtype() !=# ':' ? '<C-c>' : '<C-u><bs><leader>cursor'| " Prevent cursor from jumping in command context
+
+cnoremap <C-k> <Up>|    " Command context up
+cnoremap <C-j> <Down>|  " Command context down
 
 nnoremap <silent> h h:call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Persist cursor
 nnoremap <silent> l l:call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Persist cursor
