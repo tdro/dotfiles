@@ -264,6 +264,7 @@ nnoremap ,html        :-1read $HOME/.config/vim/snippets/skeleton.html<cr>3jwf>a
 
 "---------------Plugin Settings---------------"
 
+let g:replprg='true'                                                                        " Set default REPL program
 let g:gundo_prefer_python3=1                                                                " Use python3 to restore gundo functionality.
 let g:netrw_banner=0                                                                        " Disable netrw banner.
 let g:netrw_winsize=15                                                                      " Set file explorer initial window size.
@@ -342,6 +343,7 @@ augroup AutoCommands
   autocmd FileType qf nmap <silent> <buffer> <cr> <cr><C-w>w
 
   " REPL commands.
+  autocmd FileType *                noremap <buffer> <leader>cc :exe 'REPL' g:replprg<cr>
   autocmd FileType bash             noremap <buffer> <leader>cc :REPL bash<cr>
   autocmd FileType raku             noremap <buffer> <leader>cc :REPL raku --repl-mode interactive<cr>
   autocmd FileType sql              noremap <buffer> <leader>cc :REPL sqlite3<cr>
