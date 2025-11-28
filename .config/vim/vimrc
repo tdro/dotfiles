@@ -165,8 +165,8 @@ nmap     <leader>jl       :norm yaW<cr> \| :Jump<cr>| " Jump to line
 vmap     <leader>wrap     :Wrap<space>|               " Surround visual selection with suffix and prefix
 nmap     <leader>wrap  viw:Wrap<space>|               " Surround word under cursor selection with suffix and prefix
 
-nmap              <leader>sl       :source ~/.config/vim/sessions/session.vim \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
-nmap              <leader>ss       :silent! exe "!~/.config/vim/hooks/pre-session-save" \| :mksession! ~/.config/vim/sessions/session.vim \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
+nmap              <leader>sl       :exe 'source' .. '~/.config/vim/sessions/' .. substitute(expand('%:p'), '\/', '\\#', 'g') .. '.vim' \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
+nmap              <leader>ss       :silent! exe "!~/.config/vim/hooks/session/pre" \| :exe 'mksession!' .. '~/.config/vim/sessions/' .. substitute(expand('%:p'), '\/', '\\#', 'g') .. '.vim' \| :exe 'wviminfo' .. '~/.config/vim/sessions/viminfo' .. strftime("-%a-%b-%d-%H:%M:%S-%Y%z") \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
 nmap              <leader>sp       :set spell!<cr>|                                                     " Toggle spell check
 vnoremap <silent> <leader>sn  <Esc>:call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>| " Sort lines by length
 nmap              <leader>ses      :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>|    " Switch to spaces
