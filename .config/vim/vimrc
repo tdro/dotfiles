@@ -391,26 +391,26 @@ augroup AutoCommands
   autocmd FileType netrw      nmap  <buffer> <cr> <Plug>NetrwLocalBrowseCheck| " Select file
 
   " Format using visual select + gq.
-  autocmd FileType toml            set formatprg=yj\ -tt
-  autocmd FileType rust            set formatprg=rustfmt
-  autocmd FileType sh              set formatprg=shfmt\ -
-  autocmd FileType lua             set formatprg=lua-format
-  autocmd FileType perl            set formatprg=perltidy\ -
-  autocmd FileType nix             set formatprg=nix-formatprg
-  autocmd FileType php             set formatprg=php-formatprg
-  autocmd FileType elixir          set formatprg=mix\ format\ -
-  autocmd FileType tex             set formatprg=latexindent\ -
-  autocmd FileType c               set formatprg=clang-format\ -
-  autocmd FileType python          set formatprg=black\ --quiet\ -
-  autocmd FileType lisp,scheme     set formatprg=emacs-batch-indent\ scheme
-  autocmd FileType *script         set formatprg=NO_COLOR=true\ deno\ fmt\ --ext\ ts\ -
-  autocmd FileType *react          set formatprg=NO_COLOR=true\ deno\ fmt\ --ext\ tsx\ -
-  autocmd FileType sql             set formatprg=pg_format\ --config\ ~/.config/pg_format.conf
-  autocmd FileType xml             set formatprg=xmllint\ --pretty\ 1\ -\ \|\ tail\ --lines\ +2
-  autocmd FileType css             set formatprg=prettier\ --ignore-path\ --parser\ css\ --stdin-filepath\ %
-  autocmd FileType html,xslt       set formatprg=prettier\ --ignore-path\ --parser\ html\ --stdin-filepath\ %
-  autocmd FileType ruby            set formatprg=rubocop\ --autocorrect\ --stderr\ --stdin\ %\ 2>\ \/dev\/null
-  autocmd FileType markdown        set formatprg=prettier\ --ignore-path\ --parser\ markdown\ --stdin-filepath\ %
+  autocmd FileType toml            let &formatprg="yj -tt"
+  autocmd FileType rust            let &formatprg="peew rustfmt"
+  autocmd FileType sh              let &formatprg="peew shfmt -"
+  autocmd FileType lua             let &formatprg="peew lua-format"
+  autocmd FileType perl            let &formatprg="perltidy -"
+  autocmd FileType nix             let &formatprg="nix-formatprg"
+  autocmd FileType php             let &formatprg="peew php-formatprg"
+  autocmd FileType elixir          let &formatprg="peew mix format -"
+  autocmd FileType tex             let &formatprg="peew latexindent -"
+  autocmd FileType c               let &formatprg="peew clang-format -"
+  autocmd FileType python          let &formatprg="black --quiet -"
+  autocmd FileType lisp,scheme     let &formatprg="peew emacs-batch-indent scheme"
+  autocmd FileType *script         let &formatprg="peew NO_COLOR=true deno fmt --ext ts -"
+  autocmd FileType *react          let &formatprg="peew NO_COLOR=true deno fmt --ext tsx -"
+  autocmd FileType sql             let &formatprg="pg_format --config ~/.config/pg_format.conf"
+  autocmd FileType xml             let &formatprg="xmllint --pretty 1 - | tail --lines +2"
+  autocmd FileType css             let &formatprg="prettier --ignore-path --parser css --stdin-filepath %"
+  autocmd FileType html,xslt       let &formatprg="peew prettier --ignore-path --parser html --stdin-filepath %"
+  autocmd FileType ruby            let &formatprg="peew rubocop --autocorrect --stderr --stdin % 2> /dev/null"
+  autocmd FileType markdown        let &formatprg="prettier --ignore-path --parser markdown --stdin-filepath %"
 
   " Guess filetype from extension when missing
   autocmd BufRead,BufNewFile * if &filetype == '' | let &filetype = expand('%:e') | endif

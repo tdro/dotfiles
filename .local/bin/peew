@@ -1,0 +1,41 @@
+#!/bin/sh -eu
+
+program=$(basename "$0")
+dependencies=$(command -V "$program" pee awk grep cut)
+
+Pee() {
+  pee "grep --max-count 1 --only-matching '^[[:space:]]*'" "$1" | awk 'NF==0 && NR==1 { w=$0; next } { print w $0 }'
+}
+
+Help() {
+printf \
+"
+Usage: %s [FLAGS]... [ARGUMENT]...
+
+The program $program shall preserve leading
+white space before and after pipe.
+
+  Command List:
+
+   printf '  space' | $program xargs      # Preserve white space.
+
+   $program check                         # Check paths.
+
+   $program help                          # Show this help menu.
+
+   %${#program}s -h -help --help               Other help flags.
+
+" "$program";
+}
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "-help" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && exit;
+
+[ "${1:-}" = "help" ] && [ $# = 1 ] && Help && exit;
+
+[ "${1:-}" = "check" ] && [ $# = 1 ] && printf "%s\n" "$dependencies" && exit;
+
+Pee "$*" && exit;
+
+printf "\n" && printf "Error: Parsing argument '%s'.\n" "$@" && printf "\n" && $program help | awk '/Command List:/,0' | grep --ignore-case "$program $(printf '%s' "${1:-}" | cut --characters 1)" && printf "\n" && exit 1;
+
+Help && printf "\n" && printf "Error: Parsing argument '%s'.\n" "$@" && printf "\n" && exit 1;
