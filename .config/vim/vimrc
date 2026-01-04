@@ -61,7 +61,7 @@ set laststatus=0                         " Disable status bar.
 set linespace=3                          " Set line spaces.
 set guiheadroom=0                        " Disable headroom on window maximize.
 set history=10000                        " Lines of command line history to keep.
-set clipboard=unnamed                    " Use clipboard as default register.
+set clipboard=unnamed,unnamedplus        " Use * and + register for graphical mode.
 set backspace=indent,eol,start           " Enable backspacing.
 set formatoptions-=t                     " Do not auto wrap text when typing.
 set complete=.,w,b,u,i                   " Set our desired autocompletion match pattern.
@@ -145,6 +145,11 @@ command! -bar BdNoName   silent! if len(getbufinfo()) > 1 && len(getwininfo()) >
 
 
 "---------------Shortcuts---------------"
+
+imap      <S-Insert> <C-R>*|  " Ensure graphical mode insert paste insert
+cmap      <S-Insert> <C-R>*|  " Ensure graphical mode insert paste command
+vmap      <S-Insert>      p|  " Ensure graphical mode insert paste visual
+nmap      <S-Insert>      p|  " Ensure graphical mode insert paste normal
 
 nmap     <leader>ev :tab drop ~/.config/vim/vimrc<cr>|                                        " Edit configuration
 nmap     <leader>eh :tab drop ~/.config/vim/viminfo<cr>/^# Command Line History<cr>:e<cr>n|   " Edit command history
@@ -241,6 +246,7 @@ nnoremap           Q <Nop>|                              " Disable Ex Mode
 vnoremap <silent>  y ygv<Esc>|                                                             " Prevent cursor from jumping in visual block yanking context (https://ddrscott.github.io/blog/2016/yank-without-jank/)
 nnoremap <silent> yy yy:call setreg('c', col('.'))<cr>|                                    " Prevent cursor from jumping in yanking context
 nnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>|                                   " Prevent cursor from jumping in pasting context
+vnoremap <silent>  p  p:call cursor(0, getreg('c'))<cr>|                                   " Prevent cursor from jumping in visual context
 nnoremap <silent> <leader>cursor :call cursor(getreg('l'), getreg('c'))<cr>|               " Prevent cursor from jumping persistence mapping
 cmap     <silent> <expr> <Esc> getcmdtype() !=# ':' ? '<C-c>' : '<C-u><bs><leader>cursor'| " Prevent cursor from jumping in command context
 

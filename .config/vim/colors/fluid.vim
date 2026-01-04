@@ -6,13 +6,7 @@ set t_Co=256               " Set number of terminal colors to 256.
 set linespace=0            " Set GUI vertical line spacing.
 set background=dark        " Try to use dark colors.
 set guifont=Monospace\ 10  " Set GUI font.
-set guioptions-=l          " Remove left scrollbar in GUI.
-set guioptions-=L          " Remove left scrollbar in GUI vertical split.
-set guioptions-=r          " Remove right scrollbar in GUI.
-set guioptions-=R          " Remove right scrollbar in GUI vertical split.
-set guioptions-=m          " Remove menu in GUI.
-set guioptions-=T          " Remove toolbar in GUI.
-set guioptions-=e          " Remove tab bar in GUI.
+set guioptions=            " Set bare graphical mode.
 
 let g:colors_name = "fluid"  " Set color scheme name.
 let g:syntax_cmd  = "skip"   " Don't define colors. We define the colors.
