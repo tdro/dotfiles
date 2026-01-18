@@ -258,6 +258,8 @@ nnoremap <silent> l l:call setreg('c', col('.')) \| call setreg('l', line('.'))<
 nnoremap <silent> j j:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif \| call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Automatically open and close folds up
 nnoremap <silent> k k:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif \| call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Automatically open and close folds down
 
+nmap <silent> gf :call setreg('w', expand("<cfile>"))<cr>:try \| wincmd p \| find <C-R>w \| catch \| echohl ErrorMsg \| echomsg "E345: <C-R>w" \| echohl None \| endtry<cr><C-w>w| " Open file under cursor in the nearest split window
+
 
 "------------------Snippets-------------------"
 
