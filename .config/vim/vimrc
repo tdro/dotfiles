@@ -151,6 +151,10 @@ cmap      <S-Insert> <C-R>*|  " Ensure graphical mode insert paste command
 vmap      <S-Insert>      p|  " Ensure graphical mode insert paste visual
 nmap      <S-Insert>      p|  " Ensure graphical mode insert paste normal
 
+nnoremap <silent> <C-Up>   :let &guifont=substitute(&guifont, '\zs\d\+', '\=submatch(0)+1', '')<cr>| " Graphical mode font increase (https://vim-use.narkive.com/hEzGA3kZ/how-to-change-font-on-the-fly#post3)
+nnoremap <silent> <C-Down> :let &guifont=substitute(&guifont, '\zs\d\+', '\=submatch(0)-1', '')<cr>| " Graphical mode font decrease
+nnoremap <silent> <C-0>    :let &guifont=substitute(&guifont, '\zs\d\+', '10', '')<cr>|              " Graphical mode font reset
+
 nmap     <leader>ev :tab drop ~/.config/vim/vimrc<cr>|                                        " Edit configuration
 nmap     <leader>eh :tab drop ~/.config/vim/viminfo<cr>/^# Command Line History<cr>:e<cr>n|   " Edit command history
 nmap     <leader>es :tab drop ~/.config/vim/viminfo<cr>/^# Search String History<cr>:e<cr>n|  " Edit search history
