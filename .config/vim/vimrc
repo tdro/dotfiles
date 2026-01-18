@@ -2,6 +2,7 @@
 
 mapclear                                 " Clear all mappings.
 packadd! matchit                         " Add match tag pairs package.
+packadd! cfilter                         " Add quick fix filtering package.
 let skip_defaults_vim=1                  " Do not load defaults if vimrc is missing.
 
 "------------General------------"
@@ -114,12 +115,12 @@ function s:notify(command)
   call popup_notification(systemlist(a:command), { 'pos': 'topright', 'col': 9999, 'time' : 600000, 'highlight': 'Normal' })
 endfunction
 
-function s:replace(...)
-   noautocmd exe 'silent cfdo %s/' . a:1 . '/'. join(a:000[1:], ' ') . '/g' | exe 'silent grep ' . shellescape(join(a:000[1:], ' ')) . ' | ' . ':copen' | call feedkeys('/' . join(a:000[1:], ' ') . "\<cr>") | redraw!
+function s:swap(...)
+   noautocmd exe 'silent cfdo %s/' . a:1 . '/'. join(a:000[1:], ' ') . '/g' | exe 'cexpr' "system(&grepprg . ' ' . shellescape(join(a:000[1:], ' ')))"  '|' ':copen' | call feedkeys('/' . join(a:000[1:], ' ') . "\<cr>") | redraw!
 endfunction
 
 function s:find(that)
-   exe '%bd | silent grep ' . shellescape(escape(a:that, '#|[](){}+')) . ' | ' . ':copen' | call feedkeys('/' . trim(escape(a:that, '?/|'), '^') . "\<cr>") | redraw!
+   exe '%bd' '|' 'cexpr' "system(&grepprg . ' ' . shellescape(escape(a:that, '#|[](){}+')))" '|' ':copen' | call feedkeys('/' . trim(escape(a:that, '?/|'), '^') . "\<cr>") | redraw!
 endfunction
 
 function s:make(command) " :Make ls %
@@ -136,11 +137,12 @@ endfunction
 command! -nargs=? -range Jump    call s:jump(@*)
 command! -nargs=1 -range Notify  call s:notify(<args>)
 command! -nargs=1 -range Find    call s:find(<f-args>)
-command! -nargs=+ -range Replace call s:replace(<f-args>)
+command! -nargs=+ -range Swap    call s:swap(<f-args>)
 command! -nargs=? -range REPL    call s:repl(<f-args>)
 command! -nargs=? -range Make    call s:make(<q-args>)
 command! -nargs=? -range Wrap    call s:wrap(<q-args>)
 command! -nargs=? -range Term    call execute('term ++close ++shell' . ' ' . <q-args>)|                " :Term ls % | grep vim && cat
+command! -nargs=? -range Fix     call execute('silent! cfdo' . ' !set -x && ' . <q-args>) | wincmd p|  " :Fix sed --in-place 's/foo/bar/g' %
 command! -bar BdReadOnly silent! if len(getbufinfo()) > 1 | exe 'bd '.join(filter(range(1, bufnr('$')), {_,v -> getbufvar(v, '&modifiable') == 0})) | endif| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
 command! -bar BdNoName   silent! if len(getbufinfo()) > 1 && len(getwininfo()) > 2 && len(filter(getbufinfo(), {_,b -> b.name =~ '^!'})) == 0 && len(filter(getwininfo(), {_,w -> w.quickfix == 1})) == 0 && len(filter(getwininfo(), {_,w -> w.terminal == 1})) == 0 | exe 'bd '.join(filter(filter(range(1, bufnr('$')), 'bufexists(v:val)'), 'bufname(v:val)==""')) | endif| " Delete [No Name] buffers
 
@@ -352,9 +354,11 @@ augroup AutoCommands
   autocmd FileType php    vmap    <silent> <buffer> K         y/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "PAGER= echo doc' . ' ' . shellescape('<C-R>*') \| psysh"'<cr><C-w>w
 
   " Quick fix mappings.
-  autocmd FileType qf nmap <silent> <buffer> j j:cnext<cr>:autocmd! BufWritePost<cr><C-w>w0n$N<cr>:call cursor(0, getreg('c'))<cr>
-  autocmd FileType qf nmap <silent> <buffer> k k:cprev<cr>:autocmd! BufWritePost<cr><C-w>w$N0n<cr>:call cursor(0, getreg('c'))<cr>
-  autocmd FileType qf nmap <silent> <buffer> <cr> <cr><C-w>w
+  autocmd FileType qf nmap <silent> <buffer> j     j:cnext<cr>:autocmd! BufWritePost<cr><C-w>w0n$N<cr>:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> k     k:cprev<cr>:autocmd! BufWritePost<cr><C-w>w$N0n<cr>:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> u     :silent! colder<cr>
+  autocmd FileType qf nmap <silent> <buffer> <C-r> :silent! cnewer<cr>
+  autocmd FileType qf nmap <silent> <buffer> <cr>  <cr><C-w>w
 
   " REPL commands.
   autocmd FileType *                noremap <buffer> <leader>cc :exe 'REPL' g:replprg<cr>
