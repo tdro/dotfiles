@@ -122,8 +122,8 @@ function s:find(that)
    exe '%bd | silent grep ' . shellescape(escape(a:that, '#|[](){}+')) . ' | ' . ':copen' | call feedkeys('/' . trim(escape(a:that, '?/|'), '^') . "\<cr>") | redraw!
 endfunction
 
-function s:make()
-  if len(&makeprg) > 0 | silent! exe 'only | term ++rows=10 sh -c ' . '"' . &makeprg . '"' | endif
+function s:make(command) " :Make ls %
+  if !&makeprg && a:command !=# '' | let &makeprg=a:command | endif | if len(&makeprg) > 0 | silent! exe 'only | term ++shell ++rows=10' &makeprg | endif
 endfunction
 
 function s:wrap(that)
@@ -133,13 +133,14 @@ endfunction
 
 "----------------Commands----------------"
 
-command! -nargs=? -range Make    call s:make()
 command! -nargs=? -range Jump    call s:jump(@*)
 command! -nargs=1 -range Notify  call s:notify(<args>)
 command! -nargs=1 -range Find    call s:find(<f-args>)
 command! -nargs=+ -range Replace call s:replace(<f-args>)
 command! -nargs=? -range REPL    call s:repl(<f-args>)
+command! -nargs=? -range Make    call s:make(<q-args>)
 command! -nargs=? -range Wrap    call s:wrap(<q-args>)
+command! -nargs=? -range Term    call execute('term ++close ++shell' . ' ' . <q-args>)|                " :Term ls % | grep vim && cat
 command! -bar BdReadOnly silent! if len(getbufinfo()) > 1 | exe 'bd '.join(filter(range(1, bufnr('$')), {_,v -> getbufvar(v, '&modifiable') == 0})) | endif| " Delete [RO] buffers https://vi.stackexchange.com/a/17603
 command! -bar BdNoName   silent! if len(getbufinfo()) > 1 && len(getwininfo()) > 2 && len(filter(getbufinfo(), {_,b -> b.name =~ '^!'})) == 0 && len(filter(getwininfo(), {_,w -> w.quickfix == 1})) == 0 && len(filter(getwininfo(), {_,w -> w.terminal == 1})) == 0 | exe 'bd '.join(filter(filter(range(1, bufnr('$')), 'bufexists(v:val)'), 'bufname(v:val)==""')) | endif| " Delete [No Name] buffers
 
@@ -163,12 +164,12 @@ nmap     <leader>dp :call fzf#run({'options': ['--preview', 'echo doc {} \| psys
 vnoremap <leader>dt y:term dict -h localhost <C-R>*<cr>|          " Send visual selection under cursor to dictionary
 vnoremap <leader>ds y:term ++hidden ++close recoll -q <C-R>*<cr>| " Send visual selection under cursor to search engine
 
-nmap     <leader>term  :term sh -c ""<left>|                                                        " Run terminal command in shell
+nmap     <leader>term  :Term<space>|                                                                " Run terminal command in shell
 nmap     <leader>grep  :Find<space>|                                                                " Cycle through files containing search query
-vnoremap <leader>grep y/<C-R>*<cr> \| :exe 'grep' . ' ' . shellescape("<C-R>*")<cr><cr>:copen<cr>|  " Cycle through files containing visual selection
+vnoremap <leader>grep y/<C-R>*<cr> \| :exe 'grep' shellescape(@*)<cr><cr>:copen<cr>|                " Cycle through files containing visual selection
 nmap     <leader>vrep  :vimgrep //jg *<left><left><left><left><left>|                               " Cycle through files containing internal search query
-vnoremap <leader>af   y:exe ':term ' . &grepprg . ' ' . '<C-R>*'<cr>|                               " Show files containing visual selection in terminal
-nmap     <leader>af    :exe ':term ' . &grepprg . ' ' . ''<left>|                                   " Show files containing search query in terminal
+vnoremap <leader>trep     y:exe ':term' &grepprg @*<cr>|                                            " Show files containing visual selection in terminal
+nmap     <leader>trep  viwy:exe ':term' &grepprg @*<cr>|                                            " Show files containing visual selection in terminal
 
 nmap     <leader>jl       :norm yaW<cr> \| :Jump<cr>| " Jump to line
 vmap     <leader>wrap     :Wrap<space>|               " Surround visual selection with suffix and prefix
