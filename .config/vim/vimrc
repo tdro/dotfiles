@@ -354,8 +354,10 @@ augroup AutoCommands
   autocmd FileType php    vmap    <silent> <buffer> K         y/<C-R>*<cr>N:set modified<cr>:exe 'term ++rows=10 sh -c "PAGER= echo doc' . ' ' . shellescape('<C-R>*') \| psysh"'<cr><C-w>w
 
   " Quick fix mappings.
-  autocmd FileType qf nmap <silent> <buffer> j     j:cnext<cr>:autocmd! BufWritePost<cr><C-w>w0n$N<cr>:call cursor(0, getreg('c'))<cr>
-  autocmd FileType qf nmap <silent> <buffer> k     k:cprev<cr>:autocmd! BufWritePost<cr><C-w>w$N0n<cr>:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> j     j<cr>:autocmd! BufWritePost<cr>:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> k     k<cr>:autocmd! BufWritePost<cr>:call cursor(0, getreg('c'))<cr>
+  autocmd FileType qf nmap <silent> <buffer> n     n:call setreg('c', col('.'))<cr><cr>:autocmd! BufWritePost<cr>:call cursor(0, getreg('c'))<cr>??<cr>//<cr>
+  autocmd FileType qf nmap <silent> <buffer> N     N:call setreg('c', col('.'))<cr><cr>:autocmd! BufWritePost<cr>:call cursor(0, getreg('c'))<cr>??<cr>//<cr>
   autocmd FileType qf nmap <silent> <buffer> u     :silent! colder<cr>
   autocmd FileType qf nmap <silent> <buffer> <C-r> :silent! cnewer<cr>
   autocmd FileType qf nmap <silent> <buffer> <cr>  <cr><C-w>w
