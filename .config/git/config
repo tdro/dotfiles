@@ -16,9 +16,11 @@
   defaultBranch = master
 
 [alias]
-  ignore   = !git update-index --assume-unchanged
-  unignore = !git update-index --no-assume-unchanged
-  ignored  = !git ls-files -v | grep '^h'
+  ignore        = !git update-index --assume-unchanged
+  unignore      = !git update-index --no-assume-unchanged
+  ignored       = !git ls-files -v | grep '^h'
+  sparse-clone  = !cd "${GIT_PREFIX:-.}" && git clone --no-checkout --depth=1 --filter=blob:none
+  sparse-set    = !git sparse-checkout set --no-cone
 
 [diff]
   algorithm = patience
