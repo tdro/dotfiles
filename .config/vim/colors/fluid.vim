@@ -61,10 +61,10 @@ exe 'hi CursorLineNR     guifg='.s:g_white      . ' guibg='.s:g_background . ' g
 exe 'hi Debug            guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Define           guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Delimiter        guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi DiffAdd          guifg='.s:g_green      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_green  . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi DiffChange       guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi DiffDelete       guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
-exe 'hi DiffText         guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:none
+exe 'hi DiffAdd          guifg='.s:g_green      . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_green  . ' ctermbg='.s:none        . ' cterm='.s:bold
+exe 'hi DiffChange       guifg='.s:g_blue       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_blue   . ' ctermbg='.s:none        . ' cterm='.s:bold
+exe 'hi DiffDelete       guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:bold
+exe 'hi DiffText         guifg='.s:g_pink       . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_pink   . ' ctermbg='.s:none        . ' cterm='.s:bold
 exe 'hi EndOfBuffer      guifg='.s:g_background . ' guibg='.s:none         . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_clear  . ' ctermbg='.s:none        . ' cterm='.s:none
 exe 'hi Error            guifg='.s:g_red        . ' guibg='.s:g_grey3      . ' guisp='.s:none . ' gui='.s:none  . ' ctermfg='.s:t_red    . ' ctermbg='.s:t_grey3     . ' cterm='.s:none
 exe 'hi ErrorMsg         guifg='.s:g_black      . ' guibg='.s:g_red        . ' guisp='.s:none . ' gui='.s:bold  . ' ctermfg='.s:t_black  . ' ctermbg='.s:t_red       . ' cterm='.s:bold

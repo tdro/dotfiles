@@ -29,6 +29,7 @@ set nostartofline                        " Do not move cursor to line start on b
 set showcmd                              " Show key presses in status line.
 set nowildmenu                           " Disable tab completions menu.
 set nojoinspaces                         " Insert one space after a '.', '?' and '!' with a join command.
+set modelines=0                          " Disable running `# vim: set` modeline comments
 set path=**                              " Search subfolders.
 set display=lastline                     " @@@ which indicates remaining line is not displayed.
 
@@ -177,8 +178,8 @@ nmap     <leader>jl       :norm yaW<cr> \| :Jump<cr>| " Jump to line
 vmap     <leader>wrap     :Wrap<space>|               " Surround visual selection with suffix and prefix
 nmap     <leader>wrap  viw:Wrap<space>|               " Surround word under cursor selection with suffix and prefix
 
-nmap              <leader>sl       :exe 'source' .. '~/.config/vim/sessions/' .. substitute(expand('%:p'), '\/', '\\#', 'g') .. '.vim' \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
-nmap              <leader>ss       :silent! exe "!~/.config/vim/hooks/session/pre" \| :exe 'mksession!' .. '~/.config/vim/sessions/' .. substitute(expand('%:p'), '\/', '\\#', 'g') .. '.vim' \| :exe 'wviminfo' .. '~/.config/vim/sessions/viminfo' .. strftime("-%a-%b-%d-%H:%M:%S-%Y%z") \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
+nmap     <silent> <leader>sl       :exe 'source' .. '~/.config/vim/sessions/' .. substitute(expand('%:p'), '\/', '\\#', 'g') .. '.vim' \| :source ~/.config/vim/vimrc<cr>:Notify('printf "Last saved session loaded."')<cr>| " Load session
+nmap     <silent> <leader>ss       :silent! exe "!~/.config/vim/hooks/session/pre" \| :exe 'mksession!' .. '~/.config/vim/sessions/' .. substitute(expand('%:p'), '\/', '\\#', 'g') .. '.vim' \| :exe 'wviminfo' .. '~/.config/vim/sessions/viminfo' .. strftime("-%a-%b-%d-%H:%M:%S-%Y%z") \| :redraw!<cr>:Notify('printf "Current session saved."')<cr>| " Save session
 nmap              <leader>sp       :set spell!<cr>|                                                     " Toggle spell check
 vnoremap <silent> <leader>sn  <Esc>:call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>gv!perl -e 'print sort { length($a) <=> length($b) } <>'<cr>:call cursor(getreg('l'), getreg('c'))<cr>| " Sort lines by length
 nmap              <leader>ses      :set tabstop=2 softtabstop=0 shiftwidth=2 smarttab expandtab<cr>|    " Switch to spaces
@@ -203,7 +204,7 @@ nmap              <leader>cn :set number!<cr>|                                  
 nmap              <leader>cr :set relativenumber!<cr>|                                                                               " Toggle relative line numbers
 vnoremap <silent> <leader>ct !perl -pe 's/^(\s+)/"␣" x length($1)/e' \| column -t -o' ' \| sed 's/␣/ /g'<cr>|                        " Justify columns
 vnoremap          <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
-noremap           <leader>cs :w !cat > $HOME/.cache/scratchpad<cr>:e +setf\<space><space>$HOME/.cache/scratchpad<C-left><left>|      " Scratchpad of specified filetype
+noremap  <silent> <leader>cs :silent! w !cat > $HOME/.cache/scratchpad<cr>:silent! exe 'edit +setf\' &filetype '$HOME/.cache/scratchpad'<cr>|   " Scratchpad of filetype
 
 vmap <C-j> :m'>+<cr>gv|         " Move visual selection down
 vmap <C-k> :m -2<cr>gv|         " Move visual selection up
@@ -265,7 +266,7 @@ nnoremap <silent> l l:call setreg('c', col('.')) \| call setreg('l', line('.'))<
 nnoremap <silent> j j:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif \| call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Automatically open and close folds up
 nnoremap <silent> k k:if &foldenable \| if foldlevel('.') \| exe 'norm zo' \| else \| exe 'norm zM' \| endif \| endif \| call setreg('c', col('.')) \| call setreg('l', line('.'))<cr>| " Automatically open and close folds down
 
-nmap <silent> gf :call setreg('w', expand("<cfile>"))<cr>:try \| wincmd p \| find <C-R>w \| catch \| echohl ErrorMsg \| echomsg "E345: <C-R>w" \| echohl None \| endtry<cr><C-w>w| " Open file under cursor in the nearest split window
+nmap <silent> gf :call setreg('w', expand("<cfile>"))<cr>:try \| wincmd p \| exe 'find' expand('%:p:h') . '/' . @w \| catch \| exe 'find' @w \| echohl ErrorMsg \| echomsg "E345: <C-R>w" \| echohl None \| endtry<cr><C-w>w| " Open file under cursor in the nearest split window
 
 
 "------------------Snippets-------------------"
@@ -414,7 +415,9 @@ augroup AutoCommands
   autocmd FileType php             let &formatprg="peew php-formatprg"
   autocmd FileType elixir          let &formatprg="peew mix format -"
   autocmd FileType tex             let &formatprg="peew latexindent -"
+  autocmd FileType go              let &formatprg="gofmt -s -e"
   autocmd FileType c               let &formatprg="peew clang-format -"
+  autocmd FileType json,json5      let &formatprg="tr -d '\\n' | jsonlint"
   autocmd FileType python          let &formatprg="black --quiet -"
   autocmd FileType lisp,scheme     let &formatprg="peew emacs-batch-indent scheme"
   autocmd FileType *script         let &formatprg="peew NO_COLOR=true deno fmt --ext ts -"
@@ -468,6 +471,6 @@ augroup AutoCommands
   autocmd TerminalWinOpen * silent! :BdReadOnly
 
   " Save file on insert and idle.
-  autocmd InsertLeave,CursorHold * silent! write | silent! exe "!~/.config/vim/hooks/post-save > /dev/null 2>&1 &" | if len(expand('%:t')) > 20  | echo strpart(expand('%:t'), 0, 20) . '...' '[filetype=' . &filetype . ']' | else | echo expand('%:t') '[filetype=' . &filetype . ']' | endif
+  autocmd InsertLeave,CursorHold * silent! write | silent! exe "!~/.config/vim/hooks/post-save > /dev/null 2>&1 &" | echo strpart(expand('%:t') . ' ' . '[filetype=' . &filetype . ']', 0, v:echospace)
 
 augroup END
