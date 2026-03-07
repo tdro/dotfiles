@@ -46,11 +46,9 @@ defmodule ArgParser do
       opts[:option] == options[:slugize] ->
         opts[:text]
         |> String.normalize(:nfd)
-        |> String.replace(~r/[[:space:]]+/, " ")
-        |> String.replace(~r/[[:punct:]]+/, " ")
-        |> Macro.underscore()
-        |> String.replace(~r/[[:space:]]+/, "-")
-        |> String.replace(~r/[[:punct:]]+/, "-")
+        |> String.replace(~r/[[:space:]]+|[[:punct:]]+/, " ")
+        |> String.replace(~r/[[:space:]]+|[[:punct:]]+/, "-")
+        |> String.downcase()
         |> String.trim("-")
         |> IO.puts()
 
