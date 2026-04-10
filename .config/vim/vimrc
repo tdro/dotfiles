@@ -47,6 +47,7 @@ set infercase                            " Infer the case on completion.
 set smartcase                            " Search by case smartly.
 set nolazyredraw                         " Disable lazy redraw on screen when using macros.
 set ttyfast                              " Assume fast terminal.
+set ttymouse=sgr                         " Enable mouse support in more modern terminals.
 set undofile                             " Enable undofile.
 set viminfo+=n~/.config/vim/viminfo      " Set viminfo file path.
 set undodir=~/.config/vim/undodir        " Set undofile directory.
