@@ -472,6 +472,6 @@ augroup AutoCommands
   autocmd TerminalWinOpen * silent! :BdReadOnly
 
   " Save file on insert and idle.
-  autocmd InsertLeave,CursorHold * silent! write | silent! exe "!~/.config/vim/hooks/session/post > /dev/null 2>&1 &" | echo strpart(expand('%:t') . ' ' . '[filetype=' . &filetype . ']', 0, v:echospace)
+  autocmd InsertLeave,CursorHold * silent! write | if exists('&termsync') && &termsync == 1 | redraw! | endif | silent! exe "!~/.config/vim/hooks/session/post > /dev/null 2>&1 &" | echo strpart(expand('%:t') . ' ' . '[filetype=' . &filetype . ']', 0, v:echospace)
 
 augroup END
