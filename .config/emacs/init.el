@@ -22,8 +22,8 @@
   (set-face-attribute  'minibuffer-prompt       nil :foreground "#ffffff")
   (set-face-attribute  'mode-line               nil :background "#000000" :foreground "#ffffff" :background "#515560" :box "#777777") ; Set status bar colors.
   (set-face-attribute  'mode-line-inactive      nil :background "#000000" :foreground "#ffffff" :background "#515560" :box "#777777")
-  (set-face-attribute  'font-lock-keyword-face  nil :foreground "#fffff")
-  (set-face-attribute  'region                  nil :background "#2c303c")
+  (set-face-attribute  'font-lock-keyword-face  nil :foreground "#ffffff")
+  (set-face-attribute  'region                  nil :background "#414658")
   (custom-set-faces
    '(ansi-color-blue            ((t (:background "#adbcfb" :foreground "#adbcfb"))))
    '(ansi-color-green           ((t (:background "#79d279" :foreground "#79d279"))))
@@ -70,6 +70,7 @@
   (set-face-attribute 'highlight               nil :background "color-237")
   (set-face-attribute 'mode-line               nil :background "none" :foreground "color-255" :box "color-255")
   (set-face-attribute 'mode-line-inactive      nil :background "none" :foreground "color-255" :box "color-255") ; Set status bar colors.
+  (set-face-attribute 'region                  nil :background "color-238")
   (custom-set-faces
    '(font-lock-comment-face ((t (:foreground "color-251"))))
    '(org-block              ((t (:foreground "color-255" :extend t :inherit shadow))))
