@@ -23,10 +23,10 @@ urxvt.url-select.launcher: /usr/bin/env xdg-open
 urxvt.iso14755:            false
 urxvt.iso14755_52:         false
 
-urxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
-urxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
 urxvt.font:                xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+urxvt.boldFont:            xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
 urxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
+urxvt.boldItalicFont:      xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:size=10
 
 ! -----------------
 ! UXTerm Settings
@@ -47,6 +47,17 @@ urxvt.italicFont:          xft:monospace:size=10,xft:DejaVuSansM Nerd Font Mono:
 *xterm.vt100.multiScroll:     true
 *xterm.vt100.saveLines:       4096
 *xterm.vt100.utf8:            true
+
+! -----------------
+! ST Settings
+! -----------------
+
+st.font:            DejaVuSansM Nerd Font Mono:size=10
+st.boldFont:        DejaVuSansM Nerd Font Mono:size=10
+st.boldItalicFont:  DejaVuSansM Nerd Font Mono:size=10
+st.italicFont:      DejaVuSansM Nerd Font Mono:size=10
+
+st.borderpx: 10
 
 ! -----------------
 ! Terminal Colors
