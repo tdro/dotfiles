@@ -81,29 +81,58 @@
 
 ;;; -----------------------------------------------------------
 
+;;; Keys
+
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+;;; -----------------------------------------------------------
+
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/")) ; Set up package.el to work with melpa.
 
-(set-default 'truncate-lines t)           ; Disable line wrapping.
 (setq inferior-lisp-program "sbcl")       ; Enable slime.
 (setq inhibit-startup-screen t)           ; Disable startup screen.
-(setq warning-minimum-level :error)       ; Set minimum warning level.
 (setq initial-scratch-message "")         ; Remove scratch buffer message.
-(setq-default indent-tabs-mode nil)       ; Use spaces for indentation.
+(setq warning-minimum-level :error)       ; Set minimum warning level.
+(set-default 'truncate-lines t)           ; Disable line wrapping.
 (setq-default fringe-indicator-alist nil) ; Truncation indicator list.
+(setq-default indent-tabs-mode nil)       ; Use spaces for indentation.
 
+(setq
+ apropos-do-all                        t ; Search all help variables and functions.
+ require-final-newline                 t ; Auto add newline on save.
+ load-prefer-newer                     t ; Prefer loading newest modified source files.
+ read-file-name-completion-ignore-case t ; File name completion case insensitive.
+ read-buffer-completion-ignore-case    t ; Buffer completion case insensitive.
+ completion-ignore-case                t ; Minibuffer completion case insensitive.
+ mouse-yank-at-point                   t ; Paste at cursor position and not at mouse position.
+ )
+
+(savehist-mode       1) ; Persist command line minibuffer history.
 (window-divider-mode 1) ; Enable window dividers.
 (menu-bar-mode      -1) ; Disable menu bar.
 (tool-bar-mode      -1) ; Disable tool bar.
 (tooltip-mode       -1) ; Disable tool tips.
 (scroll-bar-mode    -1) ; Disable scroll bar.
 (set-fringe-mode    20) ; Create space.
+(save-place-mode     1) ; Persist last location in files between sessions.
+(xterm-mouse-mode    1) ; Enable mouse in terminal.
 
 (setq backup-directory-alist         '(("." . "~/.config/emacs/backups")))
 (setq auto-save-file-name-transforms '((".*" "~/.config/emacs/autosaves/" t)))
 
-(use-package slime :ensure t
+(use-package ediff
+             :ensure nil
+             :config
+             (setq ediff-split-window-function 'split-window-horizontally)
+             (setq ediff-window-setup-functions 'ediff-setup-windows-plain))
+
+(use-package slime
+             :ensure t
              :config
              (custom-set-variables
               '(slime-repl-history-file "~/.cache/slime-history.eld"))) ; Set slime history file location.
