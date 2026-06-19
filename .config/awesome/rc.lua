@@ -202,8 +202,8 @@ globalkeys = gears.table.join(
 
 -- Client Key bindings
 clientkeys = gears.table.join(
-  awful.key({ modkey,           }, "o",       function (c) c:move_to_screen() end),                         -- Move to screen
-  awful.key({ modkey,           }, "m",       function (c) c.maximized = not c.maximized c:raise() end),    -- Maximize window
+  awful.key({ modkey,           }, "o",       function (c) c:move_to_screen() end), -- Move to screen
+  awful.key({ modkey,           }, "m",       function (c) if c.fullscreen then c.fullscreen = false else c.maximized = not c.maximized c:raise() end end), -- Toggle maximize window
 
   awful.key({ modkey, "Control" }, "Return",  function (c) c:swap(awful.client.getmaster()) end),           -- Move to master
   awful.key({ modkey, "Control" }, "k",       function (c) c.y = c.y - 1 end),                              -- Move focused window up one pixel.
@@ -240,8 +240,8 @@ end
 -- Mouse movement
 clientbuttons = gears.table.join(
   awful.button({        }, 1, function (c) client.focus = c; c:raise() end),
-  awful.button({ modkey }, 1, awful.mouse.client.move),
-  awful.button({ modkey }, 3, awful.mouse.client.resize)
+  awful.button({ modkey }, 1, function (c) c.fullscreen = false c.maximized = false awful.mouse.client.move(c)   end),
+  awful.button({ modkey }, 3, function (c) c.fullscreen = false c.maximized = false awful.mouse.client.resize(c) end)
 )
 
 -- Set keys
