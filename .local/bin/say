@@ -46,26 +46,35 @@ Check() {
   aplay  --version
 }
 
-Say() {
-  Piper | aplay -f S16_LE -r24000
-}
+Say() { Run | Play; }
+
+Live() { Piper | Play; }
+
+Shell() { Piper | Reverb | Play; }
+
+Play() { aplay -f S16_LE -r24000; }
+
+Reverb() { sox -t raw -r 22000 -e signed -b 16 - -t raw - echo 0.8 0.85 100 0.4; }
 
 Echo() {
-  Piper "${1:-$message}" \
-    | sox -t raw -r 22000 -e signed -b 16 - -t raw - echo 0.8 0.85 100 0.4 \
-    | aplay -f S16_LE -r24000
+  Run "${1:-$message}" \
+    | Reverb \
+    | Play
+}
+
+Run() {
+ [ ! -s "$voices/en_GB-jenny_dioco-medium.onnx" ] && Download
+ [ ! -s "$voices/en_GB-jenny_dioco-medium.onnx" ] && printf "ERROR: Unable to download model\n" && exit 1
+  printf '%s' "${1:-$message}" | Piper
 }
 
 Piper() {
- [ ! -s "$voices/en_GB-jenny_dioco-medium.onnx" ] && Download
- [ ! -s "$voices/en_GB-jenny_dioco-medium.onnx" ] && printf "ERROR: Unable to download model\n" && exit 1
-  printf '%s' "${1:-$message}" |
-    piper \
-      --model "$voices/en_GB-jenny_dioco-medium.onnx" \
-      --output_raw \
-      --noise_w 0.8 \
-      --length_scale 1 \
-      --sentence_silence 0.2
+  piper \
+    --model "$voices/en_GB-jenny_dioco-medium.onnx" \
+    --output_raw \
+    --noise_w 0.8 \
+    --length_scale 1 \
+    --sentence_silence 0.2
 }
 
 Wget() {
@@ -82,7 +91,9 @@ Download() {
 
 { [ "${1:-}" = "-h" ] || [ "${1:-}" = "-help" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && Say && exit
 
-[ "${1:-}" = "-" ] && message=$(cat -) Say && exit
+[ "${1:-}" = "-" ] && [ -p /dev/stdin ] && message=$(cat -) Say && exit
+
+[ "${1:-}" = "-" ] && Live && exit
 
 [ "${1:-}" = "help" ] && [ "$#" = 1 ] && Help && Say && exit
 
@@ -90,7 +101,9 @@ Download() {
 
 [ "${1:-}" = "download" ] && [ "$#" = 1 ] && Download && Say && exit
 
-[ "${1-}" = "echo" ] && [ "${2-}" = "-" ] && shift 2 && message=$(cat -) Echo && exit;
+[ "${1-}" = "echo" ] && [ "${2-}" = "-" ] && [ -p /dev/stdin ] && shift 2 && message=$(cat -) Echo && exit;
+
+[ "${1-}" = "echo" ] && [ "${2-}" = "-" ] && Shell && exit;
 
 [ "${1-}" = "echo" ] && shift 1 && Echo "$*" && exit;
 
