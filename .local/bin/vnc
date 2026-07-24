@@ -1,30 +1,61 @@
 #!/bin/sh -eu
 
-host="$1"
-address="$host.internal"
+program=$(basename "$0")
 
-. "$HOME/.local/share/.vnc/keys/macs"
+Help() {
+printf \
+"
+Usage: %s [FLAGS]... [ARGUMENT]...
 
-[ "$host" = 'hound' ] && wol "$hound";
-[ "$host" = 'tiger' ] && wol "$tiger";
+The wrapper $program shall connect to remote desktops
+using a virtual network computing connection.
 
-notify-send -t 2000 Connecting...;
+  Command List:
 
-i=0;
-until ping -c1 "$address" > /dev/null 2>&1;
-do notify-send -t 2000 'Waiting for response...';
-  i=$((i+1)); [ "$i" -gt 5 ] && notify-send -u critical 'Unable to negotiate connection.' && exit;
-done;
+   $program host.internal         # Connect to remote desktop.
+   $program help                  # Show this help menu.
 
-notify-send -t 4000 Connected.;
+   %${#program}s -h -help --help       # Other help flags.
 
-vncviewer -passwd "$HOME/.local/share/.vnc/keys/passwd-$host" \
-  AlertOnFatalError=0       \
-  AutoSelect=0              \
-  CompressLevel=0           \
-  DotWhenNoCursor=1         \
-  Fullscreen=1              \
-  PreferredEncoding=Hextile \
-  QualityLevel=6            \
-  Shared=1                  \
-  "$address:5901";
+" "$program";
+}
+
+Connect() {
+  host="$1"
+  address="$host.internal"
+
+  . "$HOME/.local/share/.vnc/keys/macs"
+
+  [ "$host" = 'hound' ] && wol "$hound"
+  [ "$host" = 'tiger' ] && wol "$tiger"
+
+  notify-send -t 2000 Connecting...;
+
+  i=0;
+  until ping -c1 "$address" > /dev/null 2>&1;
+  do notify-send -t 2000 'Waiting for response...';
+    i=$((i+1)); [ "$i" -gt 5 ] && notify-send -u critical 'Unable to negotiate connection.' && exit;
+  done;
+
+  notify-send -t 4000 Connected.
+
+  ssh -vvv -fL 9901:localhost:5901 "root@$host" true
+
+  vncviewer -passwd "$HOME/.local/share/.vnc/keys/passwd-$host" \
+    AlertOnFatalError=0       \
+    AutoSelect=0              \
+    CompressLevel=0           \
+    DotWhenNoCursor=1         \
+    Fullscreen=1              \
+    PreferredEncoding=Hextile \
+    QualityLevel=6            \
+    Shared=1                  \
+    "localhost:9901"
+
+  kill "$(lsof -ti tcp:9901)"
+}
+
+
+{ [ "${1:-}" = "-h" ] || [ "${1:-}" = "-help" ] || [ "${1:-}" = "--help" ] || [ "$#" = 0 ]; } && Help && exit
+
+[ "$#" = 1 ] && Connect "$1" && exit
