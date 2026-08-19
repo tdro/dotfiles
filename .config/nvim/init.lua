@@ -72,7 +72,9 @@ vim.keymap.set('n', '<Tab>s',     '<C-w>t:silent only | redir @a | silent echo  
 vim.keymap.set('n', '<Tab>t',     '<C-w>t:silent only | redir @a | silent tabs    | redir END | 10split [tabs]    | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg3dd")<cr>')
 vim.keymap.set('n', '<Tab>ma',    '<C-w>t:silent only | redir @a | silent map     | redir END | 10split [maps]    | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg3dd")<cr>')
 vim.keymap.set('n', '<Tab>me',    '<C-w>t:silent only | redir @a | silent messages| redir END | 10split [messages]| %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
-vim.keymap.set('n', '<Tab>c',     '<C-w>t:silent only | redir @a | silent hi      | redir END | 10split [colors]  | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
+vim.keymap.set('n', '<Tab>ch',    '<C-w>t:silent only | redir @a | silent changes | redir END | 10split [changes] | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
+vim.keymap.set('n', '<Tab>co',    '<C-w>t:silent only | redir @a | silent hi      | redir END | 10split [colors]  | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("")<cr>')
+vim.keymap.set('n', '<Tab>ju',    '<C-w>t:silent only | redir @a | silent jumps   | redir END | 10split [jumps]   | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
 vim.keymap.set('n', '<Tab>r',     '<C-w>t:silent only | redir @a | silent reg     | redir END | 10split [reg]     | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
 vim.keymap.set('n', '<Tab>a',     '<C-w>t:silent only | redir @a | silent autocmd | redir END | 10split [autocmd] | %d | set ft=vim     | put a | setlocal buftype=nofile | call feedkeys("gg2dd")<cr>')
 
