@@ -205,7 +205,7 @@ nmap              <leader>cn :set number!<cr>|                                  
 nmap              <leader>cr :set relativenumber!<cr>|                                                                               " Toggle relative line numbers
 vnoremap <silent> <leader>ct !perl -pe 's/^(\s+)/"␣" x length($1)/e' \| column -t -o' ' \| sed 's/␣/ /g'<cr>|                        " Justify columns
 vnoremap          <leader>cf !fold --spaces --width<space>80|                                                                        " Fold text
-noremap  <silent> <leader>cs :silent! w !cat > $HOME/.cache/scratchpad<cr>:silent! exe 'edit +setf\' &filetype '$HOME/.cache/scratchpad'<cr>|   " Scratchpad of filetype
+noremap  <silent> <leader>cs :silent! w !cat > <c-r>=execute('let b:scratch = expand(strftime("$HOME/.cache/scratchpad-%s"))')<cr><c-r>=b:scratch<cr><cr>:exe 'edit +setf\' &filetype b:scratch<cr>| " Scratchpad of filetype
 
 vmap              <C-j>           :m'>+<cr>gv|     " Move visual selection down
 vmap              <C-k>           :m -2<cr>gv|     " Move visual selection up
