@@ -368,7 +368,7 @@ augroup AutoCommands
   autocmd FileType qf nmap <silent> <buffer> <cr>  <cr><C-w>w
 
   " REPL commands.
-  autocmd FileType *                noremap <buffer> <leader>cc :exe 'REPL' g:replprg<cr>
+  autocmd FileType *                noremap <buffer> <leader>cc :REPL <c-r>=g:replprg<cr><cr>
   autocmd FileType bash             noremap <buffer> <leader>cc :REPL bash<cr>
   autocmd FileType raku             noremap <buffer> <leader>cc :REPL raku --repl-mode interactive<cr>
   autocmd FileType sql              noremap <buffer> <leader>cc :REPL sqlite3<cr>
